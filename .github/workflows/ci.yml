@@ -1,14 +1,16 @@
-name: CI
+name: Unit Tests
 
 on:
 
   push:
     branches:
       - main
+      - "*-next"
 
   pull_request:
     branches:
       - main
+      - "*-next"
 
 jobs:
   tests:
@@ -36,3 +38,9 @@ jobs:
 
     - name: test
       run: npm run coverage
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage/coverage.lcov
