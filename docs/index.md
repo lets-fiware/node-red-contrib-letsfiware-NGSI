@@ -24,6 +24,19 @@ Node-RED NGSI integration
 
 -   [https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI)
 
+## How to install
+
+Run the following command on a command-line interface.
+
+```
+npm install node-red-contrib-letsfiware-ngsi
+```
+
+## Related links
+
+-   [https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi](https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi)
+-   [https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi](https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi)
+
 ## Copyright and License
 
 Copyright 2022 Kazuhito Suda<br>

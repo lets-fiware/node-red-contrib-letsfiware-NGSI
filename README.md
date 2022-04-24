@@ -19,7 +19,22 @@ Node-RED implementation for FIWARE Open APIs
 -   [NGSI to Worldmap](docs/custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI GTFS realtime](docs/custom_nodes/ngsi_gtfs_realtime.md)
 
+## Documentation
+
+-   [Documentation](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/)
+
 ## How to install
+
+Run the following command on a command-line interface.
+
+```
+npm install node-red-contrib-letsfiware-ngsi
+```
+
+## Related links
+
+-   [https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi](https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi)
+-   [https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi](https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi)
 
 ## Copyright and License
 
