@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.0.1-next
 
+-   ADD pull request template (#3)
 -   ADD status badges (#2)
 -   ADD Coveralls to GitHub Actions (#1)
 
