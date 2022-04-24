@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.0.1-next
+## node-red-contrib-letsfiware-NGSI v0.1.0 - 24 April, 2022
 
 -   ADD pull request template (#3)
 -   ADD status badges (#2)

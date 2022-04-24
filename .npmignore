@@ -3,6 +3,7 @@ node_modules/
 test/
 coverage/
 docs/
+signatures/
 .git
 .github
 .gitignore
