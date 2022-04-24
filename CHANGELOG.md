@@ -1,0 +1,3 @@
+## node-red-contrib-letsfiware-NGSI v0.0.1 - 24 April, 2022
+
+-   Initial release

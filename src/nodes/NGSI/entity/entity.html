@@ -1,0 +1,103 @@
+<!--
+   MIT License
+
+   Copyright 2022 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('NGSI Entity', {
+        category: 'FIWARE',
+        color: '#A9E2F3',
+        defaults: {
+            openapis: {
+                type: "Open APIs",
+                required: true
+            },
+            servicepath: {value: "/"},
+            mode: {value: "normalized"},
+            entitytype: {value: ""},
+            attrs: {value: ""},
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fiware-non-free.svg",
+        label: function () {
+            return this.name || "NGSI Entity";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="NGSI Entity">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
+        <input type="text" id="node-input-openapis">
+    </div>
+    <div class="form-row">
+        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+        <input type="text" id="node-input-servicepath">
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode"><i class="fa fa-tag"></i> Representation</label>
+        <select id="node-input-mode">
+            <option value="normalized">normalized</option>
+            <option value="keyValues">keyValues</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
+        <input type="text" id="node-input-entitytype">
+    </div>
+    <div class="form-row">
+        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attribute(s)</label>
+        <input type="text" id="node-input-attrs">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="NGSI Entity">
+    <p>A simple node that allows to obtain NGSIv2 entity. Entity id shall be provided as part of the <code>msg.payload</code>. 
+    </p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string or JSON Object</span>
+        </dt>
+        <dd>payload containing Entity Id as string.</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entity</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_entity/">here</a> for full documentation.</p>
+</script>

@@ -1,0 +1,123 @@
+<!--
+   MIT License
+
+   Copyright 2022 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('NGSI subscription', {
+        category: 'FIWARE',
+        color: '#A9E2F3',
+        defaults: {
+            name: { value: "" },
+            openapis: {
+                type: 'Open APIs',
+                required: true
+            },
+            servicepath: {value: "/"},
+            entitytypes: {value: ""},
+            idpattern: {value: ""},
+            watchedattrs: {value: ""},
+            query: {value: ""},
+            url: {value: ""},
+            attrs: {value: ""},
+            mode: {value: "normalized"},
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fiware-non-free.svg",
+        label: function () {
+            return this.name || "NGSI subscription";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="NGSI subscription">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-openapis"><i class="icon-tag"></i> Context Broker</label>
+        <input type="text" id="node-input-openapis" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+        <input type="text" id="node-input-servicepath">
+    </div>
+    <div class="form-row">
+        <label for="node-input-entitytypes"><i class="fa fa-tag"></i> Entity types</label>
+        <input type="text" id="node-input-entitytypes">
+    </div>
+    <div class="form-row">
+        <label for="node-input-idpattern"><i class="fa fa-tag"></i> ID pattern</label>
+        <input type="text" id="node-input-idpattern">
+    </div>
+    <div class="form-row">
+        <label for="node-input-watchedattrs"><i class="fa fa-tag"></i> Watched Attrs</label>
+        <input type="text" id="node-input-watchedattrs">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query">
+    </div>
+    <div class="form-row">
+        <label for="node-input-url"><i class="fa fa-tag"></i> Notification Endpoint</label>
+        <input type="text" id="node-input-url">
+    </div>
+    <div class="form-row">
+        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attrs</label>
+        <input type="text" id="node-input-attrs">
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode"><i class="fa fa-tag"></i> Attrs Format</label>
+        <select id="node-input-mode">
+            <option value="normalized">normalized</option>
+            <option value="keyValues">keyValues</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="NGSI subscription">
+    <p>A simple node that allows to create, update or delete an NGSIv2 subscription.
+    </p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>payload containing a NGSIv2 subscription data.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object or null</span>
+        </dt>
+        <dd>A subscription Id, a FIWARE Serrvice and a FIWARE ServicePath.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_subscription/">here</a> for full documentation.</p>
+</script>
