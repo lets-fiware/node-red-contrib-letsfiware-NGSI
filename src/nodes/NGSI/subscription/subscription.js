@@ -213,7 +213,7 @@ module.exports = function (RED) {
       const param = {
         host: openAPIsConfig.brokerEndpoint,
         pathname: '/v2/subscriptions',
-        getToken: openAPIsConfig.getToken,
+        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
         contentType: 'json',
         config: defaultConfig,
       };

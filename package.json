@@ -39,7 +39,7 @@
   },
   "homepage": "https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/",
   "dependencies": {
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "gtfs-realtime-bindings": "0.0.6"
   },
   "devDependencies": {

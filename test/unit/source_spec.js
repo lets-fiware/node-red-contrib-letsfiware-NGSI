@@ -59,7 +59,7 @@ describe('source.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 

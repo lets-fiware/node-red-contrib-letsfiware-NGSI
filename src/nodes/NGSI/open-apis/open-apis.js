@@ -68,6 +68,7 @@ const getToken = async function () {
   if (this.idmType === 'tokenproxy') {
     if (!this.idmEndpoint.endsWith('/token')) {
       options.url = '/token';
+      options.data = `username=${this.credentials.username}&password=${this.credentials.password}`;
     }
   } else {
     const authBearer = Buffer.from(`${this.credentials.clientid}:${this.credentials.clientsecret}`).toString(
@@ -111,7 +112,7 @@ module.exports = function (RED) {
     node.getToken =
       node.idmType === 'none'
         ? null
-        : getToken.call(node);
+        : getToken;
   }
 
   RED.nodes.registerType('Open APIs', OpenAPIsNode, {
