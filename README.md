@@ -31,10 +31,15 @@ Run the following command on a command-line interface.
 npm install node-red-contrib-letsfiware-ngsi
 ```
 
+## Source code
+
+-   [https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI)
+
 ## Related links
 
 -   [https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi](https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi)
 -   [https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi](https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi)
+-   [Open Source Insights](https://deps.dev/npm/node-red-contrib-letsfiware-ngsi)
 
 ## Copyright and License
 

@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.1.0-next
 
+-   ADD related links (#8)
 -   FIX error while obtaining OAuth token (#7)
 -   UPDATE documentation (#6)
 
