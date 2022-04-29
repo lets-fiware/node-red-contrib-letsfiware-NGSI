@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.1.0-next
 
+-   FIX error while obtaining OAuth token (#7)
 -   UPDATE documentation (#6)
 
 ## node-red-contrib-letsfiware-NGSI v0.1.0 - 24 April, 2022

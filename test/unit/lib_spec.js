@@ -99,7 +99,7 @@ describe('lib.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('Has Authorization header', async () => {
-      const param = { getToken: async () => '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4'};
+      const param = { getToken: async () => { return '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4';}};
       const actual = await lib.buildHTTPHeader(param);
   
       const expected = { 'Authorization': 'Bearer 3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4' };

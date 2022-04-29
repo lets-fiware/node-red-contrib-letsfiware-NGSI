@@ -55,7 +55,7 @@ describe('batch-update.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -66,7 +66,6 @@ describe('batch-update.js', () => {
 
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/v2/op/update');
-      assert.equal(actual.getToken, null);
       assert.equal(actual.contentType, 'json');
       assert.equal(actual.config.service, 'openiot');
       assert.equal(actual.config.servicepath, '/');

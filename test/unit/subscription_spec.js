@@ -450,7 +450,7 @@ describe('subscription.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -466,7 +466,6 @@ describe('subscription.js', () => {
           servicepath: '/',
         }});
       assert.equal(actual.contentType, 'json');
-      assert.equal(actual.getToken, null);
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/v2/subscriptions');
       assert.equal(actual.config.service, 'openiot');

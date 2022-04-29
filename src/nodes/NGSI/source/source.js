@@ -135,7 +135,7 @@ module.exports = function (RED) {
         host: openAPIsConfig.brokerEndpoint,
         pathname: '/v2/entities',
         buffer: config.buffering === 'off' ? nobuffering.open(node):buffering.open(node),
-        getToken: openAPIsConfig.getToken,
+        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
         config: Object.assign(defaultConfig, msg.payload),
       };
 

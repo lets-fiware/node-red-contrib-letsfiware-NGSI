@@ -160,7 +160,7 @@ describe('entity.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -195,7 +195,7 @@ describe('entity.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -225,7 +225,7 @@ describe('entity.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -244,7 +244,7 @@ describe('entity.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
 
@@ -263,7 +263,7 @@ describe('entity.js', () => {
         openapis: {
           brokerEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: null,
+          getToken: () => {},
         }
       });
       entityNode.__set__('getEntity', () => {return null;});
