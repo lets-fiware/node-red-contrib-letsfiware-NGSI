@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.1.0-next
+## node-red-contrib-letsfiware-NGSI v0.2.0 - 29 April, 2022
 
 -   ADD examples (#10)
 -   UPDATE package.json (#9)
