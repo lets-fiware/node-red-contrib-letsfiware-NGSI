@@ -4,8 +4,8 @@
   "description": "Node-RED implementation for FIWARE Open APIs",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js --ext .json --ext .js src || eslint -c .eslintrc.html.json --ext .html src",
-    "test": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha \"test/unit/**/*_spec.js\"",
-    "coverage": "mkdir coverage && ./node_modules/nyc/bin/nyc.js --reporter=text-lcov ./node_modules/mocha/bin/mocha \"test/unit/**/*_spec.js\" > ./coverage/coverage.lcov"
+    "test": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\"",
+    "coverage": "mkdir coverage && ./node_modules/nyc/bin/nyc.js --reporter=text-lcov ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\" > ./coverage/coverage.lcov"
   },
   "node-red": {
     "version": ">=1.0.0",
@@ -44,14 +44,14 @@
     "gtfs-realtime-bindings": "0.0.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
+    "@babel/core": "^7.18.2",
     "babel-plugin-rewire": "^1.2.0",
     "babel-register": "^6.26.0",
     "chai": "^4.3.6",
-    "eslint": "^8.14.0",
+    "eslint": "^8.17.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-json": "^3.1.0",
-    "mocha": "^9.2.2",
+    "mocha": "^10.0.0",
     "nyc": "^15.1.0"
   },
   "engines": {
