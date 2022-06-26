@@ -18,6 +18,7 @@ Node-RED implementation for FIWARE Open APIs
 -   [NGSI Subscription](docs/custom_nodes/ngsi_subscription.md)
 -   [NGSI to Worldmap](docs/custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI GTFS realtime](docs/custom_nodes/ngsi_gtfs_realtime.md)
+-   [FIWARE version](docs/custom_nodes/fiware_version.md)
 
 ## Documentation
 

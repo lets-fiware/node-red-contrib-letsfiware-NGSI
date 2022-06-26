@@ -16,6 +16,7 @@
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",
       "NGSI-to-worldmap": "src/nodes/NGSI/to-worldmap/to-worldmap.js",
+      "FIWARE-version": "src/nodes/NGSI/version/version.js",
       "Open-APIs": "src/nodes/NGSI/open-apis/open-apis.js"
     }
   },
