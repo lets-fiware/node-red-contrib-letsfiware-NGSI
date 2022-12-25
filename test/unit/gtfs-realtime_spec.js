@@ -433,7 +433,7 @@ describe('gtfs-realtime.js', () => {
       red.createNode({});
 
       let actual;
-      gtfsRealtimeNode.__set__('getGtfsRealtime', (param) => {actual = param; return [data];});
+      gtfsRealtimeNode.__set__('getGtfsRealtime', (param) => {actual = param; return {entity:[data]};});
 
       await red.inputWithAwait({payload: 'http://gtfs-realtime'});
 
