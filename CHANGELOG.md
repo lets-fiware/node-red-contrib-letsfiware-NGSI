@@ -1,3 +1,5 @@
+## node-red-contrib-letsfiware-NGSI v0.4.0-next
+
 ## node-red-contrib-letsfiware-NGSI v0.4.0 - 25 December, 2022
 
 -  UPDATE Node.js dependencies (#19)
