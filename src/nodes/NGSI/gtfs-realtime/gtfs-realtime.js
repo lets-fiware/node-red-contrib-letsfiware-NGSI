@@ -33,14 +33,17 @@ const gtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
 const getGtfsRealtime = async function (url) {
   try {
-    const res = await lib.http({method: 'get', baseURL: url});
+    const res = await lib.http({
+      method: 'get', baseURL: url, responseType: 'arraybuffer',
+      responseEncoding: 'binary'
+    });
     if (res.status === 200) {
       return gtfsRealtimeBindings.transit_realtime.FeedMessage.decode(res.data);
     } else {
       this.error(`Error while retrieving gtfs realtime data: ${res.status} ${res.statusText}`);
     }
-  } catch (error) {
-    this.error(`Exception while retrieving gtfs realtime data: ${error}`);
+  } catch (err) {
+    this.error(`Exception while retrieving gtfs realtime data: ${err}`);
   }
   return [];
 };
@@ -116,16 +119,17 @@ function gtfs2ngsi(data) {
 }
 
 module.exports = function (RED) {
-  function NGSISource(config) {
+  function NGSIGTFSRealtime(config) {
     RED.nodes.createNode(this, config);
     var node = this;
 
     node.on('input', async function (msg) {
       let data;
       if (typeof msg.payload === 'string') {
-        data = getGtfsRealtime(msg.payload);
+        data = await getGtfsRealtime.call(node, msg.payload);
+        data = data.entity;
       } else if (typeof msg.payload === 'object') {
-        data = Array.isArray(msg.payload) ? msg.payload: [msg.payload];
+        data = Array.isArray(msg.payload) ? msg.payload : [msg.payload];
       } else {
         node.error('payload error');
         return;
@@ -133,11 +137,11 @@ module.exports = function (RED) {
 
       const entities = gtfs2ngsi(data);
       if (entities.length > 0) {
-        node.send({payload: entities});
+        node.send({ payload: entities });
       } else {
         node.error('entities empty');
       }
     });
   }
-  RED.nodes.registerType('NGSI GTFS Realtime', NGSISource);
+  RED.nodes.registerType('NGSI GTFS Realtime', NGSIGTFSRealtime);
 };

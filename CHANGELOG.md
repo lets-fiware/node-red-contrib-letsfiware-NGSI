@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.3.0-next
 
+-  Fix error while obtaining GTFS Realtime data (#18)
+
 ## node-red-contrib-letsfiware-NGSI v0.3.0 - 26 June, 2022
 
 -  ADD version node (#15)
