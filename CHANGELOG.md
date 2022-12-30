@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.4.0-next
 
+-  Support subscription payload in to-worldmap node (#22)
+
 ## node-red-contrib-letsfiware-NGSI v0.4.0 - 25 December, 2022
 
 -  UPDATE Node.js dependencies (#19)

@@ -305,6 +305,18 @@ describe('to-worldmap.js', () => {
 
       assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2}]});
     });
+    it('Transform an entity in subscription payload', async () => {
+      const red = new MockRed();
+      toWorldmapNode(red);
+      red.createNode({
+        attrname: 'name',
+        attrworldmap: '__worldmap__',
+      });
+
+      red.input({payload: {subscriptionId: '63ae1df6e9c583522509017e', data:[{id: 'E1', type: 'T', location:{type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}}]}});
+
+      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2}]});
+    });
     it('Transform an entity (text)', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
