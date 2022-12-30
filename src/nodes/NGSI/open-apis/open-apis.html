@@ -84,28 +84,28 @@
 
     function fiware_open_apis_idmtype_Changed(e) {
         switch (e.target.value) {
-            case "tokenproxy":
-                document.getElementById('idmEndpoint').hidden = false;
-                document.getElementById('username').hidden = false;
-                document.getElementById('password').hidden = false;
-                document.getElementById('clientid').hidden = true;
-                document.getElementById('clientsecret').hidden = true;
-                break;
-            case "keyrock":
-            case "generic":
-                document.getElementById('idmEndpoint').hidden = false;
-                document.getElementById('username').hidden = false;
-                document.getElementById('password').hidden = false;
-                document.getElementById('clientid').hidden = false;
-                document.getElementById('clientsecret').hidden = false;
-                break;
-            default:
-                document.getElementById('idmEndpoint').hidden = true;
-                document.getElementById('username').hidden = true;
-                document.getElementById('password').hidden = true;
-                document.getElementById('clientid').hidden = true;
-                document.getElementById('clientsecret').hidden = true;
-                break;
+        case "tokenproxy":
+            document.getElementById('idmEndpoint').hidden = false;
+            document.getElementById('username').hidden = false;
+            document.getElementById('password').hidden = false;
+            document.getElementById('clientid').hidden = true;
+            document.getElementById('clientsecret').hidden = true;
+            break;
+        case "keyrock":
+        case "generic":
+            document.getElementById('idmEndpoint').hidden = false;
+            document.getElementById('username').hidden = false;
+            document.getElementById('password').hidden = false;
+            document.getElementById('clientid').hidden = false;
+            document.getElementById('clientsecret').hidden = false;
+            break;
+        default:
+            document.getElementById('idmEndpoint').hidden = true;
+            document.getElementById('username').hidden = true;
+            document.getElementById('password').hidden = true;
+            document.getElementById('clientid').hidden = true;
+            document.getElementById('clientsecret').hidden = true;
+            break;
         }
     }
 </script>

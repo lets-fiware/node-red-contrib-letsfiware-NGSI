@@ -81,7 +81,11 @@ module.exports = function (RED) {
         msg.payload = JSON.parse(msg.payload);
       }
       if (!Array.isArray(msg.payload)) {
-        msg.payload = [msg.payload];
+        if (Object.prototype.hasOwnProperty.call(msg.payload,'subscriptionId')) {
+          msg.payload = msg.payload.data;
+        } else {
+          msg.payload = [msg.payload];
+        }
       }
       const pois = [];
       msg.payload.forEach((entity) => {
