@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.5.0-next
 
+-  ADD example flows (#28)
 -  UPDATE Node.js version using in CI test (#26)
 -  UPDATE Node.js dependencies (#25)
 

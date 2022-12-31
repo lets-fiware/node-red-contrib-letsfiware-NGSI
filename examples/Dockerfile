@@ -5,4 +5,6 @@ FROM nodered/node-red:2.2.2
 #   https://nodered.org/docs/getting-started/docker
 #
 RUN \
-    npm install node-red-contrib-letsfiware-ngsi
+    npm install \
+    node-red-contrib-letsfiware-ngsi \
+    node-red-contrib-web-worldmap
