@@ -1,11 +1,16 @@
-# node-red-contrib-letsfiware-NGSI
-
-Node-RED implementation for FIWARE Open APIs
-
+[![node-red-contrib-letsfiware-NGSI Banner](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/node-red-contrib-letsfiware-ngsi-non-free.png)](https://www.letsfiware.jp/)
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-5dc0cf.svg)](https://fiware-ges.github.io/orion/api/v2/stable/)
+
+[![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
+![NPM version](https://badge.fury.io/js/node-red-contrib-letsfiware-ngsi.svg)
+[![License: MIT](https://img.shields.io/npm/l/node-red-contrib-letsfiware-ngsi)](https://opensource.org/licenses/MIT)
 <br/>
 [![Unit Tests](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/actions/workflows/ci.yml/badge.svg)](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/lets-fiware/node-red-contrib-letsfiware-NGSI/badge.svg?branch=main)](https://coveralls.io/github/lets-fiware/node-red-contrib-letsfiware-NGSI?branch=main)
+
+# node-red-contrib-letsfiware-NGSI
+
+Node-RED implementation for FIWARE Open APIs
 
 | :books: [Documentation](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/) | :dart: [Roadmap](./ROADMAP.md) |
 |-------------------------------------------------------|--------------------------------|
