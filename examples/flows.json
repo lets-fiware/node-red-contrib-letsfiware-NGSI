@@ -1,0 +1,321 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6cab9bb7c3fe109f",
+        "type": "NGSI Entity",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "d001bcb42f362ec2",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "attrs": "",
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "002b29f2bf3e56cb",
+        "type": "NGSI source",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "d001bcb42f362ec2",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 330,
+        "y": 220,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "22eed2f444a65b52",
+        "type": "NGSI subscription",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "openapis": "d001bcb42f362ec2",
+        "servicepath": "/",
+        "entitytypes": "",
+        "idpattern": "",
+        "watchedattrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "mode": "normalized",
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "ee86bd974a832d1b",
+        "type": "NGSI GTFS Realtime",
+        "z": "f6f2187d.f17ca8",
+        "x": 360,
+        "y": 380,
+        "wires": [
+            [
+                "f246ed68c1bb1e99"
+            ]
+        ]
+    },
+    {
+        "id": "9133e467e4434795",
+        "type": "NGSI to worldmap",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "attrname": "name",
+        "attrworldmap": "__worldmap__",
+        "x": 350,
+        "y": 460,
+        "wires": [
+            [
+                "111acd57a4eca98a"
+            ]
+        ]
+    },
+    {
+        "id": "963c4389ac253554",
+        "type": "FIWARE version",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "d001bcb42f362ec2",
+        "x": 340,
+        "y": 60,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "3bb81dc75e0f084f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "963c4389ac253554"
+            ]
+        ]
+    },
+    {
+        "id": "4610359bcd855d95",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f246ed68c1bb1e99",
+        "type": "NGSI Batch update",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "openapis": "d001bcb42f362ec2",
+        "servicepath": "/",
+        "actiontype": "append",
+        "x": 610,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "017ae2294c0dd707",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "http://gtfs.realtime/GTFS/GTFS_RT-VP.bin",
+        "payloadType": "str",
+        "x": 90,
+        "y": 380,
+        "wires": [
+            [
+                "ee86bd974a832d1b"
+            ]
+        ]
+    },
+    {
+        "id": "fa3edb3ff5cb9bd6",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "E1",
+        "payloadType": "str",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "6cab9bb7c3fe109f"
+            ]
+        ]
+    },
+    {
+        "id": "0a88b49f515fb5d1",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"idPattern\": \".*\",   \"type\": \"T\",   \"attrs\": [     \"humidity\"   ],   \"q\": \"temperature>29\",   \"keyValues\": true }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "002b29f2bf3e56cb"
+            ]
+        ]
+    },
+    {
+        "id": "111acd57a4eca98a",
+        "type": "worldmap",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "false",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 580,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "cc8a7a41c175e575",
+        "type": "http in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "url": "/notify",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 460,
+        "wires": [
+            [
+                "9133e467e4434795"
+            ]
+        ]
+    },
+    {
+        "id": "00e3e047379ed84e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"type\": \"T\",   \"idPattern\": \".*\",   \"watchedAttrs\": \"temperature,humidity\",   \"q\": \"temperature>10\",   \"url\": \"http://node-red/notify\",   \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\",   \"expires\": \"2030-04-05T14:00:00.00Z\",   \"throttling\": 5 }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 300,
+        "wires": [
+            [
+                "22eed2f444a65b52"
+            ]
+        ]
+    },
+    {
+        "id": "d001bcb42f362ec2",
+        "type": "Open APIs",
+        "name": "",
+        "brokerEndpoint": "http://orion:1026",
+        "service": "",
+        "idmEndpoint": "",
+        "idmType": "none"
+    }
+]
