@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.5.0-next
 
+-  UPDATE copyright date (#30)
 -  ADD badges (#29)
 -  ADD example flows (#28)
 -  UPDATE Node.js version using in CI test (#26)
