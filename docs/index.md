@@ -41,5 +41,5 @@ npm install node-red-contrib-letsfiware-ngsi
 
 ## Copyright and License
 
-Copyright 2022 Kazuhito Suda<br>
+Copyright 2022-2023 Kazuhito Suda<br>
 Licensed under the [MIT License](./LICENSE).
