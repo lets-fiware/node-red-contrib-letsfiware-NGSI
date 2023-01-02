@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.5.0-next
 
+-  UPDATE Node.js dependencies (#33)
 -  ADD documentation about reporting a vulnerability (#32)
 -  UPDATE copyright date (#31)
 -  ADD badges (#29)
