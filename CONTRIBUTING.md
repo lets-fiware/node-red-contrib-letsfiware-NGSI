@@ -41,3 +41,8 @@ sections. Anybody is welcome to join these conversations.
 
 Wherever possible, do not take these conversations to private channels, including contacting the maintainers directly.
 Keeping communication public means everybody can benefit and learn from the conversation.
+
+## Reporting a Vulnerability
+
+Please contact us by email if you find any vulnerabilities related to node-red-contrib-letsfiware-ngsi.
+You can send an email to `node-red-contrib-letsfiware-ngsi-vulnerabilities@letsfiware.jp`. Do not use GitHub issues.
