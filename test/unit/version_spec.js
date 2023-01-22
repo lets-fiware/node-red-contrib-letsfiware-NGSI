@@ -128,6 +128,26 @@ describe('version.js', () => {
       const output = red.getOutput();
       assert.equal(output.payload, orion_version);
     });
+    it('orion version without getToken', async () => {
+      const red = new MockRed();
+      sourceNode(red);
+      red.createNode({
+        openapis: {
+          brokerEndpoint: 'http://orion:1026',
+          getToken: null,
+        }
+      });
+
+      let actual;
+      sourceNode.__set__('getVersion', (param) => {actual = param; return orion_version;});
+
+      await red.inputWithAwait({payload: null});
+
+      assert.equal(actual.host, 'http://orion:1026');
+      assert.equal(actual.pathname, '/version');
+      const output = red.getOutput();
+      assert.equal(output.payload, orion_version);
+    });
     it('error', async () => {
       const red = new MockRed();
       sourceNode(red);
