@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.6.0-next
 
+-  Fix missing parameters when path contains /token (#37)
 -  Fix error while getting version (#36)
 
 ## node-red-contrib-letsfiware-NGSI v0.6.0 - 2 January, 2023
