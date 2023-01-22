@@ -34,6 +34,7 @@ const getVersion = async function (param) {
   const options = {
     method: 'get',
     baseURL: param.host,
+    headers: await lib.buildHTTPHeader(param),
     url: param.pathname,
   };
 
@@ -62,6 +63,7 @@ module.exports = function (RED) {
       const param = {
         host: openAPIsConfig.brokerEndpoint,
         pathname: '/version',
+        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
       };
 
       const version = await getVersion.call(node, param);

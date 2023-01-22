@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.6.0-next
 
+-  Fix error while getting version (#36)
+
 ## node-red-contrib-letsfiware-NGSI v0.6.0 - 2 January, 2023
 
 -  UPDATE Node.js dependencies (#33)
