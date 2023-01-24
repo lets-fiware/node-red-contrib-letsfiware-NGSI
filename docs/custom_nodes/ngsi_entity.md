@@ -13,7 +13,8 @@ This custom node is a simple node that allows to obtain NGSIv2 entity.
 -   `ServicePath`: FIWARE Service Path
 -   `Representation`: normalized or keyValues
 -   `Entity type`: entity type to retrieve
--   `Attrs`: list of attributes to retrieve
+-   `attributes`: list of attributes to retrieve
+-   `Date Modified`: retrive attribute and metadata of dateModified
 
 ## Inputs
 
@@ -33,7 +34,8 @@ A `msg.payload` should contain a condition to retrieves NGSI v2 entity.
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
   "attrs": "humidity",
-  "keyValues": true
+  "keyValues": true,
+  "dateModified": false
 }
 ```
 

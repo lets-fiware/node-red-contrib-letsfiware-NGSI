@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.6.0-next
 
+-  Add entity node to dateModified option (#38)
 -  Fix missing parameters when path contains /token (#37)
 -  Fix error while getting version (#36)
 

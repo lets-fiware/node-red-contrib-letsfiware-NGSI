@@ -134,6 +134,12 @@ describe('lib.js', () => {
   
       assert.equal(actual.toString(), 'attrs=A1%2CA2');
     });
+    it('metadata', () => {
+      const param = {metadata:'A1,A2'};
+      const actual = lib.buildParams(param);
+  
+      assert.equal(actual.toString(), 'metadata=A1%2CA2');
+    });
     it('keyValues', () => {
       const param = {keyValues: true};
       const actual = lib.buildParams(param);

@@ -78,13 +78,17 @@ async function buildHTTPHeader(param) {
 
 function buildParams(config) {
   const params = new URLSearchParams();
-  
+
   if (typeof config.type !== 'undefined' && config.type !== '') {
     params.set('type', config.type);
   }
 
-  if (typeof config.attrs!== 'undefined' && config.attrs !== '') {
+  if (typeof config.attrs !== 'undefined' && config.attrs !== '') {
     params.set('attrs', config.attrs);
+  }
+
+  if (typeof config.metadata !== 'undefined' && config.metadata !== '') {
+    params.set('metadata', config.metadata);
   }
 
   if (typeof config.keyValues !== 'undefined' && config.keyValues) {
@@ -103,7 +107,7 @@ function buildSearchParams(config) {
       searchParams.set('offset', config.page * config.limit);
     }
   }
-  
+
   let options = 'count';
   if (typeof config.keyValues !== 'undefined' && config.keyValues) {
     options += ',keyValues';

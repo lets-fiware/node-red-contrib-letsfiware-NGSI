@@ -74,7 +74,17 @@ module.exports = function (RED) {
         keyValues: config.mode !== 'normalized',
         type: config.entitytype.trim(),
         attrs: config.attrs.trim(),
+        metadata: '',
       };
+
+      if (config.datemodified === 'true') {
+        if (defaultConfig.attrs === '') {
+          defaultConfig.attrs = 'dateModified,*';
+        } else {
+          defaultConfig.attrs += ',dateModified';
+        }
+        defaultConfig.metadata = 'dateModified,*';
+      }
 
       const param = {
         host: openAPIsConfig.brokerEndpoint,
