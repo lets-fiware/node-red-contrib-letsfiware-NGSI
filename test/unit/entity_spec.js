@@ -143,6 +143,7 @@ describe('entity.js', () => {
         'attrs': 'A1',
         'id': 'E1',
         'keyValues': false,
+        'metadata': '',
         'service': 'openiot',
         'servicepath': '/',
         'type': 'T1'
@@ -167,7 +168,7 @@ describe('entity.js', () => {
       let actual;
       entityNode.__set__('getEntity', (param) => {actual = param; return {'id': 'E1', 'type': 'T2'};});
 
-      await red.inputWithAwait({payload: {id: 'E1', entitytype: 'T2', attrs: 'A2', service: 'iot', servicepath: '/device', keyValues: true}});
+      await red.inputWithAwait({payload: {id: 'E1', entitytype: 'T2', attrs: 'A2', metadata: 'M2', service: 'iot', servicepath: '/device', keyValues: true}});
 
       assert.deepEqual(red.getOutput(), { payload: { id: 'E1', type: 'T2' } });
       assert.deepEqual(actual.config, {
@@ -175,6 +176,75 @@ describe('entity.js', () => {
         'entitytype': 'T2',
         'id': 'E1',
         'keyValues': true,
+        'metadata': 'M2',
+        'service': 'iot',
+        'servicepath': '/device',
+        'type': 'T1'
+      });
+    });
+    it('dateModified with attrs', async () => {
+      const red = new MockRed();
+      entityNode(red);
+      red.createNode({
+        servicepath: '/',
+        mode: 'normalized',
+        entitytype: 'T1',
+        attrs: 'A1',
+        datemodified: 'true',
+
+        openapis: {
+          brokerEndpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: () => {},
+        }
+      });
+
+      let actual;
+      entityNode.__set__('getEntity', (param) => {actual = param; return {'id': 'E1', 'type': 'T2'};});
+
+      await red.inputWithAwait({payload: {id: 'E1', entitytype: 'T2', metadata: 'M2', service: 'iot', servicepath: '/device', keyValues: true}});
+
+      assert.deepEqual(red.getOutput(), { payload: { id: 'E1', type: 'T2' } });
+      assert.deepEqual(actual.config, {
+        'attrs': 'A1,dateModified',
+        'entitytype': 'T2',
+        'id': 'E1',
+        'keyValues': true,
+        'metadata': 'M2',
+        'service': 'iot',
+        'servicepath': '/device',
+        'type': 'T1'
+      });
+    });
+    it('dateModified without attrs', async () => {
+      const red = new MockRed();
+      entityNode(red);
+      red.createNode({
+        servicepath: '/',
+        mode: 'normalized',
+        entitytype: 'T1',
+        attrs: '',
+        datemodified: 'true',
+
+        openapis: {
+          brokerEndpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: () => {},
+        }
+      });
+
+      let actual;
+      entityNode.__set__('getEntity', (param) => {actual = param; return {'id': 'E1', 'type': 'T2'};});
+
+      await red.inputWithAwait({payload: {id: 'E1', entitytype: 'T2', metadata: 'M2', service: 'iot', servicepath: '/device', keyValues: true}});
+
+      assert.deepEqual(red.getOutput(), { payload: { id: 'E1', type: 'T2' } });
+      assert.deepEqual(actual.config, {
+        'attrs': 'dateModified,*',
+        'entitytype': 'T2',
+        'id': 'E1',
+        'keyValues': true,
+        'metadata': 'M2',
         'service': 'iot',
         'servicepath': '/device',
         'type': 'T1'
@@ -209,6 +279,7 @@ describe('entity.js', () => {
         'attrs': '',
         'id': 'E2',
         'keyValues': true,
+        'metadata': '',
         'service': 'openiot',
         'servicepath': '/',
         'type': '',
