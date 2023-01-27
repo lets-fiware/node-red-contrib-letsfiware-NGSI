@@ -27,7 +27,7 @@
 -->
 
 <script type="text/javascript">
-    const urlValidator = function(required, v) {
+    const urlValidator = function (required, v) {
         if (!required && (!v || v.trim().length == 0)) {
             return true;
         }
@@ -41,7 +41,7 @@
             }
             return true;
         }
-        catch(e) {
+        catch (e) {
             return false;
         }
     };
@@ -53,7 +53,10 @@
             name: {
                 value: ''
             },
-            brokerEndpoint: {
+            geType: {
+                value: 'orion'
+            },
+            apiEndpoint: {
                 value: '',
                 required: true,
                 validate: urlValidator.bind(null, true)
@@ -66,7 +69,7 @@
                 validate: urlValidator.bind(null, false)
             },
             idmType: {
-                valule: 'none'
+                value: 'none'
             }
         },
 
@@ -77,35 +80,35 @@
             clientsecret: { type: 'password' }
         },
 
-        label: function() {
+        label: function () {
             return this.name || 'Open APIs';
         }
     });
 
     function fiware_open_apis_idmtype_Changed(e) {
         switch (e.target.value) {
-        case "tokenproxy":
-            document.getElementById('idmEndpoint').hidden = false;
-            document.getElementById('username').hidden = false;
-            document.getElementById('password').hidden = false;
-            document.getElementById('clientid').hidden = true;
-            document.getElementById('clientsecret').hidden = true;
-            break;
-        case "keyrock":
-        case "generic":
-            document.getElementById('idmEndpoint').hidden = false;
-            document.getElementById('username').hidden = false;
-            document.getElementById('password').hidden = false;
-            document.getElementById('clientid').hidden = false;
-            document.getElementById('clientsecret').hidden = false;
-            break;
-        default:
-            document.getElementById('idmEndpoint').hidden = true;
-            document.getElementById('username').hidden = true;
-            document.getElementById('password').hidden = true;
-            document.getElementById('clientid').hidden = true;
-            document.getElementById('clientsecret').hidden = true;
-            break;
+            case "tokenproxy":
+                document.getElementById('idmEndpoint').hidden = false;
+                document.getElementById('username').hidden = false;
+                document.getElementById('password').hidden = false;
+                document.getElementById('clientid').hidden = true;
+                document.getElementById('clientsecret').hidden = true;
+                break;
+            case "keyrock":
+            case "generic":
+                document.getElementById('idmEndpoint').hidden = false;
+                document.getElementById('username').hidden = false;
+                document.getElementById('password').hidden = false;
+                document.getElementById('clientid').hidden = false;
+                document.getElementById('clientsecret').hidden = false;
+                break;
+            default:
+                document.getElementById('idmEndpoint').hidden = true;
+                document.getElementById('username').hidden = true;
+                document.getElementById('password').hidden = true;
+                document.getElementById('clientid').hidden = true;
+                document.getElementById('clientsecret').hidden = true;
+                break;
         }
     }
 </script>
@@ -116,8 +119,15 @@
         <input type="text" id="node-config-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-config-input-endpoint"><i class="icon-tag"></i> Broker Endpoint</label>
-        <input required type="url" id="node-config-input-brokerEndpoint" placeholder="">
+        <label for="node-config-input-geType"><i class="icon-tag"></i> Generic Enabler</label>
+        <select id="node-config-input-geType">
+            <option value="orion" selected>Orion Context Broker</option>
+            <option value="comet">STH-Comet</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-endpoint"><i class="icon-tag"></i> API Endpoint</label>
+        <input required type="url" id="node-config-input-apiEndpoint" placeholder="">
     </div>
     <div class="form-row">
         <label for="node-config-input-service"><i class="icon-tag"></i> Service</label>

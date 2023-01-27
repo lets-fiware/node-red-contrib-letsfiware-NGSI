@@ -57,7 +57,7 @@ describe('source.js', () => {
         buffering: 'off',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -89,7 +89,7 @@ describe('source.js', () => {
         buffering: 'on',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -115,7 +115,7 @@ describe('source.js', () => {
         buffering: 'on',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -141,7 +141,7 @@ describe('source.js', () => {
         buffering: 'off',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }

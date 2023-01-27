@@ -87,7 +87,7 @@ module.exports = function (RED) {
       }
 
       const param = {
-        host: openAPIsConfig.brokerEndpoint,
+        host: openAPIsConfig.apiEndpoint,
         pathname: '/v2/entities',
         getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
         config: Object.assign(defaultConfig, msg.payload),

@@ -61,7 +61,7 @@ module.exports = function (RED) {
 
     node.on('input', async function (msg) {
       const param = {
-        host: openAPIsConfig.brokerEndpoint,
+        host: openAPIsConfig.apiEndpoint,
         pathname: '/version',
         getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
       };

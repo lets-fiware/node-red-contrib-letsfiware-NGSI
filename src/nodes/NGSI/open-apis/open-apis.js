@@ -28,7 +28,7 @@
 
 'use strict';
 
-const http= require('../../../lib.js').http;
+const http = require('../../../lib.js').http;
 
 const urlValidator = function (url) {
   url = url.trim();
@@ -37,7 +37,7 @@ const urlValidator = function (url) {
   }
   try {
     url = new URL(url);
-  } catch(error) {
+  } catch (error) {
     return null;
   }
   if (url.protocol !== 'http:' && url.protocol !== 'https:') {
@@ -100,7 +100,7 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, config);
     const node = this;
 
-    node.brokerEndpoint = urlValidator(config.brokerEndpoint);
+    node.apiEndpoint = urlValidator(config.apiEndpoint);
     node.service = config.service;
 
     node.idmType = config.idmType || 'none';
@@ -113,6 +113,8 @@ module.exports = function (RED) {
       node.idmType === 'none'
         ? null
         : getToken;
+
+    node.geType = config.geType;
   }
 
   RED.nodes.registerType('Open APIs', OpenAPIsNode, {

@@ -53,7 +53,7 @@ describe('batch-update.js', () => {
         actiontype: 'append',
         servicepath: '/',
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -78,7 +78,7 @@ describe('batch-update.js', () => {
         actiontype: 'update',
         servicepath: '/device',
         openapis: {
-          brokerEndpoint: 'http://myorion:1026',
+          apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
         }
@@ -104,7 +104,7 @@ describe('batch-update.js', () => {
         actiontype: 'update',
         servicepath: '/',
         openapis: {
-          brokerEndpoint: 'http://myorion:1026',
+          apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
         }
@@ -130,7 +130,7 @@ describe('batch-update.js', () => {
         actiontype: 'update',
         servicepath: '/',
         openapis: {
-          brokerEndpoint: 'http://myorion:1026',
+          apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
         }
