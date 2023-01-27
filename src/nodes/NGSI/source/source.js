@@ -132,7 +132,7 @@ module.exports = function (RED) {
       };
 
       const param = {
-        host: openAPIsConfig.brokerEndpoint,
+        host: openAPIsConfig.apiEndpoint,
         pathname: '/v2/entities',
         buffer: config.buffering === 'off' ? nobuffering.open(node):buffering.open(node),
         getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),

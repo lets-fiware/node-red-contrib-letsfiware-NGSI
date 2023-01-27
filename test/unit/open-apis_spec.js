@@ -46,7 +46,7 @@ describe('open-apis.js', () => {
       openAPIsNode(red);
       red.createNode({
         name: '',
-        brokerEndpoint: 'http://orion:1026',
+        apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
         idmType: '',
@@ -57,7 +57,7 @@ describe('open-apis.js', () => {
       openAPIsNode(red);
       red.createNode({
         name: '',
-        brokerEndpoint: 'http://orion:1026',
+        apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
         idmType: 'none',
@@ -68,7 +68,7 @@ describe('open-apis.js', () => {
       openAPIsNode(red);
       red.createNode({
         name: '',
-        brokerEndpoint: 'http://orion:1026',
+        apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
         idmType: 'keyrock',

@@ -107,7 +107,7 @@ module.exports = function (RED) {
       };
 
       const param = {
-        host: openAPIsConfig.brokerEndpoint,
+        host: openAPIsConfig.apiEndpoint,
         pathname: '/v2/op/update',
         getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
         contentType: 'json',

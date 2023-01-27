@@ -113,7 +113,7 @@ describe('version.js', () => {
       sourceNode(red);
       red.createNode({
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           getToken: () => {},
         }
       });
@@ -133,7 +133,7 @@ describe('version.js', () => {
       sourceNode(red);
       red.createNode({
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           getToken: null,
         }
       });
@@ -153,7 +153,7 @@ describe('version.js', () => {
       sourceNode(red);
       red.createNode({
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           getToken: () => {},
         }
       });

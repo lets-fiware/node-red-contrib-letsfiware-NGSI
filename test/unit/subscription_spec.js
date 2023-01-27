@@ -448,7 +448,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -487,7 +487,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -527,7 +527,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -575,7 +575,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -599,7 +599,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -625,7 +625,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -652,7 +652,7 @@ describe('subscription.js', () => {
         mode: 'normalized',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }

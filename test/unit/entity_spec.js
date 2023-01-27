@@ -127,7 +127,7 @@ describe('entity.js', () => {
         attrs: 'A1',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
         }
@@ -159,7 +159,7 @@ describe('entity.js', () => {
         attrs: 'A1',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -193,7 +193,7 @@ describe('entity.js', () => {
         datemodified: 'true',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -227,7 +227,7 @@ describe('entity.js', () => {
         datemodified: 'true',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -263,7 +263,7 @@ describe('entity.js', () => {
         buffering: 'off',
 
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -294,7 +294,7 @@ describe('entity.js', () => {
         entitytype: '',
         attrs: '',
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -313,7 +313,7 @@ describe('entity.js', () => {
         entitytype: '',
         attrs: '',
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
@@ -332,7 +332,7 @@ describe('entity.js', () => {
         entitytype: '',
         attrs: '',
         openapis: {
-          brokerEndpoint: 'http://orion:1026',
+          apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
         }
