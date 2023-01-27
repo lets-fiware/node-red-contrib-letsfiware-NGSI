@@ -41,15 +41,15 @@
   },
   "homepage": "https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/",
   "dependencies": {
-    "axios": "^1.2.2",
-    "gtfs-realtime-bindings": "0.0.6"
+    "axios": "^1.2.5",
+    "gtfs-realtime-bindings": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "babel-plugin-rewire": "^1.2.0",
     "babel-register": "^6.26.0",
     "chai": "^4.3.7",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-json": "^3.1.0",
     "mocha": "^10.2.0",

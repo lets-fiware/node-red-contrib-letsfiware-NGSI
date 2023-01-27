@@ -4,6 +4,7 @@ test/
 coverage/
 docs/
 signatures/
+.vscode/
 .git
 .github
 .gitignore
