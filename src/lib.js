@@ -138,9 +138,41 @@ function buildSearchParams(config) {
   return searchParams;
 }
 
+function updateContext(msg, service, path, count) {
+  if (!Object.prototype.hasOwnProperty.call(msg, 'context')) {
+    msg.context = {};
+  }
+  msg.context.fiwareService = service;
+  msg.context.fiwareServicePath = path;
+  msg.context.fiwareTotalCount = count;
+
+  return msg;
+}
+
+function getServiceAndServicePath(msg, service, path) {
+  if (!Object.prototype.hasOwnProperty.call(msg, 'context')) {
+    msg.context = {};
+  }
+  if (!Object.prototype.hasOwnProperty.call(msg.context, 'fiwareService')) {
+    msg.context.fiwareService = null;
+  }
+  if (!Object.prototype.hasOwnProperty.call(msg.context, 'fiwareServicePath')) {
+    msg.context.fiwareServicePath = null;
+  }
+  if (msg.context.fiwareService === null) {
+    msg.context.fiwareService = service;
+  }
+  if (msg.context.fiwareServicePath === null) {
+    msg.context.fiwareServicePath = path;
+  }
+  return [msg.context.fiwareService, msg.context.fiwareServicePath];
+}
+
 module.exports = {
   http,
   buildHTTPHeader,
   buildSearchParams,
   buildParams,
+  updateContext,
+  getServiceAndServicePath,
 };
