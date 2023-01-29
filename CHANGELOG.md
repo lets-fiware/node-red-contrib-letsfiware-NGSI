@@ -1,3 +1,5 @@
+## node-red-contrib-letsfiware-NGSI v0.7.0-next
+
 ## node-red-contrib-letsfiware-NGSI v0.7.0 - 29 January, 2023
 
 -  ADD NGSI to dashboard custom node (#43)
