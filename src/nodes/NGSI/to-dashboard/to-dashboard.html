@@ -1,0 +1,110 @@
+<!--
+   MIT License
+
+   Copyright 2022-2023 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('NGSI to dashboard', {
+        category: 'FIWARE',
+        color: '#A9E2F3',
+        defaults: {
+            name: { value: "" },
+            inputType: { value: "entity" },
+            attrs: { value: "" },
+            names: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fiware-non-free.svg",
+        label: function () {
+            return this.name || "NGSI to dashboard";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="NGSI to dashboard">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row" id="inputType">
+        <label for="node-input-inputType"><i class="fa fa-tag"></i> Input type</label>
+        <select id="node-input-inputType">
+            <option value="entity" enabled>Entiy (normalized)</option>
+            <option value="notification">Notification</option>
+            <option value="historical">Historical context</option>
+        </select>
+    </div>
+    <div class="form-row" id="attrs">
+        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attributes</label>
+        <input type="text" id="node-input-attrs">
+    </div>
+    <div class="form-row" id="names">
+        <label for="node-input-names"><i class="fa fa-tag"></i> Names to replace</label>
+        <input type="text" id="node-input-names">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="NGSI to dashboard">
+    <p>
+    A simple node that allows to transform from NGSIv2 entities to "things" data for the worldmap node.
+    </p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array</span>
+        </dt>
+        <dd>payload containing NGSIv2 entities
+        If a <code>string</code> or a <code>JSON Object</code> containing NGSIv2 entities
+        is provided, it will be automatically converted to a <code>JSON Array</code></dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array</span>
+        </dt>
+        <dd>"things" data for the worldmap node</dd>
+    </dl>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>payload containing a NGSIv2 subscription data.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object or null</span>
+        </dt>
+        <dd>A subscription Id, a FIWARE Serrvice and a FIWARE ServicePath.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_to_dashboard/">here</a> for full documentation.</p>
+</script>
