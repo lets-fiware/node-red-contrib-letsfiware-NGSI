@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.6.0-next
 
+-  UPDATE documentation about open-apis node (#44)
 -  ADD Historical context custom node (#42)
 -  ADD FIWARE GE type option (#40)
 -  UPDATE Node.js dependencies (#39)

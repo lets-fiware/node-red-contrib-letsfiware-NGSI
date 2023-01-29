@@ -2,12 +2,27 @@
 
 This custom node is a configuration node that allows to configure Context Broker and IdM.
 
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-06.png)
+
+-   `name`: a name for a node instance
+-   `Generic Enabler`: Generic enable type: `Orion Context Broker` or `STH-Comet`
+-   `API Endpoint`: URL of API Endpoint of FIWARE GE
+-   `Service`: FIWARE Service
+-   `IdM Type`: Identity manager type, either `None`, `Tokenproxy`, `Keyrock`, or `Generic`
+
+## FIWARE GE
+
+### Orion Context Broker
+
+To use Orion Context Broker, set `Orion Context Broker` to the `Generic Enabler` property.
+
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-01.png)
 
-- `name`: a name for a node instance
-- `Broker Endpoint`: URL of a context broker
-- `Service`: FIWARE Service
-- `IdM Type`: Identity manager type, either `None`, `Tokenproxy`, `Keyrock`, or `Generic`
+### STH-Comet
+
+To use STH-Comet, set `STH-Comet` to the `Generic Enabler` property.
+
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-07.png)
 
 ## Identity manager type
 
