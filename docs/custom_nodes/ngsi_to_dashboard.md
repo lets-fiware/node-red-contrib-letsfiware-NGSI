@@ -54,6 +54,8 @@ If you want to transform context data received form NGSI Entity node, set `Entit
 
 #### Output
 
+A msg contains data for the dashboard node.
+
 ```
 { "payload": 22.4, "topic": "temperature", "timestamp": 1674881593301 }
 { "payload": 32, "topic": "relativeHumidity", "timestamp": 1674881593301 }
@@ -102,6 +104,8 @@ If you want to transform notification data received from Orion Context Broker, s
 ```
 
 #### Output
+
+A msg contains data for the dashboard node.
       
 ```
 { "payload": 22.4, "topic": "temperature", "timestamp": 1674881593301 }
@@ -150,6 +154,8 @@ If you want to transform historical context data received form Historical contex
 ```
 
 #### Output
+
+A msg contains data for the dashboard node.
 
 ```
 [
