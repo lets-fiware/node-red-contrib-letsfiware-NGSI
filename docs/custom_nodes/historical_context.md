@@ -104,7 +104,7 @@ a empty JSON object to this node. If an attribute has a value, it overwrites the
 
 ### Payload *JSON Object*
 
-A `msg.payload` contains .
+A `msg.payload` contains historical context data.
 
 ## Examples
 
