@@ -87,9 +87,7 @@
         "x": 350,
         "y": 460,
         "wires": [
-            [
-                "111acd57a4eca98a"
-            ]
+            []
         ]
     },
     {
@@ -236,38 +234,6 @@
         ]
     },
     {
-        "id": "111acd57a4eca98a",
-        "type": "worldmap",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "",
-        "layer": "",
-        "cluster": "",
-        "maxage": "",
-        "usermenu": "show",
-        "layers": "show",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "false",
-        "coords": "false",
-        "showgrid": "false",
-        "showruler": "false",
-        "allowFileDrop": "false",
-        "path": "/worldmap",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 580,
-        "y": 460,
-        "wires": []
-    },
-    {
         "id": "cc8a7a41c175e575",
         "type": "http in",
         "z": "f6f2187d.f17ca8",
@@ -310,10 +276,76 @@
         ]
     },
     {
+        "id": "bd55114956f0b16a",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 540,
+        "wires": [
+            [
+                "d764a19a70cdd47f"
+            ]
+        ]
+    },
+    {
+        "id": "d764a19a70cdd47f",
+        "type": "Historical Context",
+        "z": "f6f2187d.f17ca8",
+        "servicepath": "/",
+        "entityid": "",
+        "attrname": "",
+        "entitytype": "",
+        "datatype": "raw",
+        "lastn": "",
+        "hlimit": "",
+        "hoffset": "",
+        "aggrperiod": "month",
+        "datefrom": "",
+        "fromunit": "ISO8601",
+        "dateto": "",
+        "tounit": "ISO8601",
+        "outputtype": "value",
+        "count": "false",
+        "x": 350,
+        "y": 540,
+        "wires": [
+            [
+                "6eb35ac027c69703"
+            ]
+        ]
+    },
+    {
+        "id": "6eb35ac027c69703",
+        "type": "NGSI to dashboard",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "inputType": "entity",
+        "attrs": "",
+        "names": "",
+        "x": 610,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "d001bcb42f362ec2",
         "type": "Open APIs",
         "name": "",
-        "brokerEndpoint": "http://orion:1026",
+        "apiEndpoint": "http://orion:1026",
         "service": "",
         "idmEndpoint": "",
         "idmType": "none"
