@@ -187,14 +187,14 @@
 </script>
 
 <script type="text/x-red" data-help-name="Historical Context">
-    <p>A simple node that allows to obtain historical context information. Entity id shall be provided as part of the <code>msg.payload</code>. 
+    <p>A simple node that allows to obtain historical context information from STH-Comet. Some attributes may be provided as part of the <code>msg.payload</code>. 
     </p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">string or JSON Object</span>
+            <span class="property-type">JSON Object</span>
         </dt>
-        <dd>payload containing Entity Id as string.</dd>
+        <dd>payload containing some attribute to retrieve historical context data.</dd>
     </dl>
 
     <h3>Outputs</h3>
@@ -202,7 +202,7 @@
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
-        <dd>NGSIv2 entity</dd>
+        <dd>payload containing historical context data</dd>
     </dl>
 
     <h3>Details</h3>
