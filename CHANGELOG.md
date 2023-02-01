@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.7.0-next
+## node-red-contrib-letsfiware-NGSI v0.7.1
 
 -  UPDATE examples for custom nodes (#49)
 -  UPDATE documentation about NGSI to dashboard node (#48)
