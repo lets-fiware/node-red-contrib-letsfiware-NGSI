@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-letsfiware-ngsi",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Node-RED implementation for FIWARE Open APIs",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js --ext .json --ext .js src || eslint -c .eslintrc.html.json --ext .html src",
