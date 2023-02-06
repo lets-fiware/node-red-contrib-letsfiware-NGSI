@@ -91,9 +91,18 @@ function buildParams(config) {
     params.set('metadata', config.metadata);
   }
 
+  const options = [];
   if (typeof config.keyValues !== 'undefined' && config.keyValues) {
-    params.set('options', 'keyValues');
+    options.push('keyValues');
   }
+  if (typeof config.upsert !== 'undefined' && config.upsert) {
+    options.push('upsert');
+  }
+  if (options.length > 0) {
+    params.set('options', options.join());
+  }
+
+
 
   return params;
 }

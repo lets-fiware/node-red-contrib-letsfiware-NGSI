@@ -304,6 +304,7 @@
         "id": "d764a19a70cdd47f",
         "type": "Historical Context",
         "z": "f6f2187d.f17ca8",
+        "openapis": "75794bca315ac044",
         "servicepath": "/",
         "entityid": "",
         "attrname": "",
@@ -342,11 +343,354 @@
         ]
     },
     {
+        "id": "43ad928de32ff3bb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "a992a1311bc6c3d7",
+        "type": "NGSI Entity CRUD",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "4bc2c9fd034d58a0",
+        "servicepath": "/",
+        "actiontype": "create",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "43ad928de32ff3bb"
+            ]
+        ]
+    },
+    {
+        "id": "ed377df90ff544db",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"actionType\": \"read\",   \"id\": \"urn:ngsi-ld:Device:device001\",   \"type\": \"T\",   \"keyValues\": true }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 680,
+        "wires": [
+            [
+                "a992a1311bc6c3d7"
+            ]
+        ]
+    },
+    {
+        "id": "8fee41d7446a492f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Create",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"actionType\": \"create\",   \"entity\": {     \"id\": \"urn:ngsi-ld:Device:device001\",     \"type\": \"T\",     \"temperature\": {       \"type\": \"Number\",       \"value\": 25     }   },   \"keyValues\": false }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 620,
+        "wires": [
+            [
+                "a992a1311bc6c3d7"
+            ]
+        ]
+    },
+    {
+        "id": "ad768a418c3c208f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"actionType\": \"upsert\",   \"entity\": {     \"id\": \"E\",     \"type\": \"T\",     \"temperature\": {       \"type\": \"Number\",       \"value\": 25     }   },   \"keyValues\": false }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 800,
+        "wires": [
+            [
+                "a992a1311bc6c3d7"
+            ]
+        ]
+    },
+    {
+        "id": "88cd2ba219c3095a",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Upsert",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"actionType\": \"upsert\",   \"entity\": {     \"id\": \"E\",     \"type\": \"T\",     \"temperature\": {       \"type\": \"Number\",       \"value\": 25     }   },   \"keyValues\": false }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 740,
+        "wires": [
+            [
+                "a992a1311bc6c3d7"
+            ]
+        ]
+    },
+    {
+        "id": "eb8f76fe9ae2814e",
+        "type": "NGSI Entity CRUD",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "4bc2c9fd034d58a0",
+        "servicepath": "/",
+        "actiontype": "create",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 370,
+        "y": 860,
+        "wires": [
+            [
+                "44cac2b4f0725226"
+            ]
+        ]
+    },
+    {
+        "id": "44cac2b4f0725226",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "a0e704dac1ca0196",
+        "type": "NGSI Entity CRUD",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "4bc2c9fd034d58a0",
+        "servicepath": "/",
+        "actiontype": "read",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 370,
+        "y": 920,
+        "wires": [
+            [
+                "44cac2b4f0725226"
+            ]
+        ]
+    },
+    {
+        "id": "6cabd52dca2acabb",
+        "type": "NGSI Entity CRUD",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "4bc2c9fd034d58a0",
+        "servicepath": "/",
+        "actiontype": "upsert",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "44cac2b4f0725226"
+            ]
+        ]
+    },
+    {
+        "id": "3fef22808d63a0ef",
+        "type": "NGSI Entity CRUD",
+        "z": "f6f2187d.f17ca8",
+        "openapis": "4bc2c9fd034d58a0",
+        "servicepath": "/",
+        "actiontype": "delete",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 370,
+        "y": 1040,
+        "wires": [
+            [
+                "44cac2b4f0725226"
+            ]
+        ]
+    },
+    {
+        "id": "c15c10221455a0f7",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Read",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:Device:device001",
+        "payloadType": "str",
+        "x": 90,
+        "y": 920,
+        "wires": [
+            [
+                "a0e704dac1ca0196"
+            ]
+        ]
+    },
+    {
+        "id": "7c16657eb156dee3",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Create",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"id\": \"urn:ngsi-ld:Device:device001\",   \"type\": \"T\",   \"temperature\": {     \"type\": \"Number\",     \"value\": 25   } }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 860,
+        "wires": [
+            [
+                "eb8f76fe9ae2814e"
+            ]
+        ]
+    },
+    {
+        "id": "5732235e2c55e63e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:Device:device001",
+        "payloadType": "str",
+        "x": 90,
+        "y": 1040,
+        "wires": [
+            [
+                "3fef22808d63a0ef"
+            ]
+        ]
+    },
+    {
+        "id": "1aa8bd1e2d71c38a",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Upsert",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"id\": \"urn:ngsi-ld:Device:device001\",   \"type\": \"T\",   \"temperature\": {     \"type\": \"Number\",     \"value\": 25   } }",
+        "payloadType": "json",
+        "x": 90,
+        "y": 980,
+        "wires": [
+            [
+                "6cabd52dca2acabb"
+            ]
+        ]
+    },
+    {
         "id": "d001bcb42f362ec2",
         "type": "Open APIs",
         "name": "",
         "apiEndpoint": "http://orion:1026",
         "service": "",
+        "idmEndpoint": "",
+        "idmType": "none"
+    },
+    {
+        "id": "75794bca315ac044",
+        "type": "Open APIs",
+        "name": "Comet",
+        "geType": "comet",
+        "apiEndpoint": "http://192.168.1.1:8666",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    },
+    {
+        "id": "4bc2c9fd034d58a0",
+        "type": "Open APIs",
+        "name": "Orion",
+        "geType": "orion",
+        "apiEndpoint": "http://192.168.1.1:1026",
+        "service": "openiot",
         "idmEndpoint": "",
         "idmType": "none"
     }

@@ -146,6 +146,12 @@ describe('lib.js', () => {
 
       assert.equal(actual.toString(), 'options=keyValues');
     });
+    it('upsert', () => {
+      const param = { upsert: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=upsert');
+    });
   });
   describe('buildSearchParams', () => {
     it('Empty param', () => {
