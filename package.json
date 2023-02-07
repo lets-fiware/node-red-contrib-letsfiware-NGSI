@@ -11,6 +11,7 @@
     "version": ">=1.0.0",
     "nodes": {
       "NGSI-entity": "src/nodes/NGSI/entity/entity.js",
+      "NGSI-entity-CRUD": "src/nodes/NGSI/entity-crud/entity-crud.js",
       "NGSI-source": "src/nodes/NGSI/source/source.js",
       "NGSI-batch-update": "src/nodes/NGSI/batch-update/batch-update.js",
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
