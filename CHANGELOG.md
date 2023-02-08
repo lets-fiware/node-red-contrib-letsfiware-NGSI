@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
+-  ADD NGSI attribute value custom node (#55)
 -  ADD NGSI entity CRUD custom node (#53)
 
 ## node-red-contrib-letsfiware-NGSI v0.7.1 - 1 February, 2023

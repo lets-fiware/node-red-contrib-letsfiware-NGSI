@@ -69,8 +69,12 @@ async function buildHTTPHeader(param) {
     headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
-  if (typeof param.contentType !== 'undefined' && param.contentType === 'json') {
-    headers['Content-Type'] = 'application/json';
+  if (typeof param.contentType !== 'undefined') {
+    if (param.contentType === 'json') {
+      headers['Content-Type'] = 'application/json';
+    } else {
+      headers['Content-Type'] = param.contentType;
+    }
   }
 
   return headers;
@@ -97,6 +101,15 @@ function buildParams(config) {
   }
   if (typeof config.upsert !== 'undefined' && config.upsert) {
     options.push('upsert');
+  }
+  if (typeof config.skipForwarding !== 'undefined' && config.skipForwarding) {
+    options.push('skipForwarding');
+  }
+  if (typeof config.forcedUpdate !== 'undefined' && config.forcedUpdate) {
+    options.push('forcedUpdate');
+  }
+  if (typeof config.flowControl !== 'undefined' && config.flowControl) {
+    options.push('flowControl');
   }
   if (options.length > 0) {
     params.set('options', options.join());

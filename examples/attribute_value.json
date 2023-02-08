@@ -1,0 +1,620 @@
+[
+    {
+        "id": "b9894ccfa5887dda",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3618fc9b8574b25b",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"E\",\"type\":\"T\",\"test\":{\"type\":\"Test\",\"value\":1,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "43bc3cbd45a01311"
+            ]
+        ]
+    },
+    {
+        "id": "43bc3cbd45a01311",
+        "type": "NGSI Entity CRUD",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actiontype": "create",
+        "entityid": "",
+        "entitytype": "",
+        "mode": "normalized",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "9e669d72e76cf31c"
+            ]
+        ]
+    },
+    {
+        "id": "9e669d72e76cf31c",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "aed5fcf706033010",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "144a7fd1f0e736ba"
+            ]
+        ]
+    },
+    {
+        "id": "144a7fd1f0e736ba",
+        "type": "NGSI Attribute value",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "E",
+        "entityType": "T",
+        "attrName": "test",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "3e929542e24e8d52"
+            ]
+        ]
+    },
+    {
+        "id": "3e929542e24e8d52",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "8dd36ffc2986dabc",
+        "type": "NGSI Attribute value",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityId": "E",
+        "entityType": "T",
+        "attrName": "test",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 460,
+        "wires": [
+            [
+                "0b6e20deb5264708"
+            ]
+        ]
+    },
+    {
+        "id": "0b6e20deb5264708",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d7899001449c00d2",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "attrs": "",
+        "datemodified": "false",
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "3e929542e24e8d52"
+            ]
+        ]
+    },
+    {
+        "id": "9f736bfc5c930dea",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "E",
+        "payloadType": "str",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "d7899001449c00d2"
+            ]
+        ]
+    },
+    {
+        "id": "50dbddc524850b7e",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "null",
+        "payloadType": "json",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "fc3e34fe3f7a941a",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "f1eda321a9d6fdfb",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "123",
+        "payloadType": "num",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "70018be991df42b4",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "abc",
+        "payloadType": "str",
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "d57c63bca7fbe546",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"abc\": 123}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 540,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "2497f06cb94dfc10",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[123, \"abc\"]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 600,
+        "wires": [
+            [
+                "8dd36ffc2986dabc"
+            ]
+        ]
+    },
+    {
+        "id": "af3b6a36d386b66b",
+        "type": "NGSI Attribute value",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityId": "",
+        "entityType": "",
+        "attrName": "",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 780,
+        "wires": [
+            [
+                "1bcb21db341ec4d0"
+            ]
+        ]
+    },
+    {
+        "id": "1bcb21db341ec4d0",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "b2f7cce673a3ec05",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "null",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": null}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 780,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "d533b3bfa45fd5d7",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": true}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "8fc9a4902c7b0540",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "123",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": 123}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 900,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "4609a66e19b73246",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "abc",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": \"abc\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 960,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "2b0aee4dc909459e",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "{\"abc\": 123}",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": {\"abc\": 123}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1020,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "9e01d1ee0d85bf1c",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "[123, \"abc\"]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\", \"value\": [123, \"abc\"]}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1080,
+        "wires": [
+            [
+                "af3b6a36d386b66b"
+            ]
+        ]
+    },
+    {
+        "id": "7cd2be5aaf81c20f",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"read\", \"id\": \"E\", \"type\": \"T\", \"attrName\": \"test\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 700,
+        "wires": [
+            [
+                "d13de3142b1ff9ea"
+            ]
+        ]
+    },
+    {
+        "id": "d13de3142b1ff9ea",
+        "type": "NGSI Attribute value",
+        "z": "b9894ccfa5887dda",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrName": "",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 700,
+        "wires": [
+            [
+                "b2f547b0cd47dc90"
+            ]
+        ]
+    },
+    {
+        "id": "b2f547b0cd47dc90",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "8a5400cf6326a10c",
+        "type": "Open APIs",
+        "name": "orion",
+        "geType": "orion",
+        "apiEndpoint": "http://orion:1026",
+        "service": "",
+        "idmEndpoint": "",
+        "idmType": "none"
+    }
+]
