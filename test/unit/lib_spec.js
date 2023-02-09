@@ -114,6 +114,14 @@ describe('lib.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('Has text/plain as Content-Type', async () => {
+      const param = { contentType: 'text/plain' };
+      const actual = await lib.buildHTTPHeader(param);
+
+      const expected = { 'Content-Type': 'text/plain' };
+
+      assert.deepEqual(actual, expected);
+    });
   });
   describe('buildParams', () => {
     it('Empty param', () => {
@@ -151,6 +159,24 @@ describe('lib.js', () => {
       const actual = lib.buildParams(param);
 
       assert.equal(actual.toString(), 'options=upsert');
+    });
+    it('skipForwarding', () => {
+      const param = { skipForwarding: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=skipForwarding');
+    });
+    it('forcedUpdate', () => {
+      const param = { forcedUpdate: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=forcedUpdate');
+    });
+    it('flowControl', () => {
+      const param = { flowControl: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=flowControl');
     });
   });
   describe('buildSearchParams', () => {

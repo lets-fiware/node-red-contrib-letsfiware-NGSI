@@ -679,7 +679,7 @@
         "type": "Open APIs",
         "name": "Comet",
         "geType": "comet",
-        "apiEndpoint": "http://192.168.1.1:8666",
+        "apiEndpoint": "http://comet:8666",
         "service": "openiot",
         "idmEndpoint": "",
         "idmType": "none"
@@ -689,7 +689,7 @@
         "type": "Open APIs",
         "name": "Orion",
         "geType": "orion",
-        "apiEndpoint": "http://192.168.1.1:1026",
+        "apiEndpoint": "http://orion:1026",
         "service": "openiot",
         "idmEndpoint": "",
         "idmType": "none"

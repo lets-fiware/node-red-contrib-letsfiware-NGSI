@@ -1,0 +1,165 @@
+<!--
+   MIT License
+
+   Copyright 2022-2023 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('NGSI Attribute value', {
+        category: 'FIWARE',
+        color: '#A9E2F3',
+        defaults: {
+            openapis: {
+                type: "Open APIs",
+                required: true
+            },
+            servicepath: { value: '/' },
+            actionType: { value: 'read' },
+            entityId: { value: '' },
+            entityType: { value: '' },
+            attrName: { value: '' },
+            skipForwarding: { value: 'false' },
+            forcedUpdate: { value: 'false' },
+            flowControl: { value: 'false' },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fiware-non-free.svg",
+        label: function () {
+            return this.name || "NGSI Attribute value";
+        }
+    });
+
+    function actiontype_Changed2(e) {
+        switch (e.target.value) {
+        case 'read':
+            document.getElementById('skipForwarding').hidden = false;
+            document.getElementById('forcedUpdate').hidden = true;
+            document.getElementById('flowControl').hidden = true;
+            break;
+        default:
+            document.getElementById('skipForwarding').hidden = true;
+            document.getElementById('forcedUpdate').hidden = false;
+            document.getElementById('flowControl').hidden = false;
+            break;
+        }
+    }
+</script>
+
+<script type="text/x-red" data-template-name="NGSI Attribute value">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
+        <input type="text" id="node-input-openapis">
+    </div>
+    <div class="form-row">
+        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+        <input type="text" id="node-input-servicepath">
+    </div>
+    <div class="form-row">
+        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+        <select id="node-input-actionType" onchange="actiontype_Changed2(event)">
+            <option value="read">read</option>
+            <option value="update">update</option>
+        </select>
+    </div>
+    <div class="form-row" id="entityId">
+        <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
+        <input type="text" id="node-input-entityId">
+    </div>
+    <div class="form-row" id="entityType">
+        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+        <input type="text" id="node-input-entityType">
+    </div>
+    <div class="form-row" id="attrName">
+        <label for="node-input-attrName"><i class="fa fa-tag"></i> Attribute name</label>
+        <input type="text" id="node-input-attrName">
+    </div>
+    <div class="form-row" id="skipForwarding">
+        <label for="node-input-skipForwarding"><i class="fa fa-tag"></i> Skip forwarding</label>
+        <select id="node-input-skipForwarding">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+    <div class="form-row" id="forcedUpdate">
+        <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
+        <select id="node-input-forcedUpdate">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+    <div class="form-row" id="flowControl">
+        <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
+        <select id="node-input-flowControl">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="NGSI Attribute value">
+    <p>A simple node that allows to read or update an attribute of NGSIv2 entity. A information related to an attribute with/without ActionType shall be provided as part of the <code>msg.payload</code>. 
+    </p>
+    <h3>Read attribute value</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entity id and attriubte name with/without ActionType.</dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">null, boolean, number, string or JSON Object</span>
+        </dt>
+        <dd>attribute value</dd>
+    </dl>
+
+    <h3>Update attribute value</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entity with/without ActionType.</dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_attribute_value/">here</a> for full documentation.</p>
+</script>

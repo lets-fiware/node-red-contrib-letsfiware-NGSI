@@ -5,3 +5,7 @@ coverage/
 images/
 :wq
 *.swp
+*.jpeg
+*.png
+*.gif
+*.bmp
