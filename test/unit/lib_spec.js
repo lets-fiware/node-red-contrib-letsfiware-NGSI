@@ -178,6 +178,18 @@ describe('lib.js', () => {
 
       assert.equal(actual.toString(), 'options=flowControl');
     });
+    it('append', () => {
+      const param = { append: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=append');
+    });
+    it('overrideMetadata', () => {
+      const param = { overrideMetadata: true };
+      const actual = lib.buildParams(param);
+
+      assert.equal(actual.toString(), 'options=overrideMetadata');
+    });
   });
   describe('buildSearchParams', () => {
     it('Empty param', () => {
