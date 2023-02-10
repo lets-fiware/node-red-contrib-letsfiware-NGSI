@@ -11,8 +11,10 @@
     "version": ">=1.0.0",
     "nodes": {
       "NGSI-entity": "src/nodes/NGSI/entity/entity.js",
-      "NGSI-entity-CRUD": "src/nodes/NGSI/entity-crud/entity-crud.js",
       "NGSI-source": "src/nodes/NGSI/source/source.js",
+      "NGSI-attributes": "src/nodes/NGSI/attributes/attributes.js",
+      "NGSI-attribute": "src/nodes/NGSI/attribute/attribute.js",
+      "NGSI-attribute-value": "src/nodes/NGSI/attribute-value/attribute-value.js",
       "NGSI-batch-update": "src/nodes/NGSI/batch-update/batch-update.js",
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",

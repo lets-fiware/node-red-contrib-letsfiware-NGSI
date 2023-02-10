@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
+-  ADD NGSI attribute custom node (#60)
 -  ADD NGSI attributes custom node (#58)
 -  FIX node name (#56)
 -  ADD NGSI attribute value custom node (#55)
