@@ -111,11 +111,15 @@ function buildParams(config) {
   if (typeof config.flowControl !== 'undefined' && config.flowControl) {
     options.push('flowControl');
   }
+  if (typeof config.append !== 'undefined' && config.append) {
+    options.push('append');
+  }
+  if (typeof config.overrideMetadata !== 'undefined' && config.overrideMetadata) {
+    options.push('overrideMetadata');
+  }
   if (options.length > 0) {
     params.set('options', options.join());
   }
-
-
 
   return params;
 }
