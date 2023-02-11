@@ -13,6 +13,7 @@ Node-RED NGSI integration
 -   [NGSI Entity CRUD](custom_nodes/ngsi_entity_crud.md)
 -   [NGSI Source](custom_nodes/ngsi_source.md)
 -   [NGSI Attributes](custom_nodes/ngsi_attributes.md)
+-   [NGSI Attribute](custom_nodes/ngsi_attribute.md)
 -   [NGSI Attribute value](custom_nodes/ngsi_attribute_value.md)
 -   [NGSI Batch update](custom_nodes/ngsi_batch_update.md)
 -   [NGSI Subscription](custom_nodes/ngsi_subscription.md)
