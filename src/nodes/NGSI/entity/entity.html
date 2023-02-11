@@ -36,27 +36,52 @@
                 type: "Open APIs",
                 required: true
             },
-            servicepath: { value: "/" },
-            mode: { value: "normalized" },
-            entitytype: { value: "" },
-            attrs: { value: "" },
-            datemodified: { value: "false" },
+            servicepath: { value: '/' },
+            actionType: { value: 'create' },
+            entityId: { value: '' },
+            entityType: { value: '' },
+            attrs: { value: '' },
+            keyValues: { value: 'false' },
+            dateModified: { value: 'false' },
         },
         inputs: 1,
         outputs: 1,
-        icon: "fiware-non-free.svg",
+        icon: 'fiware-non-free.svg',
         label: function () {
-            return this.name || "NGSI Entity";
+            return this.name || 'NGSI Entity';
         }
     });
 
-    function entity_representationmode_Changed(e) {
+    function entity_actionType_Changed(e) {
         switch (e.target.value) {
-        case "normalized":
-            document.getElementById('datemodified').hidden = false;
+        case 'read':
+            document.getElementById('entityId').hidden = false;
+            document.getElementById('entityType').hidden = false;
+            document.getElementById('attrs').hidden = false;
+            document.getElementById('keyValues').hidden = false;
+            document.getElementById('dateModified').hidden = false;
+            break;
+        case "delete":
+            document.getElementById('entityId').hidden = false;
+            document.getElementById('entityType').hidden = false;
+            document.getElementById('attrs').hidden = true;
+            document.getElementById('keyValues').hidden = true;
+            document.getElementById('dateModified').hidden = true;
+            break;
+        case 'create':
+        case 'upsert':
+            document.getElementById('entityId').hidden = true;
+            document.getElementById('entityType').hidden = true;
+            document.getElementById('attrs').hidden = true;
+            document.getElementById('keyValues').hidden = false;
+            document.getElementById('dateModified').hidden = true;
             break;
         default:
-            document.getElementById('datemodified').hidden = true;
+            document.getElementById('entityId').hidden = false;
+            document.getElementById('entityType').hidden = false;
+            document.getElementById('attrs').hidden = false;
+            document.getElementById('keyValues').hidden = false;
+            document.getElementById('dateModified').hidden = false;
             break;
         }
     }
@@ -76,23 +101,37 @@
         <input type="text" id="node-input-servicepath">
     </div>
     <div class="form-row">
-        <label for="node-input-mode"><i class="fa fa-tag"></i> Representation</label>
-        <select id="node-input-mode" onchange="entity_representationmode_Changed(event)">
-            <option value="normalized" enabled>normalized</option>
-            <option value="keyValues">keyValues</option>
+        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+        <select id="node-input-actionType" onchange="entity_actionType_Changed(event)">
+            <option value="create">create</option>
+            <option value="read">read</option>
+            <option value="upsert">upsert</option>
+            <option value="delete">delete</option>
+            <option value="payload">value of ActionType in payload</option>
         </select>
     </div>
-    <div class="form-row">
-        <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entitytype">
+    <div class="form-row" id="entityId">
+        <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
+        <input type="text" id="node-input-entityId">
     </div>
-    <div class="form-row">
+    <div class="form-row" id="entityType">
+        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+        <input type="text" id="node-input-entityType">
+    </div>
+    <div class="form-row" id="attrs">
         <label for="node-input-attrs"><i class="fa fa-tag"></i> Attribute(s)</label>
         <input type="text" id="node-input-attrs">
     </div>
-    <div class="form-row" id="datemodified">
-        <label for="node-input-datemodified"><i class="fa fa-tag"></i> Date Modified</label>
-        <select id="node-input-datemodified">
+    <div class="form-row" id="keyValues">
+        <label for="node-input-keyValues"><i class="fa fa-tag"></i> Representation</label>
+        <select id="node-input-keyValues">
+            <option value="false" enabled>normalized</option>
+            <option value="true">keyValues</option>
+        </select>
+    </div>
+    <div class="form-row" id="dateModified">
+        <label for="node-input-dateModified"><i class="fa fa-tag"></i> Date Modified</label>
+        <select id="node-input-dateModified">
             <option value="false" enabled>false</option>
             <option value="true">true</option>
         </select>
@@ -100,22 +139,90 @@
 </script>
 
 <script type="text/x-red" data-help-name="NGSI Entity">
-    <p>A simple node that allows to obtain NGSIv2 entity. Entity id shall be provided as part of the <code>msg.payload</code>. 
-    </p>
-    <h3>Inputs</h3>
+    <p>A simple node that allows to create, read, upsert or delete an NGSIv2 entity</p>
+    <h3>Create entity</h3>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">string or JSON Object</span>
+            <span class="property-type">JSON object</span>
         </dt>
-        <dd>payload containing Entity Id as string.</dd>
+        <dd>An entity to create</dd>
     </dl>
 
-    <h3>Outputs</h3>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">JSON Object</span>
+            <span class="property-type">Number</span>
         </dt>
-        <dd>NGSIv2 entity</dd>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Read entity</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string or JSON object</span>
+        </dt>
+        <dd>A condition to read entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>An entity</dd>
+    </dl>
+
+    <h3>Upsert entity</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>An entity to upsert</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Delete entity</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string or JSON object</span>
+        </dt>
+        <dd>A condition to delete entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Use value of actionType in payload</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>JSON object with action Type and related information</dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string or JSON object</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API or an entity</dd>
     </dl>
 
     <h3>Details</h3>
