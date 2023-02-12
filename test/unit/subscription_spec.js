@@ -451,6 +451,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
+          geType: 'orion',
         }
       });
 
@@ -490,6 +491,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -530,6 +532,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -578,6 +581,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -602,6 +606,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -628,6 +633,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -655,6 +661,7 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -664,6 +671,34 @@ describe('subscription.js', () => {
       await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1'}});
 
       assert.equal(actual.pathname, '/v2/subscriptions/5fa7988a627088ba9b91b1c1');
+    });
+    it('FIWARE GE type not Orion', async () => {
+      const red = new MockRed();
+      subscriptionNode(red);
+      red.createNode({
+        servicepath: '/',
+        entitytypes: '',
+        idpattern: '',
+        watchedattrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        mode: 'normalized',
+
+        openapis: {
+          apiEndpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: null,
+          geType: 'fiware',
+        }
+      });
+
+      let actual;
+      subscriptionNode.__set__('deleteSubscription', async (param) => {actual = param;});
+
+      await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1'}});
+
+      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
     });
   });
 });

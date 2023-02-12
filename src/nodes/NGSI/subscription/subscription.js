@@ -176,6 +176,11 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
+      if (openAPIsConfig.geType !== 'orion') {
+        node.error('FIWARE GE type not Orion');
+        return;
+      }
+
       let data = msg.payload;
       if (typeof data === 'string') {
         data = JSON.parse(data);

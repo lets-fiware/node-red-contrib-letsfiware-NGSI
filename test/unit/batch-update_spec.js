@@ -56,6 +56,7 @@ describe('batch-update.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
+          geType: 'orion',
         }
       });
 
@@ -81,6 +82,7 @@ describe('batch-update.js', () => {
           apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -107,6 +109,7 @@ describe('batch-update.js', () => {
           apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -133,6 +136,7 @@ describe('batch-update.js', () => {
           apiEndpoint: 'http://myorion:1026',
           service: 'fiware',
           getToken: null,
+          geType: 'orion',
         }
       });
 
@@ -149,6 +153,23 @@ describe('batch-update.js', () => {
       assert.equal(actual.config.servicepath, '/');
       assert.deepEqual(actual.config.data, {actionType: 'update', entities:[{id: 'E1', type: 'T'},{id: 'E2', type: 'T'}]});
     });
+    it('FIWARE GE type not Orion', async () => {
+      const red = new MockRed();
+      batchUpdateNode(red);
+      red.createNode({
+        actiontype: 'append',
+        servicepath: '/',
+        openapis: {
+          borkerNedpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: null,
+          geType: 'fiware',
+        }
+      });
+      await red.inputWithAwait({});
+
+      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+    });
     it('payload missing', async () => {
       const red = new MockRed();
       batchUpdateNode(red);
@@ -159,6 +180,7 @@ describe('batch-update.js', () => {
           borkerNedpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
       await red.inputWithAwait({});
@@ -175,6 +197,7 @@ describe('batch-update.js', () => {
           borkerNedpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
       await red.inputWithAwait({payload: 1});
@@ -191,6 +214,7 @@ describe('batch-update.js', () => {
           borkerNedpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+          geType: 'orion',
         }
       });
       await red.inputWithAwait({payload: {}});
