@@ -10,7 +10,6 @@ Node-RED NGSI integration
 ## Supported custom nodes
 
 -   [NGSI Entity](custom_nodes/ngsi_entity.md)
--   [NGSI Entity CRUD](custom_nodes/ngsi_entity_crud.md)
 -   [NGSI Source](custom_nodes/ngsi_source.md)
 -   [NGSI Attributes](custom_nodes/ngsi_attributes.md)
 -   [NGSI Attribute](custom_nodes/ngsi_attribute.md)
