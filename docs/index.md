@@ -18,7 +18,7 @@ Node-RED NGSI integration
 -   [NGSI Subscription](custom_nodes/ngsi_subscription.md)
 -   [Historical context](custom_nodes/historical_context.md)
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)
--   [NGSI GTFS realtime](custom_nodes/ngsi_gtfs_realtime.md)
+-   [GTFS realtime to NGSI](custom_nodes/ngsi_gtfs_realtime.md)
 -   [FIWARE version](custom_nodes/fiware_version.md)
 
 ## Documentation

@@ -1,12 +1,12 @@
-# NGSI GTFS realtime
+# GTFS realtime to NGSI
 
 This custom node is a simple node that allows to transform from GTFS-realtime data to NGSIv2 entities.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/gtfs_realtime-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/gtfs-realtime/gtfs-realtime-01.png)
 
 ## Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/gtfs_realtime-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/gtfs-realtime/gtfs-realtime-02.png)
 
 - `name`: a name for a node instance
 
@@ -26,6 +26,12 @@ A `msg.payload` contains NGSIv2 entities.
 ## Examples
 
 ### Input 1
+
+```
+https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
+```
+
+### Input 2
 
 ```
 [
@@ -55,7 +61,7 @@ A `msg.payload` contains NGSIv2 entities.
 ]
 ```
 
-### Output 1
+### Output 2
 
 ```
 [
@@ -113,10 +119,4 @@ A `msg.payload` contains NGSIv2 entities.
     }
   }
 ]
-```
-
-### Input 2
-
-```
-https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
 ```

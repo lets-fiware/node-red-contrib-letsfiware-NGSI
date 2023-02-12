@@ -68,19 +68,6 @@
         ]
     },
     {
-        "id": "ee86bd974a832d1b",
-        "type": "NGSI GTFS Realtime",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "x": 360,
-        "y": 380,
-        "wires": [
-            [
-                "f246ed68c1bb1e99"
-            ]
-        ]
-    },
-    {
         "id": "9133e467e4434795",
         "type": "NGSI to worldmap",
         "z": "f6f2187d.f17ca8",
@@ -183,7 +170,7 @@
         "y": 380,
         "wires": [
             [
-                "ee86bd974a832d1b"
+                "62503c9ccec4c767"
             ]
         ]
     },
@@ -345,6 +332,19 @@
         "y": 540,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "62503c9ccec4c767",
+        "type": "GTFS Realtime to NGSI",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "x": 370,
+        "y": 380,
+        "wires": [
+            [
+                "f246ed68c1bb1e99"
+            ]
         ]
     },
     {
