@@ -143,5 +143,5 @@ module.exports = function (RED) {
       }
     });
   }
-  RED.nodes.registerType('NGSI GTFS Realtime', NGSIGTFSRealtime);
+  RED.nodes.registerType('GTFS Realtime to NGSI', NGSIGTFSRealtime);
 };

@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
+-  RENAME NGSI GTFS Realtime custom node (#66)
 -  REMOVE NGSI entity CRUD custom node (#64)
 -  UPDATE NGSI entity custom node (#63)
 -  ADD NGSI attribute custom node (#60)
