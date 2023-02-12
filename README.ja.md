@@ -10,45 +10,43 @@
 
 # node-red-contrib-letsfiware-NGSI
 
-Node-RED implementation for FIWARE Open APIs
+FIWARE Open APIs の Node-RED 実装
 
-| :books: [Documentation](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/) | :dart: [Roadmap](./ROADMAP.md) |
-|-------------------------------------------------------|--------------------------------|
+| :books: [ドキュメント](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/ja/) | :dart: [Roadmap](./ROADMAP.md) |
+|------------------------------------------------------------------------------------|--------------------------------|
 
-このドキュメントは[日本語](./README.ja.md)でもご覧いただけます。
+## サポートしているカスタム・ノード
 
-## Supported custom nodes
+-   [NGSI Entity](docs/ja/custom_nodes/ngsi_entity.md)
+-   [NGSI Source](docs/ja/custom_nodes/ngsi_source.md)
+-   [NGSI Attributes](docs/ja/custom_nodes/ngsi_attributes.md)
+-   [NGSI Attribute](docs/ja/custom_nodes/ngsi_attribute.md)
+-   [NGSI Attribute value](docs/ja/custom_nodes/ngsi_attribute_value.md)
+-   [NGSI Batch update](docs/ja/custom_nodes/ngsi_batch_update.md)
+-   [NGSI Subscription](docs/ja/custom_nodes/ngsi_subscription.md)
+-   [Historical context](docs/ja/custom_nodes/historical_context.md)
+-   [NGSI to Worldmap](docs/ja/custom_nodes/ngsi_to_worldmap.md)
+-   [NGSI to Dashboard](docs/ja/custom_nodes/ngsi_to_dashboard.md)
+-   [GTFS realtime to NGSI](docs/ja/custom_nodes/ngsi_gtfs_realtime.md)
+-   [FIWARE version](docs/ja/custom_nodes/fiware_version.md)
 
--   [NGSI Entity](docs/en/custom_nodes/ngsi_entity.md)
--   [NGSI Source](docs/en/custom_nodes/ngsi_source.md)
--   [NGSI Attributes](docs/en/custom_nodes/ngsi_attributes.md)
--   [NGSI Attribute](docs/en/custom_nodes/ngsi_attribute.md)
--   [NGSI Attribute value](docs/en/custom_nodes/ngsi_attribute_value.md)
--   [NGSI Batch update](docs/en/custom_nodes/ngsi_batch_update.md)
--   [NGSI Subscription](docs/en/custom_nodes/ngsi_subscription.md)
--   [Historical context](docs/en/custom_nodes/historical_context.md)
--   [NGSI to Worldmap](docs/en/custom_nodes/ngsi_to_worldmap.md)
--   [NGSI to Dashboard](docs/en/custom_nodes/ngsi_to_dashboard.md)
--   [GTFS realtime to NGSI](docs/en/custom_nodes/ngsi_gtfs_realtime.md)
--   [FIWARE version](docs/en/custom_nodes/fiware_version.md)
+## ドキュメント
 
-## Documentation
+-   [日本語ドキュメント](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/ja)
 
--   [Documentation](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en)
+## インストール方法
 
-## How to install
-
-Run the following command on a command-line interface.
+コマンドライン・インターフェイスで次のコマンドを実行します。
 
 ```
 npm install node-red-contrib-letsfiware-ngsi
 ```
 
-## Source code
+## ソースコード
 
 -   [https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI)
 
-## Related links
+## 関連リンク
 
 -   [https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi](https://flows.nodered.org/node/node-red-contrib-letsfiware-ngsi)
 -   [https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi](https://www.npmjs.com/package/node-red-contrib-letsfiware-ngsi)

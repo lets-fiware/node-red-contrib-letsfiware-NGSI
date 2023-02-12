@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  ADD Japanese translation (#77)
+
 ## node-red-contrib-letsfiware-NGSI v0.8.0 - 14 February, 2023
 
 -  Improve NGSI subscription custom node (#74)
