@@ -1,6 +1,6 @@
 [
     {
-        "id": "b9894ccfa5887dda",
+        "id": "e2261397a5517b98",
         "type": "tab",
         "label": "Flow 1",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "d2cb5f1ab5cacc11",
+        "id": "b7ded7fa9f47c686",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -25,33 +25,30 @@
         "y": 360,
         "wires": [
             [
-                "eb6e664764b869cb"
+                "78606b86f0e28a5f"
             ]
         ]
     },
     {
-        "id": "3cd5cd313b5ec275",
+        "id": "73460fd5fd5c5997",
         "type": "NGSI Entity",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
-        "mode": "normalized",
-        "entitytype": "",
         "attrs": "",
-        "datemodified": "false",
         "x": 410,
         "y": 120,
         "wires": [
             [
-                "eb6e664764b869cb"
+                "78606b86f0e28a5f"
             ]
         ]
     },
     {
-        "id": "a2bac3e5cb0eb86c",
+        "id": "e9f9c8ed1938a1fd",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Get entity",
         "props": [
             {
@@ -65,18 +62,18 @@
         "topic": "",
         "payload": "E",
         "payloadType": "str",
-        "x": 180,
+        "x": 160,
         "y": 120,
         "wires": [
             [
-                "3cd5cd313b5ec275"
+                "73460fd5fd5c5997"
             ]
         ]
     },
     {
-        "id": "eb6e664764b869cb",
+        "id": "78606b86f0e28a5f",
         "type": "debug",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -90,9 +87,9 @@
         "wires": []
     },
     {
-        "id": "14d78441bfdcd6c3",
+        "id": "8a5f7237cbb050f5",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Replace attributes",
         "props": [
             {
@@ -106,18 +103,18 @@
         "topic": "",
         "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"relativeHumidity\": {\"type\": \"Number\", \"value\": 45.0, \"metadata\": {} }, \"atmosphericPressure\": {\"type\": \"Number\", \"value\": 1003.5, \"metadata\": {} }}",
         "payloadType": "json",
-        "x": 210,
+        "x": 190,
         "y": 360,
         "wires": [
             [
-                "d2cb5f1ab5cacc11"
+                "b7ded7fa9f47c686"
             ]
         ]
     },
     {
-        "id": "959af5329cf291d0",
+        "id": "9ccc41a8ae4980c3",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Append attributes",
         "props": [
             {
@@ -131,18 +128,18 @@
         "topic": "",
         "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 17, \"metadata\": {} }}",
         "payloadType": "json",
-        "x": 200,
+        "x": 190,
         "y": 180,
         "wires": [
             [
-                "4cc4bc51386c897d"
+                "b2871f367df180a1"
             ]
         ]
     },
     {
-        "id": "4cc4bc51386c897d",
+        "id": "b2871f367df180a1",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -157,14 +154,14 @@
         "y": 180,
         "wires": [
             [
-                "eb6e664764b869cb"
+                "78606b86f0e28a5f"
             ]
         ]
     },
     {
-        "id": "12c4748b15f5bc4d",
+        "id": "64e46f14984ce627",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Delete entity",
         "props": [
             {
@@ -178,54 +175,18 @@
         "topic": "",
         "payload": "{\"id\": \"E\"}",
         "payloadType": "json",
-        "x": 190,
+        "x": 170,
         "y": 420,
         "wires": [
             [
-                "0531bed4419da0f1"
+                "4faf6dc43b05beb7"
             ]
         ]
     },
     {
-        "id": "0531bed4419da0f1",
-        "type": "NGSI Entity CRUD",
-        "z": "b9894ccfa5887dda",
-        "openapis": "8a5400cf6326a10c",
-        "servicepath": "/",
-        "actiontype": "delete",
-        "entityid": "",
-        "entitytype": "",
-        "mode": "normalized",
-        "x": 430,
-        "y": 420,
-        "wires": [
-            [
-                "eb6e664764b869cb"
-            ]
-        ]
-    },
-    {
-        "id": "7f6a86408af2b0d4",
-        "type": "NGSI Entity CRUD",
-        "z": "b9894ccfa5887dda",
-        "openapis": "8a5400cf6326a10c",
-        "servicepath": "/",
-        "actiontype": "create",
-        "entityid": "",
-        "entitytype": "",
-        "mode": "normalized",
-        "x": 430,
-        "y": 60,
-        "wires": [
-            [
-                "eb6e664764b869cb"
-            ]
-        ]
-    },
-    {
-        "id": "2b1119c9b5d8c9d3",
+        "id": "e9ec39dda3b304c8",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Create entity",
         "props": [
             {
@@ -239,18 +200,18 @@
         "topic": "",
         "payload": "{\"id\": \"E\", \"type\": \"T\"}",
         "payloadType": "json",
-        "x": 190,
+        "x": 170,
         "y": 60,
         "wires": [
             [
-                "7f6a86408af2b0d4"
+                "963e3651e1a06991"
             ]
         ]
     },
     {
-        "id": "090ecd2b5983a1e3",
+        "id": "5fe9949b2c4a33bd",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -265,14 +226,14 @@
         "y": 240,
         "wires": [
             [
-                "eb6e664764b869cb"
+                "78606b86f0e28a5f"
             ]
         ]
     },
     {
-        "id": "8993093f7a45d60c",
+        "id": "9ebf76d6dd7c6188",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -287,14 +248,14 @@
         "y": 300,
         "wires": [
             [
-                "eb6e664764b869cb"
+                "78606b86f0e28a5f"
             ]
         ]
     },
     {
-        "id": "840a49367ee7e92e",
+        "id": "9b8fbd7740d180cc",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Update attributes",
         "props": [
             {
@@ -308,18 +269,18 @@
         "topic": "",
         "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 20, \"metadata\": {} }}",
         "payloadType": "json",
-        "x": 200,
+        "x": 180,
         "y": 240,
         "wires": [
             [
-                "090ecd2b5983a1e3"
+                "5fe9949b2c4a33bd"
             ]
         ]
     },
     {
-        "id": "4e9cf70f3146ae10",
+        "id": "f0ad1ab8047aa34e",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Upsert attributes",
         "props": [
             {
@@ -333,18 +294,18 @@
         "topic": "",
         "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"humidity\": {\"type\": \"Number\", \"value\": 42.9, \"metadata\": {} }}",
         "payloadType": "json",
-        "x": 200,
+        "x": 180,
         "y": 300,
         "wires": [
             [
-                "8993093f7a45d60c"
+                "9ebf76d6dd7c6188"
             ]
         ]
     },
     {
-        "id": "782eeae344c92a4a",
+        "id": "d819b104655a2b8a",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -359,33 +320,30 @@
         "y": 880,
         "wires": [
             [
-                "23be673e96542938"
+                "53fd0e71e82c0278"
             ]
         ]
     },
     {
-        "id": "1e5182213ab31281",
+        "id": "890f49f4f9e8b387",
         "type": "NGSI Entity",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
-        "mode": "normalized",
-        "entitytype": "",
         "attrs": "",
-        "datemodified": "false",
         "x": 410,
         "y": 640,
         "wires": [
             [
-                "23be673e96542938"
+                "53fd0e71e82c0278"
             ]
         ]
     },
     {
-        "id": "03b65e103bdc060c",
+        "id": "35c03ee11e374d26",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Get entity",
         "props": [
             {
@@ -399,18 +357,18 @@
         "topic": "",
         "payload": "E2",
         "payloadType": "str",
-        "x": 180,
+        "x": 160,
         "y": 640,
         "wires": [
             [
-                "1e5182213ab31281"
+                "890f49f4f9e8b387"
             ]
         ]
     },
     {
-        "id": "23be673e96542938",
+        "id": "53fd0e71e82c0278",
         "type": "debug",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -424,9 +382,9 @@
         "wires": []
     },
     {
-        "id": "5808442d1b75965a",
+        "id": "72fab0c430368147",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Replace attributes",
         "props": [
             {
@@ -440,18 +398,18 @@
         "topic": "",
         "payload": "{\"actionType\": \"replace\", \"id\": \"E2\", \"attributes\": {\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"relativeHumidity\": {\"type\": \"Number\", \"value\": 45.0, \"metadata\": {} }, \"atmosphericPressure\": {\"type\": \"Number\", \"value\": 1003.5, \"metadata\": {} }}}",
         "payloadType": "json",
-        "x": 210,
+        "x": 190,
         "y": 880,
         "wires": [
             [
-                "782eeae344c92a4a"
+                "d819b104655a2b8a"
             ]
         ]
     },
     {
-        "id": "279d167d44e190fc",
+        "id": "8f9695a67f9efb0b",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Append attributes",
         "props": [
             {
@@ -465,18 +423,18 @@
         "topic": "",
         "payload": "{\"actionType\": \"append\", \"id\": \"E2\", \"attributes\": {\"temperature\": {\"type\": \"Number\", \"value\": 17, \"metadata\": {} }}}",
         "payloadType": "json",
-        "x": 200,
+        "x": 190,
         "y": 700,
         "wires": [
             [
-                "96abd5642ce6ac89"
+                "4b06b676508d87e6"
             ]
         ]
     },
     {
-        "id": "96abd5642ce6ac89",
+        "id": "4b06b676508d87e6",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -491,14 +449,14 @@
         "y": 700,
         "wires": [
             [
-                "23be673e96542938"
+                "53fd0e71e82c0278"
             ]
         ]
     },
     {
-        "id": "49a05960c701e4cc",
+        "id": "ecdc0e2623090c76",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Delete entity",
         "props": [
             {
@@ -512,54 +470,18 @@
         "topic": "",
         "payload": "{\"id\": \"E2\"}",
         "payloadType": "json",
-        "x": 190,
+        "x": 170,
         "y": 940,
         "wires": [
             [
-                "a9b6a6f24d10c82d"
+                "26ca731c9d208c6d"
             ]
         ]
     },
     {
-        "id": "a9b6a6f24d10c82d",
-        "type": "NGSI Entity CRUD",
-        "z": "b9894ccfa5887dda",
-        "openapis": "8a5400cf6326a10c",
-        "servicepath": "/",
-        "actiontype": "delete",
-        "entityid": "",
-        "entitytype": "",
-        "mode": "normalized",
-        "x": 430,
-        "y": 940,
-        "wires": [
-            [
-                "23be673e96542938"
-            ]
-        ]
-    },
-    {
-        "id": "6ab0c93524b425b1",
-        "type": "NGSI Entity CRUD",
-        "z": "b9894ccfa5887dda",
-        "openapis": "8a5400cf6326a10c",
-        "servicepath": "/",
-        "actiontype": "create",
-        "entityid": "",
-        "entitytype": "",
-        "mode": "normalized",
-        "x": 430,
-        "y": 580,
-        "wires": [
-            [
-                "23be673e96542938"
-            ]
-        ]
-    },
-    {
-        "id": "4cd81a376bda1e98",
+        "id": "4f06c978b66055a0",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Create entity",
         "props": [
             {
@@ -573,18 +495,18 @@
         "topic": "",
         "payload": "{\"id\": \"E2\", \"type\": \"T\"}",
         "payloadType": "json",
-        "x": 190,
+        "x": 170,
         "y": 580,
         "wires": [
             [
-                "6ab0c93524b425b1"
+                "7cd05c2e53e54b94"
             ]
         ]
     },
     {
-        "id": "b2d6ea58aa89d8b8",
+        "id": "6a8091e14e2db30e",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -599,14 +521,14 @@
         "y": 760,
         "wires": [
             [
-                "23be673e96542938"
+                "53fd0e71e82c0278"
             ]
         ]
     },
     {
-        "id": "294d9c78fb6daa09",
+        "id": "633cb239197d4d09",
         "type": "NGSI Attributes",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "",
         "openapis": "8a5400cf6326a10c",
         "servicepath": "/",
@@ -621,14 +543,14 @@
         "y": 820,
         "wires": [
             [
-                "23be673e96542938"
+                "53fd0e71e82c0278"
             ]
         ]
     },
     {
-        "id": "e487a6af39b845c6",
+        "id": "6bbdd267b7b7e2cd",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Update attributes",
         "props": [
             {
@@ -642,18 +564,18 @@
         "topic": "",
         "payload": "{\"actionType\": \"update\", \"id\": \"E2\", \"attributes\": {\"temperature\": {\"type\": \"Number\", \"value\": 20, \"metadata\": {} }}}",
         "payloadType": "json",
-        "x": 200,
+        "x": 180,
         "y": 760,
         "wires": [
             [
-                "b2d6ea58aa89d8b8"
+                "6a8091e14e2db30e"
             ]
         ]
     },
     {
-        "id": "06a910f8be907fe2",
+        "id": "0f041d352cc392d4",
         "type": "inject",
-        "z": "b9894ccfa5887dda",
+        "z": "e2261397a5517b98",
         "name": "Upsert attributes",
         "props": [
             {
@@ -667,11 +589,95 @@
         "topic": "",
         "payload": "{\"actionType\": \"upsert\", \"id\": \"E2\", \"attributes\": {\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"humidity\": {\"type\": \"Number\", \"value\": 42.9, \"metadata\": {} }}}",
         "payloadType": "json",
-        "x": 200,
+        "x": 180,
         "y": 820,
         "wires": [
             [
-                "294d9c78fb6daa09"
+                "633cb239197d4d09"
+            ]
+        ]
+    },
+    {
+        "id": "963e3651e1a06991",
+        "type": "NGSI Entity",
+        "z": "e2261397a5517b98",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "78606b86f0e28a5f"
+            ]
+        ]
+    },
+    {
+        "id": "4faf6dc43b05beb7",
+        "type": "NGSI Entity",
+        "z": "e2261397a5517b98",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "78606b86f0e28a5f"
+            ]
+        ]
+    },
+    {
+        "id": "7cd05c2e53e54b94",
+        "type": "NGSI Entity",
+        "z": "e2261397a5517b98",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 580,
+        "wires": [
+            [
+                "53fd0e71e82c0278"
+            ]
+        ]
+    },
+    {
+        "id": "26ca731c9d208c6d",
+        "type": "NGSI Entity",
+        "z": "e2261397a5517b98",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 940,
+        "wires": [
+            [
+                "53fd0e71e82c0278"
             ]
         ]
     },

@@ -1,6 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
--  UPDATE NGSI entity node (#63)
+-  REMOVE NGSI entity CRUD custom node (#64)
+-  UPDATE NGSI entity custom node (#63)
 -  ADD NGSI attribute custom node (#60)
 -  ADD NGSI attributes custom node (#58)
 -  FIX node name (#56)

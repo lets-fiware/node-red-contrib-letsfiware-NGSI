@@ -18,7 +18,6 @@ Node-RED implementation for FIWARE Open APIs
 ## Supported custom nodes
 
 -   [NGSI Entity](docs/custom_nodes/ngsi_entity.md)
--   [NGSI Entity CRUD](docs/custom_nodes/ngsi_entity_crud.md)
 -   [NGSI Source](docs/custom_nodes/ngsi_source.md)
 -   [NGSI Attributes](docs/custom_nodes/ngsi_attributes.md)
 -   [NGSI Attribute](docs/custom_nodes/ngsi_attribute.md)
