@@ -28,20 +28,20 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI to dashboard', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: "" },
-            inputType: { value: "entity" },
-            attrs: { value: "" },
-            names: { value: "" },
-        },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI to dashboard";
-        }
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: "" },
+        inputType: { value: "entity" },
+        attrs: { value: "" },
+        names: { value: "" },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI to dashboard";
+      }
     });
 </script>
 

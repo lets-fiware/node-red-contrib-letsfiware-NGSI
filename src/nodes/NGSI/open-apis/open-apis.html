@@ -28,88 +28,88 @@
 
 <script type="text/javascript">
     const urlValidator = function (required, v) {
-        if (!required && (!v || v.trim().length == 0)) {
-            return true;
+      if (!required && (!v || v.trim().length == 0)) {
+        return true;
+      }
+      try {
+        const url = new URL(v.trim());
+        if (url.protocol !== "http:" && url.protocol !== "https:") {
+          return false;
         }
-        try {
-            const url = new URL(v.trim());
-            if (url.protocol !== "http:" && url.protocol !== "https:") {
-                return false;
-            }
-            if (url.search !== "") {
-                return false;
-            }
-            return true;
+        if (url.search !== "") {
+          return false;
         }
-        catch (e) {
-            return false;
-        }
+        return true;
+      }
+      catch (e) {
+        return false;
+      }
     };
 
     RED.nodes.registerType('Open APIs', {
-        category: 'config',
+      category: 'config',
 
-        defaults: {
-            name: {
-                value: ''
-            },
-            geType: {
-                value: 'orion'
-            },
-            apiEndpoint: {
-                value: '',
-                required: true,
-                validate: urlValidator.bind(null, true)
-            },
-            service: {
-                value: ''
-            },
-            idmEndpoint: {
-                value: '',
-                validate: urlValidator.bind(null, false)
-            },
-            idmType: {
-                value: 'none'
-            }
+      defaults: {
+        name: {
+          value: ''
         },
-
-        credentials: {
-            username: { type: 'text' },
-            password: { type: 'password' },
-            clientid: { type: 'text' },
-            clientsecret: { type: 'password' }
+        geType: {
+          value: 'orion'
         },
-
-        label: function () {
-            return this.name || 'Open APIs';
+        apiEndpoint: {
+          value: '',
+          required: true,
+          validate: urlValidator.bind(null, true)
+        },
+        service: {
+          value: ''
+        },
+        idmEndpoint: {
+          value: '',
+          validate: urlValidator.bind(null, false)
+        },
+        idmType: {
+          value: 'none'
         }
+      },
+
+      credentials: {
+        username: { type: 'text' },
+        password: { type: 'password' },
+        clientid: { type: 'text' },
+        clientsecret: { type: 'password' }
+      },
+
+      label: function () {
+        return this.name || 'Open APIs';
+      }
     });
 
     function fiware_open_apis_idmtype_Changed(e) {
-        switch (e.target.value) {
+      switch (e.target.value) {
         case "tokenproxy":
-            document.getElementById('idmEndpoint').hidden = false;
-            document.getElementById('username').hidden = false;
-            document.getElementById('password').hidden = false;
-            document.getElementById('clientid').hidden = true;
-            document.getElementById('clientsecret').hidden = true;
-            break;
+          document.getElementById('idmEndpoint').hidden = false;
+          document.getElementById('username').hidden = false;
+          document.getElementById('password').hidden = false;
+          document.getElementById('clientid').hidden = true;
+          document.getElementById('clientsecret').hidden = true;
+          break;
         case "keyrock":
         case "generic":
-            document.getElementById('idmEndpoint').hidden = false;
-            document.getElementById('username').hidden = false;
-            document.getElementById('password').hidden = false;
-            document.getElementById('clientid').hidden = false;
-            document.getElementById('clientsecret').hidden = false;
-            break;
+          document.getElementById('idmEndpoint').hidden = false;
+          document.getElementById('username').hidden = false;
+          document.getElementById('password').hidden = false;
+          document.getElementById('clientid').hidden = false;
+          document.getElementById('clientsecret').hidden = false;
+          break;
         default:
-            document.getElementById('idmEndpoint').hidden = true;
-            document.getElementById('username').hidden = true;
-            document.getElementById('password').hidden = true;
-            document.getElementById('clientid').hidden = true;
-            document.getElementById('clientsecret').hidden = true;
-            break;
-        }
+          document.getElementById('idmEndpoint').hidden = true;
+          document.getElementById('username').hidden = true;
+          document.getElementById('password').hidden = true;
+          document.getElementById('clientid').hidden = true;
+          document.getElementById('clientsecret').hidden = true;
+          break;
+      }
     }
 </script>
 

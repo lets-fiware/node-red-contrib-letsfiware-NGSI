@@ -105,43 +105,43 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
 
   switch (param.config.actionType) {
-  case 'create':
-    param.method = 'post';
-    delete param.config.id;
-    delete param.config.type;
-    delete param.config.attrs;
-    delete param.config.dateModified;
-    break;
-  case 'read':
-    param.method = 'get';
-    param.pathname += '/' + param.config.id;
-    if (param.config.dateModified === true) {
-      if (param.config.attrs === '') {
-        param.config.attrs = 'dateModified,*';
-      } else {
-        param.config.attrs += ',dateModified';
+    case 'create':
+      param.method = 'post';
+      delete param.config.id;
+      delete param.config.type;
+      delete param.config.attrs;
+      delete param.config.dateModified;
+      break;
+    case 'read':
+      param.method = 'get';
+      param.pathname += '/' + param.config.id;
+      if (param.config.dateModified === true) {
+        if (param.config.attrs === '') {
+          param.config.attrs = 'dateModified,*';
+        } else {
+          param.config.attrs += ',dateModified';
+        }
+        param.config.metadata = 'dateModified,*';
       }
-      param.config.metadata = 'dateModified,*';
-    }
-    break;
-  case 'upsert':
-    param.method = 'post';
-    param.config.upsert = true;
-    delete param.config.id;
-    delete param.config.type;
-    delete param.config.attrs;
-    delete param.config.dateModified;
-    break;
-  case 'delete':
-    param.method = 'delete';
-    param.pathname += '/' + param.config.id;
-    delete param.config.attrs;
-    delete param.config.keyValues;
-    delete param.config.dateModified;
-    break;
-  default:
-    this.error('ActionType error: ' + param.config.actionType);
-    return null;
+      break;
+    case 'upsert':
+      param.method = 'post';
+      param.config.upsert = true;
+      delete param.config.id;
+      delete param.config.type;
+      delete param.config.attrs;
+      delete param.config.dateModified;
+      break;
+    case 'delete':
+      param.method = 'delete';
+      param.pathname += '/' + param.config.id;
+      delete param.config.attrs;
+      delete param.config.keyValues;
+      delete param.config.dateModified;
+      break;
+    default:
+      this.error('ActionType error: ' + param.config.actionType);
+      return null;
   }
 
 

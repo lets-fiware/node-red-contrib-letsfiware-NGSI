@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
+-  Formatting source code (#70)
 -  ADD feature to check FIWARE GE type (#69)
 -  UPDATE NGSI attribute value custom node (#68)
 -  RENAME NGSI GTFS Realtime custom node (#66)

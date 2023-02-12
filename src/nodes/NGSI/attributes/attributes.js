@@ -98,25 +98,25 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   };
 
   switch (defaultConfig.actionType) {
-  case 'append':
-    param.method = 'post';
-    defaultConfig.append = true;
-    break;
-  case 'upsert':
-    param.method = 'post';
-    delete defaultConfig.append;
-    break;
-  case 'update':
-    param.method = 'patch';
-    delete defaultConfig.append;
-    break;
-  case 'replace':
-    param.method = 'put';
-    delete defaultConfig.append;
-    break;
-  default:
-    this.error('ActionType error: ' + defaultConfig.actionType);
-    return null;
+    case 'append':
+      param.method = 'post';
+      defaultConfig.append = true;
+      break;
+    case 'upsert':
+      param.method = 'post';
+      delete defaultConfig.append;
+      break;
+    case 'update':
+      param.method = 'patch';
+      delete defaultConfig.append;
+      break;
+    case 'replace':
+      param.method = 'put';
+      delete defaultConfig.append;
+      break;
+    default:
+      this.error('ActionType error: ' + defaultConfig.actionType);
+      return null;
   }
 
   param.config = defaultConfig;

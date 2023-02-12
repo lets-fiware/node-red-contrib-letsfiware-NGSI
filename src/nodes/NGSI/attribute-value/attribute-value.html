@@ -28,49 +28,49 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI Attribute value', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: '' },
-            openapis: {
-                type: "Open APIs",
-                required: true
-            },
-            servicepath: { value: '/' },
-            actionType: { value: 'read' },
-            entityId: { value: '' },
-            entityType: { value: '' },
-            attrName: { value: '' },
-            skipForwarding: { value: 'false' },
-            forcedUpdate: { value: 'false' },
-            flowControl: { value: 'false' },
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: "Open APIs",
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI Attribute value";
-        }
+        servicepath: { value: '/' },
+        actionType: { value: 'read' },
+        entityId: { value: '' },
+        entityType: { value: '' },
+        attrName: { value: '' },
+        skipForwarding: { value: 'false' },
+        forcedUpdate: { value: 'false' },
+        flowControl: { value: 'false' },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI Attribute value";
+      }
     });
 
     function attr_value_actionType_Changed(e) {
-        switch (e.target.value) {
-            case 'read':
-                document.getElementById('skipForwarding').hidden = false;
-                document.getElementById('forcedUpdate').hidden = true;
-                document.getElementById('flowControl').hidden = true;
-                break;
-            case 'update':
-                document.getElementById('skipForwarding').hidden = true;
-                document.getElementById('forcedUpdate').hidden = false;
-                document.getElementById('flowControl').hidden = false;
-                break;
-            default:
-                document.getElementById('skipForwarding').hidden = false;
-                document.getElementById('forcedUpdate').hidden = false;
-                document.getElementById('flowControl').hidden = false;
-                break;
-        }
+      switch (e.target.value) {
+        case 'read':
+          document.getElementById('skipForwarding').hidden = false;
+          document.getElementById('forcedUpdate').hidden = true;
+          document.getElementById('flowControl').hidden = true;
+          break;
+        case 'update':
+          document.getElementById('skipForwarding').hidden = true;
+          document.getElementById('forcedUpdate').hidden = false;
+          document.getElementById('flowControl').hidden = false;
+          break;
+        default:
+          document.getElementById('skipForwarding').hidden = false;
+          document.getElementById('forcedUpdate').hidden = false;
+          document.getElementById('flowControl').hidden = false;
+          break;
+      }
     }
 </script>
 

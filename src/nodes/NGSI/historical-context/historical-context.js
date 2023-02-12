@@ -161,29 +161,29 @@ function convertDateTime(dt, value, unit) {
   }
 
   switch (unit) {
-  case 'years':
-    dt.setMonth(dt.getMonth() - value * 12);
-    break;
-  case 'months':
-    dt.setMonth(dt.getMonth() - value);
-    break;
-  case 'days':
-    dt.setDate(dt.getDate() - value);
-    break;
-  case 'hours':
-    dt.setHours(dt.getHours() - value);
-    break;
-  case 'minutes':
-    dt.setMinutes(dt.getMinutes() - value);
-    break;
-  case 'seconds':
-    dt.setSeconds(dt.getSeconds() - value);
-    break;
-  case 'ISO8601':
-    return value;
-  default:
-    this.error('Unit error: ' + unit);
-    return '';
+    case 'years':
+      dt.setMonth(dt.getMonth() - value * 12);
+      break;
+    case 'months':
+      dt.setMonth(dt.getMonth() - value);
+      break;
+    case 'days':
+      dt.setDate(dt.getDate() - value);
+      break;
+    case 'hours':
+      dt.setHours(dt.getHours() - value);
+      break;
+    case 'minutes':
+      dt.setMinutes(dt.getMinutes() - value);
+      break;
+    case 'seconds':
+      dt.setSeconds(dt.getSeconds() - value);
+      break;
+    case 'ISO8601':
+      return value;
+    default:
+      this.error('Unit error: ' + unit);
+      return '';
   }
 
   return dt.toISOString();
@@ -258,15 +258,15 @@ module.exports = function (RED) {
           historical = calculateAverage(historical);
         }
         switch (param.config.outputType) {
-        case 'value':
-          historical = historical.value;
-          break;
-        case 'dashboard':
-          historical.entityId = param.config.entityId;
-          historical.attrName = param.config.attrName;
-          historical.entityType = param.config.entityType;
-          historical.dataType = param.config.dataType;
-          break;
+          case 'value':
+            historical = historical.value;
+            break;
+          case 'dashboard':
+            historical.entityId = param.config.entityId;
+            historical.attrName = param.config.attrName;
+            historical.entityType = param.config.entityType;
+            historical.dataType = param.config.dataType;
+            break;
         }
       }
 

@@ -28,23 +28,23 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI Batch update', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: "" },
-            openapis: {
-                type: 'Open APIs',
-                required: true
-            },
-            servicepath: {value: "/"},
-            actiontype: { value: "append" }
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: "" },
+        openapis: {
+          type: 'Open APIs',
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI Batch update";
-        }
+        servicepath: {value: "/"},
+        actiontype: { value: "append" }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI Batch update";
+      }
     });
 </script>
 

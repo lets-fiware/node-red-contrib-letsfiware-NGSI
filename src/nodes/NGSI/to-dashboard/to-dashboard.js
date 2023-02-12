@@ -32,21 +32,21 @@ function calculateDateTime(origin, resolution, offset) {
   const dt = new Date(origin);
 
   switch (resolution) {
-  case 'month':
-    dt.setMonth(dt.getMonth() + offset);
-    break;
-  case 'day':
-    dt.setDate(dt.getDate() + offset);
-    break;
-  case 'hour':
-    dt.setHours(dt.getHours() + offset);
-    break;
-  case 'minute':
-    dt.setMinutes(dt.getMinutes() + offset);
-    break;
-  case 'second':
-    dt.setSeconds(dt.getSeconds() + offset);
-    break;
+    case 'month':
+      dt.setMonth(dt.getMonth() + offset);
+      break;
+    case 'day':
+      dt.setDate(dt.getDate() + offset);
+      break;
+    case 'hour':
+      dt.setHours(dt.getHours() + offset);
+      break;
+    case 'minute':
+      dt.setMinutes(dt.getMinutes() + offset);
+      break;
+    case 'second':
+      dt.setSeconds(dt.getSeconds() + offset);
+      break;
   }
 
   return dt.getTime();

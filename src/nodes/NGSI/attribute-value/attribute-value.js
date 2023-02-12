@@ -123,38 +123,38 @@ function createParam(msg, defaultConfig, openAPIsConfig) {
   };
 
   switch (defaultConfig.actionType) {
-  case 'read':
-    param.method = 'get';
-    delete defaultConfig.value;
-    delete defaultConfig.forcedUpdate;
-    delete defaultConfig.flowControl;
-    break;
-  case 'update':
-    param.method = 'put';
-    if (!('value' in defaultConfig)) {
-      this.error('Attribute value not found');
-      return null;
-    }
-    param.contentType = typeof defaultConfig.value === 'object' || Array.isArray(defaultConfig.value) ? 'application/json' : 'text/plain';
-    switch (typeof defaultConfig.value) {
-    case 'boolean':
-    case 'number':
-      defaultConfig.value = '' + defaultConfig.value;
+    case 'read':
+      param.method = 'get';
+      delete defaultConfig.value;
+      delete defaultConfig.forcedUpdate;
+      delete defaultConfig.flowControl;
       break;
-    case 'string':
-      defaultConfig.value = '"' + defaultConfig.value + '"';
-      break;
-    case 'object':
-      if (defaultConfig.value === null) {
-        defaultConfig.value = '' + defaultConfig.value;
-        param.contentType = 'text/plain';
+    case 'update':
+      param.method = 'put';
+      if (!('value' in defaultConfig)) {
+        this.error('Attribute value not found');
+        return null;
       }
-    }
-    delete defaultConfig.skipForwarding;
-    break;
-  default:
-    this.error('ActionType error: ' + defaultConfig.actionType);
-    return null;
+      param.contentType = typeof defaultConfig.value === 'object' || Array.isArray(defaultConfig.value) ? 'application/json' : 'text/plain';
+      switch (typeof defaultConfig.value) {
+        case 'boolean':
+        case 'number':
+          defaultConfig.value = '' + defaultConfig.value;
+          break;
+        case 'string':
+          defaultConfig.value = '"' + defaultConfig.value + '"';
+          break;
+        case 'object':
+          if (defaultConfig.value === null) {
+            defaultConfig.value = '' + defaultConfig.value;
+            param.contentType = 'text/plain';
+          }
+      }
+      delete defaultConfig.skipForwarding;
+      break;
+    default:
+      this.error('ActionType error: ' + defaultConfig.actionType);
+      return null;
   }
 
   param.config = defaultConfig;

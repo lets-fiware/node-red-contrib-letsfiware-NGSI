@@ -28,55 +28,55 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('Historical Context', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: '' },
-            openapis: {
-                type: "Open APIs",
-                required: true
-            },
-            servicepath: { value: "/" },
-            entityid: { value: "" },
-            attrname: { value: "" },
-            entitytype: { value: "" },
-            datatype: { value: "raw" },
-            lastn: { value: "" },
-            hlimit: { value: "" },
-            hoffset: { value: "" },
-            aggrperiod: { value: "month" },
-            datefrom: { value: "" },
-            fromunit: { value: "ISO8601" },
-            dateto: { value: "" },
-            tounit: { value: "ISO8601" },
-            outputtype: { value: "value" },
-            count: { value: "false" },
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: "Open APIs",
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "Historical Context";
-        }
+        servicepath: { value: "/" },
+        entityid: { value: "" },
+        attrname: { value: "" },
+        entitytype: { value: "" },
+        datatype: { value: "raw" },
+        lastn: { value: "" },
+        hlimit: { value: "" },
+        hoffset: { value: "" },
+        aggrperiod: { value: "month" },
+        datefrom: { value: "" },
+        fromunit: { value: "ISO8601" },
+        dateto: { value: "" },
+        tounit: { value: "ISO8601" },
+        outputtype: { value: "value" },
+        count: { value: "false" },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "Historical Context";
+      }
     });
 
     function historical_context_datatype_Changed(e) {
-        switch (e.target.value) {
+      switch (e.target.value) {
         case "raw":
-            document.getElementById('lastn').hidden = false;
-            document.getElementById('hlimit').hidden = false;
-            document.getElementById('hoffset').hidden = false;
-            document.getElementById('count').hidden = false;
-            document.getElementById('aggrperiod').hidden = true;
-            break;
+          document.getElementById('lastn').hidden = false;
+          document.getElementById('hlimit').hidden = false;
+          document.getElementById('hoffset').hidden = false;
+          document.getElementById('count').hidden = false;
+          document.getElementById('aggrperiod').hidden = true;
+          break;
         default:
-            document.getElementById('lastn').hidden = true;
-            document.getElementById('hlimit').hidden = true;
-            document.getElementById('hoffset').hidden = true;
-            document.getElementById('count').hidden = true;
-            document.getElementById('aggrperiod').hidden = false;
-            break;
-        }
+          document.getElementById('lastn').hidden = true;
+          document.getElementById('hlimit').hidden = true;
+          document.getElementById('hoffset').hidden = true;
+          document.getElementById('count').hidden = true;
+          document.getElementById('aggrperiod').hidden = false;
+          break;
+      }
     }
 </script>
 
