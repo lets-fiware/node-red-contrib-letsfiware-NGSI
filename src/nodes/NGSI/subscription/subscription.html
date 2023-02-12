@@ -28,29 +28,29 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI subscription', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: "" },
-            openapis: {
-                type: 'Open APIs',
-                required: true
-            },
-            servicepath: {value: "/"},
-            entitytypes: {value: ""},
-            idpattern: {value: ""},
-            watchedattrs: {value: ""},
-            query: {value: ""},
-            url: {value: ""},
-            attrs: {value: ""},
-            mode: {value: "normalized"},
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: "" },
+        openapis: {
+          type: 'Open APIs',
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI subscription";
-        }
+        servicepath: {value: "/"},
+        entitytypes: {value: ""},
+        idpattern: {value: ""},
+        watchedattrs: {value: ""},
+        query: {value: ""},
+        url: {value: ""},
+        attrs: {value: ""},
+        mode: {value: "normalized"},
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI subscription";
+      }
     });
 </script>
 

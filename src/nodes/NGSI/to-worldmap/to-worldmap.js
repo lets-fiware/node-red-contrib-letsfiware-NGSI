@@ -32,41 +32,41 @@ function createGeoSpatialInfo(location) {
   const payload = {};
 
   switch (location.type) {
-  case 'geo:point': {
-    const latlon = location.value.split(',');
-    payload.lat = Number(latlon[0]);
-    payload.lon = Number(latlon[1]);
-    break;
-  }
-  case 'geo:line': 
-    payload.line = location.value.map((e) => {
-      return e.split(',').map(e => Number(e));
-    });
-    break;
-  case 'geo:box':
-  case 'geo:polygon':
-    payload.area = location.value.map((e) => {
-      return e.split(',').map((e) => Number(e));
-    });
-    break;
-  case 'Point':
-    payload.lat = location.coordinates[1];
-    payload.lon = location.coordinates[0];
-    break;
-  case 'LineString':
-    payload.line = location.coordinates.map((e) => [e[1], e[0]]);
-    break;
-  case 'Polygon':
-    payload.area = [location.coordinates[0].map((e) => [e[1], e[0]])];
-    break;
-  case 'MultiLineString':
-    payload.line = location.coordinates.map((e1) => e1.map((e2) => [e2[1], e2[0]]));
-    break;
-  case 'MultiPolygon':
-    payload.area = location.coordinates.map((e1) =>
-      e1.map((e2) => e2.map((e3) => [e3[1], e3[0]]))
-    );
-    break;
+    case 'geo:point': {
+      const latlon = location.value.split(',');
+      payload.lat = Number(latlon[0]);
+      payload.lon = Number(latlon[1]);
+      break;
+    }
+    case 'geo:line':
+      payload.line = location.value.map((e) => {
+        return e.split(',').map(e => Number(e));
+      });
+      break;
+    case 'geo:box':
+    case 'geo:polygon':
+      payload.area = location.value.map((e) => {
+        return e.split(',').map((e) => Number(e));
+      });
+      break;
+    case 'Point':
+      payload.lat = location.coordinates[1];
+      payload.lon = location.coordinates[0];
+      break;
+    case 'LineString':
+      payload.line = location.coordinates.map((e) => [e[1], e[0]]);
+      break;
+    case 'Polygon':
+      payload.area = [location.coordinates[0].map((e) => [e[1], e[0]])];
+      break;
+    case 'MultiLineString':
+      payload.line = location.coordinates.map((e1) => e1.map((e2) => [e2[1], e2[0]]));
+      break;
+    case 'MultiPolygon':
+      payload.area = location.coordinates.map((e1) =>
+        e1.map((e2) => e2.map((e3) => [e3[1], e3[0]]))
+      );
+      break;
   }
   return payload;
 }

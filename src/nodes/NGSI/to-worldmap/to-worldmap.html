@@ -28,19 +28,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI to worldmap', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: "" },
-            attrname: { value: "name" },
-            attrworldmap: { value: "__worldmap__" },
-        },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI to worldmap";
-        }
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: "" },
+        attrname: { value: "name" },
+        attrworldmap: { value: "__worldmap__" },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI to worldmap";
+      }
     });
 </script>
 

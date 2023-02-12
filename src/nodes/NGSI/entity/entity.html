@@ -28,62 +28,62 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI Entity', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: '' },
-            openapis: {
-                type: "Open APIs",
-                required: true
-            },
-            servicepath: { value: '/' },
-            actionType: { value: 'create' },
-            entityId: { value: '' },
-            entityType: { value: '' },
-            attrs: { value: '' },
-            keyValues: { value: 'false' },
-            dateModified: { value: 'false' },
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: "Open APIs",
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: 'fiware-non-free.svg',
-        label: function () {
-            return this.name || 'NGSI Entity';
-        }
+        servicepath: { value: '/' },
+        actionType: { value: 'create' },
+        entityId: { value: '' },
+        entityType: { value: '' },
+        attrs: { value: '' },
+        keyValues: { value: 'false' },
+        dateModified: { value: 'false' },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: 'fiware-non-free.svg',
+      label: function () {
+        return this.name || 'NGSI Entity';
+      }
     });
 
     function entity_actionType_Changed(e) {
-        switch (e.target.value) {
+      switch (e.target.value) {
         case 'read':
-            document.getElementById('entityId').hidden = false;
-            document.getElementById('entityType').hidden = false;
-            document.getElementById('attrs').hidden = false;
-            document.getElementById('keyValues').hidden = false;
-            document.getElementById('dateModified').hidden = false;
-            break;
+          document.getElementById('entityId').hidden = false;
+          document.getElementById('entityType').hidden = false;
+          document.getElementById('attrs').hidden = false;
+          document.getElementById('keyValues').hidden = false;
+          document.getElementById('dateModified').hidden = false;
+          break;
         case "delete":
-            document.getElementById('entityId').hidden = false;
-            document.getElementById('entityType').hidden = false;
-            document.getElementById('attrs').hidden = true;
-            document.getElementById('keyValues').hidden = true;
-            document.getElementById('dateModified').hidden = true;
-            break;
+          document.getElementById('entityId').hidden = false;
+          document.getElementById('entityType').hidden = false;
+          document.getElementById('attrs').hidden = true;
+          document.getElementById('keyValues').hidden = true;
+          document.getElementById('dateModified').hidden = true;
+          break;
         case 'create':
         case 'upsert':
-            document.getElementById('entityId').hidden = true;
-            document.getElementById('entityType').hidden = true;
-            document.getElementById('attrs').hidden = true;
-            document.getElementById('keyValues').hidden = false;
-            document.getElementById('dateModified').hidden = true;
-            break;
+          document.getElementById('entityId').hidden = true;
+          document.getElementById('entityType').hidden = true;
+          document.getElementById('attrs').hidden = true;
+          document.getElementById('keyValues').hidden = false;
+          document.getElementById('dateModified').hidden = true;
+          break;
         default:
-            document.getElementById('entityId').hidden = false;
-            document.getElementById('entityType').hidden = false;
-            document.getElementById('attrs').hidden = false;
-            document.getElementById('keyValues').hidden = false;
-            document.getElementById('dateModified').hidden = false;
-            break;
-        }
+          document.getElementById('entityId').hidden = false;
+          document.getElementById('entityType').hidden = false;
+          document.getElementById('attrs').hidden = false;
+          document.getElementById('keyValues').hidden = false;
+          document.getElementById('dateModified').hidden = false;
+          break;
+      }
     }
 </script>
 

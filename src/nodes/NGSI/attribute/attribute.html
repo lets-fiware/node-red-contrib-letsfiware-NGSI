@@ -28,64 +28,64 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI Attribute', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: '' },
-            openapis: {
-                type: "Open APIs",
-                required: true
-            },
-            servicepath: { value: '/' },
-            actionType: { value: 'read' },
-            entityId: { value: '' },
-            entityType: { value: '' },
-            attrName: { value: '' },
-            metadata: { value: '' },
-            skipForwarding: { value: 'false' },
-            overrideMetadata: { value: 'false' },
-            forcedUpdate: { value: 'false' },
-            flowControl: { value: 'false' },
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: "Open APIs",
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI Attribute";
-        }
+        servicepath: { value: '/' },
+        actionType: { value: 'read' },
+        entityId: { value: '' },
+        entityType: { value: '' },
+        attrName: { value: '' },
+        metadata: { value: '' },
+        skipForwarding: { value: 'false' },
+        overrideMetadata: { value: 'false' },
+        forcedUpdate: { value: 'false' },
+        flowControl: { value: 'false' },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI Attribute";
+      }
     });
 
     function attr_actiontype_Changed(e) {
-        switch (e.target.value) {
+      switch (e.target.value) {
         case 'read':
-            document.getElementById('metadata').hidden = false;
-            document.getElementById('skipForwarding').hidden = false;
-            document.getElementById('overrideMetadata').hidden = true;
-            document.getElementById('forcedUpdate').hidden = true;
-            document.getElementById('flowControl').hidden = true;
-            break;
+          document.getElementById('metadata').hidden = false;
+          document.getElementById('skipForwarding').hidden = false;
+          document.getElementById('overrideMetadata').hidden = true;
+          document.getElementById('forcedUpdate').hidden = true;
+          document.getElementById('flowControl').hidden = true;
+          break;
         case 'update':
-            document.getElementById('metadata').hidden = true;
-            document.getElementById('skipForwarding').hidden = true;
-            document.getElementById('overrideMetadata').hidden = false;
-            document.getElementById('forcedUpdate').hidden = false;
-            document.getElementById('flowControl').hidden = false;
-            break;
+          document.getElementById('metadata').hidden = true;
+          document.getElementById('skipForwarding').hidden = true;
+          document.getElementById('overrideMetadata').hidden = false;
+          document.getElementById('forcedUpdate').hidden = false;
+          document.getElementById('flowControl').hidden = false;
+          break;
         case 'delete':
-            document.getElementById('metadata').hidden = true;
-            document.getElementById('skipForwarding').hidden = true;
-            document.getElementById('overrideMetadata').hidden = true;
-            document.getElementById('forcedUpdate').hidden = true;
-            document.getElementById('flowControl').hidden = true;
-            break;
+          document.getElementById('metadata').hidden = true;
+          document.getElementById('skipForwarding').hidden = true;
+          document.getElementById('overrideMetadata').hidden = true;
+          document.getElementById('forcedUpdate').hidden = true;
+          document.getElementById('flowControl').hidden = true;
+          break;
         default:
-            document.getElementById('metadata').hidden = false;
-            document.getElementById('skipForwarding').hidden = false;
-            document.getElementById('overrideMetadata').hidden = false;
-            document.getElementById('forcedUpdate').hidden = false;
-            document.getElementById('flowControl').hidden = false;
-            break;
-        }
+          document.getElementById('metadata').hidden = false;
+          document.getElementById('skipForwarding').hidden = false;
+          document.getElementById('overrideMetadata').hidden = false;
+          document.getElementById('forcedUpdate').hidden = false;
+          document.getElementById('flowControl').hidden = false;
+          break;
+      }
     }
 </script>
 

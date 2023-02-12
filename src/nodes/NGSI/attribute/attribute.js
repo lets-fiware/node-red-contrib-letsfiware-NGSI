@@ -111,29 +111,29 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   };
 
   switch (defaultConfig.actionType) {
-  case 'read':
-    param.method = 'get';
-    delete defaultConfig.attribute;
-    delete defaultConfig.overrideMetadata;
-    delete defaultConfig.forcedUpdate;
-    delete defaultConfig.flowControl;
-    break;
-  case 'update':
-    param.method = 'put';
-    delete defaultConfig.metadata;
-    delete defaultConfig.skipForwarding;
-    break;
-  case 'delete':
-    param.method = 'delete';
-    delete defaultConfig.metadata;
-    delete defaultConfig.skipForwarding;
-    delete defaultConfig.overrideMetadata;
-    delete defaultConfig.forcedUpdate;
-    delete defaultConfig.flowControl;
-    break;
-  default:
-    this.error('ActionType error: ' + defaultConfig.actionType);
-    return null;
+    case 'read':
+      param.method = 'get';
+      delete defaultConfig.attribute;
+      delete defaultConfig.overrideMetadata;
+      delete defaultConfig.forcedUpdate;
+      delete defaultConfig.flowControl;
+      break;
+    case 'update':
+      param.method = 'put';
+      delete defaultConfig.metadata;
+      delete defaultConfig.skipForwarding;
+      break;
+    case 'delete':
+      param.method = 'delete';
+      delete defaultConfig.metadata;
+      delete defaultConfig.skipForwarding;
+      delete defaultConfig.overrideMetadata;
+      delete defaultConfig.forcedUpdate;
+      delete defaultConfig.flowControl;
+      break;
+    default:
+      this.error('ActionType error: ' + defaultConfig.actionType);
+      return null;
   }
 
   param.config = defaultConfig;

@@ -28,28 +28,28 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('NGSI source', {
-        category: 'FIWARE',
-        color: '#A9E2F3',
-        defaults: {
-            name: { value: '' },
-            openapis: {
-                type: "Open APIs",
-                required: true
-            },
-            servicepath: {value: "/"},
-            mode: {value: "normalized"},
-            entitytype: {value: ""},
-            idpattern: {value: ""},
-            attrs: {value: ""},
-            query: {value: ""},
-            buffering: {value: "off"}
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: "Open APIs",
+          required: true
         },
-        inputs: 1,
-        outputs: 1,
-        icon: "fiware-non-free.svg",
-        label: function () {
-            return this.name || "NGSI source";
-        }
+        servicepath: {value: "/"},
+        mode: {value: "normalized"},
+        entitytype: {value: ""},
+        idpattern: {value: ""},
+        attrs: {value: ""},
+        query: {value: ""},
+        buffering: {value: "off"}
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "fiware-non-free.svg",
+      label: function () {
+        return this.name || "NGSI source";
+      }
     });
 </script>
 
