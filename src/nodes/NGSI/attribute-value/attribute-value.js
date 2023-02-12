@@ -66,7 +66,7 @@ const attrValue = async function (param) {
     if (res.status === 200 && param.config.actionType === 'read') {
       return typeConversion(res.data);
     } else if (res.status === 204 && param.config.actionType === 'update') {
-      return res.status;
+      return Number(res.status);
     } else {
       this.error(`Error while managing attribute value: ${res.status} ${res.statusText}`);
       return null;
@@ -78,8 +78,13 @@ const attrValue = async function (param) {
 };
 
 function createParam(msg, defaultConfig, openAPIsConfig) {
-  if (msg.payload !== null && typeof msg.payload === 'object' && !Array.isArray(msg.payload) && 'actionType' in msg.payload) {
-    defaultConfig = Object.assign(defaultConfig, msg.payload);
+  if (defaultConfig.actionType === 'payload') {
+    if (msg.payload !== null && typeof msg.payload === 'object' && !Array.isArray(msg.payload) && 'actionType' in msg.payload) {
+      defaultConfig = Object.assign(defaultConfig, msg.payload);
+    } else {
+      this.error('actionType not found');
+      return;
+    }
   } else {
     if (defaultConfig.actionType === 'read') {
       ['id', 'type', 'attrName', 'skipForwarding'].forEach(e => {

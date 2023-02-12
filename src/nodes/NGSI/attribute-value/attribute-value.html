@@ -53,18 +53,23 @@
         }
     });
 
-    function actiontype_Changed2(e) {
+    function attr_value_actionType_Changed(e) {
         switch (e.target.value) {
-        case 'read':
-            document.getElementById('skipForwarding').hidden = false;
-            document.getElementById('forcedUpdate').hidden = true;
-            document.getElementById('flowControl').hidden = true;
-            break;
-        default:
-            document.getElementById('skipForwarding').hidden = true;
-            document.getElementById('forcedUpdate').hidden = false;
-            document.getElementById('flowControl').hidden = false;
-            break;
+            case 'read':
+                document.getElementById('skipForwarding').hidden = false;
+                document.getElementById('forcedUpdate').hidden = true;
+                document.getElementById('flowControl').hidden = true;
+                break;
+            case 'update':
+                document.getElementById('skipForwarding').hidden = true;
+                document.getElementById('forcedUpdate').hidden = false;
+                document.getElementById('flowControl').hidden = false;
+                break;
+            default:
+                document.getElementById('skipForwarding').hidden = false;
+                document.getElementById('forcedUpdate').hidden = false;
+                document.getElementById('flowControl').hidden = false;
+                break;
         }
     }
 </script>
@@ -84,9 +89,10 @@
     </div>
     <div class="form-row">
         <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actionType" onchange="actiontype_Changed2(event)">
+        <select id="node-input-actionType" onchange="attr_value_actionType_Changed(event)">
             <option value="read">read</option>
             <option value="update">update</option>
+            <option value="payload">value of ActionType in payload</option>
         </select>
     </div>
     <div class="form-row" id="entityId">
@@ -125,15 +131,14 @@
 </script>
 
 <script type="text/x-red" data-help-name="NGSI Attribute value">
-    <p>A simple node that allows to read or update an attribute of NGSIv2 entity. A information related to an attribute with/without ActionType shall be provided as part of the <code>msg.payload</code>. 
-    </p>
+    <p>A simple node that allows to read or update an attribute value of NGSIv2 entity.</p>
     <h3>Read attribute value</h3>
     <h4>Inputs</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
-        <dd>NGSIv2 entity id and attriubte name with/without ActionType.</dd>
+        <dd>NGSIv2 entity id and attriubte name to read</dd>
     </dl>
 
     <h4>Outputs</h4>
@@ -150,7 +155,7 @@
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
-        <dd>NGSIv2 entity with/without ActionType.</dd>
+        <dd>an attribute value to update</dd>
     </dl>
 
     <h4>Outputs</h4>
@@ -159,6 +164,23 @@
             <span class="property-type">string</span>
         </dt>
         <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Use value of actionType in payload</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>JSON object with action Type and related information</dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string or JSON object</span>
+        </dt>
+        <dd>An attribute value or a status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>
