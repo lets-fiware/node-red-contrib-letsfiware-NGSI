@@ -44,6 +44,33 @@ describe('source.js', () => {
     afterEach(() => {
       sourceNode.__ResetDependency__('getEntities');
     });
+    it('FIWARE GE type not Orion', async () => {
+      const red = new MockRed();
+      sourceNode(red);
+      red.createNode({
+        servicepath: '/',
+        mode: 'normalized',
+        entitytype: 'T',
+        idpattern: '.*',
+        attrs: 'temperature',
+        query: 'temperature>20',
+        buffering: 'off',
+
+        openapis: {
+          apiEndpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: () => {},
+	  geType: 'fiware',
+        }
+      });
+
+      let actual;
+      sourceNode.__set__('getEntities', (param) => {actual = param;});
+
+      await red.inputWithAwait({payload: null});
+
+      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+    });
     it('payload empty', async () => {
       const red = new MockRed();
       sourceNode(red);
@@ -60,6 +87,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
+	  geType: 'orion',
         }
       });
 
@@ -92,6 +120,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+	  geType: 'orion',
         }
       });
 
@@ -118,6 +147,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+	  geType: 'orion',
         }
       });
 
@@ -144,6 +174,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
+	  geType: 'orion',
         }
       });
 
