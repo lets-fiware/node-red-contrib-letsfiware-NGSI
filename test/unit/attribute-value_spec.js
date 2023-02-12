@@ -207,7 +207,7 @@ describe('attribute-value.js', () => {
       const defaultConfig = {
         service: '',
         servicepath: '/',
-        actionType: 'read',
+        actionType: 'payload',
         id: 'E',
         type: 'T',
         attrName: 'temperature',
@@ -470,6 +470,30 @@ describe('attribute-value.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('actionType not found', () => {
+      const createParam = attributeValueNode.__get__('createParam');
+      const msg = { payload: {} };
+      const defaultConfig = {
+        service: '',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        type: 'T',
+        attrName: 'temperature',
+        skipForwarding: false,
+        forcedUpdate: false,
+        flowControl: false,
+      };
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'actionType not found');
+    });
     it('Entity id not found', () => {
       const createParam = attributeValueNode.__get__('createParam');
       const msg = { payload: {} };
@@ -548,7 +572,7 @@ describe('attribute-value.js', () => {
       const defaultConfig = {
         service: '',
         servicepath: '/',
-        actionType: 'update',
+        actionType: 'payload',
         id: 'I',
         type: 'T',
         attrName: 'temperature',
