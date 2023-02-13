@@ -2,6 +2,23 @@
 
 This custom node is a configuration node that allows to configure Context Broker and IdM.
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Properties](#properties)
+-   [FIWARE GE](#fiware-ge)
+    -   [Orion Context Broker](#orion-context-broker)
+    -   [STH-Comet](#sth-comet)
+-   [Identity manager type](#identity-manager-type)
+    -   [None](#none)
+    -   [Tokenproxy](#tokenproxy)
+    -   [Keyrock](#keyrock)
+    -   [Generic](#generic)
+
+</details>
+
+## Properties
+
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-06.png)
 
 -   `name`: a name for a node instance

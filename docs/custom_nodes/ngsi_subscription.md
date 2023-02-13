@@ -29,7 +29,7 @@ A `msg.payload` contains a NGSIv2 subscription data.
 
 ### Outputs *JSON Object* or *null*
 
-A `msg.payload` contains a subscription Id, a FIWARE Serrvice and a FIWARE ServicePath.
+A `msg.payload` contains a subscription Id, a FIWARE Service and a FIWARE ServicePath.
 
 ### Examples
 
@@ -49,7 +49,7 @@ A `msg.payload` contains a subscription Id, a FIWARE Serrvice and a FIWARE Servi
 }
 ```
 
-#### Ouput 1
+#### Output 1
 
 ```
 {
@@ -94,7 +94,7 @@ A `msg.payload` contains a subscription Id, a FIWARE Serrvice and a FIWARE Servi
 }
 ```
 
-#### Ouput 2
+#### Output 2
 
 ```
 {
