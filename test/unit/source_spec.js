@@ -60,12 +60,11 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
-	  geType: 'fiware',
+          geType: 'fiware',
         }
       });
 
-      let actual;
-      sourceNode.__set__('getEntities', (param) => {actual = param;});
+      sourceNode.__set__('getEntities', () => {});
 
       await red.inputWithAwait({payload: null});
 
@@ -87,7 +86,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: () => {},
-	  geType: 'orion',
+          geType: 'orion',
         }
       });
 
@@ -120,7 +119,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-	  geType: 'orion',
+          geType: 'orion',
         }
       });
 
@@ -147,7 +146,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-	  geType: 'orion',
+          geType: 'orion',
         }
       });
 
@@ -174,7 +173,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-	  geType: 'orion',
+          geType: 'orion',
         }
       });
 

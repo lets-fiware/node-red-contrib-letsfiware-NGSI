@@ -693,8 +693,7 @@ describe('subscription.js', () => {
         }
       });
 
-      let actual;
-      subscriptionNode.__set__('deleteSubscription', async (param) => {actual = param;});
+      subscriptionNode.__set__('deleteSubscription', async () => {});
 
       await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1'}});
 

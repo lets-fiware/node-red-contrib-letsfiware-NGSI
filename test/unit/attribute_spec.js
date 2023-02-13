@@ -34,7 +34,6 @@ require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
 
-const { get } = require('babel-register/lib/cache.js');
 const { assert } = require('chai');
 
 const attributesNode = require('../../src/nodes/NGSI/attribute/attribute.js');
@@ -43,7 +42,7 @@ const MockRed = require('./helpers/mockred.js');
 describe('attribute.js', () => {
   describe('httpRequest', () => {
     afterEach(() => {
-      attributesNode.__ResetDependency__("lib");
+      attributesNode.__ResetDependency__('lib');
     });
     it('read attribute', async () => {
       attributesNode.__set__('lib', {
@@ -185,7 +184,7 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -221,7 +220,7 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -257,7 +256,7 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -296,7 +295,7 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -331,7 +330,7 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -368,9 +367,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -394,9 +392,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -420,9 +417,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -446,9 +442,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -472,9 +467,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -498,9 +492,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -525,9 +518,8 @@ describe('attribute.js', () => {
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
-        servicepath: '/',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };

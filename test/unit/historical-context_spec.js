@@ -107,7 +107,7 @@ describe('historical-context.js', () => {
   });
   describe('getHistoricalContext', () => {
     afterEach(() => {
-      historicalNode.__ResetDependency__("lib");
+      historicalNode.__ResetDependency__('lib');
     });
     it('get HistoricalContext', async () => {
       historicalNode.__set__('lib', {
@@ -337,7 +337,6 @@ describe('historical-context.js', () => {
   describe('convertDateTime', () => {
     it('Empty value', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = Date('2023-01-01T12:34:56.000Z');
       const value = '';
       const unit = 'day';
@@ -348,7 +347,6 @@ describe('historical-context.js', () => {
     });
     it('years', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '-1';
       const unit = 'years';
@@ -359,7 +357,6 @@ describe('historical-context.js', () => {
     });
     it('months', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '-2';
       const unit = 'months';
@@ -370,7 +367,6 @@ describe('historical-context.js', () => {
     });
     it('days', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '3';
       const unit = 'days';
@@ -381,7 +377,6 @@ describe('historical-context.js', () => {
     });
     it('hours', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '-4';
       const unit = 'hours';
@@ -392,7 +387,6 @@ describe('historical-context.js', () => {
     });
     it('minutes', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '-5';
       const unit = 'minutes';
@@ -403,7 +397,6 @@ describe('historical-context.js', () => {
     });
     it('seconds', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '-6';
       const unit = 'seconds';
@@ -414,7 +407,6 @@ describe('historical-context.js', () => {
     });
     it('ISO8601', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = new Date('2023-01-01T12:34:56.000Z');
       const value = '2024-01-01T12:34:56.000Z';
       const unit = 'ISO8601';
@@ -425,7 +417,6 @@ describe('historical-context.js', () => {
     });
     it('Not number', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = Date('2023-01-01T12:34:56.000Z');
       const value = '-a';
       const unit = 'day';
@@ -439,7 +430,6 @@ describe('historical-context.js', () => {
     });
     it('unit error', () => {
       const convertDateTime = historicalNode.__get__('convertDateTime');
-      const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
       const dt = Date('2023-01-01T12:34:56.000Z');
       const value = '-1';
       const unit = 'day';
@@ -653,7 +643,7 @@ describe('historical-context.js', () => {
         openapis: {
           apiEndpoint: 'http://comet:8666',
           service: 'openiot',
-          getToken: () => { return '9352111f14465d8cf32d8875c16e2f5991257430' },
+          getToken: () => { return '9352111f14465d8cf32d8875c16e2f5991257430'; },
           geType: 'comet'
         }
       });
