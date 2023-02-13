@@ -4,6 +4,17 @@ This custom node is a simple node that allows to transform context data to data 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-01.png)
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Properties](#properties)
+-   [Inputs / Outputs](#inputs--outputs)
+    -   [NGSI Entity node](#ngsi-entity-node)
+    -   [Notification](#notification)
+    -   [Historical context node](#historical-context-node)
+
+</details>
+
 ## Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-02.png)

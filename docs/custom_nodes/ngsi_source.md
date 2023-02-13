@@ -4,6 +4,16 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-01.png)
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Properties](#properties)
+-   [Inputs](#inputs)
+-   [Outputs](#outputs)
+-   [Examples](#examples)
+
+</details>
+
 ## Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-02.png)
@@ -16,7 +26,7 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 -   `ID pattern`: entity ID pattern of affected entities
 -   `Attrs`: list of attributes to retrieve
 -   `Query`: query conditions using Simple Query Language
--   `Buffering`: whether to output all retirived entities at once
+-   `Buffering`: whether to output all retrieved entities at once
 
 ## Inputs
 

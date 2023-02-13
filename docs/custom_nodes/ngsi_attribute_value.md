@@ -4,9 +4,18 @@ This custom node is a simple node that allows to read or update an attribute val
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-01.png)
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Read attribute value](#read-attribute-value)
+-   [Update attribute value](#update-attribute-value)
+-   [Use value of actionType in payload](#use-value-of-actionType-in-payload)
+
+</details>
+
 ## Read attribute value
 
-It alows to read an attribute value of NGSIv2 entity.
+It allows to read an attribute value of NGSIv2 entity.
 
 ### Properties
 
@@ -15,10 +24,10 @@ It alows to read an attribute value of NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: read
--   `Entity id`: Entity id to read an attribute value
--   `Entity type`: Entity type to read an attribute value
--   `Attribute name`: Attribute name to read an attribute value
+-   `Action type`: `read`
+-   `Entity id`: Entity id to be read an attribute value
+-   `Entity type`: Entity type to be read an attribute value
+-   `Attribute name`: Attribute name to be read an attribute value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 
 ### Example
@@ -54,7 +63,7 @@ A `msg.payload` contains an attribute value.
 
 ## Update attribute value
 
-It alows to update an attribute value of NGSIv2 entity.
+It allows to update an attribute value of NGSIv2 entity.
 
 ### Properties
 
@@ -63,10 +72,10 @@ It alows to update an attribute value of NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: update
--   `Entity id`: Entity id to update an attribute value
--   `Entity type`: Entity type to update an attribute value
--   `Attribute name`: Attribute name to update an attribute value
+-   `Action type`: `update`
+-   `Entity id`: Entity id to be updated an attribute value
+-   `Entity type`: Entity type to be updated an attribute value
+-   `Attribute name`: Attribute name to be updated an attribute value
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
@@ -120,7 +129,7 @@ null
 
 ## Use value of actionType in payload
 
-It alows to read or update an attribute value of NGSIv2 entity.
+It allows to read or update an attribute value of NGSIv2 entity.
 
 ### Properties
 
@@ -130,9 +139,9 @@ It alows to read or update an attribute value of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to read or update an attribute value
--   `Entity type`: Entity type to read or update an attribute value
--   `Attribute name`: Attribute name to read or update an attribute value
+-   `Entity id`: Entity id to be read or updated an attribute value
+-   `Entity type`: Entity type to be read or updated an attribute value
+-   `Attribute name`: Attribute name to be read or updated an attribute value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism

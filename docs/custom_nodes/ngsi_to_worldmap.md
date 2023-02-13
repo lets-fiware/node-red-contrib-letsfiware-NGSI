@@ -4,6 +4,16 @@ This custom node is a simple node that allows to transform from NGSIv2 entities 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-01.png)
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Properties](#properties)
+-   [Inputs](#inputs)
+-   [Outputs](#outputs)
+-   [Example](#example)
+
+</details>
+
 ## Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-02.png)

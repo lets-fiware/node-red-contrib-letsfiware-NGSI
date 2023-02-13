@@ -4,26 +4,39 @@ This custom node is a simple node that allows to append, update, upsert or repla
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-01.png)
 
+## Contents
+
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Append attributes](#append-attributes)
+-   [Update attributes](#update-attributes)
+-   [Update attributes](#update-attributes)
+-   [Replace attributes](#replace-attributes)
+-   [Use value of actionType in payload](#use-value-of-actionType-in-payload)
+
+</details>
+
 ## Append attributes
 
-It alows to append attributes of NGSIv2 entity.
+It allows to append attributes of NGSIv2 entity.
 
 ### Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-02.png)
 
--   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `name`: A name for a node instance
+-   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: append
--   `Entity id`: Entity id to retrieve  an attributes
--   `Entity type`: Entity type to retrieve an attributes
+-   `Action type`: `append`
+-   `Entity id`: Entity id to be appended attributes
+-   `Entity type`: Entity type to be appended attributes
 -   `Representation`: normalized or keyValues
--   `Override metadata`: If true, replace the existing metadata
+-   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -57,24 +70,24 @@ null
 
 ## Update attributes
 
-It alows to update attributes of NGSIv2 entity.
+It allows to update attributes of NGSIv2 entity.
 
 ### Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-03.png)
 
--   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `name`: A name for a node instance
+-   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: update 
--   `Entity id`: Entity id to retrieve  an attributes
--   `Entity type`: Entity type to retrieve an attributes
+-   `Action type`: `update`
+-   `Entity id`: Entity id to be updated attributes
+-   `Entity type`: Entity type to be updated attributes
 -   `Representation`: normalized or keyValues
--   `Override metadata`: If true, replace the existing metadata
+-   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -108,24 +121,24 @@ null
 
 ## Upsert attributes
 
-It alows to upsert attributes of NGSIv2 entity.
+It allows to upsert attributes of NGSIv2 entity.
 
 ### Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-04.png)
 
--   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `name`: A name for a node instance
+-   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: upsert
--   `Entity id`: Entity id to retrieve  an attributes
--   `Entity type`: Entity type to retrieve an attributes
+-   `Action type`: `upsert`
+-   `Entity id`: Entity id to be upserted attributes
+-   `Entity type`: Entity type to be upserted attributes
 -   `Representation`: normalized or keyValues
--   `Override metadata`: If true, replace the existing metadata
+-   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -164,24 +177,24 @@ null
 
 ## Replace attributes
 
-It alows to replace attributes of NGSIv2 entity.
+It allows to replace attributes of NGSIv2 entity.
 
 ### Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-05.png)
 
--   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `name`: A name for a node instance
+-   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: replace
--   `Entity id`: Entity id to retrieve  an attributes
--   `Entity type`: Entity type to retrieve an attributes
+-   `Action type`: `replace`
+-   `Entity id`: Entity id to be replaced attributes
+-   `Entity type`: Entity type to be replaced attributes
 -   `Representation`: normalized or keyValues
--   `Override metadata`: If true, replace the existing metadata
+-   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -225,24 +238,24 @@ null
 
 ## Use value of actionType in payload
 
-It alows to append, update, upsert or replace attributes of NGSIv2 entity.
+It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 
 ### Properties
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-06.png)
 
--   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `name`: A name for a node instance
+-   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to retrieve  an attributes
--   `Entity type`: Entity type to retrieve an attributes
+-   `Entity id`: Entity id to be appended, updated, upserted or replaced attributes
+-   `Entity type`: Entity type to be appended, updated, upserted or replaced attributes
 -   `Representation`: normalized or keyValues
--   `Override metadata`: If true, replace the existing metadata
+-   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Exmaple
+### Example
 
 #### Input
 

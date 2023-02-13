@@ -4,9 +4,20 @@ This custom node is a simple node that allows to create, read, upsert or delete 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-01.png)
 
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Create an entity](#create-an-entity)
+-   [Read an entity](#read-an-entity)
+-   [Upsert an entity](#upsert-an-entity)
+-   [Delete an entity](#delete-an-entity)
+-   [Use value of actionType in payload](#use-value-of-actiontype-in-payload)
+
+</details>
+
 ## Create an entity
 
-It alows to create a NGSIv2 entity.
+It allows to create a NGSIv2 entity.
 
 ### Properties
 
@@ -15,10 +26,10 @@ It alows to create a NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: create
+-   `Action type`: `create`
 -   `Representation`: normalized or keyValues
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -69,7 +80,7 @@ null
 
 ## Read an entity
 
-It alows to read a NGSIv2 entity.
+It allows to read a NGSIv2 entity.
 
 ### Properties
 
@@ -78,14 +89,14 @@ It alows to read a NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: read
--   `Entity id`: Entity id to update an attributes
--   `Entity type`: Entity type to update an attributes
--   `attributes`: list of attributes to retrieve
+-   `Action type`: `read`
+-   `Entity id`: id of an entity to be read
+-   `Entity type`: type of an entity to be read
+-   `attributes`: list of attributes of an entity to be read
 -   `Representation`: normalized or keyValues
--   `Date Modified`: retrive attribute and metadata of dateModified
+-   `Date Modified`: retrieve attribute and metadata of dateModified
 
-### Exmaples
+### Examples
 
 #### Input
 
@@ -134,7 +145,7 @@ A `msg.payload` contains the NGSIv2 entity.
 
 ## Upsert an entity
 
-It alows to upsert a NGSIv2 entity.
+It allows to upsert a NGSIv2 entity.
 
 ### Properties
 
@@ -143,10 +154,10 @@ It alows to upsert a NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: upsert
+-   `Action type`: `upsert`
 -   `Representation`: normalized or keyValues
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -197,7 +208,7 @@ null
 
 ## Delete an entity
 
-It alows to delete a NGSIv2 entity.
+It allows to delete a NGSIv2 entity.
 
 ### Properties
 
@@ -206,11 +217,11 @@ It alows to delete a NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: delete
--   `Entity id`: Entity id to delete an attributes
--   `Entity type`: Entity type to delete an attributes
+-   `Action type`: `delete`
+-   `Entity id`: id of an entity to be deleted
+-   `Entity type`: type of an entity to be deleted
 
-### Exmaple
+### Example
 
 #### Input
 
@@ -250,7 +261,7 @@ null
 
 ## Use value of actionType in payload
 
-It alows to read, update or delete an attribute in NGSIv2 entity.
+It allows to read, update or delete an attribute in NGSIv2 entity.
 
 ### Properties
 
@@ -263,15 +274,15 @@ It alows to read, update or delete an attribute in NGSIv2 entity.
 -   `Entity id`: Entity id to read, update or delete an attribute
 -   `Entity type`: Entity type to read, update or delete an attribute
 -   `Representation`: normalized or keyValues
--   `Date Modified`: retrive attribute and metadata of dateModified
+-   `Date Modified`: retrieve attribute and metadata of dateModified
 
-### Exmaple
+### Example
+
+When creating an entity, A `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
 #### Input
 
 Payload  *JSON Object*
-
-When creating an entity, A `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
 ```
 {
@@ -303,7 +314,25 @@ When creating an entity, A `msg.payload` should contain a JSON Object with `acti
 }
 ```
 
+#### Output
+
+Payload *null or number*
+
+A `msg.payload` contains a status code.
+
+```
+201
+```
+
+```
+null
+```
+
 When reading an entity, A `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be read.
+
+#### Input
+
+Payload  *JSON Object*
 
 ```
 {
@@ -313,7 +342,25 @@ When reading an entity, A `msg.payload` should contain a JSON Object with `actio
 }
 ```
 
+#### Output
+
+Payload *JSON Object*
+
+A `msg.payload` contains an object representing the entity.
+
+```
+{
+  "type":"Number",
+  "value":45,
+  "metadata":{}
+}
+```
+
 When upserting an entity, A `msg.payload` should contain a JSON Object with `actionType` and `entity`.
+
+#### Input
+
+Payload  *JSON Object*
 
 ```
 {
@@ -345,7 +392,25 @@ When upserting an entity, A `msg.payload` should contain a JSON Object with `act
 }
 ```
 
+#### Output
+
+Payload *null or number*
+
+A `msg.payload` contains a status code.
+
+```
+204
+```
+
+```
+null
+```
+
 When deleting an entity, A `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be deleted.
+
+#### Input
+
+Payload  *JSON Object*
 
 ```
 {
@@ -359,31 +424,7 @@ When deleting an entity, A `msg.payload` should contain a JSON Object with `acti
 
 Payload *null or number*
 
-When creating an entity, a `msg.payload` contains a status code.
-
-```
-201
-```
-
-```
-null
-```
-
-Payload *JSON Object*
-
-When reading an entity, a `msg.payload` contains an object representing the entity.
-
-```
-{
-  "type":"Number",
-  "value":45,
-  "metadata":{}
-}
-```
-
-Payload *null or number*
-
-When upserting and deleting an entity, a `msg.payload` contains a status code.
+A `msg.payload` contains a status code.
 
 ```
 204
