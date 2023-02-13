@@ -34,7 +34,6 @@ require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
 
-const { get } = require('babel-register/lib/cache.js');
 const { assert } = require('chai');
 
 const entityNode = require('../../src/nodes/NGSI/entity/entity.js');
@@ -43,7 +42,7 @@ const MockRed = require('./helpers/mockred.js');
 describe('entity.js', () => {
   describe('httpRequest', () => {
     afterEach(() => {
-      entityNode.__ResetDependency__("lib");
+      entityNode.__ResetDependency__('lib');
     });
     it('get entity', async () => {
       entityNode.__set__('lib', {
@@ -209,7 +208,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -245,7 +244,7 @@ describe('entity.js', () => {
         keyValues: true,
         dateModified: false,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -281,7 +280,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -297,8 +296,8 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
-          attrs: "dateModified,*",
-          metadata: "dateModified,*",
+          attrs: 'dateModified,*',
+          metadata: 'dateModified,*',
         },
         method: 'get',
       };
@@ -318,7 +317,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -334,8 +333,8 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
-          attrs: "temperature,dateModified",
-          metadata: "dateModified,*",
+          attrs: 'temperature,dateModified',
+          metadata: 'dateModified,*',
         },
         method: 'get',
       };
@@ -355,7 +354,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -371,8 +370,8 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
-          attrs: "temperature,dateModified",
-          metadata: "dateModified,*",
+          attrs: 'temperature,dateModified',
+          metadata: 'dateModified,*',
         },
         method: 'get',
       };
@@ -392,7 +391,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -429,7 +428,7 @@ describe('entity.js', () => {
         keyValues: false,
         dateModified: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -461,7 +460,7 @@ describe('entity.js', () => {
         keyValues: true,
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -495,7 +494,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -516,7 +515,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -537,7 +536,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -558,7 +557,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -579,7 +578,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };
@@ -600,7 +599,7 @@ describe('entity.js', () => {
         type: '',
         keyValues: true,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' }
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       let err = '';
       const node = { msg: '', error: (e) => { err = e; } };

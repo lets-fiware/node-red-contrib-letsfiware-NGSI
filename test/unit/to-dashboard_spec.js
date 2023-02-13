@@ -96,37 +96,37 @@ describe('to-dashboard.js', () => {
     it('raw', () => {
       const transformHistorical = toDashboardNode.__get__('transformHistorical');
       const payload = {
-        attrName: "temperature",
+        attrName: 'temperature',
         dataType: 'raw',
-        type: "StructuredValue",
+        type: 'StructuredValue',
         value: [
           {
-            _id: "63d45c3587f5b27f576ed498",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3587f5b27f576ed498',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:21.201Z"
+            recvTime: '2023-01-27T23:20:21.201Z'
           },
           {
-            _id: "63d45c3787f5b27f576ed49e",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3787f5b27f576ed49e',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:23.199Z"
+            recvTime: '2023-01-27T23:20:23.199Z'
           },
           {
-            _id: "63d45c3987f5b27f576ed4a4",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3987f5b27f576ed4a4',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:25.201Z"
+            recvTime: '2023-01-27T23:20:25.201Z'
           }
         ]
       };
       const actual = transformHistorical(payload);
       const expected = [{
         series: [
-          "temperature",
+          'temperature',
         ],
         labels: [
         ],
@@ -153,80 +153,80 @@ describe('to-dashboard.js', () => {
     it('sum', () => {
       const transformHistorical = toDashboardNode.__get__('transformHistorical');
       const payload = {
-        attrName: "temperature",
+        attrName: 'temperature',
         dataType: 'sum',
-        "type": "StructuredValue",
-        "value": [
+        'type': 'StructuredValue',
+        'value': [
           {
-            "_id": {
-              "attrName": "temperature",
-              "origin": "2023-01-22T00:00:00.000Z",
-              "resolution": "hour"
+            '_id': {
+              'attrName': 'temperature',
+              'origin': '2023-01-22T00:00:00.000Z',
+              'resolution': 'hour'
             },
-            "points": [
+            'points': [
               {
-                "offset": 8,
-                "samples": 521,
-                "sum": 11586.000000000007
+                'offset': 8,
+                'samples': 521,
+                'sum': 11586.000000000007
               },
               {
-                "offset": 9,
-                "samples": 1800,
-                "sum": 38774.09999999979
+                'offset': 9,
+                'samples': 1800,
+                'sum': 38774.09999999979
               },
               {
-                "offset": 10,
-                "samples": 1799,
-                "sum": 38438.100000000326
+                'offset': 10,
+                'samples': 1799,
+                'sum': 38438.100000000326
               },
               {
-                "offset": 11,
-                "samples": 1799,
-                "sum": 43591.9000000002
+                'offset': 11,
+                'samples': 1799,
+                'sum': 43591.9000000002
               },
               {
-                "offset": 12,
-                "samples": 63,
-                "sum": 1448.1000000000008
+                'offset': 12,
+                'samples': 63,
+                'sum': 1448.1000000000008
               }
             ]
           },
           {
-            "_id": {
-              "attrName": "temperature",
-              "origin": "2023-01-27T00:00:00.000Z",
-              "resolution": "hour"
+            '_id': {
+              'attrName': 'temperature',
+              'origin': '2023-01-27T00:00:00.000Z',
+              'resolution': 'hour'
             },
-            "points": [
+            'points': [
               {
-                "offset": 12,
-                "samples": 969,
-                "sum": 23644.499999999833
+                'offset': 12,
+                'samples': 969,
+                'sum': 23644.499999999833
               },
               {
-                "offset": 19,
-                "samples": 101,
-                "sum": 2094.2999999999993
+                'offset': 19,
+                'samples': 101,
+                'sum': 2094.2999999999993
               },
               {
-                "offset": 20,
-                "samples": 1799,
-                "sum": 47159.79999999989
+                'offset': 20,
+                'samples': 1799,
+                'sum': 47159.79999999989
               },
               {
-                "offset": 21,
-                "samples": 1799,
-                "sum": 50274.80000000073
+                'offset': 21,
+                'samples': 1799,
+                'sum': 50274.80000000073
               },
               {
-                "offset": 22,
-                "samples": 1799,
-                "sum": 43363.00000000028
+                'offset': 22,
+                'samples': 1799,
+                'sum': 43363.00000000028
               },
               {
-                "offset": 23,
-                "samples": 607,
-                "sum": 13309.900000000103
+                'offset': 23,
+                'samples': 607,
+                'sum': 13309.900000000103
               }
             ]
           }
@@ -236,7 +236,7 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           series: [
-            "temperature",
+            'temperature',
           ],
           labels: [
           ],
@@ -397,12 +397,12 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           payload: 22.4,
-          topic: "temp",
+          topic: 'temp',
           timestamp: 1674881593301,
         },
         {
           payload: 32,
-          topic: "hum",
+          topic: 'hum',
           timestamp: 1674881593301,
         }
       ];
@@ -436,12 +436,12 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           payload: 22.4,
-          topic: "temperature",
+          topic: 'temperature',
           timestamp: null,
         },
         {
           payload: 32,
-          topic: "relativeHumidity",
+          topic: 'relativeHumidity',
           timestamp: null,
         }
       ];
@@ -487,12 +487,12 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           payload: 22.4,
-          topic: "temperature",
+          topic: 'temperature',
           timestamp: 1674881593301,
         },
         {
           payload: 32,
-          topic: "relativeHumidity",
+          topic: 'relativeHumidity',
           timestamp: 1674881593301,
         }
       ];
@@ -541,12 +541,12 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           payload: 22.4,
-          topic: "temperature",
+          topic: 'temperature',
           timestamp: 1674881593301,
         },
         {
           payload: 32,
-          topic: "relativeHumidity",
+          topic: 'relativeHumidity',
           timestamp: 1674881593301,
         }
       ];
@@ -595,12 +595,12 @@ describe('to-dashboard.js', () => {
       const expected = [
         {
           payload: 22.4,
-          topic: "temperature",
+          topic: 'temperature',
           timestamp: 1674881593301,
         },
         {
           payload: 32,
-          topic: "relativeHumidity",
+          topic: 'relativeHumidity',
           timestamp: 1674881593301,
         }
       ];
@@ -617,30 +617,30 @@ describe('to-dashboard.js', () => {
       });
 
       const payload = {
-        attrName: "temperature",
+        attrName: 'temperature',
         dataType: 'raw',
-        type: "StructuredValue",
+        type: 'StructuredValue',
         value: [
           {
-            _id: "63d45c3587f5b27f576ed498",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3587f5b27f576ed498',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:21.201Z"
+            recvTime: '2023-01-27T23:20:21.201Z'
           },
           {
-            _id: "63d45c3787f5b27f576ed49e",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3787f5b27f576ed49e',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:23.199Z"
+            recvTime: '2023-01-27T23:20:23.199Z'
           },
           {
-            _id: "63d45c3987f5b27f576ed4a4",
-            attrName: "temperature",
-            attrType: "Number",
+            _id: '63d45c3987f5b27f576ed4a4',
+            attrName: 'temperature',
+            attrType: 'Number',
             attrValue: 22.2,
-            recvTime: "2023-01-27T23:20:25.201Z"
+            recvTime: '2023-01-27T23:20:25.201Z'
           }
         ]
       };

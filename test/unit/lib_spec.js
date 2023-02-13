@@ -278,8 +278,8 @@ describe('lib.js', () => {
 
       assert.deepEqual(actual, {
         context: {
-          fiwareService: "openiot",
-          fiwareServicePath: "/",
+          fiwareService: 'openiot',
+          fiwareServicePath: '/',
           fiwareTotalCount: 10,
         },
       });
@@ -290,8 +290,8 @@ describe('lib.js', () => {
 
       assert.deepEqual(actual, {
         context: {
-          fiwareService: "openiot",
-          fiwareServicePath: "/",
+          fiwareService: 'openiot',
+          fiwareServicePath: '/',
           fiwareTotalCount: 10,
         },
       });

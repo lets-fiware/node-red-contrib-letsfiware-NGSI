@@ -3,7 +3,8 @@
   "version": "0.7.2",
   "description": "Node-RED implementation for FIWARE Open APIs",
   "scripts": {
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .json --ext .js src || eslint -c .eslintrc.html.json --ext .html src",
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .json,.js . && eslint -c .eslintrc.html.json --ext .html src",
+    "format": "./node_modules/eslint/bin/eslint.js --fix --ext .json,.js . && eslint -c .eslintrc.html.json --fix --ext .html src",
     "test": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\"",
     "coverage": "mkdir -p coverage && ./node_modules/nyc/bin/nyc.js --reporter=text-lcov ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\" > ./coverage/coverage.lcov"
   },
