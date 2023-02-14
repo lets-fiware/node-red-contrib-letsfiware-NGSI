@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.7.1-next
 
+-  Improve NGSI subscription custom node (#74)
 -  Improve documentation (#72)
 -  Formatting source code (#71)
 -  Formatting source code (#70)

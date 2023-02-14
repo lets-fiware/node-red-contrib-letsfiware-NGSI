@@ -30,74 +30,79 @@
 
 const lib = require('../../../lib.js');
 
-function buildSubscription(param) {
+const buildSubscription = function (param) {
   const subscription = { subject: { entities: [{}] }, notification: {} };
 
-  param.config = Object.assign(param.config, param.config.data);
-
-  ['type', 'idPattern', 'watchedAttrs', 'q', 'url', 'attrs'].forEach((e) => {
-    if (param.config[e] === '') {
-      delete param.config[e];
+  ['type', 'idPattern', 'watchedAttrs', 'q', 'url', 'attrs', 'attrsFormat'].forEach((e) => {
+    if (param[e] === '') {
+      delete param[e];
     }
   });
 
   ['watchedAttrs', 'attrs'].forEach((e) => {
-    if (param.config[e] && typeof param.config[e] === 'string') {
-      param.config[e] = param.config[e].split(',');
+    if (param[e] && typeof param[e] === 'string') {
+      param[e] = param[e].split(',');
     }
   });
 
-  ['description', 'expires', 'throttling'].forEach((e) => {
-    if (param.config[e] && param.config[e] !== '') {
-      subscription[e] = param.config[e];
+  ['description', 'expires', 'throttling', 'status'].forEach((e) => {
+    if (param[e] && param[e] !== '') {
+      subscription[e] = param[e];
     }
   });
 
   ['idPattern', 'type'].forEach((e) => {
-    if (param.config[e]) {
-      subscription.subject.entities[0][e] = param.config[e];
+    if (param[e]) {
+      subscription.subject.entities[0][e] = param[e];
     }
   });
 
-  if (param.config.watchedAttrs) {
+  if (param.watchedAttrs) {
     subscription.subject.condition = {};
-    subscription.subject.condition.attrs = param.config['watchedAttrs'];
+    subscription.subject.condition.attrs = param['watchedAttrs'];
   }
+
   ['q', 'mq', 'georel', 'geometry', 'coords'].forEach((e) => {
-    if (param.config[e]) {
+    if (param[e]) {
       if (!subscription.subject.condition) {
         subscription.subject.condition = {};
       }
       if (!subscription.subject.condition.expression) {
         subscription.subject.condition.expression = {};
       }
-      subscription.subject.condition.expression[e] = param.config[e];
+      subscription.subject.condition.expression[e] = param[e];
     }
   });
 
-  if (param.config['url']) {
-    subscription.notification.http = { url: param.config['url'] };
+  if (param['url']) {
+    subscription.notification.http = { url: param['url'] };
   }
-  if (param.config['attrs'] && param.config['attrs'] !== '') {
-    subscription.notification.attrs = param.config['attrs'];
+  if (param['attrs']) {
+    subscription.notification.attrs = param['attrs'];
+  }
+  if (param['attrsFormat']) {
+    subscription.notification.attrsFormat = param['attrsFormat'];
   }
 
-  param.config.data = subscription;
-}
-
-async function createSubscription(param) {
-  if (
-    !param.config.data['subject'] ||
-    !param.config.data['notification']
-  ) {
-    buildSubscription(param);
+  if (subscription.subject.entities.length === 1 && !Object.keys(subscription.subject.entities[0]).length) {
+    delete subscription.subject.entities;
   }
+  if (!Object.keys(subscription.subject).length) {
+    delete subscription.subject;
+  }
+  if (!Object.keys(subscription.notification).length) {
+    delete subscription.notification;
+  }
+  return subscription;
+};
+
+const createSubscription = async function (param) {
   const options = {
     method: 'post',
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.data,
+    data: param.config.subscription,
   };
 
   try {
@@ -115,35 +120,35 @@ async function createSubscription(param) {
     return null;
   }
   return null;
-}
+};
 
-async function updateSubscription(param) {
+const updateSubscription = async function (param) {
   const options = {
     method: 'patch',
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.data,
+    data: param.config.subscription,
   };
 
   try {
     const res = await lib.http(options);
     if (res.status === 204) {
-      return {payload: res.status};
+      return Number(res.status);
     } else {
       this.error(`Error while updating subscription: ${res.status} ${res.statusText}`);
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
-      return {payload: null};
+      return null;
     }
   } catch (error) {
     this.error(`Exception while updating subscription: ${error}`);
-    return {payload: null};
+    return null;
   }
-}
+};
 
-async function deleteSubscription(param) {
+const deleteSubscription = async function (param) {
   const options = {
     method: 'delete',
     baseURL: param.host,
@@ -154,24 +159,100 @@ async function deleteSubscription(param) {
   try {
     const res = await lib.http(options);
     if (res.status === 204) {
-      return {payload: res.status};
+      return Number(res.status);
     } else {
       this.error(`Error while deleting subscription: ${res.status} ${res.statusText}`);
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
     }
-    return {payload: null};
+    return null;
   } catch (error) {
     this.error(`Exception while deleting subscription: ${error}`);
-    return {payload: null};
+    return null;
   }
-}
+};
+
+const createParam = function (msg, defaultConfig, openAPIsConfig) {
+  if (defaultConfig.actionType === 'payload') {
+    if ('actionType' in msg.payload) {
+      defaultConfig.actionType = msg.payload.actionType;
+      if ('id' in msg.payload) {
+        defaultConfig.id = msg.payload.id;
+      }
+      if ('subscription' in msg.payload) {
+        defaultConfig.subscription = Object.assign(defaultConfig.subscription, buildSubscription(msg.payload.subscription));
+      }
+    } else {
+      this.error('actionType not found');
+      return null;
+    }
+  } else {
+    if (defaultConfig.actionType === 'delete') {
+      if (typeof msg.payload === 'string') {
+        defaultConfig.id = msg.payload;
+      } else {
+        this.error('payload not string');
+        return null;
+      }
+    } else { // create, update
+      if (Array.isArray(msg.payload) || typeof msg.payload !== 'object') {
+        this.error('payload not JSON object');
+        return null;
+      }
+      if (defaultConfig.actionType === 'update') {
+        if (!('id' in msg.payload)) {
+          this.error('subscription id not found');
+          return null;
+        }
+        defaultConfig.id = msg.payload.id;
+        delete msg.payload.id;
+      }
+      defaultConfig.subscription = Object.assign(defaultConfig.subscription,
+        'notification' in msg.payload || 'subject' in msg.payload ? msg.payload : buildSubscription(msg.payload));
+    }
+  }
+
+  if (typeof defaultConfig.id !== 'string') {
+    this.error('subscription id not string');
+    return null;
+  }
+
+  const param = {
+    host: openAPIsConfig.apiEndpoint,
+    pathname: '/v2/subscriptions',
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    contentType: 'json',
+    config: defaultConfig,
+  };
+
+  [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
+
+  switch (defaultConfig.actionType) {
+    case 'create':
+      param.func = createSubscription;
+      break;
+    case 'update':
+      param.func = updateSubscription;
+      param.pathname += '/' + param.config.id;
+      break;
+    case 'delete':
+      param.func = deleteSubscription;
+      param.pathname += '/' + param.config.id;
+      delete param.contentType;
+      break;
+    default:
+      this.error('ActionType error: ' + defaultConfig.actionType);
+      return null;
+  }
+
+  return param;
+};
 
 module.exports = function (RED) {
   function NGSISubscription(config) {
     RED.nodes.createNode(this, config);
-    var node = this;
+    const node = this;
 
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
@@ -181,66 +262,27 @@ module.exports = function (RED) {
         return;
       }
 
-      let data = msg.payload;
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
-      }
-      if (Array.isArray(data) || typeof data !== 'object') {
-        this.error('not subscription payload');
-        return;
-      }
-
       const defaultConfig = {
-        id: null,
         service: openAPIsConfig.service.trim(),
         servicepath: config.servicepath.trim(),
-        limit: 20,
-        data: data,
+        actionType: config.actionType.trim(),
+        id: '',
+        subscription: buildSubscription({
+          type: config.entityType.trim(),
+          idPattern: config.idPattern.trim(),
+          watchedAttrs: config.watchedAttrs.trim(),
+          q: config.query.trim(),
+          url: config.url.trim(),
+          attrs: config.attrs.trim(),
+          attrsFormat: config.attrsFormat.trim(),
+        }),
       };
 
-      if (data.id) {
-        defaultConfig.id = data.id;
-        delete data.id;
-      }
-      if (data.service) {
-        defaultConfig.serivce = data.service;
-        delete data.service;
-      }
-      if (data.servicepath) {
-        defaultConfig.serivcepath = data.servicepath;
-        delete data.servicepath;
-      }
-      if (data.limit) {
-        defaultConfig.limit = data.limit;
-        delete data.limit;
-      }
+      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
 
-      const param = {
-        host: openAPIsConfig.apiEndpoint,
-        pathname: '/v2/subscriptions',
-        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-        contentType: 'json',
-        config: defaultConfig,
-      };
-
-      if (defaultConfig.id) {
-        if (Object.keys(defaultConfig.data).length === 0) {
-          param.pathname += '/' + defaultConfig.id;
-          param.contentType = null;
-          const res = await deleteSubscription(param);
-          node.send(res);
-        } else {
-          param.pathname += '/' + defaultConfig.id;
-          const res = await updateSubscription(param);
-          node.send(res);
-        }
-      } else {
-        const id = await createSubscription(param);
-        if (id) {
-          node.send({ payload: {id: id, service: param.config.service, servicepath: param.config.servicepath} });
-        } else {
-          node.send({ payload: null });
-        }
+      if (param) {
+        msg.payload = await param.func.call(node, param);
+        node.send(msg);
       }
     });
   }

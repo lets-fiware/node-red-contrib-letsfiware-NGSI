@@ -33,45 +33,43 @@
 require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
-  
+
 const { assert } = require('chai');
-  
+
 const subscriptionNode = require('../../src/nodes/NGSI/subscription/subscription.js');
 const MockRed = require('./helpers/mockred.js');
 
 describe('subscription.js', () => {
   describe('buildSubscription', () => {
     it('emplty param', async () => {
-      const buildSubscription =subscriptionNode.__get__('buildSubscription'); 
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const param = {
-        config: {
-          data: {type:''},
-        },
+        type: '',
       };
-      buildSubscription(param);
 
-      assert.deepEqual(param .config.data, { subject: { entities: [{}] }, notification: {} });
+      const actual = buildSubscription(param);
+
+      const expected = {};
+
+      assert.deepEqual(actual, expected);
     });
-    it('subscription', async () => {
-      const buildSubscription =subscriptionNode.__get__('buildSubscription'); 
+    it('subscription with query', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const param = {
-        config: {
-          data: {
-            type: 'T',
-            idPattern: '.*',
-            watchedAttrs: 'temperature,humidity',
-            q: 'temperature>10',
-            url: 'http://context-consumer',
-            attrs: 'humidity',
-            'description': 'subscription for node-red',
-            'expires': '2030-04-05T14:00:00.00Z',
-            'throttling': 5
-          },
-        },
+        type: 'T',
+        idPattern: '.*',
+        watchedAttrs: 'temperature,humidity',
+        q: 'temperature>10',
+        url: 'http://context-consumer',
+        attrs: 'humidity',
+        'description': 'subscription for node-red',
+        'expires': '2030-04-05T14:00:00.00Z',
+        'throttling': 5
       };
-      buildSubscription(param);
 
-      assert.deepEqual(param .config.data, {
+      const actual = buildSubscription(param);
+
+      const expeced = {
         'description': 'subscription for node-red',
         'notification': {
           'attrs': [
@@ -100,27 +98,26 @@ describe('subscription.js', () => {
         },
         'expires': '2030-04-05T14:00:00.00Z',
         'throttling': 5
-      });
-    });
-    it('subscription', async () => {
-      const buildSubscription =subscriptionNode.__get__('buildSubscription'); 
-      const param = {
-        config: {
-          data: {
-            type: 'T',
-            idPattern: '.*',
-            url: 'http://context-consumer',
-            q: 'temperature>10',
-            mq:'accuracy>100',
-            georel:'near',
-            geometry: 'point',
-            coords:'-40.4,-3.5',
-          },
-        },
       };
-      buildSubscription(param);
 
-      assert.deepEqual(param .config.data, {
+      assert.deepEqual(actual, expeced);
+    });
+    it('subscription with geoquery', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const param = {
+        type: 'T',
+        idPattern: '.*',
+        url: 'http://context-consumer',
+        q: 'temperature>10',
+        mq: 'accuracy>100',
+        georel: 'near',
+        geometry: 'point',
+        coords: '-40.4,-3.5',
+      };
+
+      const actual = buildSubscription(param);
+
+      const expeced = {
         'notification': {
           'http': {
             'url': 'http://context-consumer'
@@ -143,25 +140,30 @@ describe('subscription.js', () => {
             }
           ]
         },
-      });
+      };
+
+      assert.deepEqual(actual, expeced);
     });
   });
   describe('createSubscription', () => {
+    afterEach(() => {
+      subscriptionNode.__ResetDependency__('lib');
+    });
     it('create subscription', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 201,
-          headers: {'location': '/v2/subscriptions/5fa7988a627088ba9b91b1c1'},
+          headers: { 'location': '/v2/subscriptions/5fa7988a627088ba9b91b1c1' },
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const createSubscription = subscriptionNode.__get__('createSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions',
-        config: {data:{}}
+        config: { data: {} }
       };
 
       const actuial = await createSubscription(param);
@@ -171,17 +173,17 @@ describe('subscription.js', () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 201,
-          headers: {'location': '/v2/subscriptions/5fa7988a627088ba9b91b1c1'},
+          headers: { 'location': '/v2/subscriptions/5fa7988a627088ba9b91b1c1' },
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const createSubscription = subscriptionNode.__get__('createSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions',
-        config: {data:{subject:{}, notification:{}}}
+        config: { data: { subject: {}, notification: {} } }
       };
 
       const actuial = await createSubscription(param);
@@ -189,20 +191,20 @@ describe('subscription.js', () => {
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const createSubscription = subscriptionNode.__get__('createSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions',
-        config: {data:{}}
+        config: { data: {} }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actuial = await createSubscription.call(node, param);
       assert.equal(actuial, null);
@@ -210,20 +212,20 @@ describe('subscription.js', () => {
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request', data:{orionError: 'orion error'}}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { orionError: 'orion error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const createSubscription = subscriptionNode.__get__('createSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions',
-        config: {data:{}}
+        config: { data: {} }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actuial = await createSubscription.call(node, param);
       assert.equal(actuial, null);
@@ -232,19 +234,19 @@ describe('subscription.js', () => {
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const createSubscription = subscriptionNode.__get__('createSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions',
-        config: {data:{}}
+        config: { data: {} }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actuial = await createSubscription.call(node, param);
 
@@ -253,101 +255,107 @@ describe('subscription.js', () => {
     });
   });
   describe('updateSubscription', () => {
+    afterEach(() => {
+      subscriptionNode.__ResetDependency__('lib');
+    });
     it('update subscription', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 204,
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const updateSubscription = subscriptionNode.__get__('updateSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
-        config: {data: {'expires': '2030-04-05T14:00:00.00Z' }}
+        config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
       const actual = await updateSubscription(param);
 
-      assert.deepEqual(actual, {payload: 204});
+      assert.deepEqual(actual, 204);
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const updateSubscription = subscriptionNode.__get__('updateSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
-        config: {data: {'expires': '2030-04-05T14:00:00.00Z' }}
+        config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
-      const actual= await updateSubscription.call(node, param);
+      const actual = await updateSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request']);
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request', data:{orionError: 'orion error'}}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { orionError: 'orion error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const updateSubscription = subscriptionNode.__get__('updateSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
-        config: {data: {'expires': '2030-04-05T14:00:00.00Z' }}
+        config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await updateSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request', 'Details: "orion error"']);
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const updateSubscription = subscriptionNode.__get__('updateSubscription');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
-        config: {data: {'expires': '2030-04-05T14:00:00.00Z' }}
+        config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await updateSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Exception while updating subscription: unknown error']);
     });
   });
   describe('deleteSubscription', () => {
+    afterEach(() => {
+      subscriptionNode.__ResetDependency__('lib');
+    });
     it('delete subscription', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 204,
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const deleteSubscription = subscriptionNode.__get__('deleteSubscription');
 
@@ -359,13 +367,13 @@ describe('subscription.js', () => {
 
       const actual = await deleteSubscription(param);
 
-      assert.deepEqual(actual, {payload: 204});
+      assert.deepEqual(actual, 204);
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const deleteSubscription = subscriptionNode.__get__('deleteSubscription');
 
@@ -376,18 +384,18 @@ describe('subscription.js', () => {
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await deleteSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request']);
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request', data:{orionError: 'orion error'}}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { orionError: 'orion error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const deleteSubscription = subscriptionNode.__get__('deleteSubscription');
 
@@ -398,18 +406,18 @@ describe('subscription.js', () => {
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await deleteSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request', 'Details: "orion error"']);
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const deleteSubscription = subscriptionNode.__get__('deleteSubscription');
 
@@ -420,12 +428,499 @@ describe('subscription.js', () => {
       };
 
       let msg = [];
-      const node ={msg: '', error:(e)=>{msg.push(e);}};
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await deleteSubscription.call(node, param);
 
-      assert.deepEqual(actual, {payload: null});
+      assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Exception while deleting subscription: unknown error']);
+    });
+  });
+  describe('createParam', () => {
+    it('create subscription', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = { payload: { notification: {}, subject: {} } };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'create',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions',
+        getToken: null,
+        contentType: 'json',
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'create',
+          id: '',
+          subscription: {
+            notification: {},
+            subject: {},
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('create subscription with actionType', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'create',
+          subscription: {},
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions',
+        getToken: null,
+        contentType: 'json',
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'create',
+          id: '',
+          subscription: {
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('update subscription', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          subscription: {},
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'update',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        getToken: null,
+        contentType: 'json',
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'update',
+          id: '5fa7988a627088ba9b91b1c1',
+          subscription: {
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('update subscription with payload', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'update',
+          subscription: {},
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        getToken: null,
+        contentType: 'json',
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'update',
+          id: '5fa7988a627088ba9b91b1c1',
+          subscription: {
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('delete subscription', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = { payload: '5fa7988a627088ba9b91b1c1' };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'delete',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        getToken: null,
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'delete',
+          id: '5fa7988a627088ba9b91b1c1',
+          subscription: {
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('delete subscription with actionType', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'delete',
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        getToken: null,
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'delete',
+          id: '5fa7988a627088ba9b91b1c1',
+          subscription: {
+          },
+        },
+        func: null,
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('actionType not found', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'actionType not found');
+    });
+    it('payload not string', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = { payload: {} };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'delete',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'payload not string');
+    });
+    it('payload not JSON object', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = { payload: 'payload' };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'update',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'payload not JSON object');
+    });
+    it('subscription id not fouond', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = { payload: {} };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'update',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'subscription id not found');
+    });
+    it('subscription id not string', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'delete',
+          id: 1234,
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'subscription id not string');
+    });
+    it('ActionType error', async () => {
+      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'upsert',
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        subscription: buildSubscription({
+          type: '',
+          idPattern: '',
+          watchedAttrs: '',
+          q: '',
+          url: '',
+          attrs: '',
+          attrsFormat: '',
+        }),
+      };
+
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'ActionType error: upsert');
     });
   });
   describe('NGSI subscription node', () => {
@@ -439,53 +934,56 @@ describe('subscription.js', () => {
       subscriptionNode(red);
       red.createNode({
         servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
+        actionType: 'create',
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
         query: '',
         url: '',
         attrs: '',
-        mode: 'normalized',
+        attrsFormat: 'normalized',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => {},
+          getToken: () => { },
           geType: 'orion',
         }
       });
 
       let actual;
-      subscriptionNode.__set__('createSubscription', async (param) => {actual = param; return '5fa7988a627088ba9b91b1c1';});
+      subscriptionNode.__set__('createSubscription', async (param) => { actual = param; return '5fa7988a627088ba9b91b1c1'; });
 
-      await red.inputWithAwait({payload: {idPattern: '.*', url: 'http://context-consumer'}});
+      await red.inputWithAwait({ payload: { idPattern: '.*', url: 'http://context-consumer' } });
 
       assert.deepEqual(red.getOutput(), {
-        payload:{
-          id:'5fa7988a627088ba9b91b1c1',
-          service: 'openiot',
-          servicepath: '/',
-        }});
+        payload: '5fa7988a627088ba9b91b1c1',
+        context: {
+          fiwareService: 'openiot',
+          fiwareServicePath: '/'
+        }
+      });
       assert.equal(actual.contentType, 'json');
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/v2/subscriptions');
       assert.equal(actual.config.service, 'openiot');
       assert.equal(actual.config.servicepath, '/');
-      assert.equal(actual.config.data.idPattern, '.*');
-      assert.equal(actual.config.data.url, 'http://context-consumer');
+      assert.equal(actual.config.subscription.subject.entities[0].idPattern, '.*');
+      assert.equal(actual.config.subscription.notification.http.url, 'http://context-consumer');
     });
-    it('create subscripton (string)', async () => {
+    it('ActionType error', async () => {
       const red = new MockRed();
       subscriptionNode(red);
       red.createNode({
         servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
+        actionType: 'upsert',
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
         query: '',
         url: '',
         attrs: '',
-        mode: 'normalized',
+        attrsFormat: 'normalized',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -495,195 +993,25 @@ describe('subscription.js', () => {
         }
       });
 
-      let actual;
-      subscriptionNode.__set__('createSubscription', async (param) => {actual = param; return '5fa7988a627088ba9b91b1c1';});
+      subscriptionNode.__set__('deleteSubscription', async () => { });
 
-      await red.inputWithAwait({payload: JSON.stringify({idPattern: '.*', url: 'http://context-consumer'})});
+      await red.inputWithAwait({ payload: { id: '' } });
 
-      assert.deepEqual(red.getOutput(), {
-        payload:{
-          id:'5fa7988a627088ba9b91b1c1',
-          service: 'openiot',
-          servicepath: '/',
-        }});
-      assert.equal(actual.contentType, 'json');
-      assert.equal(actual.getToken, null);
-      assert.equal(actual.host, 'http://orion:1026');
-      assert.equal(actual.pathname, '/v2/subscriptions');
-      assert.equal(actual.config.service, 'openiot');
-      assert.equal(actual.config.servicepath, '/');
-      assert.equal(actual.config.data.idPattern, '.*');
-      assert.equal(actual.config.data.url, 'http://context-consumer');
-    });
-    it('create subscripton with service, servicepath and limit', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        mode: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      let actual;
-      subscriptionNode.__set__('createSubscription', async (param) => {actual = param; return '5fa7988a627088ba9b91b1c1';});
-
-      await red.inputWithAwait({
-        payload: {
-          idPattern: '.*',
-          url: 'http://context-consumer',
-          service: 'fiware',
-          servicepath: '/device',
-          limit: 100,
-        }
-      });
-
-      assert.deepEqual(red.getOutput(), {
-        payload:{
-          id:'5fa7988a627088ba9b91b1c1',
-          service: 'openiot',
-          servicepath: '/',
-        }});
-      assert.equal(actual.contentType, 'json');
-      assert.equal(actual.getToken, null);
-      assert.equal(actual.host, 'http://orion:1026');
-      assert.equal(actual.pathname, '/v2/subscriptions');
-      assert.equal(actual.config.service, 'openiot');
-      assert.equal(actual.config.servicepath, '/');
-      assert.equal(actual.config.data.idPattern, '.*');
-      assert.equal(actual.config.data.url, 'http://context-consumer');
-    });
-    it('should be `not subscription payload` (number)', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        mode: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      await red.inputWithAwait({payload: 1});
-
-      assert.equal(red.getMessage(), 'not subscription payload');
-    });
-    it('create subscripton (error)', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        mode: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      subscriptionNode.__set__('createSubscription', async () => {});
-
-      await red.inputWithAwait({payload: {}});
-
-      assert.deepEqual(red.getOutput(), { payload: null });
-    });
-    it('update subscripton', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        mode: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      let actual;
-      subscriptionNode.__set__('updateSubscription', async (param) => {actual = param;});
-
-      await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1', 'expires': '2030-04-05T14:00:00.00Z'}});
-
-      assert.equal(actual.pathname, '/v2/subscriptions/5fa7988a627088ba9b91b1c1');
-    });
-    it('delete subscripton', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        mode: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      let actual;
-      subscriptionNode.__set__('deleteSubscription', async (param) => {actual = param;});
-
-      await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1'}});
-
-      assert.equal(actual.pathname, '/v2/subscriptions/5fa7988a627088ba9b91b1c1');
+      assert.equal(red.getMessage(), 'ActionType error: upsert');
     });
     it('FIWARE GE type not Orion', async () => {
       const red = new MockRed();
       subscriptionNode(red);
       red.createNode({
         servicepath: '/',
-        entitytypes: '',
-        idpattern: '',
-        watchedattrs: '',
+        actionType: '',
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
         query: '',
         url: '',
         attrs: '',
-        mode: 'normalized',
+        attrsFormat: 'normalized',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -693,9 +1021,9 @@ describe('subscription.js', () => {
         }
       });
 
-      subscriptionNode.__set__('deleteSubscription', async () => {});
+      subscriptionNode.__set__('deleteSubscription', async () => { });
 
-      await red.inputWithAwait({payload: {id: '5fa7988a627088ba9b91b1c1'}});
+      await red.inputWithAwait({ payload: { id: '5fa7988a627088ba9b91b1c1' } });
 
       assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
     });

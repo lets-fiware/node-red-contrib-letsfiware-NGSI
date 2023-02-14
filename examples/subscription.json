@@ -1,0 +1,340 @@
+[
+    {
+        "id": "49b801ab6c13addc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "de551a733afe01f3",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Create subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"type\": \"T\",   \"idPattern\": \".*\",   \"watchedAttrs\": \"temperature,humidity\",   \"q\": \"temperature>10\",   \"url\": \"http://context-consumer\",   \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\",   \"expires\": \"2030-04-05T14:00:00.00Z\",   \"throttling\": 5 }",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "314459fc8bf66424"
+            ]
+        ]
+    },
+    {
+        "id": "03d49faf1bbb0d37",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "314459fc8bf66424",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "03d49faf1bbb0d37"
+            ]
+        ]
+    },
+    {
+        "id": "7ae2be4ab11bdcc4",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "03d49faf1bbb0d37"
+            ]
+        ]
+    },
+    {
+        "id": "0e131b864a04649a",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Update subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\": \"63ea11e4a0cec98fc6017aae\", \"expires\": \"2030-04-05T14:00:00.00Z\" }",
+        "payloadType": "json",
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "7ae2be4ab11bdcc4"
+            ]
+        ]
+    },
+    {
+        "id": "999811765597c81d",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "63ea0733a0cec98fc6017aac",
+        "payloadType": "str",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "2d37c756705a96b4"
+            ]
+        ]
+    },
+    {
+        "id": "2d37c756705a96b4",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "03d49faf1bbb0d37"
+            ]
+        ]
+    },
+    {
+        "id": "867253469042b6a8",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Create subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"create\", \"subscription\": {\"type\": \"T\", \"idPattern\": \".*\", \"watchedAttrs\": \"temperature,humidity\", \"q\": \"temperature>10\", \"url\": \"http://context-consumer\", \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\", \"expires\": \"2030-04-05T14:00:00.00Z\", \"throttling\": 5 }}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "8b31cd0f48f4538b"
+            ]
+        ]
+    },
+    {
+        "id": "3d72d664f5ba3acb",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "8b31cd0f48f4538b",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "3d72d664f5ba3acb"
+            ]
+        ]
+    },
+    {
+        "id": "b632840a0658b724",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "3d72d664f5ba3acb"
+            ]
+        ]
+    },
+    {
+        "id": "f7489f7ea407f9af",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Update subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"63ea11e4a0cec98fc6017aae\", \"subscription\": {\"expires\": \"2030-04-05T14:00:00.00Z\" }}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "b632840a0658b724"
+            ]
+        ]
+    },
+    {
+        "id": "605bc0252f81a12e",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"delete\", \"id\": \"63ea11e4a0cec98fc6017aae\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 560,
+        "wires": [
+            [
+                "e1fdefbb2eedf8f1"
+            ]
+        ]
+    },
+    {
+        "id": "e1fdefbb2eedf8f1",
+        "type": "NGSI subscription",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 560,
+        "wires": [
+            [
+                "3d72d664f5ba3acb"
+            ]
+        ]
+    },
+    {
+        "id": "f416c88d082ae970",
+        "type": "Open APIs",
+        "name": "orion",
+        "geType": "orion",
+        "apiEndpoint": "http://orion:1026",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    }
+]
