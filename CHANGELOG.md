@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  UPDATE Node.js dependencies (#78)
 -  ADD Japanese translation (#77)
 
 ## node-red-contrib-letsfiware-NGSI v0.8.0 - 14 February, 2023
