@@ -30,15 +30,17 @@
 
 const lib = require('../../../lib.js');
 
-const getEntities = async function (param) {
-  let page = param.config.page;
-  let totalCount = param.config.count;
-  param.config.count = true;
+const httpRequest = async function (param) {
+  let totalCount = param.config.totalCount;
   const limit = param.config.limit;
+  let page = param.config.page;
+  param.config.count = true;
+
+  let types = [];
 
   do {
     const options = {
-      method: 'get',
+      method: param.method,
       baseURL: param.host,
       url: param.pathname,
       headers: await lib.buildHTTPHeader(param),
@@ -50,65 +52,55 @@ const getEntities = async function (param) {
       if (res.status === 200) {
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
+          if (isNaN(totalCount)) {
+            return res.data;
+          }
           if (totalCount <= 0) {
             break;
           }
         }
-        param.buffer.send(res.data);
+        types = types.concat(res.data);
         page++;
       } else {
-        this.error(`Error while retrieving entities: ${res.status} ${res.statusText}`);
-        break;
+        this.error(`Error while managing entity: ${res.status} ${res.statusText}`);
+        return null;
       }
     } catch (error) {
-      this.error(`Exception while retrieving entities: ${error}`);
-      break;
+      this.error(`Exception while managing entity: ${error}`);
+      return null;
     }
   } while (page * limit < totalCount);
 
-  param.buffer.close();
+  return types;
 };
 
-const nobuffering = {
-  node: null,
-  open: function (node) {
-    this.node = node;
-    return this;
-  },
-  send: function (entities) {
-    this.node.send({ payload: entities });
-  },
-  close: function () { },
-  out: function (entities) {
-    this.node.send({ payload: entities });
-  },
-};
+const createParam = function (msg, defaultConfig, openAPIsConfig) {
+  if (msg.payload && typeof msg.payload === 'string') {
+    defaultConfig.type = msg.payload;
+  }
 
-const buffering = {
-  node: null,
-  entities: [],
-  open: function (node) {
-    this.node = node;
-    this.entities = [];
-    return this;
-  },
-  send: function (entities) {
-    this.entities = this.entities.concat(entities);
-  },
-  close: function () {
-    if (this.entities.length > 0) {
-      this.node.send({ payload: this.entities });
-    }
-  },
-  out: function (entities) {
-    this.node.send({ payload: entities });
-  },
+  const param = {
+    host: openAPIsConfig.apiEndpoint,
+    pathname: '/v2/types/' + defaultConfig.type,
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    config: defaultConfig,
+  };
+
+  if (defaultConfig.type === '') {
+    param.pathname = param.pathname.slice(0, -1);
+  } else {
+    defaultConfig.values = false;
+  }
+
+  [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
+
+  return param;
 };
 
 module.exports = function (RED) {
-  function NGSISource(config) {
+  function NGSITypes(config) {
     RED.nodes.createNode(this, config);
-    var node = this;
+    const node = this;
 
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
@@ -118,35 +110,25 @@ module.exports = function (RED) {
         return;
       }
 
-      if (!msg.payload) {
-        msg.payload = {};
-      } else if (typeof msg.payload === 'string') {
-        msg.payload = { idPattern: msg.payload.trim() };
-      }
-
       const defaultConfig = {
         service: openAPIsConfig.service.trim(),
         servicepath: config.servicepath.trim(),
-        keyValues: config.mode !== 'normalized',
-        type: config.entitytype.trim(),
-        idPattern: config.idpattern.trim(),
-        attrs: config.attrs.trim(),
-        q: config.query.trim(),
-        count: 0,
+        type: config.type.trim(),
+        values: config.values === 'true',
+        noAttrDetail: config.noAttrDetail === 'true',
+        totalCount: 0,
         limit: 100,
         page: 0,
       };
 
-      const param = {
-        host: openAPIsConfig.apiEndpoint,
-        pathname: '/v2/entities',
-        buffer: config.buffering === 'off' ? nobuffering.open(node) : buffering.open(node),
-        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-        config: Object.assign(defaultConfig, msg.payload),
-      };
+      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
 
-      await getEntities.call(node, param);
+      const result = await httpRequest.call(node, param);
+      if (result) {
+        msg.payload = result;
+        node.send(msg);
+      }
     });
   }
-  RED.nodes.registerType('NGSI source', NGSISource);
+  RED.nodes.registerType('NGSI Types', NGSITypes);
 };

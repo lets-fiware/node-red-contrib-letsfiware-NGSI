@@ -33,9 +33,9 @@
 require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
-  
+
 const { assert } = require('chai');
-  
+
 const sourceNode = require('../../src/nodes/NGSI/source/source.js');
 const MockRed = require('./helpers/mockred.js');
 
@@ -59,14 +59,14 @@ describe('source.js', () => {
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => {},
+          getToken: () => { },
           geType: 'fiware',
         }
       });
 
-      sourceNode.__set__('getEntities', () => {});
+      sourceNode.__set__('getEntities', () => { });
 
-      await red.inputWithAwait({payload: null});
+      await red.inputWithAwait({ payload: null });
 
       assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
     });
@@ -85,15 +85,15 @@ describe('source.js', () => {
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => {},
+          getToken: () => { },
           geType: 'orion',
         }
       });
 
       let actual;
-      sourceNode.__set__('getEntities', (param) => {actual = param;});
+      sourceNode.__set__('getEntities', (param) => { actual = param; });
 
-      await red.inputWithAwait({payload: null});
+      await red.inputWithAwait({ payload: null });
 
       assert.equal(actual.config.service, 'openiot');
       assert.equal(actual.config.servicepath, '/');
@@ -124,9 +124,9 @@ describe('source.js', () => {
       });
 
       let actual;
-      sourceNode.__set__('getEntities', (param) => {actual = param;});
+      sourceNode.__set__('getEntities', (param) => { actual = param; });
 
-      await red.inputWithAwait({payload: '.*'});
+      await red.inputWithAwait({ payload: '.*' });
 
       assert.equal(actual.config.idPattern, '.*');
     });
@@ -151,9 +151,9 @@ describe('source.js', () => {
       });
 
       let actual;
-      sourceNode.__set__('getEntities', (param) => {actual = param;});
+      sourceNode.__set__('getEntities', (param) => { actual = param; });
 
-      await red.inputWithAwait({payload: {idPattern: '.*'}});
+      await red.inputWithAwait({ payload: { idPattern: '.*' } });
 
       assert.equal(actual.config.idPattern, '.*');
     });
@@ -178,9 +178,9 @@ describe('source.js', () => {
       });
 
       let actual;
-      sourceNode.__set__('getEntities', (param) => {actual = param;});
+      sourceNode.__set__('getEntities', (param) => { actual = param; });
 
-      await red.inputWithAwait({payload: '.*'});
+      await red.inputWithAwait({ payload: '.*' });
 
       assert.equal(actual.config.keyValues, true);
     });
@@ -190,11 +190,11 @@ describe('source.js', () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 200,
-          headers: {'fiware-total-count': 2} ,
-          data: [{id: 'E1', type: 'T'}, {id: 'E2', type: 'T'}]
+          headers: { 'fiware-total-count': 2 },
+          data: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }]
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -202,7 +202,7 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({send: ()=>{}}),
+        buffer: nobuffering.open({ send: () => { } }),
         config: {
           page: 0,
           count: 0,
@@ -216,11 +216,11 @@ describe('source.js', () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 200,
-          headers: {'fiware-total-count': 2} ,
-          data: [{id: 'E1', type: 'T'}, {id: 'E2', type: 'T'}]
+          headers: { 'fiware-total-count': 2 },
+          data: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }]
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -228,7 +228,7 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({send: ()=>{}}),
+        buffer: nobuffering.open({ send: () => { } }),
         config: {
           page: 0,
           count: 1,
@@ -242,11 +242,11 @@ describe('source.js', () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 200,
-          headers: {'fiware-total-count': 0} ,
+          headers: { 'fiware-total-count': 0 },
           data: []
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -254,7 +254,7 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({send: ()=>{}}),
+        buffer: nobuffering.open({ send: () => { } }),
         config: {
           page: 0,
           count: 0,
@@ -266,9 +266,9 @@ describe('source.js', () => {
     });
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -276,7 +276,7 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({send: ()=>{}}),
+        buffer: nobuffering.open({ send: () => { } }),
         config: {
           page: 0,
           count: 0,
@@ -285,7 +285,7 @@ describe('source.js', () => {
       };
 
       let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
+      const node = { msg: '', error: (e) => { msg = e; } };
       await getEntities.call(node, param);
 
       assert.equal(msg, 'Error while retrieving entities: 400 Bad Request');
@@ -293,8 +293,8 @@ describe('source.js', () => {
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -302,7 +302,7 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({send: ()=>{}}),
+        buffer: nobuffering.open({ send: () => { } }),
         config: {
           page: 0,
           count: 0,
@@ -311,7 +311,7 @@ describe('source.js', () => {
       };
 
       let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
+      const node = { msg: '', error: (e) => { msg = e; } };
       await getEntities.call(node, param);
 
       assert.equal(msg, 'Exception while retrieving entities: unknown error');
@@ -322,32 +322,32 @@ describe('source.js', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const actual = [];
 
-      nobuffering.open({send: (data) => {actual.push(data);}});
-      nobuffering.send([{id: 'E1', type: 'T'}]);
+      nobuffering.open({ send: (data) => { actual.push(data); } });
+      nobuffering.send([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
-      assert.deepEqual(actual, [{payload:[{id: 'E1', type: 'T'}]}]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
 
     });
     it('should have a entities', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const actual = [];
 
-      nobuffering.open({send: (data) => {actual.push(data);}});
-      nobuffering.send([{id: 'E1', type: 'T'}]);
-      nobuffering.send([{id: 'E2', type: 'T'}]);
+      nobuffering.open({ send: (data) => { actual.push(data); } });
+      nobuffering.send([{ id: 'E1', type: 'T' }]);
+      nobuffering.send([{ id: 'E2', type: 'T' }]);
       nobuffering.close();
 
       assert.deepEqual(actual, [
-        {payload: [{id: 'E1', type: 'T'}]},
-        {payload: [{id: 'E2', type: 'T'}]},
+        { payload: [{ id: 'E1', type: 'T' }] },
+        { payload: [{ id: 'E2', type: 'T' }] },
       ]);
     });
     it('should be empty', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const actual = [];
 
-      nobuffering.open({send: (data) => {actual.push(data);}});
+      nobuffering.open({ send: (data) => { actual.push(data); } });
       nobuffering.close();
 
       assert.deepEqual(actual, []);
@@ -357,11 +357,11 @@ describe('source.js', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const actual = [];
 
-      nobuffering.open({send: (data) => {actual.push(data);}});
-      nobuffering.out([{id: 'E1', type: 'T'}]);
+      nobuffering.open({ send: (data) => { actual.push(data); } });
+      nobuffering.out([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
-      assert.deepEqual(actual, [{payload:[{id: 'E1', type: 'T'}]}]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
 
     });
   });
@@ -370,34 +370,36 @@ describe('source.js', () => {
       const buffering = sourceNode.__get__('buffering');
       const actual = [];
 
-      buffering.open({send: (data) => {actual.push(data);}});
-      buffering.send([{id: 'E1', type: 'T'}]);
+      buffering.open({ send: (data) => { actual.push(data); } });
+      buffering.send([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
-      assert.deepEqual(actual, [{payload:[{id: 'E1', type: 'T'}]}]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
 
     });
     it('should have a entities', () => {
       const buffering = sourceNode.__get__('buffering');
       const actual = [];
 
-      buffering.open({send: (data) => {actual.push(data);}});
-      buffering.send([{id: 'E1', type: 'T'}]);
-      buffering.send([{id: 'E2', type: 'T'}]);
+      buffering.open({ send: (data) => { actual.push(data); } });
+      buffering.send([{ id: 'E1', type: 'T' }]);
+      buffering.send([{ id: 'E2', type: 'T' }]);
       buffering.close();
 
       assert.deepEqual(actual, [
-        {payload: [
-          {id: 'E1', type: 'T'},
-          {id: 'E2', type: 'T'},
-        ]},
+        {
+          payload: [
+            { id: 'E1', type: 'T' },
+            { id: 'E2', type: 'T' },
+          ]
+        },
       ]);
     });
     it('should be empty', () => {
       const buffering = sourceNode.__get__('buffering');
       const actual = [];
 
-      buffering.open({send: (data) => {actual.push(data);}});
+      buffering.open({ send: (data) => { actual.push(data); } });
       buffering.close();
 
       assert.deepEqual(actual, []);
@@ -407,11 +409,11 @@ describe('source.js', () => {
       const buffering = sourceNode.__get__('buffering');
       const actual = [];
 
-      buffering.open({send: (data) => {actual.push(data);}});
-      buffering.out([{id: 'E1', type: 'T'}]);
+      buffering.open({ send: (data) => { actual.push(data); } });
+      buffering.out([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
-      assert.deepEqual(actual, [{payload:[{id: 'E1', type: 'T'}]}]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
 
     });
   });

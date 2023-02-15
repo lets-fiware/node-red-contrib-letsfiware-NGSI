@@ -26,6 +26,7 @@ Node-RED implementation for FIWARE Open APIs
 -   [NGSI Attribute value](docs/en/custom_nodes/ngsi_attribute_value.md)
 -   [NGSI Batch update](docs/en/custom_nodes/ngsi_batch_update.md)
 -   [NGSI Subscription](docs/en/custom_nodes/ngsi_subscription.md)
+-   [NGSI Types](docs/en/custom_nodes/ngsi_types.md)
 -   [Historical context](docs/en/custom_nodes/historical_context.md)
 -   [NGSI to Worldmap](docs/en/custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI to Dashboard](docs/en/custom_nodes/ngsi_to_dashboard.md)

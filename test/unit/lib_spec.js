@@ -190,51 +190,49 @@ describe('lib.js', () => {
 
       assert.equal(actual.toString(), 'options=overrideMetadata');
     });
-  });
-  describe('buildSearchParams', () => {
     it('Empty param', () => {
       const param = {};
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
-      assert.equal(actual.get('options'), 'count');
+      assert.equal(actual.get('options'), null);
     });
     it('limit, offset param', () => {
       const param = { limit: 100 };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 100);
-      assert.equal(actual.get('options'), 'count');
+      assert.equal(actual.get('options'), null);
     });
     it('limit, offset param', () => {
       const param = { limit: 100, page: 2 };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 100);
       assert.equal(actual.get('offset'), 200);
-      assert.equal(actual.get('options'), 'count');
+      assert.equal(actual.get('options'), null);
     });
     it('keyValues is false', () => {
       const param = { limit: 10, page: 3, keyValues: false };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 10);
       assert.equal(actual.get('offset'), 30);
-      assert.equal(actual.get('options'), 'count');
+      assert.equal(actual.get('options'), null);
     });
     it('keyValues is true', () => {
       const param = { limit: 99, page: 0, keyValues: true };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 99);
       assert.equal(actual.get('offset'), 0);
-      assert.equal(actual.get('options'), 'count,keyValues');
+      assert.equal(actual.get('options'), 'keyValues');
     });
 
     it('id, type param', () => {
       const param = { id: 'urn:ngsi-ld:Building:store001', type: 'Building', idPattern: '.*', typePattern: 'Build.*' };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
-      assert.equal(actual.get('options'), 'count');
+      assert.equal(actual.get('options'), null);
       assert.equal(actual.get('id'), 'urn:ngsi-ld:Building:store001');
       assert.equal(actual.get('type'), 'Building');
       assert.equal(actual.get('idPattern'), '.*');
@@ -242,14 +240,14 @@ describe('lib.js', () => {
     });
     it('query', () => {
       const param = { q: 'temperature==50', mq: 'accuracy>100' };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('q'), 'temperature==50');
       assert.equal(actual.get('mq'), 'accuracy>100');
     });
     it('geo query', () => {
       const param = { georel: 'near', geometry: 'point', coords: '-40.4,-3.5', maxDistance: 100, minDistance: 50 };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('georel'), 'near');
       assert.equal(actual.get('geometry'), 'point');
@@ -259,14 +257,14 @@ describe('lib.js', () => {
     });
     it('attrs, metadata', () => {
       const param = { limit: 100, page: 2, attrs: 'temperature', metadata: 'accuracy' };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('attrs'), 'temperature');
       assert.equal(actual.get('metadata'), 'accuracy');
     });
     it('orderBy', () => {
       const param = { orderBy: 'temperature,!humidity' };
-      const actual = lib.buildSearchParams(param);
+      const actual = lib.buildParams(param);
 
       assert.equal(actual.get('orderBy'), 'temperature,!humidity');
     });

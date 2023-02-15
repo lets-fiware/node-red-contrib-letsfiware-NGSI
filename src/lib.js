@@ -83,62 +83,12 @@ async function buildHTTPHeader(param) {
 function buildParams(config) {
   const params = new URLSearchParams();
 
-  if (typeof config.type !== 'undefined' && config.type !== '') {
-    params.set('type', config.type);
-  }
-
-  if (typeof config.attrs !== 'undefined' && config.attrs !== '') {
-    params.set('attrs', config.attrs);
-  }
-
-  if (typeof config.metadata !== 'undefined' && config.metadata !== '') {
-    params.set('metadata', config.metadata);
-  }
-
-  const options = [];
-  if (typeof config.keyValues !== 'undefined' && config.keyValues) {
-    options.push('keyValues');
-  }
-  if (typeof config.upsert !== 'undefined' && config.upsert) {
-    options.push('upsert');
-  }
-  if (typeof config.skipForwarding !== 'undefined' && config.skipForwarding) {
-    options.push('skipForwarding');
-  }
-  if (typeof config.forcedUpdate !== 'undefined' && config.forcedUpdate) {
-    options.push('forcedUpdate');
-  }
-  if (typeof config.flowControl !== 'undefined' && config.flowControl) {
-    options.push('flowControl');
-  }
-  if (typeof config.append !== 'undefined' && config.append) {
-    options.push('append');
-  }
-  if (typeof config.overrideMetadata !== 'undefined' && config.overrideMetadata) {
-    options.push('overrideMetadata');
-  }
-  if (options.length > 0) {
-    params.set('options', options.join());
-  }
-
-  return params;
-}
-
-function buildSearchParams(config) {
-  const searchParams = new URLSearchParams();
-
   if (typeof config.limit !== 'undefined') {
-    searchParams.set('limit', config.limit);
+    params.set('limit', config.limit);
     if (typeof config.page !== 'undefined') {
-      searchParams.set('offset', config.page * config.limit);
+      params.set('offset', config.page * config.limit);
     }
   }
-
-  let options = 'count';
-  if (typeof config.keyValues !== 'undefined' && config.keyValues) {
-    options += ',keyValues';
-  }
-  searchParams.set('options', options);
 
   [
     'id',
@@ -157,11 +107,21 @@ function buildSearchParams(config) {
     'orderBy',
   ].forEach((e) => {
     if (config[e] && config[e] !== '') {
-      searchParams.set(e, config[e]);
+      params.set(e, config[e]);
     }
   });
 
-  return searchParams;
+  const options = [];
+  ['count', 'keyValues', 'upsert', 'skipForwarding', 'forcedUpdate', 'flowControl', 'append', 'overrideMetadata', 'values', 'noAttrDetail'].forEach(e => {
+    if (typeof config[e] !== 'undefined' && config[e]) {
+      options.push(e);
+    }
+  });
+  if (options.length > 0) {
+    params.set('options', options.join());
+  }
+
+  return params;
 }
 
 function updateContext(msg, service, path, count) {
@@ -197,7 +157,6 @@ function getServiceAndServicePath(msg, service, path) {
 module.exports = {
   http,
   buildHTTPHeader,
-  buildSearchParams,
   buildParams,
   updateContext,
   getServiceAndServicePath,
