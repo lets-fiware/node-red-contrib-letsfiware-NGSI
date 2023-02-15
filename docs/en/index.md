@@ -16,6 +16,7 @@ Node-RED NGSI integration
 -   [NGSI Attribute value](custom_nodes/ngsi_attribute_value.md)
 -   [NGSI Batch update](custom_nodes/ngsi_batch_update.md)
 -   [NGSI Subscription](custom_nodes/ngsi_subscription.md)
+-   [NGSI Types](custom_nodes/ngsi_types.md)
 -   [Historical context](custom_nodes/historical_context.md)
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)
 -   [GTFS realtime to NGSI](custom_nodes/ngsi_gtfs_realtime.md)

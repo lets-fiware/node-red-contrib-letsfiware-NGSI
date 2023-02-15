@@ -1,0 +1,196 @@
+[
+    {
+        "id": "49b801ab6c13addc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "17c4b4f377427433",
+        "type": "NGSI Types",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "entityType": "",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "93738caefc0b4ef4"
+            ]
+        ]
+    },
+    {
+        "id": "a1b504ab30dfb9e4",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "17c4b4f377427433"
+            ]
+        ]
+    },
+    {
+        "id": "93738caefc0b4ef4",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9333b0e268d68271",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Sensor",
+        "payloadType": "str",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "17c4b4f377427433"
+            ]
+        ]
+    },
+    {
+        "id": "0514309df1e06eb0",
+        "type": "NGSI Entity",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 60,
+        "wires": [
+            [
+                "93738caefc0b4ef4"
+            ]
+        ]
+    },
+    {
+        "id": "f5d9760cc0442b1b",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:WeatherObserved:sensor001\",\"type\":\"Sensor\",\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\",\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1019.7,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\"}}},\"dateObserved\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T19:26:42.000Z\",\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\"}}},\"location\":{\"type\":\"geo:json\",\"value\":{\"type\":\"Point\",\"coordinates\":[139.7671,35.68117]},\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":34.3,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\"}}},\"temperature\":{\"type\":\"Number\",\"value\":18.8,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-15T10:26:42.432Z\"}}}}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "0514309df1e06eb0"
+            ]
+        ]
+    },
+    {
+        "id": "ad797621c63523f1",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:WeatherObserved:sensor001",
+        "payloadType": "str",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "d93c557f8e6aac03"
+            ]
+        ]
+    },
+    {
+        "id": "d93c557f8e6aac03",
+        "type": "NGSI Entity",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "93738caefc0b4ef4"
+            ]
+        ]
+    },
+    {
+        "id": "f416c88d082ae970",
+        "type": "Open APIs",
+        "name": "orion",
+        "geType": "orion",
+        "apiEndpoint": "http://orion:1026",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    }
+]
