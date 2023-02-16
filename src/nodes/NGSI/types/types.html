@@ -37,6 +37,7 @@
           required: true
         },
         servicepath: { value: '/' },
+        actionType: { value: 'types' },
         entityType: { value: '' },
         values: { value: 'false' },
         noAttrDetail: { value: 'false' },
@@ -48,6 +49,27 @@
         return this.name || 'NGSI Types';
       }
     });
+
+    /* eslint no-unused-vars: 0 */
+    function types_actionType_Changed(e) {
+      switch (e.target.value) {
+        case 'types':
+          document.getElementById('entityType').hidden = true;
+          document.getElementById('values').hidden = false;
+          document.getElementById('noAttrDetail').hidden = false;
+          break;
+        case 'type':
+          document.getElementById('entityType').hidden = false;
+          document.getElementById('values').hidden = true;
+          document.getElementById('noAttrDetail').hidden = false;
+          break;
+        default:
+          document.getElementById('entityType').hidden = false;
+          document.getElementById('values').hidden = false;
+          document.getElementById('noAttrDetail').hidden = false;
+          break;
+      }
+    }
 </script>
 
 <script type="text/x-red" data-template-name="NGSI Types">
@@ -63,18 +85,26 @@
         <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
         <input type="text" id="node-input-servicepath">
     </div>
+    <div class="form-row">
+        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+        <select id="node-input-actionType" onchange="types_actionType_Changed(event)">
+            <option value="types" enabled>List Entity Types</option>
+            <option value="type">Entity information for a given type</option>
+            <option value="payload">value of ActionType in payload</option>
+        </select>
+    </div>
     <div class="form-row" id="entityType">
         <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
         <input type="text" id="node-input-entityType">
     </div>
-    <div class="form-row">
+    <div class="form-row" id="values">
         <label for="node-input-values"><i class="fa fa-tag"></i> Values</label>
         <select id="node-input-values">
             <option value="false" enabled>false</option>
             <option value="true">true</option>
         </select>
     </div>
-    <div class="form-row">
+    <div class="form-row" id="noAttrDetail">
         <label for="node-input-noAttrDetail"><i class="fa fa-tag"></i> NoAttrDetail</label>
         <select id="node-input-noAttrDetail">
             <option value="false" enabled>false</option>

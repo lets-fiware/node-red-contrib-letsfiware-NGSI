@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const httpRequest = async function (param) {
+const getTypes = async function (param) {
   let totalCount = param.config.totalCount;
   const limit = param.config.limit;
   let page = param.config.page;
@@ -52,9 +52,6 @@ const httpRequest = async function (param) {
       if (res.status === 200) {
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
-          if (isNaN(totalCount)) {
-            return res.data;
-          }
           if (totalCount <= 0) {
             break;
           }
@@ -62,11 +59,11 @@ const httpRequest = async function (param) {
         types = types.concat(res.data);
         page++;
       } else {
-        this.error(`Error while managing entity: ${res.status} ${res.statusText}`);
+        this.error(`Error while retrieving entity types: ${res.status} ${res.statusText}`);
         return null;
       }
     } catch (error) {
-      this.error(`Exception while managing entity: ${error}`);
+      this.error(`Exception while retrieving entity types: ${error}`);
       return null;
     }
   } while (page * limit < totalCount);
@@ -74,22 +71,62 @@ const httpRequest = async function (param) {
   return types;
 };
 
+const getType = async function (param) {
+  const options = {
+    method: param.method,
+    baseURL: param.host,
+    url: param.pathname,
+    headers: await lib.buildHTTPHeader(param),
+    params: lib.buildParams(param.config),
+  };
+
+  try {
+    const res = await lib.http(options);
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      this.error(`Error while retrieving entity type: ${res.status} ${res.statusText}`);
+      return null;
+    }
+  } catch (error) {
+    this.error(`Exception while retrieving entity type: ${error}`);
+    return null;
+  }
+};
+
 const createParam = function (msg, defaultConfig, openAPIsConfig) {
-  if (msg.payload && typeof msg.payload === 'string') {
-    defaultConfig.type = msg.payload;
+  if (defaultConfig.actionType === 'payload') {
+    if ('actionType' in msg.payload) {
+      defaultConfig = Object.assign(defaultConfig, msg.payload);
+    } else {
+      this.error('actionType not found');
+      return;
+    }
+  } else {
+    if (defaultConfig.actionType === 'type' && typeof msg.payload === 'string' && msg.payload !== '') {
+      defaultConfig.type = msg.payload;
+    }
   }
 
   const param = {
     host: openAPIsConfig.apiEndpoint,
-    pathname: '/v2/types/' + defaultConfig.type,
+    pathname: '/v2/types',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
     config: defaultConfig,
   };
 
-  if (defaultConfig.type === '') {
-    param.pathname = param.pathname.slice(0, -1);
+  if (defaultConfig.actionType === 'types') {
+    param.func = getTypes;
+  } else if (defaultConfig.actionType === 'type') {
+    param.func = getType;
+    if (typeof defaultConfig.type !== 'string') {
+      this.error('type not string');
+      return;
+    }
+    param.pathname += '/' + defaultConfig.type;
   } else {
-    defaultConfig.values = false;
+    this.error('ActionType error: ' + defaultConfig.actionType);
+    return null;
   }
 
   [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
@@ -113,7 +150,8 @@ module.exports = function (RED) {
       const defaultConfig = {
         service: openAPIsConfig.service.trim(),
         servicepath: config.servicepath.trim(),
-        type: config.type.trim(),
+        actionType: config.actionType.trim(),
+        type: config.entityType.trim(),
         values: config.values === 'true',
         noAttrDetail: config.noAttrDetail === 'true',
         totalCount: 0,
@@ -122,11 +160,12 @@ module.exports = function (RED) {
       };
 
       const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
-
-      const result = await httpRequest.call(node, param);
-      if (result) {
-        msg.payload = result;
-        node.send(msg);
+      if (param) {
+        const result = await param.func.call(node, param);
+        if (result) {
+          msg.payload = result;
+          node.send(msg);
+        }
       }
     });
   }
