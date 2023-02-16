@@ -4,6 +4,8 @@ This custom node is a simple node that allows to transform context data to data 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 

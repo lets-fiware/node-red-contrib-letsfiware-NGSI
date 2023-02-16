@@ -28,9 +28,9 @@ It allows to read an attribute in NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `read`
--   `Entity id`: Entity id to be read an attribute
--   `Entity type`: Entity type to be read an attribute
--   `Attribute name`: Attribute name to be read an attribute
+-   `Entity id`: Id of an entity containing an attribute to be read
+-   `Entity type`: Type of an entity containing an attribute to be read
+-   `Attribute name`: Attribute name of an attribute to be read
 -   `Metadata`: List of metadata names
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 
@@ -86,9 +86,9 @@ It allows to update an attribute in NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `update`
--   `Entity id`: Entity id to be updated attribute
--   `Entity type`: Entity type to be updated attribute
--   `Attribute name`: Attribute name to be updated attribute
+-   `Entity id`: Id of an entity containing an attribute to be updated
+-   `Entity type`: Type of an entity containing an attribute to be updated
+-   `Attribute name`: Attribute name of an attribute to be updated
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
@@ -97,7 +97,7 @@ It allows to update an attribute in NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain an object representing the attribute to update.
 
@@ -110,7 +110,7 @@ A `msg.payload` should contain an object representing the attribute to update.
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -134,15 +134,15 @@ It allows to delete an attribute in NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `delete`
--   `Entity id`: Entity id to be deleted attribute
--   `Entity type`: Entity type to be deleted attribute
--   `Attribute name`: Attribute name to delete
+-   `Entity id`: Id of an entity containing an attribute to be deleted
+-   `Entity type`: Type of an entity containing an attribute to be delete
+-   `Attribute name`: Attribute name of an attribute to be deleted
 
 ### Example
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain information related to the attribute to delete.
 
@@ -167,7 +167,7 @@ A `msg.payload` should contain information related to the attribute to delete.
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -190,10 +190,10 @@ It allows to read, update or delete an attribute in NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to be read, updated or deleted an attribute
--   `Entity type`: Entity type to be read, updated or deleted an attribute
--   `Attribute name`: Attribute name name to read, update or delete
+-   `Action type`: `value of actionType in payload`
+-   `Entity id`: Id of an entity containing an attribute to be read, updated or delete
+-   `Entity type`: Type of an entity containing an attribute to be read, updated or delete
+-   `Attribute name`: Attribute name of an attribute to be read, updated or delete
 -   `Metadata`: List of metadata names
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 -   `Override metadata`: If true, it replaces the existing metadata
@@ -202,11 +202,11 @@ It allows to read, update or delete an attribute in NGSIv2 entity.
 
 ### Examples
 
-When reading an attribute, A `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be read.
+When reading an attribute, a `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be read.
 
 #### Input 1
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -229,11 +229,11 @@ A `msg.payload` contains an object representing the attribute.
 }
 ```
 
-When updating an attribute, A `msg.payload` should contain a JSON Object with `actionType` and `attribute` with related information the attribute to be updated.
+When updating an attribute, a `msg.payload` should contain a JSON Object with `actionType` and `attribute` with related information the attribute to be updated.
 
 #### Input 2
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -247,7 +247,7 @@ Payload  *JSON Object*
 
 #### Output 2
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -259,11 +259,11 @@ A `msg.payload` contains a status code.
 null
 ```
 
-When deleting an attribute, A `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be deleted.
+When deleting an attribute, a `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be deleted.
 
 #### Input 3
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -276,7 +276,7 @@ Payload  *JSON Object*
 
 Payload *JSON Object*
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 

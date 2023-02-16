@@ -4,6 +4,8 @@ This custom node is a simple node that allows to obtain the version information 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -25,7 +27,7 @@ This custom node is a simple node that allows to obtain the version information 
 
 ### Payload  *Any*
 
-A `msg.payload` should contains any payload.
+A `msg.payload` should contain any payload.
 
 ```
 {}

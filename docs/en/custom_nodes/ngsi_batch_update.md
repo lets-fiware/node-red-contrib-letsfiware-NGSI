@@ -5,13 +5,14 @@ This custom node is a simple node that allows to update NGSIv2 entity(ies). Enti
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/batch_update-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
 -   [Properties](#properties)
--   [Inputs](#inputs)
--   [Outputs](#outputs)
--   [Examples](#examples)
+-   [Input](#input)
+-   [Output](#output)
 
 </details>
 
@@ -21,16 +22,12 @@ This custom node is a simple node that allows to update NGSIv2 entity(ies). Enti
 
 - `name`: a name for a node instance
 
-## Inputs *JSON Araay* or *JSON Object*
+## Input
+
+Payload *JSON Araay* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or a JSON Object with two properties, `actionType` and
 `entities`.
-
-## Outputs *Number* or null
-
-A `msg.payload` contains `204` (as Number) or null.
-
-## Examples
 
 ### Input 1 (JSON Array)
 
@@ -97,8 +94,16 @@ A `msg.payload` contains `204` (as Number) or null.
 }
 ```
 
-### Output
+## Output
+
+Payload *Number* or null
+
+A `msg.payload` contains a status code.
 
 ```
 204
+```
+
+```
+null
 ```
