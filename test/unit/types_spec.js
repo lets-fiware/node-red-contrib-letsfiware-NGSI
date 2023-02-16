@@ -40,7 +40,7 @@ const typesNode = require('../../src/nodes/NGSI/types/types.js');
 const MockRed = require('./helpers/mockred.js');
 
 describe('types.js', () => {
-  describe('httpRequest', () => {
+  describe('getTypes', () => {
     afterEach(() => {
       typesNode.__ResetDependency__('lib');
     });
@@ -54,7 +54,7 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const getTypes = typesNode.__get__('getTypes');
 
       const param = {
         method: 'post',
@@ -67,7 +67,7 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const actual = await getTypes(param);
 
       const expected = [{ 'type': 'Sensor', 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 }, { 'type': 'T', 'attrs': { 'test': { 'types': ['Test'] } }, 'count': 1 }, { 'type': 'Thing', 'attrs': { 'temperature': { 'types': ['StructuredValue'] } }, 'count': 1 }];
 
@@ -85,7 +85,7 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const getTypes = typesNode.__get__('getTypes');
 
       const param = {
         method: 'post',
@@ -98,7 +98,7 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const actual = await getTypes(param);
 
       const expected = [
         { 'type': 'Sensor', 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 }, { 'type': 'T', 'attrs': { 'test': { 'types': ['Test'] } }, 'count': 1 }, { 'type': 'Thing', 'attrs': { 'temperature': { 'types': ['StructuredValue'] } }, 'count': 1 },
@@ -117,7 +117,7 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const getTypes = typesNode.__get__('getTypes');
 
       const param = {
         method: 'post',
@@ -130,13 +130,68 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const actual = await getTypes(param);
 
       const expected = [];
 
       assert.deepEqual(actual, expected);
     });
-    it('/v2/types/T', async () => {
+    it('should be 400 Bad Request', async () => {
+      typesNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getTypes = typesNode.__get__('getTypes');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/v2/types',
+        config: {
+          actionType: 'read',
+        },
+      };
+
+      let msg = '';
+      const node = { msg: '', error: (e) => { msg = e; } };
+
+      const actual = await getTypes.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.equal(msg, 'Error while retrieving entity types: 400 Bad Request');
+    });
+    it('Should be unknown error', async () => {
+      typesNode.__set__('lib', {
+        http: async () => Promise.reject('unknown error'),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getTypes = typesNode.__get__('getTypes');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/v2/types',
+        config: {
+          actionType: 'read',
+        },
+      };
+
+      let msg = '';
+      const node = { msg: '', error: (e) => { msg = e; } };
+
+      const actual = await getTypes.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.equal(msg, 'Exception while retrieving entity types: unknown error');
+    });
+  });
+  describe('getTypes', () => {
+    afterEach(() => {
+      typesNode.__ResetDependency__('lib');
+    });
+    it('type', async () => {
       typesNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 200,
@@ -146,7 +201,7 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const getType = typesNode.__get__('getType');
 
       const param = {
         method: 'post',
@@ -154,12 +209,12 @@ describe('types.js', () => {
         pathname: '/v2/types/T',
         config: {
           totalCount: 0,
-          limit: 0,
+          limit: 1,
           page: 0,
         },
       };
 
-      const actual = await httpRequest(param);
+      const actual = await getType(param);
 
       const expected = { 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 };
 
@@ -171,12 +226,12 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const gettype = typesNode.__get__('getType');
 
       const param = {
         method: 'post',
         host: 'http://orion:1026',
-        pathname: '/v2/types',
+        pathname: '/v2/type/T',
         config: {
           actionType: 'read',
         },
@@ -185,10 +240,10 @@ describe('types.js', () => {
       let msg = '';
       const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const actual = await gettype.call(node, param);
 
       assert.deepEqual(actual, null);
-      assert.equal(msg, 'Error while managing entity: 400 Bad Request');
+      assert.equal(msg, 'Error while retrieving entity type: 400 Bad Request');
     });
     it('Should be unknown error', async () => {
       typesNode.__set__('lib', {
@@ -196,12 +251,12 @@ describe('types.js', () => {
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
-      const httpRequest = typesNode.__get__('httpRequest');
+      const gettype = typesNode.__get__('getType');
 
       const param = {
         method: 'post',
         host: 'http://orion:1026',
-        pathname: '/v2/types',
+        pathname: '/v2/type/T',
         config: {
           actionType: 'read',
         },
@@ -210,10 +265,10 @@ describe('types.js', () => {
       let msg = '';
       const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const actual = await gettype.call(node, param);
 
       assert.deepEqual(actual, null);
-      assert.equal(msg, 'Exception while managing entity: unknown error');
+      assert.equal(msg, 'Exception while retrieving entity type: unknown error');
     });
   });
   describe('createParam', () => {
@@ -223,6 +278,7 @@ describe('types.js', () => {
       const defaultConfig = {
         service: 'orion',
         servicepath: '/',
+        actionType: 'types',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -234,13 +290,17 @@ describe('types.js', () => {
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
+      actual.func = null;
+
       const expected = {
         host: 'http://orion:1026',
         pathname: '/v2/types',
         getToken: null,
+        func: null,
         config: {
           service: 'openiot',
           servicepath: '/',
+          actionType: 'types',
           type: '',
           values: false,
           noAttrDetail: false,
@@ -258,6 +318,7 @@ describe('types.js', () => {
       const defaultConfig = {
         service: 'orion',
         servicepath: '/',
+        actionType: 'type',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -269,14 +330,58 @@ describe('types.js', () => {
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
+      actual.func = null;
+
       const expected = {
         host: 'http://orion:1026',
         pathname: '/v2/types/Sensor',
         getToken: null,
+        func: null,
         config: {
           service: 'openiot',
           servicepath: '/',
+          actionType: 'type',
           type: 'Sensor',
+          values: false,
+          noAttrDetail: false,
+          totalCount: 0,
+          limit: 100,
+          page: 0,
+        },
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('actionType', () => {
+      const createParam = typesNode.__get__('createParam');
+      const msg = { payload: { actionType: 'types' } };
+      const defaultConfig = {
+        service: 'orion',
+        servicepath: '/',
+        actionType: 'payload',
+        type: '',
+        values: false,
+        noAttrDetail: false,
+        totalCount: 0,
+        limit: 100,
+        page: 0,
+      };
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+
+      actual.func = null;
+
+      const expected = {
+        host: 'http://orion:1026',
+        pathname: '/v2/types',
+        getToken: null,
+        func: null,
+        config: {
+          service: 'openiot',
+          servicepath: '/',
+          actionType: 'types',
+          type: '',
           values: false,
           noAttrDetail: false,
           totalCount: 0,
@@ -289,10 +394,11 @@ describe('types.js', () => {
     });
     it('getToken', () => {
       const createParam = typesNode.__get__('createParam');
-      const msg = { payload: { id: 'I', type: 'E', keyValues: false } };
+      const msg = { payload: {} };
       const defaultConfig = {
         service: 'orion',
         servicepath: '/',
+        actionType: 'types',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -306,14 +412,17 @@ describe('types.js', () => {
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       actual.getToken = null;
+      actual.func = null;
 
       const expected = {
         host: 'http://orion:1026',
         pathname: '/v2/types',
         getToken: null,
+        func: null,
         config: {
           service: 'openiot',
           servicepath: '/',
+          actionType: 'types',
           type: '',
           values: false,
           noAttrDetail: false,
@@ -325,17 +434,66 @@ describe('types.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('actionType not found', () => {
+      const createParam = typesNode.__get__('createParam');
+      const msg = { payload: {} };
+      const defaultConfig = {
+        service: 'orion',
+        servicepath: '/',
+        actionType: 'payload',
+        type: '',
+        values: false,
+        noAttrDetail: false,
+        totalCount: 0,
+        limit: 100,
+        page: 0,
+      };
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'actionType not found');
+    });
+    it('type not string', () => {
+      const createParam = typesNode.__get__('createParam');
+      const msg = { payload: { actionType: 'type', type: {} } };
+      const defaultConfig = {
+        service: 'orion',
+        servicepath: '/',
+        actionType: 'payload',
+        type: '',
+        values: false,
+        noAttrDetail: false,
+        totalCount: 0,
+        limit: 100,
+        page: 0,
+      };
+      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      let err = '';
+      const node = { msg: '', error: (e) => { err = e; } };
+
+      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.equal(err, 'type not string');
+    });
   });
   describe('NGSI Types node', () => {
     afterEach(() => {
-      typesNode.__ResetDependency__('httpRequest');
+      typesNode.__ResetDependency__('getTypes');
     });
     it('types', async () => {
       const red = new MockRed();
       typesNode(red);
       red.createNode({
         servicepath: '/',
-        type: '',
+        actionType: 'types',
+        entityType: '',
         values: false,
         noAttrDetail: false,
         totalCount: 0,
@@ -351,7 +509,7 @@ describe('types.js', () => {
       });
 
       let actual;
-      typesNode.__set__('httpRequest', (param) => {
+      typesNode.__set__('getTypes', (param) => {
         actual = param;
         return [{ type: 'Sensor', attrs: { TimeInstant: { types: ['DateTime'] }, atmosphericPressure: { types: ['Number'] }, dateObserved: { types: ['DateTime'] }, location: { types: ['geo:json'] }, relativeHumidity: { types: ['Number'] }, temperature: { types: ['Number'] } }, count: 1 }, { type: 'T', attrs: { test: { types: ['Test'] } }, count: 1 }, { type: 'Thing', attrs: { temperature: { types: ['StructuredValue'] } }, count: 1 }];
       });
@@ -367,6 +525,7 @@ describe('types.js', () => {
       assert.deepEqual(actual.config, {
         service: 'openiot',
         servicepath: '/',
+        actionType: 'types',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -380,6 +539,7 @@ describe('types.js', () => {
       typesNode(red);
       red.createNode({
         servicepath: '/',
+        actionType: 'types',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -404,7 +564,8 @@ describe('types.js', () => {
       typesNode(red);
       red.createNode({
         servicepath: '/',
-        type: '',
+        actionType: 'types',
+        entityType: '',
         values: false,
         noAttrDetail: false,
         totalCount: 0,
@@ -420,7 +581,7 @@ describe('types.js', () => {
       });
 
       let actual;
-      typesNode.__set__('httpRequest', (param) => {
+      typesNode.__set__('getTypes', (param) => {
         actual = param;
         return null;
       });
@@ -430,6 +591,7 @@ describe('types.js', () => {
       assert.deepEqual(actual.config, {
         service: 'openiot',
         servicepath: '/',
+        actionType: 'types',
         type: '',
         values: false,
         noAttrDetail: false,
@@ -437,6 +599,31 @@ describe('types.js', () => {
         limit: 100,
         page: 0,
       });
+    });
+    it('ActionType error', async () => {
+      const red = new MockRed();
+      typesNode(red);
+      red.createNode({
+        servicepath: '/',
+        actionType: 'fiware',
+        entityType: '',
+        values: false,
+        noAttrDetail: false,
+        totalCount: 0,
+        limit: 100,
+        page: 0,
+
+        openapis: {
+          apiEndpoint: 'http://orion:1026',
+          service: 'openiot',
+          getToken: null,
+          geType: 'orion',
+        }
+      });
+
+      await red.inputWithAwait({ payload: {} });
+
+      assert.equal(red.getMessage(), 'ActionType error: fiware');
     });
   });
 });
