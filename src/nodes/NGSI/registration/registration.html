@@ -1,0 +1,146 @@
+<!--
+   MIT License
+
+   Copyright 2022-2023 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('NGSI registration', {
+      category: 'FIWARE',
+      color: '#A9E2F3',
+      defaults: {
+        name: { value: '' },
+        openapis: {
+          type: 'Open APIs',
+          required: true
+        },
+        servicepath: { value: '/' },
+        actionType: { value: 'create' },
+        registrationId: { value: '' },
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: 'fiware-non-free.svg',
+      label: function () {
+        return this.name || "NGSI registration";
+      }
+    });
+
+    /* eslint no-unused-vars: 0 */
+    function registration_actionType_Changed(e) {
+      switch (e.target.value) {
+        case 'create':
+          document.getElementById('registrationId').hidden = true;
+          break;
+        default:
+          document.getElementById('registrationId').hidden = false;
+          break;
+      }
+    }
+</script>
+
+<script type="text/x-red" data-template-name="NGSI registration">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-openapis"><i class="icon-tag"></i> Context Broker</label>
+        <input type="text" id="node-input-openapis" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+        <input type="text" id="node-input-servicepath">
+    </div>
+    <div class="form-row">
+        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+        <select id="node-input-actionType" onchange="registration_actionType_Changed(event)">
+            <option value="create" enabled>create</option>
+            <option value="delete">delete</option>
+            <option value="payload">value of ActionType in payload</option>
+        </select>
+    </div>
+    <div class="form-row" id="registrationId">
+        <label for="node-input-registrationId"><i class="fa fa-tag"></i> Registration id</label>
+        <input type="text" id="node-input-registrationId">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="NGSI registration">
+    <p>A simple node that allows to create, update or delete an NGSIv2 registration.</p>
+    <h3>Create a registration</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>A NGSIv2 registration data</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">String</span>
+        </dt>
+        <dd>A registration id</dd>
+    </dl>
+
+    <h3>Delete a registration</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">String</span>
+        </dt>
+        <dd>A registration id</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Use value of actionType in payload</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd>JSON object with action Type and related information</dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">String or Number</span>
+        </dt>
+        <dd>A registration id or status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_registration/">here</a> for full documentation.</p>
+</script>
