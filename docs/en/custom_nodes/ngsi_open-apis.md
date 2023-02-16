@@ -2,6 +2,8 @@
 
 This custom node is a configuration node that allows to configure Context Broker and IdM.
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 

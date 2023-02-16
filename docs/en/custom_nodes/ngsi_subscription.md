@@ -4,6 +4,8 @@ This custom node is a simple node that allows to create, update or delete an NGS
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/subscription/subscription-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -41,7 +43,7 @@ This operation allows to create a new subscription.
 
 Payload *JSON Object*
 
-A `msg.payload` contains a NGSIv2 subscription data.
+A `msg.payload` should contain a NGSIv2 subscription data.
 
 ```json
 {
@@ -92,7 +94,7 @@ A `msg.payload` contains a NGSIv2 subscription data.
 
 #### Output
 
-Payload  *string*
+Payload *String*
 
 A `msg.payload` contains a subscription id.
 
@@ -126,7 +128,7 @@ This operation allows to update a existing subscription.
 
 Payload *JSON Object*
 
-A `msg.payload` contains a NGSIv2 subscription fragment with a subscription id.
+A `msg.payload` should contain a NGSIv2 subscription fragment with a subscription id.
 
 ```
 {
@@ -139,7 +141,7 @@ A `msg.payload` contains a NGSIv2 subscription fragment with a subscription id.
 
 Payload *Number* or *null*
 
-A `msg.payload` contains `204` (as Number) or null.
+A `msg.payload` contains a status code.
 
 ```text
 204
@@ -166,9 +168,9 @@ This operation allows to delete a existing subscription.
 
 #### Input
 
-Payload *string*
+Payload *String*
 
-A `msg.payload` contains a subscription id.
+A `msg.payload` should contain a subscription id.
 
 ```
 5fa7988a627088ba9b91b1c1
@@ -178,7 +180,7 @@ A `msg.payload` contains a subscription id.
 
 Payload *Number* or *null*
 
-A `msg.payload` contains `204` (as Number) or null.
+A `msg.payload` contains a status code.
 
 ```
 204
@@ -199,11 +201,11 @@ This operation allows to create, update or delete a subscription.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: `delete`
+-   `Action type`: `value of actionType in payload`
 
 ### Example
 
-When creating a new subscription, A `msg.payload` should contain a JSON Object with actionType and subscription data.
+When creating a new subscription, a `msg.payload` should contain a JSON Object with actionType and subscription data.
 
 #### Input
 
@@ -226,7 +228,7 @@ When creating a new subscription, A `msg.payload` should contain a JSON Object w
 
 #### Output
 
-Payload  *string*
+Payload *String*
 
 A `msg.payload` contains a subscription id.
 
@@ -234,7 +236,7 @@ A `msg.payload` contains a subscription id.
 5fa7988a627088ba9b91b1c1
 ```
 
-When updating a existing subscription, A `msg.payload` should contain a JSON Object with actionType, subscription id and subscription data.
+When updating a existing subscription, a `msg.payload` should contain a JSON Object with actionType, subscription id and subscription data.
 
 #### Input
 
@@ -252,7 +254,7 @@ When updating a existing subscription, A `msg.payload` should contain a JSON Obj
 
 Payload *Number* or *null*
 
-A `msg.payload` contains `204` (as Number) or null.
+A `msg.payload` contains a status code.
 
 ```
 204
@@ -262,7 +264,7 @@ A `msg.payload` contains `204` (as Number) or null.
 null
 ```
 
-When deleting a existing subscription, A `msg.payload` should contain a JSON Object with actionType and subscription id.
+When deleting a existing subscription, a `msg.payload` should contain a JSON Object with actionType and subscription id.
 
 #### Input
 
@@ -277,7 +279,7 @@ When deleting a existing subscription, A `msg.payload` should contain a JSON Obj
 
 Payload *Number* or *null*
 
-A `msg.payload` contains `204` (as Number) or null.
+A `msg.payload` contains a status code.
 
 ```
 204

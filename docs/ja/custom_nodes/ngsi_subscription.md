@@ -208,7 +208,7 @@ null
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: `delete`
+-   `Action type`: `value of actionType in payload`
 
 ### 例
 

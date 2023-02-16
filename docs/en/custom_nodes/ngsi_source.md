@@ -4,6 +4,8 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -32,7 +34,7 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 
 ### Payload  *JSON Object*
 
-A `msg.payload` should contains a query condition to retrieves NGSIv2 entitites.
+A `msg.payload` should contain a query condition to retrieves NGSIv2 entitites.
 
 ```
 {

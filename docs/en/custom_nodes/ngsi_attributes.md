@@ -11,7 +11,7 @@ This custom node is a simple node that allows to append, update, upsert or repla
 
 -   [Append attributes](#append-attributes)
 -   [Update attributes](#update-attributes)
--   [Update attributes](#update-attributes)
+-   [Upsert attributes](#upsert-attributes)
 -   [Replace attributes](#replace-attributes)
 -   [Use value of actionType in payload](#use-value-of-actionType-in-payload)
 
@@ -29,8 +29,8 @@ It allows to append attributes of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `append`
--   `Entity id`: Entity id to be appended attributes
--   `Entity type`: Entity type to be appended attributes
+-   `Entity id`: Id of an entity containing attributes to be appended
+-   `Entity type`: Type of an entity containing attributes to be appended
 -   `Representation`: normalized or keyValues
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
@@ -40,7 +40,7 @@ It allows to append attributes of NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
@@ -56,7 +56,7 @@ A `msg.payload` should contain an object with the attributes.
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -80,8 +80,8 @@ It allows to update attributes of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `update`
--   `Entity id`: Entity id to be updated attributes
--   `Entity type`: Entity type to be updated attributes
+-   `Entity id`: Id of an entity containing attributes to be updated
+-   `Entity type`: Type of an entity containing attributes to be updated
 -   `Representation`: normalized or keyValues
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
@@ -91,7 +91,7 @@ It allows to update attributes of NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
@@ -107,7 +107,7 @@ A `msg.payload` should contain an object with the attributes.
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -131,8 +131,8 @@ It allows to upsert attributes of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `upsert`
--   `Entity id`: Entity id to be upserted attributes
--   `Entity type`: Entity type to be upserted attributes
+-   `Entity id`: Id of an entity containing attributes to be upserted
+-   `Entity type`: Type of an entity containing attributes to be upserted 
 -   `Representation`: normalized or keyValues
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
@@ -142,7 +142,7 @@ It allows to upsert attributes of NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
@@ -163,7 +163,7 @@ A `msg.payload` should contain an object with the attributes.
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -187,8 +187,8 @@ It allows to replace attributes of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `replace`
--   `Entity id`: Entity id to be replaced attributes
--   `Entity type`: Entity type to be replaced attributes
+-   `Entity id`: Id of an entity containing attributes to be replaced
+-   `Entity type`: Type of an entity containing attributes to be replaced
 -   `Representation`: normalized or keyValues
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
@@ -198,7 +198,7 @@ It allows to replace attributes of NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
@@ -224,7 +224,7 @@ A `msg.payload` should contain an object with the attributes.
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -247,9 +247,9 @@ It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to be appended, updated, upserted or replaced attributes
--   `Entity type`: Entity type to be appended, updated, upserted or replaced attributes
+-   `Action type`: `value of actionType in payload`
+-   `Entity id`: Id of an entity containing attributes to be appended, updated, upserted or replaced
+-   `Entity type`: Type of an entity containing attributes to be appended, updated, upserted or replaced
 -   `Representation`: normalized or keyValues
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
@@ -259,7 +259,7 @@ It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` should contain a JSON Object with actionType and an object with the attributes.
 
@@ -336,7 +336,7 @@ A `msg.payload` should contain a JSON Object with actionType and an object with 
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 

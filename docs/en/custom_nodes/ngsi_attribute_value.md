@@ -4,6 +4,8 @@ This custom node is a simple node that allows to read or update an attribute val
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -25,18 +27,18 @@ It allows to read an attribute value of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `read`
--   `Entity id`: Entity id to be read an attribute value
--   `Entity type`: Entity type to be read an attribute value
--   `Attribute name`: Attribute name to be read an attribute value
+-   `Entity id`: Id of an entity containing an attribute to be read value
+-   `Entity type`: Type of an entity containing an attribute to be read a value
+-   `Attribute name`: Attribute name of an attribute to be read a value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 
 ### Example
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
-A `msg.payload` should contain a NGSI v2 entity.
+A `msg.payload` should contain information related to the attribute vale to read.
 
 The following payload uses value of each property.
 
@@ -57,7 +59,7 @@ The following payload overwrites value of each property.
 
 #### Output
 
-Payload *null, boolean, number, string or JSON Object*
+Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` contains an attribute value.
 
@@ -73,9 +75,9 @@ It allows to update an attribute value of NGSIv2 entity.
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `update`
--   `Entity id`: Entity id to be updated an attribute value
--   `Entity type`: Entity type to be updated an attribute value
--   `Attribute name`: Attribute name to be updated an attribute value
+-   `Entity id`: Id of an entity containing an attribute to be updated value
+-   `Entity type`: Type of an entity containing an attribute to be updated a value
+-   `Attribute name`: Attribute name of an attribute to be updated a value
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
@@ -83,7 +85,7 @@ It allows to update an attribute value of NGSIv2 entity.
 
 #### Input
 
-Payload *null, boolean, number, string or JSON Object*
+Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` should contain an attribute value.
 
@@ -115,7 +117,7 @@ abc
 
 ### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -138,10 +140,10 @@ It allows to read or update an attribute value of NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to be read or updated an attribute value
--   `Entity type`: Entity type to be read or updated an attribute value
--   `Attribute name`: Attribute name to be read or updated an attribute value
+-   `Action type`: `value of actionType in payload`
+-   `Entity id`: Id of an entity containing an attribute to be read or updated value
+-   `Entity type`: Type of an entity containing an attribute to be read or updated a value
+-   `Attribute name`: Attribute name of an attribute to be read or updated a value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
@@ -150,7 +152,7 @@ It allows to read or update an attribute value of NGSIv2 entity.
 
 #### Input 1
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 The following payload overwrites value of each property.
 
@@ -166,7 +168,7 @@ The following payload overwrites value of each property.
 
 #### Output 1
 
-Payload *null, boolean, number, string or JSON Object*
+Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` contains an attribute value.
 
@@ -241,7 +243,7 @@ It overwrites value of each property.
 
 ### Output 2
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 

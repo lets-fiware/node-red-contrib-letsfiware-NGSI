@@ -4,6 +4,8 @@ This custom node is a simple node that allows to transform from GTFS-realtime da
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/gtfs-realtime/gtfs-realtime-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -22,7 +24,7 @@ This custom node is a simple node that allows to transform from GTFS-realtime da
 
 ## Inputs
 
-### Payload  *JSON Array* or *string*
+### Payload  *JSON Array* or *String*
 
 A `msg.payload` should contain GTFS-realtime data or a URL that provides GTFS-realtime data.
  If a JSON Object containing GTFS-realtime data is provided, it will be automatically converted to a JSON Array.

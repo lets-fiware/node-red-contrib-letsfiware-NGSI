@@ -4,6 +4,8 @@ This custom node is a simple node that allows to create, read, upsert or delete 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -66,7 +68,7 @@ A `msg.payload` should contain an entity to create.
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -100,7 +102,7 @@ It allows to read a NGSIv2 entity.
 
 #### Input
 
-Payload  *string or JSON Object*
+Payload *string* or *JSON Object*
 
 A `msg.payload` should contain an entity Id to read the NGSI v2 entity.
 
@@ -194,7 +196,7 @@ A `msg.payload` should contain an entity to upsert.
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -225,7 +227,7 @@ It allows to delete a NGSIv2 entity.
 
 #### Input
 
-Payload  *string or JSON Object*
+Payload *string* or *JSON Object*
 
 A `msg.payload` should contain an entity Id to delete the NGSI v2 entity.
 
@@ -239,15 +241,12 @@ A `msg.payload` should contain a condition to delete the NGSI v2 entity.
 {
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
-  "attrs": "humidity",
-  "keyValues": true,
-  "dateModified": false
 }
 ```
 
 #### Output
 
-Payload *null or string*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -261,7 +260,7 @@ null
 
 ## Use value of actionType in payload
 
-It allows to read, update or delete an attribute in NGSIv2 entity.
+It allows to create, read, upsert or delete a NGSIv2 entity.
 
 ### Properties
 
@@ -270,19 +269,19 @@ It allows to read, update or delete an attribute in NGSIv2 entity.
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
 -   `ServicePath`: FIWARE Service Path
--   `Action type`: value of actionType in payload
--   `Entity id`: Entity id to read, update or delete an attribute
--   `Entity type`: Entity type to read, update or delete an attribute
+-   `Action type`: `value of actionType in payload`
+-   `Entity id`: Id of an entity to be created, read, upserted or deleted
+-   `Entity type`: Type of an entity to be created, read, upserted or deleted
 -   `Representation`: normalized or keyValues
 -   `Date Modified`: retrieve attribute and metadata of dateModified
 
 ### Example
 
-When creating an entity, A `msg.payload` should contain a JSON Object with `actionType` and `entity`.
+When creating an entity, a `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -316,7 +315,7 @@ Payload  *JSON Object*
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -328,11 +327,11 @@ A `msg.payload` contains a status code.
 null
 ```
 
-When reading an entity, A `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be read.
+When reading an entity, a `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be read.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -356,11 +355,11 @@ A `msg.payload` contains an object representing the entity.
 }
 ```
 
-When upserting an entity, A `msg.payload` should contain a JSON Object with `actionType` and `entity`.
+When upserting an entity, a `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -394,7 +393,7 @@ Payload  *JSON Object*
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
@@ -406,11 +405,11 @@ A `msg.payload` contains a status code.
 null
 ```
 
-When deleting an entity, A `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be deleted.
+When deleting an entity, a `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be deleted.
 
 #### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 ```
 {
@@ -422,7 +421,7 @@ Payload  *JSON Object*
 
 #### Output
 
-Payload *null or number*
+Payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 

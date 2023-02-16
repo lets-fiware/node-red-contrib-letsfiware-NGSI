@@ -4,6 +4,8 @@ This custom node is a simple node that allows to obtain historical context from 
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-01.png)
 
+## Contents
+
 <details>
 <summary><strong>Details</strong></summary>
 
@@ -65,7 +67,7 @@ For example, if you want to get historical context from 3 days ago to 2 days ago
 
 ### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` may contain attributes as shown:
 
@@ -107,7 +109,6 @@ A `msg.payload` contains historical context data.
 -   `Entity type`: an entity type to retrieve
 -   `Attribute`: an attribute to retrieve
 -   `Date type`: data type to retrieve
--   `Offset`: in case of pagination, the offset to apply to the requested search of raw context information. It is a mandatory parameter if no lastN is provided
 -   `AggrPeriod`: Aggregation period or resolution
 -   `Date from`: the starting date and time from which the raw context information is desired. It is an optional parameter
 -   `Unit for data from`: unit for starting date
@@ -117,7 +118,7 @@ A `msg.payload` contains historical context data.
 
 ### Input
 
-Payload  *JSON Object*
+Payload *JSON Object*
 
 A `msg.payload` may contain attributes as shown:
 
