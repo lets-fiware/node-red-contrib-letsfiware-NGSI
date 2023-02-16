@@ -18,6 +18,7 @@
       "NGSI-attribute-value": "src/nodes/NGSI/attribute-value/attribute-value.js",
       "NGSI-batch-update": "src/nodes/NGSI/batch-update/batch-update.js",
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
+      "NGSI-registration": "src/nodes/NGSI/registration/registration.js",
       "NGSI-types": "src/nodes/NGSI/types/types.js",
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",
       "NGSI-to-worldmap": "src/nodes/NGSI/to-worldmap/to-worldmap.js",

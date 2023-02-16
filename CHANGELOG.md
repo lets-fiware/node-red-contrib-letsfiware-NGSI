@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  ADD NGSI registration custom node (#82)
 -  ADD NGSI types custom node (#80)
 -  UPDATE Node.js dependencies (#78)
 -  ADD Japanese translation (#77)
