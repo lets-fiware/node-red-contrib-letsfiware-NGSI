@@ -36,8 +36,12 @@
           type: 'Open APIs',
           required: true
         },
-        servicepath: {value: "/"},
-        actiontype: { value: "append" }
+        servicepath: { value: "/" },
+        actionType: { value: "append" },
+        keyValues: { value: "false" },
+        overrideMetadata: { value: "false" },
+        forcedUpdate: { value: "false" },
+        flowControl: { value: "false" },
       },
       inputs: 1,
       outputs: 1,
@@ -62,34 +66,59 @@
         <input type="text" id="node-input-servicepath">
     </div>
     <div class="form-row">
-        <label for="node-input-actiontype"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actiontype">
+        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+        <select id="node-input-actionType">
             <option value="append">append</option>
             <option value="appendStrict">appendStrict</option>
             <option value="update">update</option>
             <option value="replace">replace</option>
             <option value="delete">delete</option>
+            <option value="payload">value of ActionType in payload</option>
+        </select>
+    </div>
+    <div class="form-row" id="keyValues">
+        <label for="node-input-keyValues"><i class="fa fa-tag"></i> Representation</label>
+        <select id="node-input-keyValues">
+            <option value="false" enabled>normalized</option>
+            <option value="true">keyValues</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-overrideMetadata"><i class="fa fa-tag"></i> Override metadata</label>
+        <select id="node-input-overrideMetadata">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
+        <select id="node-input-forcedUpdate">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
+        <select id="node-input-flowControl">
+            <option value="false" enabled>false</option>
+            <option value="true">true</option>
         </select>
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI Batch update">
-    <p>
-    A simple node that allows to update NGSIv2 entity(ies). Entity data shall be provided as part
-    of the <code>msg.payload</code>.
-    See the <a href="http://telefonicaid.github.io/fiware-orion/api/v2/stable/">FIWARE-NGSI v2 Specification</a>.
-    </p>
-    <h3>Inputs</h3>
+    <p>A simple node that allows to append, appendStrict, update, replace or delete several entities in a single batch operation.</p>
+
+    <h3>Append entities</h3>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">JSON Array</span>
+            <span class="property-type">JSON Array or JSON Object</span>
         </dt>
-        <dd>payload containing an Array of NGSI v2 Entities.
-        If a <code>JSON Object</code> containing a single Entity
-        is provided, it will be automatically converted to a <code>JSON Array</code></dd>
+        <dd>NGSIv2 entitiies or NGSIv2 entity</dd>
     </dl>
 
-    <h3>Outputs</h3>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">Number</span>
@@ -97,8 +126,91 @@
         <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
+    <h3>appendStrict entities</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array or JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entitiies or NGSIv2 entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Update entities</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array or JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entitiies or NGSIv2 entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Replace entities</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array or JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entitiies or NGSIv2 entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Delete entities</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Array or JSON Object</span>
+        </dt>
+        <dd>NGSIv2 entitiies or NGSIv2 entity</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
+    </dl>
+
+    <h3>Use value of actionType in payload</h3>
+    <h4>Inputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON object</span>
+        </dt>
+        <dd></dd>
+    </dl>
+
+    <h4>Outputs</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Number or null</span>
+        </dt>
+        <dd>A status code returned by the NGSIv2 API</dd>
+    </dl>
+
     <h3>Details</h3>
-    <p><code>msg.payload</code> shall contain NGSIv2 entity(ies).
-    Other parameters shall be defined in the node configuration.
-    See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/custom_nodes/ngsi_batch_update/">here</a> for full documentation.</p>
+    See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_batch_update/">here</a> for full documentation.</p>
 </script>
