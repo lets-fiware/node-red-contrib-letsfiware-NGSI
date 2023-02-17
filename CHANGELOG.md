@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  Fix hyper links (#89)
 -  Improve NGSI Batch update custom node (#88)
 -  Improve documentation (#85)
 -  Improve NGSI types custom node (#84)
