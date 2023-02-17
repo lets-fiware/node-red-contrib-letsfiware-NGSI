@@ -1,7 +1,8 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
--  Improve documentation (#84)
--  Improve NGSI types custom node (#83)
+-  Improve NGSI Batch update custom node (#88)
+-  Improve documentation (#85)
+-  Improve NGSI types custom node (#84)
 -  ADD NGSI registration custom node (#82)
 -  ADD NGSI types custom node (#80)
 -  UPDATE Node.js dependencies (#78)
