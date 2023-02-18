@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  ADD Service and ServicePath custom node (#91)
 -  Improve NGSI source custom node (#90)
 -  Fix hyper links (#89)
 -  Improve NGSI Batch update custom node (#88)

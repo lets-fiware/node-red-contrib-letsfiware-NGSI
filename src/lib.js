@@ -151,6 +151,9 @@ function getServiceAndServicePath(msg, service, path) {
   if (msg.context.fiwareServicePath === null) {
     msg.context.fiwareServicePath = path;
   }
+
+  msg.context.fiwareService = msg.context.fiwareService.toLowerCase();
+
   return [msg.context.fiwareService, msg.context.fiwareServicePath];
 }
 

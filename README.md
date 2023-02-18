@@ -33,6 +33,7 @@ Node-RED implementation for FIWARE Open APIs
 -   [NGSI to Dashboard](docs/en/custom_nodes/ngsi_to_dashboard.md)
 -   [GTFS realtime to NGSI](docs/en/custom_nodes/ngsi_gtfs_realtime.md)
 -   [FIWARE version](docs/en/custom_nodes/fiware_version.md)
+-   [FIWARE Service and ServicePath](docs/en/custom_nodes/service-and-servicepath.md)
 
 ## Documentation
 
