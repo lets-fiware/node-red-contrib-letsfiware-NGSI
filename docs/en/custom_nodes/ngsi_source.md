@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to obtain NGSIv2 entities.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source/source-01.png)
 
 ## Contents
 
@@ -18,7 +18,7 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 
 ## Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source/source-02.png)
 
 -   `name`: a name for a node instance
 -   `Context Broker`: an endpoint of a context broker

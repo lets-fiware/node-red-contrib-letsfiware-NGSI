@@ -23,7 +23,7 @@ FIWARE Service の値、および/または ServicePath の値を操作なしで
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//service-and-servicepath/service-and-servicepath-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/service-and-servicepath/service-and-servicepath-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `FIWARE Service`: `Passthrough`
@@ -108,7 +108,7 @@ Payload *JSON Object*
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//service-and-servicepath/service-and-servicepath-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/service-and-servicepath/service-and-servicepath-04.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `FIWARE Service`: `Delete`

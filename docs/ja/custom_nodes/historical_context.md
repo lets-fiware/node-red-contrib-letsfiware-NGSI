@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、STH-Comet から履歴コンテキストを取得できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-01.png)
 
 ## コンテンツ
 
@@ -22,7 +22,7 @@
 
 このノードにより、STH-Comet から未加工のコンテキスト情報または過去の集計時系列コンテキスト情報を取得できます。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-02.png)
 
 -   未加工のコンテキスト情報 (Raw context information)
 -   過去の集計時系列コンテキスト情報 (Historical aggregate time series context information)
@@ -44,13 +44,13 @@
 
 たとえば、3 日前から 2 日前までの履歴コンテキストを取得する場合は、次のように指定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-03.png)
 
 <a name="raw-context-information"></a>
 
 ## 未加工のコンテキスト情報 (Raw context information)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-04.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Generic Enabler`: STH-Comet のエンドポイント
@@ -106,7 +106,7 @@ Payload *JSON Object*
 
 ## 過去の集計時系列コンテキスト情報 (Historical Aggregated Time Series Context Information)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-05.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Generic Enabler`: STH-Comet のエンドポイント
@@ -253,4 +253,4 @@ Payload *JSON Object*
 }
 ```
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-06.png)

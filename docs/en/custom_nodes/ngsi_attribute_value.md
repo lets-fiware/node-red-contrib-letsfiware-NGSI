@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to read or update an attribute value of NGSIv2 entity.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-value/attribute-value-01.png)
 
 ## Contents
 
@@ -21,7 +21,7 @@ It allows to read an attribute value of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-value/attribute-value-02.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -69,7 +69,7 @@ It allows to update an attribute value of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-value/attribute-value-03.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -135,7 +135,7 @@ It allows to read or update an attribute value of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-value/attribute-value-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-value/attribute-value-04.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker

@@ -23,7 +23,7 @@ It allows to create a NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//entity/entity-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-02.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -151,7 +151,7 @@ It allows to upsert a NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//entity/entity-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-04.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
