@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.8.0-next
+## node-red-contrib-letsfiware-NGSI v0.9.0 - 18 February, 2023
 
 -  UPDATE hyper link to images (#92)
 -  ADD Service and ServicePath custom node (#91)
