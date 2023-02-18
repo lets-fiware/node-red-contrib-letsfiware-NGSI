@@ -48,14 +48,14 @@ const getEntities = async function (param) {
     try {
       const res = await lib.http(options);
       if (res.status === 200) {
+        param.buffer.send(res.data);
+        page++;
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
           if (totalCount <= 0) {
             break;
           }
         }
-        param.buffer.send(res.data);
-        page++;
       } else {
         this.error(`Error while retrieving entities: ${res.status} ${res.statusText}`);
         break;
@@ -71,24 +71,32 @@ const getEntities = async function (param) {
 
 const nobuffering = {
   node: null,
-  open: function (node) {
+  msg: null,
+  open: function (node, msg) {
     this.node = node;
+    this.msg = msg;
     return this;
   },
   send: function (entities) {
-    this.node.send({ payload: entities });
+    const message = Object.assign({}, this.msg);
+    message.payload = entities;
+    this.node.send(message);
   },
   close: function () { },
   out: function (entities) {
-    this.node.send({ payload: entities });
+    const message = Object.assign({}, this.msg);
+    message.payload = entities;
+    this.node.send(message);
   },
 };
 
 const buffering = {
   node: null,
+  msg: null,
   entities: [],
-  open: function (node) {
+  open: function (node, msg) {
     this.node = node;
+    this.msg = msg;
     this.entities = [];
     return this;
   },
@@ -96,19 +104,46 @@ const buffering = {
     this.entities = this.entities.concat(entities);
   },
   close: function () {
-    if (this.entities.length > 0) {
-      this.node.send({ payload: this.entities });
-    }
+    this.msg.payload = this.entities;
+    this.node.send(this.msg);
   },
   out: function (entities) {
-    this.node.send({ payload: entities });
+    this.entities = this.entities.concat(entities);
   },
+};
+
+const createParam = function (msg, defaultConfig, openAPIsConfig) {
+  if (!msg.payload) {
+    this.error('payload is null');
+    return;
+  }
+
+  if (typeof msg.payload === 'string') {
+    msg.payload = { idPattern: msg.payload.trim() };
+  }
+
+  if (typeof msg.payload === 'object' && Array.isArray(msg.payload)) {
+    this.error('payload not string or JSON Object');
+    return;
+  }
+
+  const param = {
+    host: openAPIsConfig.apiEndpoint,
+    pathname: '/v2/entities',
+    buffer: defaultConfig.buffering ? nobuffering.open(this, msg) : buffering.open(this, msg),
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    config: Object.assign(defaultConfig, msg.payload),
+  };
+
+  [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
+
+  return param;
 };
 
 module.exports = function (RED) {
   function NGSISource(config) {
     RED.nodes.createNode(this, config);
-    var node = this;
+    const node = this;
 
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
@@ -118,15 +153,10 @@ module.exports = function (RED) {
         return;
       }
 
-      if (!msg.payload) {
-        msg.payload = {};
-      } else if (typeof msg.payload === 'string') {
-        msg.payload = { idPattern: msg.payload.trim() };
-      }
-
       const defaultConfig = {
         service: openAPIsConfig.service.trim(),
         servicepath: config.servicepath.trim(),
+        buffering: config.buffering === 'off',
         keyValues: config.mode !== 'normalized',
         type: config.entitytype.trim(),
         idPattern: config.idpattern.trim(),
@@ -137,15 +167,11 @@ module.exports = function (RED) {
         page: 0,
       };
 
-      const param = {
-        host: openAPIsConfig.apiEndpoint,
-        pathname: '/v2/entities',
-        buffer: config.buffering === 'off' ? nobuffering.open(node) : buffering.open(node),
-        getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-        config: Object.assign(defaultConfig, msg.payload),
-      };
+      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
 
-      await getEntities.call(node, param);
+      if (param) {
+        await getEntities.call(node, param);
+      }
     });
   }
   RED.nodes.registerType('NGSI source', NGSISource);

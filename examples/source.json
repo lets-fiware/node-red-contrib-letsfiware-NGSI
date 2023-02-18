@@ -1,0 +1,218 @@
+[
+    {
+        "id": "49b801ab6c13addc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0f4bad1a0a547ccb",
+        "type": "NGSI Batch update",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "append",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "089ecbbf718dbef8",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Create entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[ { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor001\", \"type\": \"Sensor\", \"temperature\": { \"type\": \"Number\", \"value\": 20.6, \"metadata\": {} } }, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor002\", \"type\": \"Sensor\", \"temperature\": { \"type\": \"Number\", \"value\": 20.6, \"metadata\": {} } }, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor003\", \"type\": \"Sensor\", \"temperature\": { \"type\": \"Number\", \"value\": 20.6, \"metadata\": {} } }, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor004\", \"type\": \"Sensor\", \"temperature\": { \"type\": \"Number\", \"value\": 20.6, \"metadata\": {} } } ]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "0f4bad1a0a547ccb"
+            ]
+        ]
+    },
+    {
+        "id": "7f548a2f5f2d42ed",
+        "type": "NGSI source",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "74c09cd4b0f16a8a",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "7f548a2f5f2d42ed"
+            ]
+        ]
+    },
+    {
+        "id": "1de25a86f24eac7b",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1191940c4c981f96",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[ { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor001\"}, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor002\"}, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor003\"}, { \"id\": \"urn:ngsi-ld:WeatherObserved:sensor004\"} ]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "e1b408918da138c8"
+            ]
+        ]
+    },
+    {
+        "id": "e1b408918da138c8",
+        "type": "NGSI Batch update",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "actionType": "delete",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "0211267288c07103",
+        "type": "NGSI source",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "f416c88d082ae970",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "6005eed54399993b",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "idPattern",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:WeatherObserved:sensor001",
+        "payloadType": "str",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "0211267288c07103"
+            ]
+        ]
+    },
+    {
+        "id": "f416c88d082ae970",
+        "type": "Open APIs",
+        "name": "orion",
+        "geType": "orion",
+        "apiEndpoint": "http://orion:1026",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    }
+]
