@@ -1,8 +1,10 @@
 ## node-red-contrib-letsfiware-NGSI v0.9.0-next
 
+-  FIX package.json (#96)
+
 ## node-red-contrib-letsfiware-NGSI v0.9.0 - 18 February, 2023
 
--  UPDATE hyper link to images (#92)
+-  UPDATE hyper link to images (#93)
 -  ADD Service and ServicePath custom node (#91)
 -  Improve NGSI source custom node (#90)
 -  Fix hyper links (#89)
