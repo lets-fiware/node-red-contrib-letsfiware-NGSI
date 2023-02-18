@@ -25,7 +25,7 @@ NGSIv2 エンティティを作成できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//entity/entity-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -157,7 +157,7 @@ NGSIv2 エンティティをアップサート (upsert) できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//entity/entity-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/entity/entity-04.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント

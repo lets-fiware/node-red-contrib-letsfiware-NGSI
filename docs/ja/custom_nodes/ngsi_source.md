@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、NGSIv2 エンティティを取得できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source/source-01.png)
 
 ## コンテンツ
 
@@ -20,7 +20,7 @@
 
 ## プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/source/source-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント

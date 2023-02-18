@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to transform context data to data for the dashboard node.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-01.png)
 
 ## Contents
 
@@ -19,7 +19,7 @@ This custom node is a simple node that allows to transform context data to data 
 
 ## Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-02.png)
 
 -   `name`: a name for a node instance
 -   `Input type`: an input type: `Entity (normalized)`, `Notification` or `Historical context`
@@ -34,9 +34,9 @@ This custom node is a simple node that allows to transform context data to data 
 
 If you want to transform context data received form NGSI Entity node, set `Entity (normalized)` to Input type.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-03.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-04.png)
 
 ```
 {
@@ -80,9 +80,9 @@ A msg contains data for the dashboard node.
 
 If you want to transform notification data received from Orion Context Broker, set `Notification` to Input type.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-05.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-06.png)
 
 ```
 {
@@ -131,9 +131,9 @@ A msg contains data for the dashboard node.
 
 If you want to transform historical context data received form Historical context node, set `Historical` to Input type.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-07.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-07.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-08.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-08.png)
 
 ```
 {

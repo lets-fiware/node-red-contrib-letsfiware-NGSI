@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、コンテキスト・データを Dashboard node のデータに変換できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-01.png)
 
 ## コンテンツ
 
@@ -21,7 +21,7 @@
 
 ## プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Input type`: 入力データのタイプ: `Entity (normalized)`, `Notification` または `Historical context`
@@ -40,9 +40,9 @@
 
 NGSI Entity ノードから受け取ったコンテキスト・データを変換する場合は、`Input type` に `Entity (normalized)` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-03.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-04.png)
 
 ```
 {
@@ -88,9 +88,9 @@ msg には、Dashboard node 向けのデータが含まれています。
 
 Orion Context Broker から受信した通知データを変換する場合は、`Input type` に `Notification` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-05.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-06.png)
 
 ```
 {
@@ -141,9 +141,9 @@ msg には、Dashboard node 向けのデータが含まれています。
 
 Historical context node から受信した履歴コンテキスト・データを変換する場合は、`Input type` に `Historical` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-07.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-07.png)
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard-08.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/ngsi-to-dashboard/ngsi-to-dashboard-08.png)
 
 ```
 {

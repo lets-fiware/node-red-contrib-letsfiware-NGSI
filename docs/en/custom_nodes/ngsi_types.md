@@ -21,7 +21,7 @@ It allows to retrieve a list of entity types.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//types/types-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/types/types-02.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker

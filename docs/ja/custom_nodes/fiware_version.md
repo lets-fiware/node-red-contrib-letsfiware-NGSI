@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、FIWARE GEs のバージョン情報を取得できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-01.png)
 
 <details>
 <summary><strong>詳細</strong></summary>
@@ -18,7 +18,7 @@
 
 ## プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -73,7 +73,7 @@ Payload *JSON Array*
 
 ## 例
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-03.png)
 
 ```
 [{"id":"55dbdb0eb1444bc2","type":"tab","label":"Flow 1","disabled":false,"info":"","env":[]},{"id":"3f69ee368a865420","type":"FIWARE version","z":"55dbdb0eb1444bc2","openapis":"dbfbafc3664fa2c3","x":320,"y":80,"wires":[["3eb4deafeb81a5f5"]]},{"id":"d2f7b9a85b57a7fd","type":"inject","z":"55dbdb0eb1444bc2","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":120,"y":80,"wires":[["3f69ee368a865420"]]},{"id":"3eb4deafeb81a5f5","type":"debug","z":"55dbdb0eb1444bc2","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":530,"y":80,"wires":[]},{"id":"dbfbafc3664fa2c3","type":"Open APIs","name":"","brokerEndpoint":"http://localhost:1026","service":"","idmEndpoint":"","idmType":"none"}]

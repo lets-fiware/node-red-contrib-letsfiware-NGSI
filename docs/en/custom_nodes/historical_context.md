@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to obtain historical context from STH-Comet.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-01.png)
 
 ## Contents
 
@@ -20,7 +20,7 @@ This custom node is a simple node that allows to obtain historical context from 
 
 This node allows to obtain raw context information or historical aggregate time series context information from STH-Comet.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-02.png)
 
 -   Raw context information
 -   Historical aggregate time series context information
@@ -42,11 +42,11 @@ You can specify the start and end of the target period.
 
 For example, if you want to get historical context from 3 days ago to 2 days ago, specify as follows.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-03.png)
 
 ## Raw context information
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-04.png)
 
 -   `name`: a name for a node instance
 -   `Generic Enabler`: an endpoint of a STH-Comet
@@ -100,7 +100,7 @@ A `msg.payload` contains historical context data.
 
 ## Historical Aggregated Time Series Context Information
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-05.png)
 
 -   `name`: a name for a node instance
 -   `Generic Enabler`: an endpoint of a STH-Comet
@@ -245,4 +245,4 @@ This output is for the NGSI-to-dashboard custom node.
 }
 ```
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/historical-context/historical-context-06.png)

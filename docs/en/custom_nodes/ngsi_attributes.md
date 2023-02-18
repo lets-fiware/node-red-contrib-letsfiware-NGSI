@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to append, update, upsert or replace attributes of NGSIv2 entity.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-01.png)
 
 ## Contents
 
@@ -23,7 +23,7 @@ It allows to append attributes of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-02.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -74,7 +74,7 @@ It allows to update attributes of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-03.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -125,7 +125,7 @@ It allows to upsert attributes of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-04.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -181,7 +181,7 @@ It allows to replace attributes of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-05.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker
@@ -242,7 +242,7 @@ It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-06.png)
 
 -   `name`: A name for a node instance
 -   `Context Broker`: An endpoint of a context broker

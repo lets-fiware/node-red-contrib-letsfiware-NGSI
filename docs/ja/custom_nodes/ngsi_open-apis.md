@@ -23,7 +23,7 @@
 
 ## プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-06.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Generic Enabler`: Generic enable のタイプ: `Orion Context Broker` または `STH-Comet`
@@ -41,7 +41,7 @@
 
 Orion Context Broker を使用するには、`Generic Enabler` プロパティに `Orion Context Broker` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-01.png)
 
 <a name="sth-comet"></a>
 
@@ -49,7 +49,7 @@ Orion Context Broker を使用するには、`Generic Enabler` プロパティ�
 
 STH-Comet を使用するには、`Generic Enabler` プロパティに `STH-Comet` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-07.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-07.png)
 
 <a name="identity-manager-type"></a>
 
@@ -61,7 +61,7 @@ STH-Comet を使用するには、`Generic Enabler` プロパティに `STH-Come
 
 ID 管理を使用しない場合は、`IdM Type` に `NONE` を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-02.png)
 
 <a name="tokenproxy"></a>
 
@@ -69,7 +69,7 @@ ID 管理を使用しない場合は、`IdM Type` に `NONE` を設定します�
 
 Tokenproxy を使用する場合は、`IdM Type` に `Tokenproxy` を設定します。次に、IdM エンドポイント、ユーザ名、およびパスワードを設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-03.png)
 
 <a name="keyrock"></a>
 
@@ -78,7 +78,7 @@ Tokenproxy を使用する場合は、`IdM Type` に `Tokenproxy` を設定し�
 Keyrock を使用する場合は、`IdM Type` に `keyrock` を設定します。次に、IdM エンドポイント、ユーザ名、パスワード、Client ID、および
 Client Secret を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-04.png)
 
 <a name="generic"></a>
 
@@ -87,4 +87,4 @@ Client Secret を設定します。
 汎用 ID 管理を使用する場合は、`IdM Type` に `Generic` を設定します。次に、IdM エンドポイント、ユーザ名、パスワード、Client ID、および
 Client Secret を設定します。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/open-apis/open-apis-05.png)

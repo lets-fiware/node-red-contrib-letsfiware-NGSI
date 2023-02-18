@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、NGSIv2 エンティティの属性の読み取り、更新、または削除ができるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-01.png)
 
 ## コンテンツ
 
@@ -24,7 +24,7 @@ NGSIv2 エンティティの属性を読み取ることができます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -84,7 +84,7 @@ NGSIv2 エンティティの属性を更新できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-03.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -134,7 +134,7 @@ NGSIv2 エンティティの属性を削除できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-04.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -193,7 +193,7 @@ NGSIv2 エンティティの属性の読み取り、更新、または削除が�
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attribute/attribute-05.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント

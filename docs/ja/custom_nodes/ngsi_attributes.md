@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、NGSIv2 エンティティの複数属性を追加、更新、アップサート、または置換できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-01.png)
 
 ## コンテンツ
 
@@ -25,7 +25,7 @@ NGSIv2 エンティティの複数属性を追加できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-02.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -78,7 +78,7 @@ NGSIv2 エンティティの複数属性を更新できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-03.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-03.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -131,7 +131,7 @@ NGSIv2 エンティティの複数属性をアップサートできます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-04.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -189,7 +189,7 @@ NGSIv2 エンティティの複数属性を置換できます。
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-05.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-05.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント
@@ -252,7 +252,7 @@ NGSIv2 エンティティの複数属性を追加、更新、アップサート�
 
 ### プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes-06.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/attributes/attributes-06.png)
 
 -   `name`: ノード・インスタンスの名前
 -   `Context Broker`: Context Broker のエンドポイント

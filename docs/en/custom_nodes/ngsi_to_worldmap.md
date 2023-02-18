@@ -2,7 +2,7 @@
 
 This custom node is a simple node that allows to transform from NGSIv2 entities to "things" data for the Worldmap node.
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap/to-worldmap-01.png)
 
 ## Contents
 
@@ -18,7 +18,7 @@ This custom node is a simple node that allows to transform from NGSIv2 entities 
 
 ## Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap/to-worldmap-02.png)
 
 - `name`: a name for a node instance
 - `attr to use as name`: attribute name that has a value used as name for the Worldmap node

@@ -2,7 +2,7 @@
 
 このカスタム・ノードは、NGSIv2 エンティティを Worldmap node の "things" データに変換できるノードです。
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-01.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap/to-worldmap-01.png)
 
 ## コンテンツ
 
@@ -20,7 +20,7 @@
 
 ## プロパティ
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/to-worldmap/to-worldmap-02.png)
 
 - `name`: ノード・インスタンスの名前
 - `attr to use as name`: Worldmap node の名前として使用される値を持つ属性名

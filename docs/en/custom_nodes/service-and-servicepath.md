@@ -21,7 +21,7 @@ It allows to pass FIWARE Service value and/or ServicePath value to output withou
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//service-and-servicepath/service-and-servicepath-02.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/service-and-servicepath/service-and-servicepath-02.png)
 
 -   `name`: A name for a node instance
 -   `FIWARE Service`: `Passthrough`
@@ -102,7 +102,7 @@ It allows to delete FIWARE Service and/or FIWARE ServicePath from `msg.context`.
 
 ### Properties
 
-![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images//service-and-servicepath/service-and-servicepath-04.png)
+![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/service-and-servicepath/service-and-servicepath-04.png)
 
 -   `name`: A name for a node instance
 -   `FIWARE Service`: `Delete`

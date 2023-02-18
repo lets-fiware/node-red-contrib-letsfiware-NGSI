@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.8.0-next
 
+-  UPDATE hyper link to images (#92)
 -  ADD Service and ServicePath custom node (#91)
 -  Improve NGSI source custom node (#90)
 -  Fix hyper links (#89)
