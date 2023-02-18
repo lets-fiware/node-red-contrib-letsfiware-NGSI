@@ -20,6 +20,7 @@
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
       "NGSI-registration": "src/nodes/NGSI/registration/registration.js",
       "NGSI-types": "src/nodes/NGSI/types/types.js",
+      "FIWARE-Service-and-ServicePath": "src/nodes/NGSI/service-and-servicepath/service-and-servicepath.js",
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",
       "NGSI-to-worldmap": "src/nodes/NGSI/to-worldmap/to-worldmap.js",
       "FIWARE-version": "src/nodes/NGSI/version/version.js",
