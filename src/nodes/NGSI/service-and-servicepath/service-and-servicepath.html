@@ -1,0 +1,124 @@
+<!--
+   MIT License
+
+   Copyright 2022-2023 Kazuhito Suda
+
+   This file is part of node-red-contrib-letsfiware-NGSI
+
+   https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+-->
+
+<script type="text/javascript">
+  RED.nodes.registerType('Service and ServicePath', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      serviceMode: { value: 'pass' },
+      serviceValue: { value: '' },
+      servicePathMode: { value: 'pass' },
+      servicePathValue: { value: '' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'Service and ServicePath';
+    }
+  });
+
+  /* eslint no-unused-vars: 0 */
+  function serviceMode_actionType_Changed(e) {
+    switch (e.target.value) {
+      case 'add':
+        document.getElementById('serviceValue').hidden = false;
+        break;
+      default:
+        document.getElementById('serviceValue').hidden = true;
+        break;
+    }
+  }
+  /* eslint no-unused-vars: 0 */
+  function servicePathMode_actionType_Changed(e) {
+    switch (e.target.value) {
+      case 'add':
+        document.getElementById('servicePathValue').hidden = false;
+        break;
+      default:
+        document.getElementById('servicePathValue').hidden = true;
+        break;
+    }
+  }
+</script>
+
+<script type="text/x-red" data-template-name="Service and ServicePath">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-serviceMode"><i class="icon-tag"></i> FIWARE Service</label>
+        <select id="node-input-serviceMode" onchange="serviceMode_actionType_Changed(event)">
+            <option value="pass">Passthrough</option>
+            <option value="add">Add</option>
+            <option value="delete">Delete</option>
+        </select>
+    </div>
+    <div class="form-row" id="serviceValue">
+        <label for="node-input-serviceValue"><i class="fa fa-tag"></i> Service value</label>
+        <input type="text" id="node-input-serviceValue">
+    </div>
+    <div class="form-row">
+        <label for="node-input-servicePathMode"><i class="icon-tag"></i> FIWARE ServicePath</label>
+        <select id="node-input-servicePathMode" onchange="servicePathMode_actionType_Changed(event)">
+            <option value="pass">Passthrough</option>
+            <option value="add">Add</option>
+            <option value="delete">Delete</option>
+        </select>
+    </div>
+    <div class="form-row" id="servicePathValue">
+        <label for="node-input-servicePathValue"><i class="fa fa-tag"></i> ServicePath value</label>
+        <input type="text" id="node-input-servicePathValue">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Service and ServicePath">
+    <p>A simple node that allows to mange FIWARE Service and FIWARE ServicePath</p>
+    <h3>Create entity</h3>
+    <h4>Input</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>msg.context</dd>
+    </dl>
+
+    <h4>Output</h4>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">JSON Object</span>
+        </dt>
+        <dd>msg.context</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/service-and-servicepath/">here</a> for full documentation.</p>
+</script>

@@ -1,0 +1,153 @@
+[
+    {
+        "id": "49b801ab6c13addc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6cfe81addb62183b",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Add",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "13fa9cb4c19f7ec1"
+            ]
+        ]
+    },
+    {
+        "id": "13fa9cb4c19f7ec1",
+        "type": "Service and ServicePath",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "serviceMode": "add",
+        "serviceValue": "OpenIoT",
+        "servicePathMode": "add",
+        "servicePathValue": "/iot",
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "713dae288c8917d3"
+            ]
+        ]
+    },
+    {
+        "id": "713dae288c8917d3",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "context",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "92114222797d8112",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Passthrough",
+        "props": [
+            {
+                "p": "context",
+                "v": "{\"fiwareService\":\"openiot\",\"fiwareServicePath\":\"/iot\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "16b545afef13e4b6"
+            ]
+        ]
+    },
+    {
+        "id": "16b545afef13e4b6",
+        "type": "Service and ServicePath",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "serviceMode": "pass",
+        "serviceValue": "",
+        "servicePathMode": "pass",
+        "servicePathValue": "",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "713dae288c8917d3"
+            ]
+        ]
+    },
+    {
+        "id": "166db1ce953b24e4",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "context",
+                "v": "{\"fiwareService\":\"openiot\",\"fiwareServicePath\":\"/iot\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "8e539f3506dbdce0"
+            ]
+        ]
+    },
+    {
+        "id": "8e539f3506dbdce0",
+        "type": "Service and ServicePath",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "serviceMode": "delete",
+        "serviceValue": "",
+        "servicePathMode": "delete",
+        "servicePathValue": "",
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "713dae288c8917d3"
+            ]
+        ]
+    }
+]

@@ -22,6 +22,7 @@ Node-RED NGSI integration
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)
 -   [GTFS realtime to NGSI](custom_nodes/ngsi_gtfs_realtime.md)
 -   [FIWARE version](custom_nodes/fiware_version.md)
+-   [FIWARE Service and ServicePath](custom_nodes/service-and-servicepath.md)
 
 ## Documentation
 

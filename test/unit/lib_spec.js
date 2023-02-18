@@ -314,5 +314,11 @@ describe('lib.js', () => {
 
       assert.deepEqual(actual, ['orion', '/#']);
     });
+    it('toLowerCase', () => {
+      const msg = { context: { fiwareService: 'ORION', fiwareServicePath: '/#' } };
+      const actual = lib.getServiceAndServicePath(msg, 'openio', '/');
+
+      assert.deepEqual(actual, ['orion', '/#']);
+    });
   });
 });
