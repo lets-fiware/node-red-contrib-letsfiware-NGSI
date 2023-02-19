@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.9.0-next
 
+-  Refactor lib.js (#97)
 -  FIX package.json (#96)
 
 ## node-red-contrib-letsfiware-NGSI v0.9.0 - 18 February, 2023

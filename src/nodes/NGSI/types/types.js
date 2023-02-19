@@ -31,9 +31,7 @@
 const lib = require('../../../lib.js');
 
 const getTypes = async function (param) {
-  let totalCount = param.config.totalCount;
-  const limit = param.config.limit;
-  let page = param.config.page;
+  let totalCount = 0;
   param.config.count = true;
 
   let types = [];
@@ -50,14 +48,14 @@ const getTypes = async function (param) {
     try {
       const res = await lib.http(options);
       if (res.status === 200) {
+        types = types.concat(res.data);
+        param.config.offset += param.config.limit;
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
           if (totalCount <= 0) {
             break;
           }
         }
-        types = types.concat(res.data);
-        page++;
       } else {
         this.error(`Error while retrieving entity types: ${res.status} ${res.statusText}`);
         return null;
@@ -66,7 +64,7 @@ const getTypes = async function (param) {
       this.error(`Exception while retrieving entity types: ${error}`);
       return null;
     }
-  } while (page * limit < totalCount);
+  } while (param.config.offset < totalCount);
 
   return types;
 };
@@ -154,9 +152,8 @@ module.exports = function (RED) {
         type: config.entityType.trim(),
         values: config.values === 'true',
         noAttrDetail: config.noAttrDetail === 'true',
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
       };
 
       const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);

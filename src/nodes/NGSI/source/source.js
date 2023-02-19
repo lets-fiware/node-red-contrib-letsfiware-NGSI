@@ -31,10 +31,8 @@
 const lib = require('../../../lib.js');
 
 const getEntities = async function (param) {
-  let page = param.config.page;
-  let totalCount = param.config.count;
+  let totalCount = 0;
   param.config.count = true;
-  const limit = param.config.limit;
 
   do {
     const options = {
@@ -49,7 +47,7 @@ const getEntities = async function (param) {
       const res = await lib.http(options);
       if (res.status === 200) {
         param.buffer.send(res.data);
-        page++;
+        param.config.offset += param.config.limit;
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
           if (totalCount <= 0) {
@@ -64,7 +62,7 @@ const getEntities = async function (param) {
       this.error(`Exception while retrieving entities: ${error}`);
       break;
     }
-  } while (page * limit < totalCount);
+  } while (param.config.offset < totalCount);
 
   param.buffer.close();
 };
@@ -162,9 +160,8 @@ module.exports = function (RED) {
         idPattern: config.idpattern.trim(),
         attrs: config.attrs.trim(),
         q: config.query.trim(),
-        count: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);

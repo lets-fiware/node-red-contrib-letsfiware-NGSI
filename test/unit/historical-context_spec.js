@@ -334,114 +334,6 @@ describe('historical-context.js', () => {
       assert.equal(msg, 'AggrPeriod error: year');
     });
   });
-  describe('convertDateTime', () => {
-    it('Empty value', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = Date('2023-01-01T12:34:56.000Z');
-      const value = '';
-      const unit = 'day';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '');
-    });
-    it('years', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '-1';
-      const unit = 'years';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2022-01-01T12:34:56.000Z');
-    });
-    it('months', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '-2';
-      const unit = 'months';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2022-11-01T12:34:56.000Z');
-    });
-    it('days', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '3';
-      const unit = 'days';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2022-12-29T12:34:56.000Z');
-    });
-    it('hours', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '-4';
-      const unit = 'hours';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2023-01-01T08:34:56.000Z');
-    });
-    it('minutes', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '-5';
-      const unit = 'minutes';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2023-01-01T12:29:56.000Z');
-    });
-    it('seconds', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '-6';
-      const unit = 'seconds';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2023-01-01T12:34:50.000Z');
-    });
-    it('ISO8601', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = new Date('2023-01-01T12:34:56.000Z');
-      const value = '2024-01-01T12:34:56.000Z';
-      const unit = 'ISO8601';
-
-      const actual = convertDateTime(dt, value, unit);
-
-      assert.equal(actual, '2024-01-01T12:34:56.000Z');
-    });
-    it('Not number', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = Date('2023-01-01T12:34:56.000Z');
-      const value = '-a';
-      const unit = 'day';
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = convertDateTime.call(node, dt, value, unit);
-
-      assert.equal(actual, '');
-      assert.equal(msg, 'Not number');
-    });
-    it('unit error', () => {
-      const convertDateTime = historicalNode.__get__('convertDateTime');
-      const dt = Date('2023-01-01T12:34:56.000Z');
-      const value = '-1';
-      const unit = 'day';
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = convertDateTime.call(node, dt, value, unit);
-
-      assert.equal(actual, '');
-      assert.equal(msg, 'Unit error: day');
-    });
-  });
   describe('calculateAverage', () => {
     it('Empty value', () => {
       const calculateAverage = historicalNode.__get__('calculateAverage');
@@ -1396,6 +1288,70 @@ describe('historical-context.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'FIWARE GE type not comet');
+    });
+    it('datefrom not Number', async () => {
+      const red = new MockRed();
+      historicalNode(red);
+      red.createNode({
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ngsi',
+        lastn: '',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: 'abc',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+
+        openapis: {
+          apiEndpoint: 'http://comet:8666',
+          service: 'openiot',
+          getToken: null,
+          geType: 'comet'
+        }
+      });
+
+      await red.inputWithAwait({ payload: {} });
+
+      assert.equal(red.getMessage(), 'dateTime not Number');
+    });
+    it('dateto not Number', async () => {
+      const red = new MockRed();
+      historicalNode(red);
+      red.createNode({
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ngsi',
+        lastn: '',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: 'abc',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+
+        openapis: {
+          apiEndpoint: 'http://comet:8666',
+          service: 'openiot',
+          getToken: null,
+          geType: 'comet'
+        }
+      });
+
+      await red.inputWithAwait({ payload: {} });
+
+      assert.equal(red.getMessage(), 'dateTime not Number');
     });
     it('param error', async () => {
       const red = new MockRed();

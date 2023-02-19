@@ -204,7 +204,7 @@ describe('lib.js', () => {
       assert.equal(actual.get('options'), null);
     });
     it('limit, offset param', () => {
-      const param = { limit: 100, page: 2 };
+      const param = { limit: 100, offset: 200 };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 100);
@@ -212,7 +212,7 @@ describe('lib.js', () => {
       assert.equal(actual.get('options'), null);
     });
     it('keyValues is false', () => {
-      const param = { limit: 10, page: 3, keyValues: false };
+      const param = { limit: 10, offset: 30, keyValues: false };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 10);
@@ -220,7 +220,7 @@ describe('lib.js', () => {
       assert.equal(actual.get('options'), null);
     });
     it('keyValues is true', () => {
-      const param = { limit: 99, page: 0, keyValues: true };
+      const param = { limit: 99, offset: '0', keyValues: true };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('limit'), 99);
@@ -319,6 +319,104 @@ describe('lib.js', () => {
       const actual = lib.getServiceAndServicePath(msg, 'openio', '/');
 
       assert.deepEqual(actual, ['orion', '/#']);
+    });
+  });
+  describe('convertDateTime', () => {
+    it('Empty value', () => {
+      const dt = Date('2023-01-01T12:34:56.000Z');
+      const value = '';
+      const unit = 'day';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '');
+    });
+    it('years', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '-1';
+      const unit = 'years';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2022-01-01T12:34:56.000Z');
+    });
+    it('months', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '-2';
+      const unit = 'months';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2022-11-01T12:34:56.000Z');
+    });
+    it('days', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '3';
+      const unit = 'days';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2022-12-29T12:34:56.000Z');
+    });
+    it('hours', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '-4';
+      const unit = 'hours';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2023-01-01T08:34:56.000Z');
+    });
+    it('minutes', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '-5';
+      const unit = 'minutes';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2023-01-01T12:29:56.000Z');
+    });
+    it('seconds', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '-6';
+      const unit = 'seconds';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2023-01-01T12:34:50.000Z');
+    });
+    it('ISO8601', () => {
+      const dt = new Date('2023-01-01T12:34:56.000Z');
+      const value = '2024-01-01T12:34:56.000Z';
+      const unit = 'ISO8601';
+
+      const actual = lib.convertDateTime(dt, value, unit);
+
+      assert.equal(actual, '2024-01-01T12:34:56.000Z');
+    });
+    it('dateTime not Number', () => {
+      const dt = Date('2023-01-01T12:34:56.000Z');
+      const value = '-a';
+      const unit = 'day';
+      let msg = '';
+      const node = { msg: '', error: (e) => { msg = e; } };
+
+      const actual = lib.convertDateTime.call(node, dt, value, unit);
+
+      assert.equal(actual, null);
+      assert.equal(msg, 'dateTime not Number');
+    });
+    it('unit error', () => {
+      const dt = Date('2023-01-01T12:34:56.000Z');
+      const value = '-1';
+      const unit = 'day';
+      let msg = '';
+      const node = { msg: '', error: (e) => { msg = e; } };
+
+      const actual = lib.convertDateTime.call(node, dt, value, unit);
+
+      assert.equal(actual, null);
+      assert.equal(msg, 'Unit error: day');
     });
   });
 });
