@@ -61,9 +61,8 @@ describe('types.js', () => {
         host: 'http://orion:1026',
         pathname: '/v2/types',
         config: {
-          totalCount: 0,
           limit: 1,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -92,9 +91,8 @@ describe('types.js', () => {
         host: 'http://orion:1026',
         pathname: '/v2/types',
         config: {
-          totalCount: 0,
           limit: 1,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -124,9 +122,8 @@ describe('types.js', () => {
         host: 'http://orion:1026',
         pathname: '/v2/types',
         config: {
-          totalCount: 0,
           limit: 0,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -208,9 +205,8 @@ describe('types.js', () => {
         host: 'http://orion:1026',
         pathname: '/v2/types/T',
         config: {
-          totalCount: 0,
           limit: 1,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -282,9 +278,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -304,9 +299,8 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          totalCount: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -322,9 +316,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -344,9 +337,8 @@ describe('types.js', () => {
           type: 'Sensor',
           values: false,
           noAttrDetail: false,
-          totalCount: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -362,9 +354,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -384,9 +375,8 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          totalCount: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -402,9 +392,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
@@ -426,9 +415,8 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          totalCount: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -444,9 +432,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -468,9 +455,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -496,9 +482,8 @@ describe('types.js', () => {
         entityType: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -529,9 +514,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
       });
     });
     it('GE Type error', async () => {
@@ -543,9 +527,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://comet:1026',
@@ -568,9 +551,8 @@ describe('types.js', () => {
         entityType: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -595,9 +577,8 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
       });
     });
     it('ActionType error', async () => {
@@ -609,9 +590,8 @@ describe('types.js', () => {
         entityType: '',
         values: false,
         noAttrDetail: false,
-        totalCount: 0,
-        limit: 100,
-        page: 0,
+        limit: 20,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',

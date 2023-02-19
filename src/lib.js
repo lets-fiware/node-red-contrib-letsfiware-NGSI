@@ -83,13 +83,6 @@ async function buildHTTPHeader(param) {
 function buildParams(config) {
   const params = new URLSearchParams();
 
-  if (typeof config.limit !== 'undefined') {
-    params.set('limit', config.limit);
-    if (typeof config.page !== 'undefined') {
-      params.set('offset', config.page * config.limit);
-    }
-  }
-
   [
     'id',
     'type',
@@ -105,6 +98,13 @@ function buildParams(config) {
     'attrs',
     'metadata',
     'orderBy',
+    'lastN',
+    'fromDate',
+    'toDate',
+    'aggrMethod',
+    'aggrPeriod',
+    'limit',
+    'offset',
   ].forEach((e) => {
     if (config[e] && config[e] !== '') {
       params.set(e, config[e]);
@@ -157,10 +157,53 @@ function getServiceAndServicePath(msg, service, path) {
   return [msg.context.fiwareService, msg.context.fiwareServicePath];
 }
 
+function convertDateTime(dt, value, unit) {
+  if (value === '') return '';
+
+  if (unit !== 'ISO8601') {
+    value = Number(value.replace(/^-/, ''));
+
+    if (isNaN(value)) {
+      this.error('dateTime not Number');
+      return null;
+    }
+    value = Number(value);
+  }
+
+  switch (unit) {
+    case 'years':
+      dt.setMonth(dt.getMonth() - value * 12);
+      break;
+    case 'months':
+      dt.setMonth(dt.getMonth() - value);
+      break;
+    case 'days':
+      dt.setDate(dt.getDate() - value);
+      break;
+    case 'hours':
+      dt.setHours(dt.getHours() - value);
+      break;
+    case 'minutes':
+      dt.setMinutes(dt.getMinutes() - value);
+      break;
+    case 'seconds':
+      dt.setSeconds(dt.getSeconds() - value);
+      break;
+    case 'ISO8601':
+      return value;
+    default:
+      this.error('Unit error: ' + unit);
+      return null;
+  }
+
+  return dt.toISOString();
+}
+
 module.exports = {
   http,
   buildHTTPHeader,
   buildParams,
   updateContext,
   getServiceAndServicePath,
+  convertDateTime,
 };

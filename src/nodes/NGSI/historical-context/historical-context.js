@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-function buildParams(config) {
+const buildParams = function (config) {
   const params = new URLSearchParams();
 
   if (typeof config.entityType !== 'undefined' && config.entityType !== '') {
@@ -69,7 +69,7 @@ function buildParams(config) {
   }
 
   return params;
-}
+};
 
 const getHistoricalContext = async function (param) {
 
@@ -96,7 +96,7 @@ const getHistoricalContext = async function (param) {
   }
 };
 
-function validateConfig(config) {
+const validateConfig = function (config) {
   if (!Object.keys(config).length) {
     this.error('Parameter empty');
     return false;
@@ -146,62 +146,21 @@ function validateConfig(config) {
     }
   }
   return true;
-}
+};
 
-function convertDateTime(dt, value, unit) {
-  if (value === '') return '';
-
-  if (unit !== 'ISO8601') {
-    value = Number(value.replace(/^-/, ''));
-
-    if (isNaN(value)) {
-      this.error('Not number');
-      return '';
-    }
-  }
-
-  switch (unit) {
-    case 'years':
-      dt.setMonth(dt.getMonth() - value * 12);
-      break;
-    case 'months':
-      dt.setMonth(dt.getMonth() - value);
-      break;
-    case 'days':
-      dt.setDate(dt.getDate() - value);
-      break;
-    case 'hours':
-      dt.setHours(dt.getHours() - value);
-      break;
-    case 'minutes':
-      dt.setMinutes(dt.getMinutes() - value);
-      break;
-    case 'seconds':
-      dt.setSeconds(dt.getSeconds() - value);
-      break;
-    case 'ISO8601':
-      return value;
-    default:
-      this.error('Unit error: ' + unit);
-      return '';
-  }
-
-  return dt.toISOString();
-}
-
-function calculateAverage(data) {
+const calculateAverage = function (data) {
   data.value.forEach(e => {
     e.points.forEach(e => {
       e.ave = e.samples === 0 ? 0 : e.sum / e.samples;
     });
   });
   return data;
-}
+};
 
 module.exports = function (RED) {
   function HistoricalContext(config) {
     RED.nodes.createNode(this, config);
-    var node = this;
+    const node = this;
 
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
@@ -244,11 +203,17 @@ module.exports = function (RED) {
       [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), config.servicepath.trim());
 
       const dt = new Date();
-      param.config.dateFrom = convertDateTime.call(node, dt, param.config.dateFrom, param.config.fromUnit);
-      param.config.dateTo = convertDateTime.call(node, dt, param.config.dateTo, param.config.toUnit);
+      param.config.dateFrom = lib.convertDateTime.call(node, dt, param.config.dateFrom, param.config.fromUnit);
+      if (param.config.dateFrom === null) {
+        return null;
+      }
+      param.config.dateTo = lib.convertDateTime.call(node, dt, param.config.dateTo, param.config.toUnit);
+      if (param.config.dateTo === null) {
+        return null;
+      }
 
       if (!validateConfig.call(this, param.config)) {
-        return;
+        return null;
       }
 
       let [historical, count] = await getHistoricalContext.call(node, param);

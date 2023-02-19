@@ -62,9 +62,8 @@ describe('source.js', () => {
         pathname: '/v2/entities',
         buffer: nobuffering.open({ send: () => { } }, {}),
         config: {
-          page: 0,
-          count: 1,
-          limit: 2,
+          offset: 0,
+          limit: 1,
         }
       };
 
@@ -88,8 +87,7 @@ describe('source.js', () => {
         pathname: '/v2/entities',
         buffer: nobuffering.open({ send: () => { } }, {}),
         config: {
-          page: 0,
-          count: 0,
+          offset: 0,
           limit: 2,
         }
       };
@@ -114,8 +112,7 @@ describe('source.js', () => {
         pathname: '/v2/entities',
         buffer: nobuffering.open({ send: () => { } }),
         config: {
-          page: 0,
-          count: 0,
+          offset: 0,
           limit: 2,
         }
       };
@@ -136,8 +133,7 @@ describe('source.js', () => {
         pathname: '/v2/entities',
         buffer: nobuffering.open({ send: () => { } }),
         config: {
-          page: 0,
-          count: 0,
+          offset: 0,
           limit: 2,
         }
       };
@@ -162,8 +158,7 @@ describe('source.js', () => {
         pathname: '/v2/entities',
         buffer: nobuffering.open({ send: () => { } }),
         config: {
-          page: 0,
-          count: 0,
+          offset: 0,
           limit: 2,
         }
       };
@@ -297,9 +292,8 @@ describe('source.js', () => {
         idPattern: '',
         attrs: '',
         q: '',
-        count: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -321,9 +315,8 @@ describe('source.js', () => {
           idPattern: '.*',
           attrs: '',
           q: '',
-          count: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -342,9 +335,8 @@ describe('source.js', () => {
         idPattern: '',
         attrs: '',
         q: '',
-        count: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
@@ -367,9 +359,8 @@ describe('source.js', () => {
           idPattern: '.*',
           attrs: '',
           q: '',
-          count: 0,
           limit: 100,
-          page: 0,
+          offset: 0,
         },
       };
 
@@ -387,9 +378,8 @@ describe('source.js', () => {
         idPattern: '',
         attrs: '',
         q: '',
-        count: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -414,9 +404,8 @@ describe('source.js', () => {
         idPattern: '',
         attrs: '',
         q: '',
-        count: 0,
         limit: 100,
-        page: 0,
+        offset: 0,
       };
 
       const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -445,6 +434,8 @@ describe('source.js', () => {
         attrs: '',
         query: '',
         buffering: 'on',
+        limit: 100,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -472,6 +463,8 @@ describe('source.js', () => {
         attrs: '',
         query: '',
         buffering: 'on',
+        limit: 100,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -499,6 +492,8 @@ describe('source.js', () => {
         attrs: '',
         query: '',
         buffering: 'off',
+        limit: 100,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -526,6 +521,8 @@ describe('source.js', () => {
         attrs: 'temperature',
         query: 'temperature>20',
         buffering: 'off',
+        limit: 100,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -552,6 +549,8 @@ describe('source.js', () => {
         attrs: 'temperature',
         query: 'temperature>20',
         buffering: 'off',
+        limit: 100,
+        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
