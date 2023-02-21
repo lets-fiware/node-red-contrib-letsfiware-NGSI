@@ -1,4 +1,6 @@
-## node-red-contrib-letsfiware-NGSI v0.9.0 - 21 February, 2023
+## node-red-contrib-letsfiware-NGSI v0.10.0-next
+
+## node-red-contrib-letsfiware-NGSI v0.10.0 - 21 February, 2023
 
 -  ADD NGSI timeseries custom node (#101)
 -  Refactor lib.js (#97)
