@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.9.0-next
 
+-  ADD NGSI timeseries custom node (#101)
 -  Refactor lib.js (#97)
 -  FIX package.json (#96)
 
