@@ -30,6 +30,7 @@ FIWARE Open APIs の Node-RED 実装
 -   [NGSI Timeseries](docs/en/custom_nodes/ngsi_timeseries.md) (Quantumpleap)
 -   [NGSI to Worldmap](docs/ja/custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI to Dashboard](docs/ja/custom_nodes/ngsi_to_dashboard.md)
+-   [OpenWeatherMap to NGSI](docs/ja/custom_nodes/openweathermap_to_ngsi.md)
 -   [GTFS realtime to NGSI](docs/ja/custom_nodes/ngsi_gtfs_realtime.md)
 -   [FIWARE version](docs/ja/custom_nodes/fiware_version.md)
 -   [FIWARE Service and ServicePath](docs/ja/custom_nodes/service-and-servicepath.md)

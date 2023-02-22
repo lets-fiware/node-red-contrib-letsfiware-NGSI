@@ -199,6 +199,40 @@ function convertDateTime(dt, value, unit) {
   return dt.toISOString();
 }
 
+function jsonToNGSI(data) {
+  let res = {};
+
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return null;
+  }
+
+  for (var key in data) {
+    let attrType = 'None';
+    switch (typeof data[key]) {
+      case 'boolean':
+        attrType = 'Boolean';
+        break;
+      case 'number':
+        attrType = 'Number';
+        break;
+      case 'string':
+        attrType = 'Text';
+        break;
+      case 'object':
+        if (data[key] != null) {
+          attrType = 'StructuredValue';
+        }
+        break;
+    }
+    res[key] = {
+      'type': attrType,
+      'value': data[key],
+    };
+  }
+
+  return res;
+}
+
 module.exports = {
   http,
   buildHTTPHeader,
@@ -206,4 +240,5 @@ module.exports = {
   updateContext,
   getServiceAndServicePath,
   convertDateTime,
+  jsonToNGSI,
 };
