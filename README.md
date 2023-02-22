@@ -15,7 +15,7 @@ Node-RED implementation for FIWARE Open APIs
 | :books: [Documentation](https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/) | :dart: [Roadmap](./ROADMAP.md) |
 |-------------------------------------------------------|--------------------------------|
 
-このドキュメントは[日本語](./README.ja.md)でもご覧いただけます。
+このドキュメントは[日本語](./README_ja.md)でもご覧いただけます。
 
 ## Supported custom nodes
 
