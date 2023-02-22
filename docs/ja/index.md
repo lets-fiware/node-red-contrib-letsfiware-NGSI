@@ -21,6 +21,7 @@ FIWARE Open APIs の Node-RED 実装
 -   [Historical context](custom_nodes/historical_context.md) (STH-Comet)
 -   [NGSI Timeseries](custom_nodes/ngsi_timeseries.md) (Quantumpleap)
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)
+-   [NGSI to Dashboard](custom_nodes/ngsi_to_dashboard.md)
 -   [GTFS realtime to NGSI](custom_nodes/ngsi_gtfs_realtime.md)
 -   [FIWARE version](custom_nodes/fiware_version.md)
 -   [FIWARE Service and ServicePath](custom_nodes/service-and-servicepath.md)
