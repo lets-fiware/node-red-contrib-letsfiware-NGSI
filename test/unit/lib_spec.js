@@ -419,4 +419,107 @@ describe('lib.js', () => {
       assert.equal(msg, 'Unit error: day');
     });
   });
+  describe('jsonToNGSI', () => {
+    it('null', () => {
+      const actual = lib.jsonToNGSI(null);
+
+      const expected = null;
+
+      assert.equal(actual, expected);
+    });
+    it('Number', () => {
+      const actual = lib.jsonToNGSI(123);
+
+      const expected = null;
+
+      assert.equal(actual, expected);
+    });
+    it('String', () => {
+      const actual = lib.jsonToNGSI('abc');
+
+      const expected = null;
+
+      assert.equal(actual, expected);
+    });
+    it('Array', () => {
+      const actual = lib.jsonToNGSI([]);
+
+      const expected = null;
+
+      assert.equal(actual, expected);
+    });
+
+    it('null value', () => {
+      const actual = lib.jsonToNGSI({ none: null });
+
+      const expected = {
+        none: {
+          type: 'None',
+          value: null,
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('boolean', () => {
+      const actual = lib.jsonToNGSI({ keyValues: true });
+
+      const expected = {
+        keyValues: {
+          type: 'Boolean',
+          value: true,
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('number', () => {
+      const actual = lib.jsonToNGSI({ temperature: 28.4 });
+
+      const expected = {
+        temperature: {
+          type: 'Number',
+          value: 28.4,
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('text', () => {
+      const actual = lib.jsonToNGSI({ name: 'fiware' });
+
+      const expected = {
+        name: {
+          type: 'Text',
+          value: 'fiware',
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('object', () => {
+      const actual = lib.jsonToNGSI({ location: {} });
+
+      const expected = {
+        location: {
+          type: 'StructuredValue',
+          value: {},
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('array', () => {
+      const actual = lib.jsonToNGSI({ list: [] });
+
+      const expected = {
+        list: {
+          type: 'StructuredValue',
+          value: [],
+        }
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
 });

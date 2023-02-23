@@ -24,6 +24,7 @@
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",
       "NGSI-to-worldmap": "src/nodes/NGSI/to-worldmap/to-worldmap.js",
       "NGSI-to-dashboard": "src/nodes/NGSI/to-dashboard/to-dashboard.js",
+      "OpenWeatherMap-to-NGSI": "src/nodes/NGSI/openweathermap_to_ngsi/openweathermap_to_ngsi.js",
       "FIWARE-version": "src/nodes/NGSI/version/version.js",
       "Historical-Context": "src/nodes/NGSI/historical-context/historical-context.js",
       "NGSI-timeseries": "src/nodes/NGSI/timeseries/timeseries.js",
