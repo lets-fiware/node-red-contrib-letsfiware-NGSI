@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.10.0-next
+## node-red-contrib-letsfiware-NGSI v0.11.0 - 23 February, 2023
 
 -  ADD OpenWeatherMap to NGSI custom node (#107)
 -  UPDATE documentation (#105)
