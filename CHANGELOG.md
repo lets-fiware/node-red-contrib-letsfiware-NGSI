@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.12.0-next
 
+-  UPDATE documentation (#113)
+
 ## node-red-contrib-letsfiware-NGSI v0.12.0 - 23 February, 2023
 
 -  FIX GE type (#110)

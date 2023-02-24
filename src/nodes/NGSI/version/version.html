@@ -58,14 +58,13 @@
 </script>
 
 <script type="text/x-red" data-help-name="FIWARE version">
-    <p>A simple node that allows to obtain NGSIv2 entity. Entity id shall be provided as part of the <code>msg.payload</code>. 
-    </p>
+    <p>A simple node that allows to obtain the version information of FIWARE GE</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">string or JSON Object</span>
+            <span class="property-type">any</span>
         </dt>
-        <dd>payload containing Entity Id as string.</dd>
+        <dd>payload containing any payload</dd>
     </dl>
 
     <h3>Outputs</h3>
@@ -73,9 +72,9 @@
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
-        <dd>NGSIv2 entity</dd>
+        <dd>the version information of FIWARE GE</dd>
     </dl>
 
     <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_entity/">here</a> for full documentation.</p>
+    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/fiware_version/">here</a> for full documentation.</p>
 </script>
