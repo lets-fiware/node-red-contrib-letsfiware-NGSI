@@ -1,6 +1,6 @@
 # FIWARE version 
 
-This custom node is a simple node that allows to obtain the version information of FIWARE Orion.
+This custom node is a simple node that allows to obtain the version information of FIWARE GE.
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-01.png)
 
@@ -21,7 +21,7 @@ This custom node is a simple node that allows to obtain the version information 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-02.png)
 
 -   `name`: a name for a node instance
--   `Context Broker`: an endpoint of a context broker
+-   `Generic Enabler`: an endpoint of a FIWARE GE
 
 ## Inputs
 
@@ -37,7 +37,7 @@ A `msg.payload` should contain any payload.
 
 ### Payload *JSON Array*
 
-A `msg.payload` contains the version information of FIWARE Orion.
+A `msg.payload` contains the version information of FIWARE GE.
 
 ## Examples
 
