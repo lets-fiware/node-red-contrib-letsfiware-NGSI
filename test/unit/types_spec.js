@@ -133,6 +133,34 @@ describe('types.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('total count 0', async () => {
+      typesNode.__set__('lib', {
+        http: async () => Promise.resolve({
+          status: 200,
+          headers: { 'fiware-total-count': 0 },
+          data: [{}],
+        }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getTypes = typesNode.__get__('getTypes');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/v2/types',
+        config: {
+          limit: 0,
+          offset: 0,
+        },
+      };
+
+      const actual = await getTypes(param);
+
+      const expected = [{}];
+
+      assert.deepEqual(actual, expected);
+    });
     it('should be 400 Bad Request', async () => {
       typesNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),

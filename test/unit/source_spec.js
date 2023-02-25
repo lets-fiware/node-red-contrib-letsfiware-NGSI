@@ -119,6 +119,31 @@ describe('source.js', () => {
 
       await getEntities(param);
     });
+    it('total count 0', async () => {
+      sourceNode.__set__('lib', {
+        http: async () => Promise.resolve({
+          status: 200,
+          headers: { 'fiware-total-count': 0 },
+          data: [{}]
+        }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getEntities = sourceNode.__get__('getEntities');
+      const nobuffering = sourceNode.__get__('nobuffering');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/v2/entities',
+        buffer: nobuffering.open({ send: () => { } }),
+        config: {
+          offset: 0,
+          limit: 2,
+        }
+      };
+
+      await getEntities(param);
+    });
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),

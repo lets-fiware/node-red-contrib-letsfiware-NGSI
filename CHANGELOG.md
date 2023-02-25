@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.12.0-next
 
+-  ADD feature to check if element is empty (#116)
 -  UPDATE Node.js dependencies (#115)
 -  RENAME ppalette label for nodes (#114)
 -  UPDATE documentation (#113)
