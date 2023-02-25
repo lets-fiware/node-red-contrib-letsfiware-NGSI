@@ -48,6 +48,9 @@ const getTypes = async function (param) {
     try {
       const res = await lib.http(options);
       if (res.status === 200) {
+        if (res.data.length === 0) {
+          break;
+        }
         types = types.concat(res.data);
         param.config.offset += param.config.limit;
         if (totalCount <= 0) {
