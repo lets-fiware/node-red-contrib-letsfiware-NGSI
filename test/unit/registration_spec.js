@@ -107,7 +107,7 @@ describe('registration.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'orion error' } }),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -124,7 +124,7 @@ describe('registration.js', () => {
 
       const actuial = await createRegistration.call(node, param);
       assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating registration: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(msg, ['Error while creating registration: 400 Bad Request', 'Details: error']);
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {
@@ -197,7 +197,7 @@ describe('registration.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'orion error' } }),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -215,7 +215,7 @@ describe('registration.js', () => {
       const actual = await deleteRegistration.call(node, param);
 
       assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting registration: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(msg, ['Error while deleting registration: 400 Bad Request', 'Details: error']);
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {

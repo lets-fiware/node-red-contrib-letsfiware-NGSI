@@ -186,6 +186,31 @@ describe('types.js', () => {
       assert.deepEqual(actual, null);
       assert.equal(msg, 'Error while retrieving entity types: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      typesNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getTypes = typesNode.__get__('getTypes');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/v2/types',
+        config: {
+          actionType: 'read',
+        },
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await getTypes.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.deepEqual(msg, ['Error while retrieving entity types: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       typesNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),

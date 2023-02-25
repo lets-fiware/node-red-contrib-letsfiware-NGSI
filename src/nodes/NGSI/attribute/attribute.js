@@ -51,6 +51,9 @@ const httpRequest = async function (param) {
       return Number(res.status);
     } else {
       this.error(`Error while managing attribute: ${res.status} ${res.statusText}`);
+      if (res.data && res.data.description) {
+        this.error(`Details: ${res.data.description}`);
+      }
       return null;
     }
   } catch (error) {

@@ -98,12 +98,13 @@ describe('batch-update.js', () => {
         url: '/v2/op/update',
         config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
       };
-      let errmsg;
-      const node = { error: (e) => { errmsg = e; }, send: () => { } };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
 
       const actual = await opUpdate.call(node, param);
 
-      assert.equal(errmsg, 'Details: "error"');
+      assert.deepEqual(msg, ['Error while updating entities: 400 Bad Request', 'Details: error']);
       assert.equal(actual, null);
     });
     it('Should be unknown error', async () => {

@@ -59,6 +59,9 @@ const getEntities = async function (param) {
         }
       } else {
         this.error(`Error while retrieving entities: ${res.status} ${res.statusText}`);
+        if (res.data && res.data.description) {
+          this.error(`Details: ${res.data.description}`);
+        }
         break;
       }
     } catch (error) {

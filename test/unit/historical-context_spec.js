@@ -187,6 +187,32 @@ describe('historical-context.js', () => {
       assert.deepEqual(actual, [null, null]);
       assert.equal(msg, 'Error while retrieving historical context: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      historicalNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
+
+      const param = {
+        host: 'http://comet:8666',
+        pathname: '/STH/v2/entities',
+        config: {
+          entityType: 'T1',
+          dataType: 'raw',
+          lastN: 5
+        }
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await getHistoricalContext.call(node, param);
+
+      assert.deepEqual(actual, [null, null]);
+      assert.deepEqual(msg, ['Error while retrieving historical context: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       historicalNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),

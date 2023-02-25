@@ -48,7 +48,7 @@ const httpRequest = async function (param) {
     } else {
       this.error(`Error while retrieving timeseries context: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
-        this.error(`Details: ${JSON.stringify(res.data.description)}`);
+        this.error(`Details: ${res.data.description}`);
       }
       return null;
     }
