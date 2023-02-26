@@ -1,6 +1,6 @@
 # FIWARE version 
 
-このカスタム・ノードは、FIWARE GEs のバージョン情報を取得できるノードです。
+このカスタム・ノードは、FIWARE GE のバージョン情報を取得できるノードです。
 
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-01.png)
 
@@ -21,7 +21,7 @@
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/version/version-02.png)
 
 -   `name`: ノード・インスタンスの名前
--   `Context Broker`: Context Broker のエンドポイント
+-   `Generic Enabler`: FIWARE GE のエンドポイント
 
 <a name="input"></a>
 
