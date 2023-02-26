@@ -168,6 +168,31 @@ describe('entity.js', () => {
       assert.deepEqual(actual, null);
       assert.equal(msg, 'Error while managing entity: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      entityNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const httpRequest = entityNode.__get__('httpRequest');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/entities/I',
+        config: {
+          actionType: 'read',
+        },
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await httpRequest.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.deepEqual(msg, ['Error while managing entity: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       entityNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),

@@ -46,7 +46,7 @@ const opUpdate = async function (param) {
     } else {
       this.error(`Error while updating entities: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
-        this.error(`Details: ${JSON.stringify(res.data.description)}`);
+        this.error(`Details: ${res.data.description}`);
       }
       return null;
     }

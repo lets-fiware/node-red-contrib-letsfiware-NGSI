@@ -46,7 +46,7 @@ const createRegistration = async function (param) {
     } else {
       this.error(`Error while creating registration: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
-        this.error(`Details: ${JSON.stringify(res.data.description)}`);
+        this.error(`Details: ${res.data.description}`);
       }
     }
   } catch (error) {
@@ -71,7 +71,7 @@ const deleteRegistration = async function (param) {
     } else {
       this.error(`Error while deleting registration: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
-        this.error(`Details: ${JSON.stringify(res.data.description)}`);
+        this.error(`Details: ${res.data.description}`);
       }
     }
     return null;

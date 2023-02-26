@@ -111,6 +111,9 @@ const createSubscription = async function (param) {
       return res.headers['location'].slice('/v2/subscriptions/'.length);
     } else {
       this.error(`Error while creating subscription: ${res.status} ${res.statusText}`);
+      if (res.data && res.data.description) {
+        this.error(`Details: ${res.data.description}`);
+      }
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
@@ -137,6 +140,9 @@ const updateSubscription = async function (param) {
       return Number(res.status);
     } else {
       this.error(`Error while updating subscription: ${res.status} ${res.statusText}`);
+      if (res.data && res.data.description) {
+        this.error(`Details: ${res.data.description}`);
+      }
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
@@ -162,6 +168,9 @@ const deleteSubscription = async function (param) {
       return Number(res.status);
     } else {
       this.error(`Error while deleting subscription: ${res.status} ${res.statusText}`);
+      if (res.data && res.data.description) {
+        this.error(`Details: ${res.data.description}`);
+      }
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }

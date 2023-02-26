@@ -143,6 +143,31 @@ describe('attribute.js', () => {
       assert.deepEqual(actual, null);
       assert.equal(msg, 'Error while managing attribute: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      attributesNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const httpRequest = attributesNode.__get__('httpRequest');
+
+      const param = {
+        method: 'post',
+        host: 'http://orion:1026',
+        pathname: '/entities/E/attrs/temperature',
+        config: {
+          actionType: 'read',
+        },
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await httpRequest.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.deepEqual(msg, ['Error while managing attribute: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       attributesNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),

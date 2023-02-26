@@ -148,7 +148,7 @@ describe('timeseries.js', () => {
       const actual = await httpRequest.call(node, param);
 
       assert.deepEqual(actual, null);
-      assert.equal(msg, 'Details: "error"');
+      assert.equal(msg, 'Details: error');
     });
     it('Should be unknown error', async () => {
       timeseriesNode.__set__('lib', {

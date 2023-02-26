@@ -231,6 +231,27 @@ describe('subscription.js', () => {
       assert.equal(actuial, null);
       assert.deepEqual(msg, ['Error while creating subscription: 400 Bad Request', 'Details: "orion error"']);
     });
+    it('should be 400 Bad Request with description', async () => {
+      subscriptionNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
+      });
+      const createSubscription = subscriptionNode.__get__('createSubscription');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions',
+        config: { data: {} }
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actuial = await createSubscription.call(node, param);
+      assert.equal(actuial, null);
+      assert.deepEqual(msg, ['Error while creating subscription: 400 Bad Request', 'Details: error']);
+    });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
@@ -322,6 +343,28 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request', 'Details: "orion error"']);
     });
+    it('should be 400 Bad Request with description', async () => {
+      subscriptionNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
+      });
+      const updateSubscription = subscriptionNode.__get__('updateSubscription');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await updateSubscription.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request', 'Details: error']);
+    });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
@@ -412,6 +455,28 @@ describe('subscription.js', () => {
 
       assert.deepEqual(actual, null);
       assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request', 'Details: "orion error"']);
+    });
+    it('should be 400 Bad Request with description', async () => {
+      subscriptionNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
+      });
+      const deleteSubscription = subscriptionNode.__get__('deleteSubscription');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/v2/subscriptions/5fa7988a627088ba9b91b1c1',
+        config: {},
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const actual = await deleteSubscription.call(node, param);
+
+      assert.deepEqual(actual, null);
+      assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request', 'Details: error']);
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {

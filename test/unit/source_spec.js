@@ -169,6 +169,32 @@ describe('source.js', () => {
 
       assert.equal(msg, 'Error while retrieving entities: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      sourceNode.__set__('lib', {
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } } ),
+        buildHTTPHeader: () => { return {}; },
+        buildParams: () => new URLSearchParams(),
+      });
+      const getEntities = sourceNode.__get__('getEntities');
+      const nobuffering = sourceNode.__get__('nobuffering');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/v2/entities',
+        buffer: nobuffering.open({ send: () => { } }),
+        config: {
+          offset: 0,
+          limit: 2,
+        }
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      await getEntities.call(node, param);
+
+      assert.deepEqual(msg, ['Error while retrieving entities: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),

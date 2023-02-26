@@ -44,6 +44,9 @@ const getVersion = async function (param) {
       return res.data;
     } else {
       this.error(`Error while getting version: ${res.status} ${res.statusText}`);
+      if (res.data && res.data.description) {
+        this.error(`Details: ${res.data.description}`);
+      }
       return null;
     }
   } catch (error) {

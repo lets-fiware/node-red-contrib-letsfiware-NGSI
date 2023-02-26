@@ -83,6 +83,27 @@ describe('version.js', () => {
       assert.equal(res, null);
       assert.equal(msg, 'Error while getting version: 400 Bad Request');
     });
+    it('should be 400 Bad Request with description', async () => {
+      sourceNode.__set__('lib', {
+        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request', data: { description: 'error' }}),
+        buildHTTPHeader: ()=>{return{};},
+        buildSearchParams: () =>new URLSearchParams(),
+      });
+      const getVersion= sourceNode.__get__('getVersion');
+
+      const param = {
+        host: 'http://orion:1026',
+        pathname: '/version'
+      };
+
+      let msg = [];
+      const node = { msg: '', error: (e) => { msg.push(e); } };
+
+      const res = await getVersion.call(node, param);
+      
+      assert.equal(res, null);
+      assert.deepEqual(msg, ['Error while getting version: 400 Bad Request', 'Details: error']);
+    });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.reject('unknown error'),
