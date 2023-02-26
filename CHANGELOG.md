@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.12.0-next
 
+-  ADD GitHub Actions for publishing node package (#121)
 -  UPDATE documentation (#120)
 -  Improve error message (#119)
 -  UPDATE Coveralls GitHub Action (#118)
