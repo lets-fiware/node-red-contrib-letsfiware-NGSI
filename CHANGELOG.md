@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.12.0-next
+## node-red-contrib-letsfiware-NGSI v0.13.0 - 26 February, 2023
 
 -  ADD GitHub Actions for publishing node package (#121)
 -  UPDATE documentation (#120)
