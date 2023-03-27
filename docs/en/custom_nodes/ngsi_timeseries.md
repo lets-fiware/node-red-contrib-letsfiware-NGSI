@@ -26,7 +26,7 @@ It allows to list of all the entity id available.
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-02.png)
 
 -   `name`: A name for a node instance
--   `Quantumpleap`: An endpoint of Quantumpleap
+-   `QuantumLeap`: An endpoint of Quantumpleap
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Entities`
 -   `Entity type`: Type of entity
@@ -66,7 +66,7 @@ It allows to query history of attribute(s) (values only) of a given entity.
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-03.png)
 
 -   `name`: A name for a node instance
--   `Quantumpleap`: An endpoint of Quantumpleap
+-   `QuantumLeap`: An endpoint of Quantumpleap
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Entity`
 -   `Value`: If true, values only
@@ -266,7 +266,7 @@ It allows to query history of attribute(s) (values only) of N entities of the sa
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-04.png)
 
 -   `name`: A name for a node instance
--   `Quantumpleap`: An endpoint of Quantumpleap
+-   `QuantumLeap`: An endpoint of Quantumpleap
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Type`
 -   `Value`: If true, values only
@@ -476,7 +476,7 @@ It allows to query history of N attribute(s) (values only) of N entities of N ty
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-05.png)
 
 -   `name`: A name for a node instance
--   `Quantumpleap`: An endpoint of Quantumpleap
+-   `QuantumLeap`: An endpoint of Quantumpleap
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Attribute`
 -   `Value`: If true, values only

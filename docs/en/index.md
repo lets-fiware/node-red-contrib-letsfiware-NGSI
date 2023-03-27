@@ -19,7 +19,7 @@ Node-RED NGSI integration
 -   [NGSI Registration](custom_nodes/ngsi_registration.md)
 -   [NGSI Types](custom_nodes/ngsi_types.md)
 -   [Historical context](custom_nodes/historical_context.md) (STH-Comet)
--   [NGSI Timeseries](custom_nodes/ngsi_timeseries.md) (Quantumpleap)
+-   [NGSI Timeseries](custom_nodes/ngsi_timeseries.md) (QuantumLeap)
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI to Dashboard](custom_nodes/ngsi_to_dashboard.md)
 -   [OpenWeatherMap to NGSI](custom_nodes/openweathermap_to_ngsi.md)

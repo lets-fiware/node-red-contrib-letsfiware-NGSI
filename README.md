@@ -29,7 +29,7 @@ Node-RED implementation for FIWARE Open APIs
 -   [NGSI Registration](docs/en/custom_nodes/ngsi_registration.md)
 -   [NGSI Types](docs/en/custom_nodes/ngsi_types.md)
 -   [Historical context](docs/en/custom_nodes/historical_context.md) (STH-Comet)
--   [NGSI Timeseries](docs/en/custom_nodes/ngsi_timeseries.md) (Quantumpleap)
+-   [NGSI Timeseries](docs/en/custom_nodes/ngsi_timeseries.md) (QuantumLeap)
 -   [NGSI to Worldmap](docs/en/custom_nodes/ngsi_to_worldmap.md)
 -   [NGSI to Dashboard](docs/en/custom_nodes/ngsi_to_dashboard.md)
 -   [OpenWeatherMap to NGSI](docs/en/custom_nodes/openweathermap_to_ngsi.md)
