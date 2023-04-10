@@ -40,7 +40,7 @@
 
 ### 入力
 
-Payload *JSON Araay* または *JSON Object*
+Payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
@@ -102,7 +102,7 @@ null
 
 ### 入力
 
-Payload *JSON Araay* または *JSON Object*
+Payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
@@ -164,7 +164,7 @@ null
 
 ### 入力
 
-Payload *JSON Araay* または *JSON Object*
+Payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
@@ -226,7 +226,7 @@ null
 
 ### 入力
 
-Payload *JSON Araay* または *JSON Object*
+Payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
@@ -288,7 +288,7 @@ null
 
 ### 入力
 
-Payload *JSON Araay* または *JSON Object*
+Payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 

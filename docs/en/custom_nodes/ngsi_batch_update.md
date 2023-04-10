@@ -38,7 +38,7 @@ It allows to append several entities.
 
 ### Input
 
-Payload *JSON Araay* or *JSON Object*
+Payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
@@ -98,7 +98,7 @@ It allows to append several entities strictly.
 
 ### Input
 
-Payload *JSON Araay* or *JSON Object*
+Payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
@@ -158,7 +158,7 @@ It allows to update several entities.
 
 ### Input
 
-Payload *JSON Araay* or *JSON Object*
+Payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
@@ -218,7 +218,7 @@ It allows to replace several entities.
 
 ### Input
 
-Payload *JSON Araay* or *JSON Object*
+Payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
@@ -278,7 +278,7 @@ It allows to delete several entities.
 
 ### Input
 
-Payload *JSON Araay* or *JSON Object*
+Payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
