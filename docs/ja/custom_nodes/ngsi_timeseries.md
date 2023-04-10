@@ -28,7 +28,7 @@
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-02.png)
 
 -   `name`: ノード・インスタンスの名前
--   `QuantumLeap`: Quantumpleap のエンドポイント
+-   `QuantumLeap`: QuantumLeap のエンドポイント
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Entities`
 -   `Entity type`: エンティティのタイプ
@@ -70,7 +70,7 @@
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-03.png)
 
 -   `name`: ノード・インスタンスの名前
--   `QuantumLeap`: Quantumpleap のエンドポイント
+-   `QuantumLeap`: QuantumLeap のエンドポイント
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Entity`
 -   `Value`: True の場合、値のみ
@@ -272,7 +272,7 @@
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-04.png)
 
 -   `name`: ノード・インスタンスの名前
--   `QuantumLeap`: Quantumpleap のエンドポイント
+-   `QuantumLeap`: QuantumLeap のエンドポイント
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Type`
 -   `Value`: True の場合、値のみ
@@ -484,7 +484,7 @@ N タイプの N エンティティの N 属性 (値のみ) の履歴をクエ�
 ![](https://raw.githubusercontent.com/lets-fiware/node-red-contrib-letsfiware-NGSI/gh-pages/images/timeseries/timeseries-05.png)
 
 -   `name`: ノード・インスタンスの名前
--   `QuantumLeap`: Quantumpleap のエンドポイント
+-   `QuantumLeap`: QuantumLeap のエンドポイント
 -   `ServicePath`: FIWARE Service Path
 -   `Action Type`: `Attribute`
 -   `Value`: True の場合、値のみ

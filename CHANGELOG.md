@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.13.0-next
 
+-  UPDATE Node.js dependencies (#126)
 -  Fix typos in documentation (#125)
 
 ## node-red-contrib-letsfiware-NGSI v0.13.0 - 26 February, 2023
