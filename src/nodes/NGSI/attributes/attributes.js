@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const updateAttrs = async function (param) {
+const updateAttrs = async function (msg, param) {
   const options = {
     method: param.method,
     baseURL: param.host,
@@ -43,45 +43,65 @@ const updateAttrs = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 204) {
-      return res.status;
+      return;
     } else {
       this.error(`Error while managing attribute value: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while managing attribute value: ${error}`);
-    return null;
+    this.error(`Exception while managing attribute value: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType,
+    id: config.entityId.trim(),
+    type: config.entityType.trim(),
+    keyValues: config.keyValues === 'true',
+    overrideMetadata: config.overrideMetadata === 'true',
+    forcedUpdate: config.forcedUpdate === 'true',
+    flowControl: config.flowControl === 'true',
+    append: false,
+  };
+
   if (!msg.payload) {
-    this.error('payload is empty');
-    return;
+    msg.payload = { error: 'payload is empty' };
+    return null;
   }
 
   if (typeof msg.payload !== 'object' || Array.isArray(msg.payload)) {
-    this.error('payload not JSON object');
-    return;
+    msg.payload = { error: 'payload not JSON object' };
+    return null;
   }
 
   if (defaultConfig.actionType === 'payload') {
     if ('actionType' in msg.payload && 'attributes' in msg.payload) {
       defaultConfig = Object.assign(defaultConfig, msg.payload);
     } else {
-      this.error('actionType and/or attributes not found');
-      return;
+      msg.payload = { error: 'actionType and/or attributes not found' };
+      return null;
     }
   } else {
     defaultConfig.attributes = msg.payload;
   }
 
   if (defaultConfig.id === '') {
-    this.error('Entity id not found');
+    msg.payload = { error: 'Entity id not found' };
     return null;
   }
 
@@ -89,7 +109,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
 
   for (let i = 0; i < options.length; i++) {
     if (typeof defaultConfig[options[i]] !== 'boolean') {
-      this.error(options[i] + ' not boolean');
+      msg.payload = { error: options[i] + ' not boolean' };
       return null;
     }
   }
@@ -118,7 +138,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
       delete defaultConfig.append;
       break;
     default:
-      this.error('ActionType error: ' + defaultConfig.actionType);
+      msg.payload = { error: 'ActionType error: ' + defaultConfig.actionType };
       return null;
   }
 
@@ -137,31 +157,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType,
-        id: config.entityId.trim(),
-        type: config.entityType.trim(),
-        keyValues: config.keyValues === 'true',
-        overrideMetadata: config.overrideMetadata === 'true',
-        forcedUpdate: config.forcedUpdate === 'true',
-        flowControl: config.flowControl === 'true',
-        append: false,
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam.call(node, msg, config, openAPIsConfig);
 
       if (param) {
-        const result = await updateAttrs.call(node, param);
-        msg.payload = result;
-        node.send(msg);
+        await updateAttrs.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI Attributes', NGSIAttributes);

@@ -30,11 +30,9 @@
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `create`
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload`には、NGSIv2 レジストレーション・データを含める必要があります。
 
@@ -60,14 +58,22 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload  *string*
+payload  *string*
 
 `msg.payload` には、レジストレーション id が含まれます。
 
 ```text
 63ed51173bdeaadaf909c57b
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+201
 ```
 
 <a name="delete-a-registration"></a>
@@ -85,30 +91,24 @@ Payload  *string*
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `delete`
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *string*
+payload *string*
 
 msg.payload` には、レジストレーション id を含める必要があります。
 
-```
+```text
 63ed51173bdeaadaf909c57b
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* or *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actiontype-in-payload"></a>
@@ -126,11 +126,12 @@ null
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `value of actionType in payload`
 
-### 例
+
+#### 入力 (create)
+
+payload *JSON Object*
 
 新しいレジストレーションを作成する場合、`msg.payload` には、actionType とレジストレーション・データを含む JSON オブジェクトが含まれている必要があります。
-
-#### 入力
 
 ```json
 {
@@ -139,9 +140,9 @@ null
 }
 ```
 
-#### 出力
+#### 出力 (create)
 
-Payload  *string*
+payload  *string*
 
 `msg.payload` には、レジストレーション id が含まれます。
 
@@ -149,9 +150,19 @@ Payload  *string*
 63ed51173bdeaadaf909c57b
 ```
 
-既存の登録を削除する場合、`msg.payload` には、actionType とレジストレーション id を持つ JSON オブジェクトが含まれている必要があります。
+statusCode *Number*
 
-#### 入力
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+201
+```
+
+### 入力 (delete)
+
+payload *JSON Object*
+
+既存の登録を削除する場合、`msg.payload` には、actionType とレジストレーション id を持つ JSON オブジェクトが含まれている必要があります。
 
 ```json
 {
@@ -160,16 +171,12 @@ Payload  *string*
 }
 ```
 
-#### 出力
+### 出力 (delete)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```

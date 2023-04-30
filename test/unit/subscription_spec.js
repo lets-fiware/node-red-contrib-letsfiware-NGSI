@@ -166,10 +166,16 @@ describe('subscription.js', () => {
         config: { data: {} }
       };
 
-      const actuial = await createSubscription(param);
-      assert.equal(actuial, '5fa7988a627088ba9b91b1c1');
+      const msg = {};
+      await createSubscription(msg, param);
+
+      assert.deepEqual(msg, {
+        payload: '5fa7988a627088ba9b91b1c1',
+        statusCode: 201,
+        headers: { location: '/v2/subscriptions/5fa7988a627088ba9b91b1c1' }
+      });
     });
-    it('create subscription', async () => {
+    it('create subscription with data', async () => {
       subscriptionNode.__set__('lib', {
         http: async () => Promise.resolve({
           status: 201,
@@ -186,8 +192,14 @@ describe('subscription.js', () => {
         config: { data: { subject: {}, notification: {} } }
       };
 
-      const actuial = await createSubscription(param);
-      assert.equal(actuial, '5fa7988a627088ba9b91b1c1');
+      const msg = {};
+      await createSubscription(msg, param);
+
+      assert.deepEqual(msg, {
+        payload: '5fa7988a627088ba9b91b1c1',
+        statusCode: 201,
+        headers: { location: '/v2/subscriptions/5fa7988a627088ba9b91b1c1' }
+      });
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
@@ -203,12 +215,14 @@ describe('subscription.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createSubscription.call(node, param);
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating subscription: 400 Bad Request']);
+      const msg = {};
+      await createSubscription.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while creating subscription: 400 Bad Request']);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
@@ -224,12 +238,14 @@ describe('subscription.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createSubscription.call(node, param);
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating subscription: 400 Bad Request', 'Details: "orion error"']);
+      const msg = {};
+      await createSubscription.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while creating subscription: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(msg, { payload: { orionError: 'orion error' }, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       subscriptionNode.__set__('lib', {
@@ -245,16 +261,18 @@ describe('subscription.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createSubscription.call(node, param);
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating subscription: 400 Bad Request', 'Details: error']);
+      const msg = {};
+      await createSubscription.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while creating subscription: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -266,13 +284,14 @@ describe('subscription.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createSubscription.call(node, param);
+      const msg = {};
+      await createSubscription.call(node, msg, param);
 
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Exception while creating subscription: unknown error']);
+      assert.deepEqual(errmsg, ['Exception while creating subscription: unknown error']);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('updateSubscription', () => {
@@ -295,9 +314,10 @@ describe('subscription.js', () => {
         config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
-      const actual = await updateSubscription(param);
+      const msg = {};
+      await updateSubscription(msg, param);
 
-      assert.deepEqual(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
@@ -313,13 +333,14 @@ describe('subscription.js', () => {
         config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await updateSubscription.call(node, param);
+      const msg = {};
+      await updateSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request']);
+      assert.deepEqual(errmsg, ['Error while updating subscription: 400 Bad Request']);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
@@ -335,13 +356,14 @@ describe('subscription.js', () => {
         config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await updateSubscription.call(node, param);
+      const msg = {};
+      await updateSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(errmsg, ['Error while updating subscription: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(msg, { payload: { orionError: 'orion error' }, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       subscriptionNode.__set__('lib', {
@@ -357,17 +379,18 @@ describe('subscription.js', () => {
         config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await updateSubscription.call(node, param);
+      const msg = {};
+      await updateSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while updating subscription: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while updating subscription: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -379,13 +402,14 @@ describe('subscription.js', () => {
         config: { data: { 'expires': '2030-04-05T14:00:00.00Z' } }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await updateSubscription.call(node, param);
+      const msg = {};
+      await updateSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Exception while updating subscription: unknown error']);
+      assert.deepEqual(errmsg, ['Exception while updating subscription: unknown error']);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('deleteSubscription', () => {
@@ -408,9 +432,10 @@ describe('subscription.js', () => {
         config: {},
       };
 
-      const actual = await deleteSubscription(param);
+      const msg = {};
+      await deleteSubscription(msg, param);
 
-      assert.deepEqual(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('should be 400 Bad Request', async () => {
       subscriptionNode.__set__('lib', {
@@ -426,13 +451,14 @@ describe('subscription.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteSubscription.call(node, param);
+      const msg = {};
+      await deleteSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request']);
+      assert.deepEqual(errmsg, ['Error while deleting subscription: 400 Bad Request']);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with orionError', async () => {
       subscriptionNode.__set__('lib', {
@@ -448,13 +474,14 @@ describe('subscription.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteSubscription.call(node, param);
+      const msg = {};
+      await deleteSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(errmsg, ['Error while deleting subscription: 400 Bad Request', 'Details: "orion error"']);
+      assert.deepEqual(msg, { payload: { orionError: 'orion error' }, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       subscriptionNode.__set__('lib', {
@@ -470,17 +497,18 @@ describe('subscription.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteSubscription.call(node, param);
+      const msg = {};
+      await deleteSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting subscription: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while deleting subscription: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('should be unknown error', async () => {
       subscriptionNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -492,40 +520,40 @@ describe('subscription.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteSubscription.call(node, param);
+      const msg = {};
+      await deleteSubscription.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Exception while deleting subscription: unknown error']);
+      assert.deepEqual(errmsg, ['Exception while deleting subscription: unknown error']);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('createParam', () => {
     it('create subscription', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = { payload: { notification: {}, subject: {} } };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'create',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -549,7 +577,6 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('create subscription with actionType', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -558,25 +585,25 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -598,7 +625,6 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('update subscription', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -607,25 +633,25 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'update',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -647,7 +673,6 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('update subscription with payload', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -657,25 +682,25 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -697,29 +722,28 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('delete subscription', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = { payload: '5fa7988a627088ba9b91b1c1' };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'delete',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -740,7 +764,6 @@ describe('subscription.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('delete subscription with actionType', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -749,25 +772,25 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -787,8 +810,7 @@ describe('subscription.js', () => {
 
       assert.deepEqual(actual, expected);
     });
-    it('actionType not found', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
+    it('FIWARE GE type not Orion', async () => {
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -796,127 +818,132 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'actionType not found');
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
+    it('actionType not found', async () => {
+      const createParam = subscriptionNode.__get__('createParam');
+      const msg = {
+        payload: {
+          id: '5fa7988a627088ba9b91b1c1',
+        }
+      };
+
+      const config = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        id: '',
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
+      };
+
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'actionType not found' } });
     });
     it('payload not string', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = { payload: {} };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'delete',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not string');
+      assert.deepEqual(msg, { payload: { error: 'payload not string' } });
     });
     it('payload not JSON object', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = { payload: 'payload' };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'update',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not JSON object');
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON object' } });
     });
     it('subscription id not fouond', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = { payload: {} };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'update',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'subscription id not found');
+      assert.deepEqual(msg, { payload: { error: 'subscription id not found' } });
     });
     it('subscription id not string', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -925,34 +952,28 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'subscription id not string');
+      assert.deepEqual(msg, { payload: { error: 'subscription id not string' } });
     });
     it('ActionType error', async () => {
-      const buildSubscription = subscriptionNode.__get__('buildSubscription');
       const createParam = subscriptionNode.__get__('createParam');
       const msg = {
         payload: {
@@ -961,38 +982,31 @@ describe('subscription.js', () => {
         }
       };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
         id: '',
-        subscription: buildSubscription({
-          type: '',
-          idPattern: '',
-          watchedAttrs: '',
-          q: '',
-          url: '',
-          attrs: '',
-          attrsFormat: '',
-        }),
+        entityType: '',
+        idPattern: '',
+        watchedAttrs: '',
+        query: '',
+        url: '',
+        attrs: '',
+        attrsFormat: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'ActionType error: upsert');
+      assert.deepEqual(msg, { payload: { error: 'ActionType error: upsert' } });
     });
   });
   describe('NGSI subscription node', () => {
     afterEach(() => {
       subscriptionNode.__ResetDependency__('createSubscription');
-      subscriptionNode.__ResetDependency__('updateSubscription');
-      subscriptionNode.__ResetDependency__('deleteSubscription');
     });
     it('create subscripton', async () => {
       const red = new MockRed();
@@ -1017,12 +1031,19 @@ describe('subscription.js', () => {
       });
 
       let actual;
-      subscriptionNode.__set__('createSubscription', async (param) => { actual = param; return '5fa7988a627088ba9b91b1c1'; });
+      subscriptionNode.__set__('createSubscription', async (msg, param) => {
+        actual = param;
+        msg.payload = undefined;
+        msg.statusCode = 201;
+        msg.headers = { location: '5fa7988a627088ba9b91b1c1' };
+      });
 
       await red.inputWithAwait({ payload: { idPattern: '.*', url: 'http://context-consumer' } });
 
       assert.deepEqual(red.getOutput(), {
-        payload: '5fa7988a627088ba9b91b1c1',
+        payload: undefined,
+        statusCode: 201,
+        headers: { location: '5fa7988a627088ba9b91b1c1' },
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/'
@@ -1054,43 +1075,17 @@ describe('subscription.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion-ld',
         }
       });
-
-      subscriptionNode.__set__('deleteSubscription', async () => { });
 
       await red.inputWithAwait({ payload: { id: '' } });
 
-      assert.equal(red.getMessage(), 'ActionType error: upsert');
-    });
-    it('FIWARE GE type not Orion', async () => {
-      const red = new MockRed();
-      subscriptionNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: '',
-        entityType: '',
-        idPattern: '',
-        watchedAttrs: '',
-        query: '',
-        url: '',
-        attrs: '',
-        attrsFormat: 'normalized',
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'fiware',
-        }
-      });
-
-      subscriptionNode.__set__('deleteSubscription', async () => { });
-
-      await red.inputWithAwait({ payload: { id: '5fa7988a627088ba9b91b1c1' } });
-
       assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'FIWARE GE type not Orion' },
+        statusCode: 500,
+      });
     });
   });
 });

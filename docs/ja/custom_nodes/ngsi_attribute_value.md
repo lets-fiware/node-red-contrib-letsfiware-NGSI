@@ -34,11 +34,9 @@ NGSIv2 エンティティの属性値を読み取ることができます。
 -   `Attribute name`: 読み取る属性値の属性名
 -   `Skip forwarding`: Context Broker は Context Provider への転送をスキップします
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、読み取る属性に関連する情報が含まれている必要があります。
 
@@ -50,7 +48,7 @@ Payload  *JSON Object*
 
 次のペイロードは、各プロパティの値を上書きします:
 
-```
+```json
 {
   "id": "urn:ngsi-ld:attr-value",
   "type: "T",
@@ -59,11 +57,19 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
 
 `msg.payload` には属性値が含まれます。
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
 
 <a name="update-attribute-value"></a>
 
@@ -85,11 +91,9 @@ NGSIv2 エンティティの属性値を更新できます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
 
 `msg.payload` には属性値が含まれている必要があります。
 
@@ -121,16 +125,12 @@ abc
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actionType-in-payload"></a>
@@ -154,15 +154,13 @@ NGSIv2 エンティティの属性値を読み取ったり、更新したりで�
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力 1
 
-#### 入力 1
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 次のペイロードは、各プロパティの値を上書きします:
 
-```
+```json
 {
   "actionType": "read",
   "id": "urn:ngsi-ld:attr-value",
@@ -172,15 +170,23 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力 1
+### 出力 1
 
-Payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* または *JSON Object*
 
 `msg.payload` には属性値が含まれます。
 
-#### 入力 2
+statusCode *Number*
 
-Payload *JSON Object*
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### 入力 2
+
+payload *JSON Object*
 
 msg.payloadは、関連情報を含む属性値が含まれている必要があります。
 各プロパティの値を上書きします。
@@ -249,14 +255,10 @@ msg.payloadは、関連情報を含む属性値が含まれている必要があ
 
 ### 出力 2
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```
 204
-```
-
-```
-null
 ```

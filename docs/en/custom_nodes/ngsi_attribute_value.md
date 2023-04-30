@@ -32,11 +32,9 @@ It allows to read an attribute value of NGSIv2 entity.
 -   `Attribute name`: Attribute name of an attribute to be read a value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain information related to the attribute vale to read.
 
@@ -48,7 +46,7 @@ The following payload uses value of each property.
 
 The following payload overwrites value of each property.
 
-```
+```json
 {
   "id": "urn:ngsi-ld:attr-value",
   "type: "T",
@@ -57,11 +55,19 @@ The following payload overwrites value of each property.
 }
 ```
 
-#### Output
+### Output
 
-Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` contains an attribute value.
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
 
 ## Update attribute value
 
@@ -81,11 +87,9 @@ It allows to update an attribute value of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` should contain an attribute value.
 
@@ -117,16 +121,12 @@ abc
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
 ```
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -148,15 +148,13 @@ It allows to read or update an attribute value of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Examples
+### Input 1
 
-#### Input 1
-
-Payload *JSON Object*
+payload *JSON Object*
 
 The following payload overwrites value of each property.
 
-```
+```json
 {
   "actionType": "read",
   "id": "urn:ngsi-ld:attr-value",
@@ -166,15 +164,23 @@ The following payload overwrites value of each property.
 }
 ```
 
-#### Output 1
+### Output 1
 
-Payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
+payload *null*, *Boolean*, *Number*, *String* or *JSON Object*
 
 A `msg.payload` contains an attribute value.
 
-#### Input 2
+statusCode *Number*
 
-Payload *JSON Object*
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Input 2
+
+payload *JSON Object*
 
 A `msg.payload` should contain an attribute value with related information.
 It overwrites value of each property.
@@ -243,14 +249,10 @@ It overwrites value of each property.
 
 ### Output 2
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
 ```
 204
-```
-
-```
-null
 ```

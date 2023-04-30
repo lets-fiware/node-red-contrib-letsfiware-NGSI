@@ -30,7 +30,7 @@
 
 ## 入力
 
-Payload  *JSON Array*
+payload  *JSON Array*
 
 `msg.payload` には NGSIv2 エンティティが含まれます。文字列または NGSIv2 エンティティを含む JSON オブジェクトが提供される場合、
 自動的に JSON 配列に変換されます。
@@ -39,7 +39,7 @@ Payload  *JSON Array*
 
 ## 出力
 
-Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には、Worldmap node の "things" データが含まれています。
 

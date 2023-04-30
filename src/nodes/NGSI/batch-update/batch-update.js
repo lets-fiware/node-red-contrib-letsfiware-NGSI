@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const opUpdate = async function (param) {
+const opUpdate = async function (msg, param) {
   const options = {
     method: 'post',
     baseURL: param.host,
@@ -41,30 +41,48 @@ const opUpdate = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 204) {
-      return Number(res.status);
+      return;
     } else {
       this.error(`Error while updating entities: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while updating entities: ${error}`);
-    return null;
+    this.error(`Exception while updating entities: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType.trim(),
+    data: {},
+    keyValues: config.keyValues === 'true',
+    overrideMetadata: config.overrideMetadata === 'true',
+    forcedUpdate: config.forcedUpdate === 'true',
+    flowControl: config.flowControl === 'true',
+  };
+
   if (!msg.payload || !(typeof msg.payload === 'object')) {
-    this.error('payload not JSON Object');
+    msg.payload = { error: 'payload not JSON Object' };
     return null;
   }
 
   if (defaultConfig.actionType === 'payload') {
     if (!('actionType' in msg.payload) || !('entities' in msg.payload)) {
-      this.error('actionType and/or entities missing');
+      msg.payload = { error: 'actionType and/or entities missing' };
       return null;
     }
     defaultConfig.data.actionType = msg.payload.actionType;
@@ -76,7 +94,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
         if (typeof msg.payload[e] === 'boolean') {
           defaultConfig[e] = msg.payload[e];
         } else {
-          this.error(e + ' not boolean');
+          msg.payload = { error: e + ' not boolean' };
           return null;
         }
       }
@@ -97,7 +115,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
 
   const actionTypeList = ['append', 'appendStrict', 'update', 'replace', 'delete'];
   if (!actionTypeList.includes(defaultConfig.data.actionType)) {
-    this.error('ActionType error: ' + defaultConfig.data.actionType);
+    msg.payload = { error: 'ActionType error: ' + defaultConfig.data.actionType };
     return null;
   }
 
@@ -120,29 +138,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType.trim(),
-        data: {},
-        keyValues: config.keyValues === 'true',
-        overrideMetadata: config.overrideMetadata === 'true',
-        forcedUpdate: config.forcedUpdate === 'true',
-        flowControl: config.flowControl === 'true',
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam.call(node, msg, config, openAPIsConfig);
 
       if (param) {
-        const result = await opUpdate.call(node, param);
-        msg.payload = result;
-        node.send(msg);
+        await opUpdate.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI Batch update', NGSIBatchUpdate);

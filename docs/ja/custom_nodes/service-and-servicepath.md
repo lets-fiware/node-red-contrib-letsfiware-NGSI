@@ -33,7 +33,7 @@ FIWARE Service の値、および/または ServicePath の値を操作なしで
 
 #### 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれている必要があります。
 
@@ -46,7 +46,7 @@ Payload *JSON Object*
 
 #### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれます。
 
@@ -79,7 +79,7 @@ Set `Service value` to `OpenIoT` and `Service valuePath` to `/iot`.
 
 #### 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれている必要があります。
 
@@ -89,7 +89,7 @@ Payload *JSON Object*
 
 #### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれます。
 
@@ -118,7 +118,7 @@ Payload *JSON Object*
 
 #### 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれている必要があります。
 
@@ -131,7 +131,7 @@ Payload *JSON Object*
 
 #### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.context` には、JSON オブジェクトが含まれます。
 

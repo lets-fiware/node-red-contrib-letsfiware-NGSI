@@ -31,21 +31,25 @@
 const lib = require('../../../lib.js');
 const gtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
-const getGtfsRealtime = async function (url) {
+const getGtfsRealtime = async function (msg) {
+  const url = msg.payload;
   try {
     const res = await lib.http({
       method: 'get', baseURL: url, responseType: 'arraybuffer',
       responseEncoding: 'binary'
     });
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 200) {
-      return gtfsRealtimeBindings.transit_realtime.FeedMessage.decode(res.data);
+      msg.payload = gtfsRealtimeBindings.transit_realtime.FeedMessage.decode(res.data);
     } else {
       this.error(`Error while retrieving gtfs realtime data: ${res.status} ${res.statusText}`);
     }
   } catch (err) {
-    this.error(`Exception while retrieving gtfs realtime data: ${err}`);
+    this.error(`Exception while retrieving gtfs realtime data: ${err.message}`);
+    msg.payload = { error: err.message };
+    msg.statusCode = 500;
   }
-  return [];
 };
 
 function vehicle2ngsi(v) {
@@ -124,23 +128,29 @@ module.exports = function (RED) {
     var node = this;
 
     node.on('input', async function (msg) {
-      let data;
       if (typeof msg.payload === 'string') {
-        data = await getGtfsRealtime.call(node, msg.payload);
-        data = data.entity;
+        await getGtfsRealtime.call(node, msg);
+        if (msg.statusCode === 200) {
+          msg.payload = msg.payload.entity;
+        }
       } else if (typeof msg.payload === 'object') {
-        data = Array.isArray(msg.payload) ? msg.payload : [msg.payload];
+        msg.payload = Array.isArray(msg.payload) ? msg.payload : [msg.payload];
+        msg.statusCode = 200;
       } else {
-        node.error('payload error');
-        return;
+        msg.payload = { error: 'payload error' };
+        msg.statusCode = 500;
+        node.error(msg.payload.error);
       }
 
-      const entities = gtfs2ngsi(data);
-      if (entities.length > 0) {
-        node.send({ payload: entities });
-      } else {
-        node.error('entities empty');
+      if (msg.statusCode === 200) {
+        msg.payload = gtfs2ngsi(msg.payload);
+        if (msg.payload.length === 0) {
+          msg.payload = { error: 'entities empty' };
+          msg.statusCode = 500;
+          node.error(msg.payload.error);
+        }
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('GTFS Realtime to NGSI', NGSIGTFSRealtime);

@@ -135,7 +135,7 @@
 <script type="text/x-red" data-help-name="NGSI Attribute value">
     <p>A simple node that allows to read or update an attribute value of NGSIv2 entity.</p>
     <h3>Read attribute value</h3>
-    <h4>Inputs</h4>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
@@ -143,16 +143,20 @@
         <dd>NGSIv2 entity id and attriubte name to read</dd>
     </dl>
 
-    <h4>Outputs</h4>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">null, boolean, number, string or JSON Object</span>
         </dt>
         <dd>attribute value</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Update attribute value</h3>
-    <h4>Inputs</h4>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
@@ -160,16 +164,20 @@
         <dd>an attribute value to update</dd>
     </dl>
 
-    <h4>Outputs</h4>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">string</span>
         </dt>
         <dd>Status code returned by the NGSIv2 API</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Use value of actionType in payload</h3>
-    <h4>Inputs</h4>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON object</span>
@@ -177,12 +185,16 @@
         <dd>JSON object with action Type and related information</dd>
     </dl>
 
-    <h4>Outputs</h4>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">string or JSON object</span>
         </dt>
         <dd>An attribute value or a status code returned by the NGSIv2 API</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>

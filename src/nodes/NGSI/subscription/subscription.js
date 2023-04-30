@@ -96,7 +96,7 @@ const buildSubscription = function (param) {
   return subscription;
 };
 
-const createSubscription = async function (param) {
+const createSubscription = async function (msg, param) {
   const options = {
     method: 'post',
     baseURL: param.host,
@@ -107,8 +107,12 @@ const createSubscription = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 201) {
-      return res.headers['location'].slice('/v2/subscriptions/'.length);
+      msg.payload = res.headers.location.slice('/v2/subscriptions/'.length);
+      msg.headers = {};
+      msg.headers.location = res.headers.location;
     } else {
       this.error(`Error while creating subscription: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
@@ -119,13 +123,13 @@ const createSubscription = async function (param) {
       }
     }
   } catch (error) {
-    this.error(`Exception while creating subscription: ${error}`);
-    return null;
+    this.error(`Exception while creating subscription: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
-  return null;
 };
 
-const updateSubscription = async function (param) {
+const updateSubscription = async function (msg, param) {
   const options = {
     method: 'patch',
     baseURL: param.host,
@@ -136,8 +140,10 @@ const updateSubscription = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 204) {
-      return Number(res.status);
+      return;
     } else {
       this.error(`Error while updating subscription: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
@@ -146,15 +152,15 @@ const updateSubscription = async function (param) {
       if (res.data && res.data.orionError) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while updating subscription: ${error}`);
-    return null;
+    this.error(`Exception while updating subscription: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const deleteSubscription = async function (param) {
+const deleteSubscription = async function (msg, param) {
   const options = {
     method: 'delete',
     baseURL: param.host,
@@ -164,8 +170,10 @@ const deleteSubscription = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 204) {
-      return Number(res.status);
+      return;
     } else {
       this.error(`Error while deleting subscription: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
@@ -175,14 +183,35 @@ const deleteSubscription = async function (param) {
         this.error(`Details: ${JSON.stringify(res.data.orionError)}`);
       }
     }
-    return null;
   } catch (error) {
-    this.error(`Exception while deleting subscription: ${error}`);
-    return null;
+    this.error(`Exception while deleting subscription: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType.trim(),
+    id: '',
+    subscription: buildSubscription({
+      type: config.entityType.trim(),
+      idPattern: config.idPattern.trim(),
+      watchedAttrs: config.watchedAttrs.trim(),
+      q: config.query.trim(),
+      url: config.url.trim(),
+      attrs: config.attrs.trim(),
+      attrsFormat: config.attrsFormat.trim(),
+    }),
+  };
+
   if (defaultConfig.actionType === 'payload') {
     if ('actionType' in msg.payload) {
       defaultConfig.actionType = msg.payload.actionType;
@@ -193,7 +222,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
         defaultConfig.subscription = Object.assign(defaultConfig.subscription, buildSubscription(msg.payload.subscription));
       }
     } else {
-      this.error('actionType not found');
+      msg.payload = { error: 'actionType not found' };
       return null;
     }
   } else {
@@ -201,17 +230,17 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
       if (typeof msg.payload === 'string') {
         defaultConfig.id = msg.payload;
       } else {
-        this.error('payload not string');
+        msg.payload = { error: 'payload not string' };
         return null;
       }
     } else { // create, update
       if (Array.isArray(msg.payload) || typeof msg.payload !== 'object') {
-        this.error('payload not JSON object');
+        msg.payload = { error: 'payload not JSON object' };
         return null;
       }
       if (defaultConfig.actionType === 'update') {
         if (!('id' in msg.payload)) {
-          this.error('subscription id not found');
+          msg.payload = { error: 'subscription id not found' };
           return null;
         }
         defaultConfig.id = msg.payload.id;
@@ -223,7 +252,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   }
 
   if (typeof defaultConfig.id !== 'string') {
-    this.error('subscription id not string');
+    msg.payload = { error: 'subscription id not string' };
     return null;
   }
 
@@ -234,8 +263,6 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
     contentType: 'json',
     config: defaultConfig,
   };
-
-  [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
 
   switch (defaultConfig.actionType) {
     case 'create':
@@ -251,9 +278,11 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
       delete param.contentType;
       break;
     default:
-      this.error('ActionType error: ' + defaultConfig.actionType);
+      msg.payload = { error: 'ActionType error: ' + defaultConfig.actionType };
       return null;
   }
+
+  [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);
 
   return param;
 };
@@ -266,33 +295,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType.trim(),
-        id: '',
-        subscription: buildSubscription({
-          type: config.entityType.trim(),
-          idPattern: config.idPattern.trim(),
-          watchedAttrs: config.watchedAttrs.trim(),
-          q: config.query.trim(),
-          url: config.url.trim(),
-          attrs: config.attrs.trim(),
-          attrsFormat: config.attrsFormat.trim(),
-        }),
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam(msg, config, openAPIsConfig);
 
       if (param) {
-        msg.payload = await param.func.call(node, param);
-        node.send(msg);
+        await param.func.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI subscription', NGSISubscription);

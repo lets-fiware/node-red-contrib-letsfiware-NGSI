@@ -37,17 +37,19 @@ It allows to list of all the entity id available.
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
 
-### Example
+### Input
 
-#### Input
+payload *JSON Object*
 
-```
+```json
 {}
 ```
 
-#### Output
+### Output
 
-```
+payload *JSON Object*
+
+```json
 [
   {
     "timeseriesId": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -55,6 +57,14 @@ It allows to list of all the entity id available.
     "index": "2023-02-19T10:37:15.797+00:00"
   }
 ]
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Entity
@@ -86,13 +96,15 @@ It allows to query history of attribute(s) (values only) of a given entity.
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
 
-### Example: Entity attributes
-
-It allows to query history of N attributes of a given entity.
+### Entity attributes
 
 #### Input
 
-```
+payload *JSON Object*
+
+It allows to query history of N attributes of a given entity.
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "lastN": 3
@@ -101,7 +113,9 @@ It allows to query history of N attributes of a given entity.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attributes": [
     {
@@ -139,13 +153,23 @@ It allows to query history of N attributes of a given entity.
 }
 ```
 
-### Example: Entity attributes value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Entity attributes value
 
 It allows to query history of N attributes (values only) of a given entity.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "value": true,
@@ -155,7 +179,9 @@ It allows to query history of N attributes (values only) of a given entity.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attributes": [
     {
@@ -191,13 +217,23 @@ It allows to query history of N attributes (values only) of a given entity.
 }
 ```
 
-### Example: Entity attribute
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Entity attribute
 
 It allows to query history of an attribute of a given entity.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "attrName": "temperature",
@@ -207,7 +243,9 @@ It allows to query history of an attribute of a given entity.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "timeseriesId": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -225,13 +263,23 @@ It allows to query history of an attribute of a given entity.
 }
 ```
 
-### Example: Entity attribute value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Entity attribute value
 
 It allows to query history of an attribute (values only) of a given entity.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "attrName": "temperature",
@@ -242,7 +290,9 @@ It allows to query history of an attribute (values only) of a given entity.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "index": [
     "2023-02-19T10:43:00.000+00:00",
@@ -255,6 +305,14 @@ It allows to query history of an attribute (values only) of a given entity.
     19.899999618530273
   ]
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Type
@@ -286,13 +344,15 @@ It allows to query history of attribute(s) (values only) of N entities of the sa
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
 
-### Example: Type entity
+### Type entity
 
 It allows to query history of N attributes of N entities of the same type.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "lastN": 3
@@ -301,7 +361,9 @@ It allows to query history of N attributes of N entities of the same type.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "entities": [
     {
@@ -343,13 +405,23 @@ It allows to query history of N attributes of N entities of the same type.
 }
 ```
 
-### Example: Type entity value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Type entity value
 
 It allows to query history of N attributes (values only) of N entities of the same type.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "lastN": 3,
@@ -359,7 +431,9 @@ It allows to query history of N attributes (values only) of N entities of the sa
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -400,13 +474,23 @@ It allows to query history of N attributes (values only) of N entities of the sa
 }
 ```
 
-### Example: Type attribute
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Type attribute
 
 It allows to query history of an attribute of N entities of the same type.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "attrName": "temperature",
@@ -416,7 +500,9 @@ It allows to query history of an attribute of N entities of the same type.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "entities": [
@@ -434,13 +520,23 @@ It allows to query history of an attribute of N entities of the same type.
 }
 ```
 
-### Example: Type attribute value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Type attribute value
 
 It allows to query history of an attribute (values only) of N entities of the same type.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "attrName": "temperature",
@@ -451,7 +547,9 @@ It allows to query history of an attribute (values only) of N entities of the sa
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -465,6 +563,14 @@ It allows to query history of an attribute (values only) of N entities of the sa
     }
   ]
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Attributes
@@ -496,13 +602,15 @@ It allows to query history of N attribute(s) (values only) of N entities of N ty
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
 
-### Example: Attributes
+### Attributes
 
 It allows to query history of N attributes of N entities of N types.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "lastN": 3
 }
@@ -510,7 +618,9 @@ It allows to query history of N attributes of N entities of N types.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrs": [
     {
@@ -586,13 +696,23 @@ It allows to query history of N attributes of N entities of N types.
 }
 ```
 
-### Example: Attributes value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Attributes value
 
 It allows to query history of N attributes (values only) of N entities of N types.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "value": true,
   "lastN": 3
@@ -601,7 +721,9 @@ It allows to query history of N attributes (values only) of N entities of N type
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -677,13 +799,23 @@ It allows to query history of N attributes (values only) of N entities of N type
 }
 ```
 
-### Example: Attribute
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Attribute
 
 It allows to query history of an attribute of N entities of N types.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "lastN": 3
@@ -692,7 +824,9 @@ It allows to query history of an attribute of N entities of N types.
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "types": [
@@ -714,13 +848,23 @@ It allows to query history of an attribute of N entities of N types.
 }
 ```
 
-### Example: Attribute value
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+### Attribute value
 
 It allows to query history of an attribute (values only) of N entities of N types.
 
 #### Input
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "value": true,
@@ -730,7 +874,9 @@ It allows to query history of an attribute (values only) of N entities of N type
 
 #### Output
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -749,6 +895,14 @@ It allows to query history of an attribute (values only) of N entities of N type
     }
   ]
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## API reference

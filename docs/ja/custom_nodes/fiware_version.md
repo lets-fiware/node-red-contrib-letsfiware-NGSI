@@ -27,7 +27,7 @@
 
 ### 入力
 
-Payload *Any*
+payload *Any*
 
 `msg.payload` には、任意のペイロードが含まれている必要があります。
 
@@ -39,11 +39,11 @@ Payload *Any*
 
 ### 出力
 
-Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には、FIWARE GE のバージョン情報が含まれています。
 
-```
+```json
 {
 "orion" : {
   "version" : "3.7.0",
@@ -67,6 +67,14 @@ Payload *JSON Array*
   }
 }
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="example"></a>

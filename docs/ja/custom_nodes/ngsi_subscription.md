@@ -38,11 +38,9 @@
 -   `Attrs`: 通知メッセージに含まれる属性のリスト
 -   `Attrs format`: エンティティが通知でどのように表現されるかを指定します
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には NGSIv2 サブスクリプション・データを含める必要があります。
 
@@ -93,14 +91,22 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *String*
+payload *String*
 
 `msg.payload` には、サブスクリプション id が含まれます。
 
 ```text
 5fa7988a627088ba9b91b1c1
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+201
 ```
 
 <a name="update-a-subscription"></a>
@@ -125,33 +131,27 @@ Payload *String*
 -   `Attrs`: 通知メッセージに含まれる属性のリスト
 -   `Attrs format`: エンティティが通知でどのように表現されるかを指定します
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、サブスクリプション id と NGSIv2 サブスクリプション・フラグメントを含める必要があります。
 
-```
+```json
 {
   "id": "5fa7988a627088ba9b91b1c1",
   "expires": "2030-04-05T14:00:00.00Z"
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```text
 204
-```
-
-```text
-null
 ```
 
 <a name="delete-a-subscription"></a>
@@ -169,30 +169,24 @@ null
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `delete`
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *string*
+payload *string*
 
 `msg.payload` には、サブスクリプション id を含める必要があります。
 
-```
+```text
 5fa7988a627088ba9b91b1c1
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actiontype-in-payload"></a>
@@ -210,12 +204,13 @@ null
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `value of actionType in payload`
 
-### 例
+### 入力 (create)
+
+payload *JSON Object*
 
 新しいサブスクリプションを作成するとき、 `msg.payload` には actionType とサブスクリプション・データを含む JSON
 オブジェクトが含まれている必要があります。
 
-#### 入力
 
 ```json
 {
@@ -234,9 +229,9 @@ null
 }
 ```
 
-#### 出力
+### 出力 (create)
 
-Payload *string*
+payload *string*
 
 `msg.payload` には、サブスクリプション id が含まれます。
 
@@ -244,10 +239,21 @@ Payload *string*
 5fa7988a627088ba9b91b1c1
 ```
 
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+201
+```
+
+### 入力 (update)
+
+payload *JSON Object*
+
 既存のサブスクリプションを更新する場合、 `msg.payload` には、actionType、サブスクリプション id、およびサブスクリプション・データを含む
 JSON オブジェクトが含まれている必要があります。
 
-#### 入力
 
 ```json
 {
@@ -259,24 +265,22 @@ JSON オブジェクトが含まれている必要があります。
 }
 ```
 
-#### 出力
+### 出力 (update)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 (delete)
+
+payload *JSON Object*
 
 既存のサブスクリプションを削除する場合、`msg.payload` には、actionType とサブスクリプション id を持つ
 JSON オブジェクトが含まれている必要があります。
-
-#### 入力
 
 ```json
 {
@@ -285,16 +289,12 @@ JSON オブジェクトが含まれている必要があります。
 }
 ```
 
-#### 出力
+### 出力 (delete)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```

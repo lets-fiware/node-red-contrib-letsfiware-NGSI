@@ -60,7 +60,7 @@
 
 <script type="text/x-red" data-help-name="FIWARE version">
     <p>A simple node that allows to obtain the version information of FIWARE GE</p>
-    <h3>Inputs</h3>
+    <h3>Input</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">any</span>
@@ -68,12 +68,16 @@
         <dd>payload containing any payload</dd>
     </dl>
 
-    <h3>Outputs</h3>
+    <h3>Output</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
         <dd>the version information of FIWARE GE</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>

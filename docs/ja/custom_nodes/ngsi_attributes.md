@@ -38,15 +38,13 @@ NGSIv2 エンティティの複数属性を追加できます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、属性のオブジェクトが含まれている必要があります。
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -56,18 +54,14 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="update-attributes"></a>
@@ -91,15 +85,13 @@ NGSIv2 エンティティの複数属性を更新できます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、属性のオブジェクトが含まれている必要があります。
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -109,18 +101,14 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="upsert-attributes"></a>
@@ -144,15 +132,13 @@ NGSIv2 エンティティの複数属性をアップサートできます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、属性のオブジェクトが含まれている必要があります。
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -167,18 +153,14 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="replace-attributes"></a>
@@ -202,15 +184,13 @@ NGSIv2 エンティティの複数属性を置換できます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、属性のオブジェクトが含まれている必要があります。
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -230,18 +210,14 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actionType-in-payload"></a>
@@ -265,15 +241,13 @@ NGSIv2 エンティティの複数属性を追加、更新、アップサート�
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、actionType と複数属性のオブジェクトを持つ JSON Object が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "append",
   "id": "E2",
@@ -287,7 +261,7 @@ Payload *JSON Object*
 }
 ```
 
-```
+```json
 {
   "actionType": "update",
   "id": "E2",
@@ -301,7 +275,7 @@ Payload *JSON Object*
 }
 ```
 
-```
+```json
 {
   "actionType": "upsert",
   "id": "E2",
@@ -320,7 +294,7 @@ Payload *JSON Object*
 }
 ```
 
-```
+```json
 {
   "actionType": "replace",
   "id": "E2",
@@ -344,16 +318,12 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```

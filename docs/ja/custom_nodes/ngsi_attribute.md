@@ -36,25 +36,23 @@ NGSIv2 エンティティの属性を読み取ることができます。
 -   `Metadata`: 属性を読み取る属性名
 -   `Skip forwarding`: Context Broker は Context Provider への転送をスキップします
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、読み取る属性に関連する情報が含まれている必要があります。
 
-```
+```json
 {}
 ```
 
-```
+```json
 {
   "attrName": "relativeHumidity"
 }
 ```
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -62,9 +60,9 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、属性を表すオブジェクトが含まれています。
 
@@ -74,6 +72,14 @@ Payload *JSON Object*
   "value":45,
   "metadata":{}
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="update-an-attribute"></a>
@@ -97,33 +103,27 @@ NGSIv2 エンティティの属性を更新できます。
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、更新する属性を表すオブジェクトが含まれている必要があります。
 
-```
+```json
 {
   "type": "Number",
   "value": 1234.5
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```
 204
-```
-
-```
-null
 ```
 
 <a name="delete-an-attribute"></a>
@@ -144,25 +144,23 @@ NGSIv2 エンティティの属性を削除できます。
 -   `Entity type`: 削除する属性のエンティティ・タイプ
 -   `Attribute name`: 削除する属性の名前
 
-### 例
+### 入力
 
-#### 入力
-
-Payload  *JSON Object*
+payload  *JSON Object*
 
 `msg.payload` には、削除する属性に関連する情報が含まれている必要があります。
 
-```
+```json
 {}
 ```
 
-```
+```json
 {
   "attrName": "relativeHumidity"
 }
 ```
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -170,19 +168,14 @@ Payload  *JSON Object*
 }
 ```
 
+### 出力
 
-#### 出力
+payload *null* または *string*
 
-Payload *null* または *string*
+`msg.statusCode` にはステータス・コードが含まれています。
 
-`msg.payload` にはステータス・コードが含まれています。
-
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actionType-in-payload"></a>
@@ -208,42 +201,47 @@ NGSIv2 エンティティの属性の読み取り、更新、または削除が�
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
-### 例
+### 入力 1
+
+payload  *JSON Object*
 
 属性を読み取る場合、`msg.payload` には、読み取る属性に関連する情報を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力 1
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "read",
   "attrName": "relativeHumidity"
 }
 ```
 
-#### 出力 1
+### 出力 1
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、属性を表すオブジェクトが含まれています。
 
-```
+```json
 {
   "type":"Number",
   "value":45,
   "metadata":{}
 }
 ```
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### 入力 2
+
+payload  *JSON Object*
 
 属性を更新する場合、 `msg.payload` には、更新する属性の関連情報を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力 2
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "update",
   "attribute": {
@@ -253,43 +251,35 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力 2
+### 出力 2
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 3
+
+payload  *JSON Object*
 
 属性を削除する場合、`msg.payload` には、削除する属性に関連する情報を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力 3
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "delete",
   "attrName": "relativeHumidity"
 }
 ```
 
-#### 出力 3
+### 出力 3
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
 ```
 204
-```
-
-```
-null
 ```

@@ -68,7 +68,8 @@ describe('timeseries.js', () => {
         config: {},
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
       const expected = [
         {
@@ -77,7 +78,7 @@ describe('timeseries.js', () => {
           'index': '2023-02-19T10:37:15.797+00:00'
         }
       ];
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: expected, statusCode: 200 });
     });
     it('empty respose', async () => {
       timeseriesNode.__set__('lib', {
@@ -97,9 +98,10 @@ describe('timeseries.js', () => {
         config: {},
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
-      assert.deepEqual(actual, []);
+      assert.deepEqual(msg, { payload: [], statusCode: 404 });
     });
     it('should be 400 Bad Request', async () => {
       timeseriesNode.__set__('lib', {
@@ -115,13 +117,14 @@ describe('timeseries.js', () => {
         config: {},
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Error while retrieving timeseries context: 400 Bad Request');
+      assert.equal(errmsg, 'Error while retrieving timeseries context: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with details', async () => {
       timeseriesNode.__set__('lib', {
@@ -142,17 +145,18 @@ describe('timeseries.js', () => {
         config: {},
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Details: error');
+      assert.equal(errmsg, 'Details: error');
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       timeseriesNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -168,13 +172,14 @@ describe('timeseries.js', () => {
         }
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.equal(actual, null);
-      assert.equal(msg, 'Exception while retrieving timeseries context: unknown error');
+      assert.equal(errmsg, 'Exception while retrieving timeseries context: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('validateConfig', () => {
@@ -200,9 +205,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      const actual = validateConfig(config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, true);
+      assert.deepEqual(msg, {});
     });
     it('attrName empty', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -226,9 +233,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      const actual = validateConfig(config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, true);
+      assert.deepEqual(msg, {});
     });
     it('lastN', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -252,9 +261,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      const actual = validateConfig(config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, true);
+      assert.deepEqual(msg, {});
     });
     it('not String', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -278,13 +289,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'id not String');
+      assert.deepEqual(msg, { payload: { error: 'id not String' } });
     });
     it('not Number', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -308,13 +317,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'lastN not Number');
+      assert.deepEqual(msg, { payload: { error: 'lastN not Number' } });
     });
     it('not Boolean', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -338,13 +345,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'value not Boolean');
+      assert.deepEqual(msg, { payload: { error: 'value not Boolean' } });
     });
     it('actionType error', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -368,13 +373,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'actionType error: create');
+      assert.deepEqual(msg, { payload: { error: 'actionType error: create' } });
     });
     it('id required', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -398,13 +401,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'id required');
+      assert.deepEqual(msg, { payload: { error: 'id required' } });
     });
     it('type required', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -428,13 +429,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'type required');
+      assert.deepEqual(msg, { payload: { error: 'type required' } });
     });
     it('geometry required if georel is specified', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -458,13 +457,11 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'geometry required if georel is specified');
+      assert.deepEqual(msg, { payload: { error: 'geometry required if georel is specified' } });
     });
     it('', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -488,26 +485,24 @@ describe('timeseries.js', () => {
         offset: '',
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = validateConfig.call(node, config);
+      const msg = {};
+      const actual = validateConfig(msg, config);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'coords required if georel is specified');
+      assert.deepEqual(msg, { payload: { error: 'coords required if georel is specified' } });
     });
   });
   describe('createParam', () => {
     it('entities - pyaload', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: { actionType: 'entities' } };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -518,13 +513,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -557,13 +552,13 @@ describe('timeseries.js', () => {
     it('param', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: { value: true, aggrMethod: 'sum', aggrPeriod: 'day', lastN: 5 } };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'entities',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -574,13 +569,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -613,13 +608,13 @@ describe('timeseries.js', () => {
     it('entities', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'entities',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -630,13 +625,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -669,13 +664,13 @@ describe('timeseries.js', () => {
     it('entity', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'entity',
-        id: 'E',
-        type: '',
-        attrName: '',
+        entityId: 'E',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -686,13 +681,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -725,13 +720,13 @@ describe('timeseries.js', () => {
     it('entity attr', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'entity',
-        id: 'E',
-        type: '',
-        attrName: 'A',
+        entityId: 'E',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -742,13 +737,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -781,13 +776,13 @@ describe('timeseries.js', () => {
     it('type', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'type',
-        id: '',
-        type: 'T',
-        attrName: '',
+        entityId: '',
+        entityType: 'T',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -798,13 +793,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -837,13 +832,13 @@ describe('timeseries.js', () => {
     it('type attrs', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'type',
-        id: '',
-        type: 'T',
-        attrName: 'A',
+        entityId: '',
+        entityType: 'T',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -854,13 +849,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -893,13 +888,13 @@ describe('timeseries.js', () => {
     it('attribute', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -910,13 +905,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -949,13 +944,13 @@ describe('timeseries.js', () => {
     it('attribute attrs', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -966,13 +961,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -1005,13 +1000,13 @@ describe('timeseries.js', () => {
     it('attribute attrs value', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1022,13 +1017,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'quantumleap:8668',
@@ -1061,13 +1056,13 @@ describe('timeseries.js', () => {
     it('fromDate, toDate', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1078,13 +1073,13 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       actual.getToken = null;
 
@@ -1116,16 +1111,16 @@ describe('timeseries.js', () => {
 
       assert.deepEqual(actual, expected);
     });
-    it('payload not JSON Object', () => {
+    it('FIWARE GE type not Quantumleap', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: [] };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1136,30 +1131,58 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(errmsg, 'payload not JSON Object');
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Quantumleap' } });
+    });
+    it('payload not JSON Object', () => {
+      const createParam = timeseriesNode.__get__('createParam');
+      const msg = { payload: [] };
+      const config = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        entityId: '',
+        entityType: '',
+        attribute: '',
+        aggrMethod: '',
+        aggrPeriod: '',
+        lastN: '',
+        fromDate: '',
+        fromUnit: '',
+        toDate: '',
+        toUnit: '',
+        georel: '',
+        geometry: '',
+        coords: '',
+        value: 'false',
+        limit: '',
+        offset: '',
+      };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON Object' } });
     });
     it('actionType not found', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1170,30 +1193,27 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(errmsg, 'actionType not found');
+      assert.deepEqual(msg, { payload: { error: 'actionType not found' } });
     });
     it('geometry required if georel is specified', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'entities',
-        id: '',
-        type: '',
-        attrName: '',
+        entityId: '',
+        entityType: '',
+        attribute: '',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1204,30 +1224,27 @@ describe('timeseries.js', () => {
         georel: 'georel',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(errmsg, 'geometry required if georel is specified');
+      assert.deepEqual(msg, { payload: { error: 'geometry required if georel is specified' } });
     });
     it('fromDate err', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1238,30 +1255,27 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(errmsg, 'dateTime not Number');
+      assert.deepEqual(msg, { payload: { error: 'dateTime not Number' } });
     });
     it('toDate err', () => {
       const createParam = timeseriesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
         actionType: 'attribute',
-        id: '',
-        type: '',
-        attrName: 'A',
+        entityId: '',
+        entityType: '',
+        attribute: 'A',
         aggrMethod: '',
         aggrPeriod: '',
         lastN: '',
@@ -1272,19 +1286,16 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: true,
+        value: 'true',
         limit: '',
         offset: '',
       };
-      const openAPIsConfig = { apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(errmsg, 'dateTime not Number');
+      assert.deepEqual(msg, { payload: { error: 'dateTime not Number' } });
     });
   });
   describe('NGSI timeseries node', () => {
@@ -1310,7 +1321,7 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
         limit: '',
         offset: '',
 
@@ -1323,15 +1334,16 @@ describe('timeseries.js', () => {
       });
 
       let actual;
-      timeseriesNode.__set__('httpRequest', (param) => {
+      timeseriesNode.__set__('httpRequest', (msg, param) => {
         actual = param;
-        return [
+        msg.payload = [
           {
             'entityId': 'urn:ngsi-ld:WeatherObserved:sensor001',
             'entityType': 'Sensor',
             'index': '2023-02-19T10:37:15.797+00:00'
           }
         ];
+        msg.statusCode = 200;
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -1347,7 +1359,8 @@ describe('timeseries.js', () => {
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -1371,41 +1384,6 @@ describe('timeseries.js', () => {
         limit: '',
         offset: '',
       });
-    });
-    it('GE Type error', async () => {
-      const red = new MockRed();
-      timeseriesNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: 'entities',
-        entityId: '',
-        entityType: '',
-        attribute: '',
-        aggrMethod: '',
-        aggrPeriod: '',
-        lastN: '',
-        fromDate: '',
-        fromUnit: '',
-        toDate: '',
-        toUnit: '',
-        georel: '',
-        geometry: '',
-        coords: '',
-        value: false,
-        limit: '',
-        offset: '',
-
-        openapis: {
-          apiEndpoint: 'http://quantumleap:8668',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion'
-        }
-      });
-
-      await red.inputWithAwait({ payload: {} });
-
-      assert.equal(red.getMessage(), 'FIWARE GE type not Quantumleap');
     });
     it('actionType not found', async () => {
       const red = new MockRed();
@@ -1441,6 +1419,7 @@ describe('timeseries.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'actionType not found');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'actionType not found' }, statusCode: 500 });
     });
   });
 });

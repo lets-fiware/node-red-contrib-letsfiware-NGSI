@@ -23,9 +23,9 @@ This custom node is a simple node that allows to obtain the version information 
 -   `name`: a name for a node instance
 -   `Generic Enabler`: an endpoint of a FIWARE GE
 
-## Inputs
+## Input
 
-### Payload  *Any*
+payload  *Any*
 
 A `msg.payload` should contain any payload.
 
@@ -33,23 +33,13 @@ A `msg.payload` should contain any payload.
 {}
 ```
 
-## Outputs
+## Output
 
-### Payload *JSON Array*
+payload *JSON Array*
 
 A `msg.payload` contains the version information of FIWARE GE.
 
-## Examples
-
-### Input
-
-```
-{}
-```
-
-### Output
-
-```
+```json
 {
 "orion" : {
   "version" : "3.7.0",
@@ -73,6 +63,14 @@ A `msg.payload` contains the version information of FIWARE GE.
   }
 }
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Example

@@ -153,7 +153,7 @@
 
     <h4>Output</h4>
     <dl class="message-properties">
-        <dt>payload
+        <dt>statusCode
             <span class="property-type">Number</span>
         </dt>
         <dd>Status code returned by the NGSIv2 API</dd>
@@ -174,6 +174,10 @@
             <span class="property-type">JSON object</span>
         </dt>
         <dd>An entity</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Upsert entity</h3>
@@ -187,7 +191,7 @@
 
     <h4>Output</h4>
     <dl class="message-properties">
-        <dt>payload
+        <dt>statusCode
             <span class="property-type">Number</span>
         </dt>
         <dd>Status code returned by the NGSIv2 API</dd>
@@ -204,14 +208,14 @@
 
     <h4>Output</h4>
     <dl class="message-properties">
-        <dt>payload
+        <dt>statusCode
             <span class="property-type">Number</span>
         </dt>
         <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Use value of actionType in payload</h3>
-    <h4>Inputs</h4>
+    <h4>Input</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON object</span>
@@ -219,12 +223,16 @@
         <dd>JSON object with action Type and related information</dd>
     </dl>
 
-    <h4>Outputs</h4>
+    <h4>Output</h4>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">string or JSON object</span>
         </dt>
-        <dd>Status code returned by the NGSIv2 API or an entity</dd>
+        <dd>An entity</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>

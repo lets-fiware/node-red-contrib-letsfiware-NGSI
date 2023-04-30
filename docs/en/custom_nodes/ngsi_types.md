@@ -30,25 +30,23 @@ It allows to retrieve a list of entity types.
 -   `Values`: If true, the response payload is a JSON array with a list of entity types
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an empty JSON Object.
 
-```
+```json
 {}
 ```
 
-#### Output
+### Output
 
-Payload *JSON Array*
+payload *JSON Array*
 
 A `msg.payload` contains a list of entity types.
 
-```
+```json
 [
   {
     "type": "Sensor",
@@ -89,6 +87,14 @@ A `msg.payload` contains a list of entity types.
 ]
 ```
 
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```
+200
+```
+
 ## Retrieve entity information for a given type
 
 It allows to retrieve entity information for a given type.
@@ -104,25 +110,23 @@ It allows to retrieve entity information for a given type.
 -   `Entity type`: Type of Entity to retrieve an entity information
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
 
-### Examples
+### Input
 
-#### Input
-
-Payload  *String*
+payload  *String*
 
 A `msg.payload` should contain an Entity type.
 
-```
+```text
 Sensor
 ```
 
-#### Output
+### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains the entity information.
 
-```
+```json
 {
   "attrs": {
     "TimeInstant": {
@@ -158,6 +162,14 @@ A `msg.payload` contains the entity information.
   },
   "count": 1
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Use value of actionType in payload
@@ -176,29 +188,28 @@ It allows to retrieve a list of entity types or entity information for a given t
 -   `Values`: If true, the response payload is a JSON array with a list of entity types
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
 
-### Examples
+
+### Input (types)
+
+payload *JSON Object*
 
 When retrieving a list of entity types, a `msg.payload` should contain a JSON Object with actionType `types`.
 
-#### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain actionType with `types`.
 
-```
+```json
 {
   "actionType": "types"
 }
 ```
 
-#### Output
+### Output (types)
 
-Payload *JSON Array*
+payload *JSON Array*
 
 A `msg.payload` contains a list of entity types.
 
-```
+```json
 [
   {
     "type": "Sensor",
@@ -239,28 +250,36 @@ A `msg.payload` contains a list of entity types.
 ]
 ```
 
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```
+200
+```
+
+### Input (type)
+
+payload  *JSON Object*
+
 When retrieving entity information for a given type, a `msg.payload` should contain a JSON Object with actionType `type` and an entity type.
-
-#### Input
-
-Payload  *JSON Object*
 
 A `msg.payload` should contain an Entity type and actionType with `type`.
 
-```
+```json
 {
   "actionType": "type",
   "type": "Sensor"
 }
 ```
 
-#### Output
+### Output (type)
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains the entity information.
 
-```
+```json
 {
   "attrs": {
     "TimeInstant": {
@@ -296,4 +315,12 @@ A `msg.payload` contains the entity information.
   },
   "count": 1
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```
+200
 ```

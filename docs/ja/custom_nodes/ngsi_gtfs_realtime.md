@@ -27,20 +27,20 @@
 
 ## 入力
 
-Payload *string* または *JSON Array*
+payload *string*
 
-`msg.payload`には、GTFS realtime データを提供するエンドポイントの URL または、GTFS realtime データを含める必要があります。
-GTFS realtime データを含む JSON オブジェクトが提供される場合、JSON 配列に自動的に変換されます。
+`msg.payload`には、GTFS realtime データを提供するエンドポイントの URL を含める必要があります。
 
-### 入力 (*string*)
-
-```
+```text
 https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
 ```
 
-### 入力 (*JSON Array*)
+`msg.payload`には、GTFS realtime データを含める必要があります。
+GTFS realtime データを含む JSON オブジェクトが提供される場合、JSON 配列に自動的に変換されます。
 
-```
+payload *JSON Array*
+
+```json
 [
   {
     "id": "bus01",
@@ -72,13 +72,11 @@ https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
 
 ## 出力
 
-### Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には、NGSIv2 エンティティが含まれます。
 
-### 出力
-
-```
+```json
 [
   {
     "type": "Vehicle",
@@ -134,4 +132,12 @@ https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
     }
   }
 ]
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```

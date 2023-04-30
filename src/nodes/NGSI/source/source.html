@@ -36,13 +36,13 @@
           type: "Open APIs",
           required: true
         },
-        servicepath: {value: "/"},
-        mode: {value: "normalized"},
-        entitytype: {value: ""},
-        idpattern: {value: ""},
-        attrs: {value: ""},
-        query: {value: ""},
-        buffering: {value: "off"}
+        servicepath: { value: "/" },
+        mode: { value: "normalized" },
+        entitytype: { value: "" },
+        idpattern: { value: "" },
+        attrs: { value: "" },
+        query: { value: "" },
+        buffering: { value: "off" }
       },
       inputs: 1,
       outputs: 1,
@@ -102,7 +102,7 @@
 <script type="text/x-red" data-help-name="NGSI source">
     <p>A simple node that allows to obtain NGSIv2 entities.
     </p>
-    <h3>Inputs</h3>
+    <h3>Input</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
@@ -110,12 +110,16 @@
         <dd>payload containing a query condition that retrieves NGSIv2 entitites.</dd>
     </dl>
 
-    <h3>Outputs</h3>
+    <h3>Output</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Array</span>
         </dt>
         <dd>List of NGSIv2 entities</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>

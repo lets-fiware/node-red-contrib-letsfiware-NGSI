@@ -192,7 +192,7 @@
 <script type="text/x-red" data-help-name="Historical Context">
     <p>A simple node that allows to obtain historical context information from STH-Comet. Some attributes may be provided as part of the <code>msg.payload</code>. 
     </p>
-    <h3>Inputs</h3>
+    <h3>Input</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
@@ -200,12 +200,16 @@
         <dd>payload containing some attribute to retrieve historical context data.</dd>
     </dl>
 
-    <h3>Outputs</h3>
+    <h3>Output</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">JSON Object</span>
         </dt>
         <dd>payload containing historical context data</dd>
+        <dt>statusCode
+            <span class="property-type">Number</span>
+        </dt>
+        <dd>Status code returned by the NGSIv2 API</dd>
     </dl>
 
     <h3>Details</h3>

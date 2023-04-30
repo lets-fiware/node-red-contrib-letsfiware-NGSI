@@ -31,7 +31,7 @@ It allows to pass FIWARE Service value and/or ServicePath value to output withou
 
 #### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` should contain JSON Object.
 
@@ -44,7 +44,7 @@ A `msg.context` should contain JSON Object.
 
 #### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` contains JSON Object.
 
@@ -75,7 +75,7 @@ Set `Service value` to `OpenIoT` and `Service valuePath` to `/iot`.
 
 #### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` should contain JSON Object.
 
@@ -85,7 +85,7 @@ A `msg.context` should contain JSON Object.
 
 #### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` contains JSON Object.
 
@@ -112,7 +112,7 @@ It allows to delete FIWARE Service and/or FIWARE ServicePath from `msg.context`.
 
 #### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` should contain JSON Object.
 
@@ -125,7 +125,7 @@ A `msg.context` should contain JSON Object.
 
 #### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.context` contains JSON Object.
 

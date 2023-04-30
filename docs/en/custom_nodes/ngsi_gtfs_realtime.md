@@ -12,7 +12,6 @@ This custom node is a simple node that allows to transform from GTFS-realtime da
 -   [Properties](#properties)
 -   [Inputs](#inputs)
 -   [Outputs](#outputs)
--   [Examples](#examples)
 
 </details>
 
@@ -22,30 +21,22 @@ This custom node is a simple node that allows to transform from GTFS-realtime da
 
 - `name`: a name for a node instance
 
-## Inputs
+## Input
 
-### Payload  *JSON Array* or *String*
+payload  *String*
 
-A `msg.payload` should contain GTFS-realtime data or a URL that provides GTFS-realtime data.
- If a JSON Object containing GTFS-realtime data is provided, it will be automatically converted to a JSON Array.
+A `msg.payload` should contain a URL that provides GTFS-realtime data.
 
-## Outputs
-
-### Payload *JSON Array*
-
-A `msg.payload` contains NGSIv2 entities.
-
-## Examples
-
-### Input 1
-
-```
+```text
 https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
 ```
 
-### Input 2
+payload  *JSON Array*
 
-```
+A `msg.payload` should contain GTFS-realtime data.
+If a JSON Object containing GTFS-realtime data is provided, it will be automatically converted to a JSON Array.
+
+```json
 [
   {
     "id": "bus01",
@@ -73,7 +64,11 @@ https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
 ]
 ```
 
-### Output 2
+## Output
+
+payload *JSON Array*
+
+A `msg.payload` contains NGSIv2 entities.
 
 ```
 [
@@ -131,4 +126,12 @@ https://gtfs.letsfiware.jp/gtfs-realtime/vehicle-position.bin
     }
   }
 ]
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```
+200
 ```

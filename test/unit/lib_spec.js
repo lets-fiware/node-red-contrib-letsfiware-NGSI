@@ -329,7 +329,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '');
+      assert.deepEqual(actual, ['', null]);
     });
     it('years', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -338,7 +338,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2022-01-01T12:34:56.000Z');
+      assert.deepEqual(actual, ['2022-01-01T12:34:56.000Z', null]);
     });
     it('months', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -347,7 +347,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2022-11-01T12:34:56.000Z');
+      assert.deepEqual(actual, ['2022-11-01T12:34:56.000Z', null]);
     });
     it('days', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -356,7 +356,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2022-12-29T12:34:56.000Z');
+      assert.deepEqual(actual, ['2022-12-29T12:34:56.000Z', null]);
     });
     it('hours', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -365,7 +365,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2023-01-01T08:34:56.000Z');
+      assert.deepEqual(actual, ['2023-01-01T08:34:56.000Z', null]);
     });
     it('minutes', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -374,7 +374,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2023-01-01T12:29:56.000Z');
+      assert.deepEqual(actual, ['2023-01-01T12:29:56.000Z', null]);
     });
     it('seconds', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -383,7 +383,7 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2023-01-01T12:34:50.000Z');
+      assert.deepEqual(actual, ['2023-01-01T12:34:50.000Z', null]);
     });
     it('ISO8601', () => {
       const dt = new Date('2023-01-01T12:34:56.000Z');
@@ -392,31 +392,25 @@ describe('lib.js', () => {
 
       const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, '2024-01-01T12:34:56.000Z');
+      assert.deepEqual(actual, ['2024-01-01T12:34:56.000Z', null]);
     });
     it('dateTime not Number', () => {
       const dt = Date('2023-01-01T12:34:56.000Z');
       const value = '-a';
       const unit = 'day';
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = lib.convertDateTime.call(node, dt, value, unit);
+      const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, null);
-      assert.equal(msg, 'dateTime not Number');
+      assert.deepEqual(actual, [null, 'dateTime not Number']);
     });
     it('unit error', () => {
       const dt = Date('2023-01-01T12:34:56.000Z');
       const value = '-1';
       const unit = 'day';
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = lib.convertDateTime.call(node, dt, value, unit);
+      const actual = lib.convertDateTime(dt, value, unit);
 
-      assert.equal(actual, null);
-      assert.equal(msg, 'Unit error: day');
+      assert.deepEqual(actual, [null, 'Unit error: day']);
     });
   });
   describe('jsonToNGSI', () => {

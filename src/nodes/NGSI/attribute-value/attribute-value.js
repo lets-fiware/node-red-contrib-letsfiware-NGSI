@@ -47,8 +47,7 @@ const typeConversion = function (value) {
   return value;
 };
 
-const attrValue = async function (param) {
-
+const attrValue = async function (msg, param) {
   const options = {
     method: param.method,
     baseURL: param.host,
@@ -63,30 +62,49 @@ const attrValue = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 200 && param.config.actionType === 'read') {
-      return typeConversion(res.data);
+      msg.payload = typeConversion(res.data);
     } else if (res.status === 204 && param.config.actionType === 'update') {
-      return Number(res.status);
+      return;
     } else {
       this.error(`Error while managing attribute value: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while managing attribute value: ${error}`);
-    return null;
+    this.error(`Exception while managing attribute value: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-function createParam(msg, defaultConfig, openAPIsConfig) {
+function createParam(msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType,
+    id: config.entityId.trim(),
+    type: config.entityType.trim(),
+    attrName: config.attrName.trim(),
+    skipForwarding: config.skipForwarding === 'true',
+    forcedUpdate: config.forcedUpdate === 'true',
+    flowControl: config.flowControl === 'true',
+  };
+
   if (defaultConfig.actionType === 'payload') {
     if (msg.payload !== null && typeof msg.payload === 'object' && !Array.isArray(msg.payload) && 'actionType' in msg.payload) {
       defaultConfig = Object.assign(defaultConfig, msg.payload);
     } else {
-      this.error('actionType not found');
-      return;
+      msg.payload = { error: 'actionType not found' };
+      return null;
     }
   } else {
     if (defaultConfig.actionType === 'read') {
@@ -101,12 +119,12 @@ function createParam(msg, defaultConfig, openAPIsConfig) {
   }
 
   if (defaultConfig.id === '') {
-    this.error('Entity id not found');
+    msg.payload = { error: 'Entity id not found' };
     return null;
   }
 
   if (defaultConfig.attrName === '') {
-    this.error('Attribute name not found');
+    msg.payload = { error: 'Attribute name not found' };
     return null;
   }
 
@@ -114,7 +132,7 @@ function createParam(msg, defaultConfig, openAPIsConfig) {
 
   for (let i = 0; i < options.length; i++) {
     if (typeof defaultConfig[options[i]] !== 'boolean') {
-      this.error(options[i] + ' not boolean');
+      msg.payload = { error: options[i] + ' not boolean' };
       return null;
     }
   }
@@ -135,7 +153,7 @@ function createParam(msg, defaultConfig, openAPIsConfig) {
     case 'update':
       param.method = 'put';
       if (!('value' in defaultConfig)) {
-        this.error('Attribute value not found');
+        msg.payload = { error: 'Attribute value not found' };
         return null;
       }
       param.contentType = typeof defaultConfig.value === 'object' || Array.isArray(defaultConfig.value) ? 'application/json' : 'text/plain';
@@ -156,7 +174,7 @@ function createParam(msg, defaultConfig, openAPIsConfig) {
       delete defaultConfig.skipForwarding;
       break;
     default:
-      this.error('ActionType error: ' + defaultConfig.actionType);
+      msg.payload = { error: 'ActionType error: ' + defaultConfig.actionType };
       return null;
   }
 
@@ -175,30 +193,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType,
-        id: config.entityId.trim(),
-        type: config.entityType.trim(),
-        attrName: config.attrName.trim(),
-        skipForwarding: config.skipForwarding === 'true',
-        forcedUpdate: config.forcedUpdate === 'true',
-        flowControl: config.flowControl === 'true',
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam(msg, config, openAPIsConfig);
 
       if (param) {
-        const result = await attrValue.call(node, param);
-        msg.payload = result;
-        node.send(msg);
+        await attrValue.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI Attribute value', NGSIAttributeValue);

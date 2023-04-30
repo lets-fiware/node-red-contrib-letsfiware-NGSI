@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const getEntities = async function (param) {
+const getEntities = async function (msg, param) {
   let totalCount = 0;
   param.config.count = true;
 
@@ -46,10 +46,10 @@ const getEntities = async function (param) {
     try {
       const res = await lib.http(options);
       if (res.status === 200) {
+        param.buffer.send(res.data);
         if (res.data.length === 0) {
           break;
         }
-        param.buffer.send(res.data);
         param.config.offset += param.config.limit;
         if (totalCount <= 0) {
           totalCount = Number(res.headers['fiware-total-count']);
@@ -62,10 +62,16 @@ const getEntities = async function (param) {
         if (res.data && res.data.description) {
           this.error(`Details: ${res.data.description}`);
         }
+        msg.payload = res.data;
+        msg.statusCode = Number(res.status);
+        this.send(msg);
         break;
       }
     } catch (error) {
-      this.error(`Exception while retrieving entities: ${error}`);
+      this.error(`Exception while retrieving entities: ${error.message}`);
+      msg.payload = { error: error.message };
+      msg.statusCode = 500;
+      this.send(msg);
       break;
     }
   } while (param.config.offset < totalCount);
@@ -84,12 +90,14 @@ const nobuffering = {
   send: function (entities) {
     const message = Object.assign({}, this.msg);
     message.payload = entities;
+    message.statusCode = 200;
     this.node.send(message);
   },
   close: function () { },
   out: function (entities) {
     const message = Object.assign({}, this.msg);
     message.payload = entities;
+    message.statusCode = 200;
     this.node.send(message);
   },
 };
@@ -109,6 +117,7 @@ const buffering = {
   },
   close: function () {
     this.msg.payload = this.entities;
+    this.msg.statusCode = 200;
     this.node.send(this.msg);
   },
   out: function (entities) {
@@ -116,10 +125,28 @@ const buffering = {
   },
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    buffering: config.buffering === 'on',
+    keyValues: config.mode !== 'normalized',
+    type: config.entitytype.trim(),
+    idPattern: config.idpattern.trim(),
+    attrs: config.attrs.trim(),
+    q: config.query.trim(),
+    limit: 100,
+    offset: 0,
+  };
+
   if (!msg.payload) {
-    this.error('payload is null');
-    return;
+    msg.payload = { error: 'payload is null' };
+    return null;
   }
 
   if (typeof msg.payload === 'string') {
@@ -127,14 +154,14 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   }
 
   if (typeof msg.payload === 'object' && Array.isArray(msg.payload)) {
-    this.error('payload not string or JSON Object');
-    return;
+    msg.payload = { error: 'payload not string or JSON Object' };
+    return null;
   }
 
   const param = {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/entities',
-    buffer: defaultConfig.buffering ? nobuffering.open(this, msg) : buffering.open(this, msg),
+    buffer: defaultConfig.buffering ? buffering.open(this, msg) : nobuffering.open(this, msg),
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
     config: Object.assign(defaultConfig, msg.payload),
   };
@@ -152,28 +179,14 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        buffering: config.buffering === 'off',
-        keyValues: config.mode !== 'normalized',
-        type: config.entitytype.trim(),
-        idPattern: config.idpattern.trim(),
-        attrs: config.attrs.trim(),
-        q: config.query.trim(),
-        limit: 100,
-        offset: 0,
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam.call(node, msg, config, openAPIsConfig);
 
       if (param) {
-        await getEntities.call(node, param);
+        await getEntities.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
+        node.send(msg);
       }
     });
   }

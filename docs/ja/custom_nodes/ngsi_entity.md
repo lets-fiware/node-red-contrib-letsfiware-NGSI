@@ -33,15 +33,13 @@ NGSIv2 エンティティを作成できます。
 -   `Action type`: `create`
 -   `Representation`: `normalized` または `keyValues`
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、作成するエンティティが含まれている必要があります。
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -68,18 +66,14 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 201
-```
-
-```
-null
 ```
 
 <a name="read-an-entity"></a>
@@ -102,21 +96,19 @@ NGSIv2 エンティティを読み取ることができます。
 -   `Representation`: `normalized` または `keyValues`
 -   `Date Modified`: true の場合、dateModified の属性とメタデータを取得します
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *String* または *JSON Object*
+payload *String* または *JSON Object*
 
 `msg.payload` には、NGSIv2 エンティティを読み取るためのエンティティ id が含まれている必要があります。
 
-```
+```text
 urn:ngsi-ld:Building:store001
 ```
 
 `msg.payload` には、NGSIv2 エンティティを読み取るための条件が含まれている必要があります。
 
-```
+```json
 {
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
@@ -126,13 +118,13 @@ urn:ngsi-ld:Building:store001
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、NGSIv2 エンティティが含まれます。
 
-```
+```json
 {
   "id": "E1",
   "type": "T",
@@ -147,6 +139,14 @@ Payload *JSON Object*
     "metadata": {}
   }
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="upsert-an-entity"></a>
@@ -165,15 +165,13 @@ NGSIv2 エンティティをアップサート (upsert) できます。
 -   `Action type`: `upsert`
 -   `Representation`: `normalized` または `keyValues`
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` にはアップサートするエンティティが含まれている必要があります。
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -200,18 +198,14 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="delete-an-entity"></a>
@@ -231,39 +225,33 @@ NGSIv2 エンティティを削除できます。
 -   `Entity id`: 削除するエンティティの id
 -   `Entity type`: 削除するエンティティのタイプ
 
-### 例
+### 入力
 
-#### 入力
-
-Payload *String* または *JSON Object*
+payload *String* または *JSON Object*
 
 `msg.payload` には、NGSIv2 エンティティを削除するためのエンティティ id が含まれている必要があります。
 
-```
+```text
 urn:ngsi-ld:Building:store001
 ```
 
 `msg.payload` には、NGSIv2 エンティティを削除する条件が含まれている必要があります。
 
-```
+```json
 {
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
 }
 ```
 
-#### 出力
+### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="use-value-of-actiontype-in-payload"></a>
@@ -285,15 +273,13 @@ NGSIv2 エンティティの属性を作成、読み取り、アップサート�
 -   `Representation`: `normalized` または `keyValues`
 -   `Date Modified`: true の場合、dateModified の属性とメタデータを取得します
 
-### 例
+### 入力 (create)
+
+payload *JSON Object*
 
 エンティティを作成するとき、 `msg.payload` には `actionType` と `entity` を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "create",
   "entity": {
@@ -323,27 +309,23 @@ Payload *JSON Object*
 }
 ```
 
-#### 出力
+### 出力 (create)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 201
 ```
 
-```
-null
-```
+#### 入力 (read)
+
+payload  *JSON Object*
 
 エンティティを読み取る場合、 `msg.payload` には、読み取るエンティティの関連情報を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "read",
   "id": "E",
@@ -351,13 +333,13 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力 (read)
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、エンティティを表すオブジェクトが含まれます。
 
-```
+```json
 {
   "type":"Number",
   "value":45,
@@ -365,13 +347,21 @@ Payload *JSON Object*
 }
 ```
 
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### 入力 (upsert)
+
+payload  *JSON Object*
+
 エンティティをアップサートする場合、 `msg.payload` には `actionType` と `entity` を含む JSON オブジェクトが含まれている必要があります
 
-#### 入力
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "upsert",
   "entity": {
@@ -401,27 +391,23 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力 (upsert)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 (delete)
+
+payload  *JSON Object*
 
 エンティティを削除する場合、`msg.payload` には、削除するエンティティの関連情報を含む JSON オブジェクトが含まれている必要があります。
 
-#### 入力
-
-Payload  *JSON Object*
-
-```
+```json
 {
   "actionType": "delete",
   "id": "E",
@@ -429,16 +415,12 @@ Payload  *JSON Object*
 }
 ```
 
-#### 出力
+### 出力 (delete)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```

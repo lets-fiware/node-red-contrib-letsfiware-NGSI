@@ -81,8 +81,14 @@ describe('registration.js', () => {
         }
       };
 
-      const actuial = await createRegistration(param);
-      assert.equal(actuial, '63ed51173bdeaadaf909c57b');
+      const msg = {};
+      await createRegistration(msg, param);
+
+      assert.deepEqual(msg, {
+        payload: '63ed51173bdeaadaf909c57b',
+        statusCode: 201,
+        headers: { location: '/v2/registrations/63ed51173bdeaadaf909c57b' }
+      });
     });
     it('should be 400 Bad Request', async () => {
       registrationNode.__set__('lib', {
@@ -98,12 +104,14 @@ describe('registration.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createRegistration.call(node, param);
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating registration: 400 Bad Request']);
+      const msg = {};
+      await createRegistration.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while creating registration: 400 Bad Request']);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
@@ -119,16 +127,18 @@ describe('registration.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createRegistration.call(node, param);
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Error while creating registration: 400 Bad Request', 'Details: error']);
+      const msg = {};
+      await createRegistration.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while creating registration: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -140,13 +150,14 @@ describe('registration.js', () => {
         config: { data: {} }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actuial = await createRegistration.call(node, param);
+      const msg = {};
+      await createRegistration.call(node, msg, param);
 
-      assert.equal(actuial, null);
-      assert.deepEqual(msg, ['Exception while creating registration: unknown error']);
+      assert.deepEqual(errmsg, ['Exception while creating registration: unknown error']);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('deleteRegistration', () => {
@@ -169,9 +180,10 @@ describe('registration.js', () => {
         config: {},
       };
 
-      const actual = await deleteRegistration(param);
+      const msg = {};
+      await deleteRegistration(msg, param);
 
-      assert.deepEqual(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('should be 400 Bad Request', async () => {
       registrationNode.__set__('lib', {
@@ -187,13 +199,14 @@ describe('registration.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteRegistration.call(node, param);
+      const msg = {};
+      await deleteRegistration.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting registration: 400 Bad Request']);
+      assert.deepEqual(errmsg, ['Error while deleting registration: 400 Bad Request']);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
@@ -209,17 +222,18 @@ describe('registration.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteRegistration.call(node, param);
+      const msg = {};
+      await deleteRegistration.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while deleting registration: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while deleting registration: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -231,13 +245,14 @@ describe('registration.js', () => {
         config: {},
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await deleteRegistration.call(node, param);
+      const msg = {};
+      await deleteRegistration.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Exception while deleting registration: unknown error']);
+      assert.deepEqual(errmsg, ['Exception while deleting registration: unknown error']);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('createParam', () => {
@@ -269,13 +284,15 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'create',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -345,10 +362,10 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registration: {},
-        id: '',
+        registrationId: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -396,11 +413,11 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'delete',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -434,11 +451,11 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -459,6 +476,30 @@ describe('registration.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('FIWARE GE type not Orion', async () => {
+      const createParam = registrationNode.__get__('createParam');
+      const msg = {
+        payload: {
+          actionType: 'create',
+          registration: '',
+        }
+      };
+
+      const defaultConfig = {
+        service: 'openiot',
+        servicepath: '/',
+        actionType: 'payload',
+        registrationId: '',
+        registration: {},
+      };
+
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
     it('registration not JSON object', async () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
@@ -472,19 +513,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'registration not JSON object');
+      assert.deepEqual(msg, { payload: { error: 'registration not JSON object' } });
     });
     it('actionType not found', async () => {
       const createParam = registrationNode.__get__('createParam');
@@ -498,19 +536,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'actionType not found');
+      assert.deepEqual(msg, { payload: { error: 'actionType not found' } });
     });
     it('payload not string', async () => {
       const createParam = registrationNode.__get__('createParam');
@@ -520,19 +555,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'delete',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not string');
+      assert.deepEqual(msg, { payload: { error: 'payload not string' } });
     });
     it('payload not JSON object', async () => {
       const createParam = registrationNode.__get__('createParam');
@@ -542,19 +574,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'create',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not JSON object');
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON object' } });
     });
     it('registration id not string', async () => {
       const createParam = registrationNode.__get__('createParam');
@@ -569,19 +598,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'registration id not string');
+      assert.deepEqual(msg, { payload: { error: 'registration id not string' } });
     });
     it('ActionType error', async () => {
       const createParam = registrationNode.__get__('createParam');
@@ -596,21 +622,18 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'payload',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'ActionType error: upsert');
+      assert.deepEqual(msg, { payload: { error: 'ActionType error: upsert' } });
     });
-    it('ActionType error', async () => {
+    it('ActionType error: upsert', async () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
         payload: {
@@ -622,19 +645,16 @@ describe('registration.js', () => {
         service: 'openiot',
         servicepath: '/',
         actionType: 'upsert',
-        id: '',
+        registrationId: '',
         registration: {},
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'ActionType error: upsert');
+      assert.deepEqual(msg, { payload: { error: 'ActionType error: upsert' } });
     });
   });
   describe('NGSI registration node', () => {
@@ -660,7 +680,12 @@ describe('registration.js', () => {
       });
 
       let actual;
-      registrationNode.__set__('createRegistration', async (param) => { actual = param; return '63ed51173bdeaadaf909c57b'; });
+      registrationNode.__set__('createRegistration', async (msg, param) => {
+        actual = param;
+        msg.payload = undefined;
+        msg.statusCode = 201;
+        msg.headers = { location: '63ed51173bdeaadaf909c57b' };
+      });
 
       await red.inputWithAwait({
         payload: {
@@ -705,11 +730,13 @@ describe('registration.js', () => {
       };
 
       assert.deepEqual(red.getOutput(), {
-        payload: '63ed51173bdeaadaf909c57b',
+        payload: undefined,
+        statusCode: 201,
+        headers: { location: '63ed51173bdeaadaf909c57b' },
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/'
-        }
+        },
       });
       assert.equal(actual.contentType, 'json');
       assert.equal(actual.host, 'http://orion:1026');
@@ -740,29 +767,7 @@ describe('registration.js', () => {
       await red.inputWithAwait({ payload: { actionType: 'upsert', id: '' } });
 
       assert.equal(red.getMessage(), 'ActionType error: upsert');
-    });
-    it('FIWARE GE type not Orion', async () => {
-      const red = new MockRed();
-      registrationNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: '',
-        id: '',
-        registration: {},
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'fiware',
-        }
-      });
-
-      registrationNode.__set__('deleteRegistration', async () => { });
-
-      await red.inputWithAwait({ payload: { id: '63ed51173bdeaadaf909c57b' } });
-
-      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'ActionType error: upsert' }, statusCode: 500 });
     });
   });
 });

@@ -81,7 +81,7 @@ module.exports = function (RED) {
         msg.payload = JSON.parse(msg.payload);
       }
       if (!Array.isArray(msg.payload)) {
-        if (Object.prototype.hasOwnProperty.call(msg.payload,'subscriptionId')) {
+        if ('subscriptionId' in msg.payload) {
           msg.payload = msg.payload.data;
         } else {
           msg.payload = [msg.payload];
@@ -103,9 +103,9 @@ module.exports = function (RED) {
 
         if (entity[config.attrworldmap]) {
           if (entity[config.attrworldmap].value) {
-            poi = Object.assign(poi, entity[config.attrworldmap].value); 
+            poi = Object.assign(poi, entity[config.attrworldmap].value);
           } else {
-            poi = Object.assign(poi, entity[config.attrworldmap]); 
+            poi = Object.assign(poi, entity[config.attrworldmap]);
           }
         }
         pois.push(poi);

@@ -65,9 +65,10 @@ describe('entity.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
-      assert.deepEqual(actual, { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } });
+      assert.deepEqual(msg, { payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } }, statusCode: 200 });
     });
     it('create entity', async () => {
       entityNode.__set__('lib', {
@@ -90,9 +91,10 @@ describe('entity.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
-      assert.equal(actual, 201);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 201 });
     });
     it('upsert entity', async () => {
       entityNode.__set__('lib', {
@@ -115,9 +117,10 @@ describe('entity.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
-      assert.equal(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('delete entity', async () => {
       entityNode.__set__('lib', {
@@ -139,9 +142,10 @@ describe('entity.js', () => {
         },
       };
 
-      const actual = await httpRequest(param);
+      const msg = {};
+      await httpRequest(msg, param);
 
-      assert.equal(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('should be 400 Bad Request', async () => {
       entityNode.__set__('lib', {
@@ -160,13 +164,14 @@ describe('entity.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Error while managing entity: 400 Bad Request');
+      assert.equal(errmsg, 'Error while managing entity: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       entityNode.__set__('lib', {
@@ -185,17 +190,18 @@ describe('entity.js', () => {
         },
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while managing entity: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while managing entity: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -210,32 +216,33 @@ describe('entity.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await httpRequest.call(node, param);
+      const msg = {};
+      await httpRequest.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Exception while managing entity: unknown error');
+      assert.equal(errmsg, 'Exception while managing entity: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('createParam', () => {
     it('payload', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: { actionType: 'create', entity: { id: 'I', type: 'E' }, keyValues: true } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'payload',
-        id: 'I2',
-        type: 'E2',
+        entityId: 'I2',
+        entityType: 'E2',
         attrs: '',
-        keyValues: false,
-        dateModified: false,
+        keyValues: 'false',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -259,19 +266,19 @@ describe('entity.js', () => {
     it('create', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: { id: 'E', type: 'T' } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'create',
-        id: '',
-        type: '',
+        entityId: '',
+        entityType: '',
         attrs: '',
-        keyValues: true,
-        dateModified: false,
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -295,19 +302,19 @@ describe('entity.js', () => {
     it('read', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'read',
-        id: 'I',
-        type: 'E',
+        entityId: 'I',
+        entityType: 'E',
         attrs: '',
-        keyValues: false,
-        dateModified: true,
+        keyValues: 'false',
+        dateModified: 'true',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -332,19 +339,19 @@ describe('entity.js', () => {
     it('read with attr', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'read',
-        id: 'I',
-        type: 'E',
+        entityId: 'I',
+        entityType: 'E',
         attrs: 'temperature',
-        keyValues: false,
-        dateModified: true,
+        keyValues: 'false',
+        dateModified: 'true',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -369,19 +376,19 @@ describe('entity.js', () => {
     it('read with id', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: 'I' };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'read',
-        id: '',
-        type: 'E',
+        entityId: '',
+        entityType: 'E',
         attrs: 'temperature',
-        keyValues: false,
-        dateModified: true,
+        keyValues: 'false',
+        dateModified: 'true',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -406,19 +413,19 @@ describe('entity.js', () => {
     it('upsert', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: { id: 'I', type: 'E' } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'upsert',
-        id: 'I',
-        type: 'E',
+        entityId: 'I',
+        entityType: 'E',
         attrs: '',
-        keyValues: false,
-        dateModified: true,
+        keyValues: 'false',
+        dateModified: 'true',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -443,19 +450,19 @@ describe('entity.js', () => {
     it('delete', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'delete',
-        id: 'I',
-        type: 'E',
+        entityId: 'I',
+        entityType: 'E',
         attrs: '',
-        keyValues: false,
-        dateModified: true,
+        keyValues: 'false',
+        dateModified: 'true',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -476,18 +483,20 @@ describe('entity.js', () => {
     it('getToken', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: { id: 'I', type: 'E', keyValues: false } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'read',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       actual.getToken = null;
 
@@ -502,137 +511,153 @@ describe('entity.js', () => {
           keyValues: false,
           id: 'I',
           type: 'E',
+          attrs: '',
+          dateModified: false
         },
         method: 'get',
       };
 
       assert.deepEqual(actual, expected);
     });
-    it('Entity id not found when reading', () => {
+    it('FIWARE GE type not Orion', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'read',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'Entity id not found');
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
+    it('Entity id not found when reading', () => {
+      const createParam = entityNode.__get__('createParam');
+      const msg = { payload: {} };
+      const config = {
+        service: 'orion',
+        servicepath: '/#',
+        actionType: 'read',
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
+      };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'Entity id not found' } });
     });
     it('Entity id not found when deleting', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'delete',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'Entity id not found');
+      assert.deepEqual(msg, { payload: { error: 'Entity id not found' } });
     });
     it('payload is null', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: null };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'create',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload is null');
+      assert.deepEqual(msg, { payload: { error: 'payload is null' } });
     });
     it('payload not JSON Object', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: 123 };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'create',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not JSON Object');
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON Object' } });
     });
     it('actionType not found', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'payload',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'actionType not found');
+      assert.deepEqual(msg, { payload: { error: 'actionType not found' } });
     });
     it('ActionType error', () => {
       const createParam = entityNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/#',
         actionType: 'new',
-        id: '',
-        type: '',
-        keyValues: true,
+        entityId: '',
+        entityType: '',
+        attrs: '',
+        keyValues: 'true',
+        dateModified: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
-
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'ActionType error: new');
+      assert.deepEqual(msg, { payload: { error: 'ActionType error: new' } });
     });
   });
   describe('NGSI Entity node', () => {
@@ -648,8 +673,8 @@ describe('entity.js', () => {
         entityId: 'E',
         entityType: 'I',
         attrs: '',
-        keyValues: false,
-        dateModified: false,
+        keyValues: 'false',
+        dateModified: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -660,15 +685,16 @@ describe('entity.js', () => {
       });
 
       let actual;
-      entityNode.__set__('httpRequest', (param) => {
+      entityNode.__set__('httpRequest', (msg, param) => {
         actual = param;
-        return '201';
+        msg.payload = undefined;
+        msg.statusCode = 201;
       });
 
       await red.inputWithAwait({ payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } } });
 
       const expected = {
-        payload: '201', 'context': { 'fiwareService': 'openiot', 'fiwareServicePath': '/' }
+        payload: undefined, statusCode: 201, 'context': { 'fiwareService': 'openiot', 'fiwareServicePath': '/' }
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -680,31 +706,7 @@ describe('entity.js', () => {
         'servicepath': '/',
       });
     });
-    it('GE Type error', async () => {
-      const red = new MockRed();
-      entityNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: 'create',
-        entityId: 'E',
-        entityType: 'I',
-        attrs: '',
-        keyValues: false,
-        dateModified: false,
-
-        openapis: {
-          apiEndpoint: 'http://comet:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'comet'
-        }
-      });
-
-      await red.inputWithAwait({ payload: {} });
-
-      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
-    });
-    it('create entity', async () => {
+    it('ActionType error: append', async () => {
       const red = new MockRed();
       entityNode(red);
       red.createNode({
@@ -713,8 +715,8 @@ describe('entity.js', () => {
         entityId: 'E',
         entityType: 'I',
         attrs: '',
-        keyValues: false,
-        dateModified: false,
+        keyValues: 'false',
+        dateModified: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -727,6 +729,10 @@ describe('entity.js', () => {
       await red.inputWithAwait({ payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } } });
 
       assert.equal(red.getMessage(), 'ActionType error: append');
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'ActionType error: append' },
+        statusCode: 500,
+      });
     });
   });
 });

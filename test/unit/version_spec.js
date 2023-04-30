@@ -33,9 +33,9 @@
 require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
-  
+
 const { assert } = require('chai');
-  
+
 const sourceNode = require('../../src/nodes/NGSI/version/version.js');
 const MockRed = require('./helpers/mockred.js');
 
@@ -49,80 +49,86 @@ describe('version.js', () => {
           status: 200,
           data: orion_version
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
-      const getVersion= sourceNode.__get__('getVersion');
+      const getVersion = sourceNode.__get__('getVersion');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/version'
       };
 
-      const res = await getVersion(param);
+      const msg = {};
+      await getVersion(msg, param);
 
-      assert.equal(res, orion_version);
+      assert.deepEqual(msg, { payload: orion_version, statusCode: 200 });
     });
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
-      const getVersion= sourceNode.__get__('getVersion');
+      const getVersion = sourceNode.__get__('getVersion');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/version'
       };
 
-      let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
-      const res = await getVersion.call(node, param);
-      
-      assert.equal(res, null);
-      assert.equal(msg, 'Error while getting version: 400 Bad Request');
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
+
+      const msg = {};
+      await getVersion.call(node, msg, param);
+
+      assert.equal(errmsg, 'Error while getting version: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request', data: { description: 'error' }}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
-      const getVersion= sourceNode.__get__('getVersion');
+      const getVersion = sourceNode.__get__('getVersion');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/version'
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const res = await getVersion.call(node, param);
-      
-      assert.equal(res, null);
-      assert.deepEqual(msg, ['Error while getting version: 400 Bad Request', 'Details: error']);
+      const msg = {};
+      await getVersion.call(node, msg, param);
+
+      assert.deepEqual(errmsg, ['Error while getting version: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.reject({ message: 'unknown error' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
-      const getVersion= sourceNode.__get__('getVersion');
+      const getVersion = sourceNode.__get__('getVersion');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/version'
       };
 
-      let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
-      const res = await getVersion.call(node, param);
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      assert.equal(res, null);
-      assert.equal(msg, 'Exception while getting version: unknown error');
+      const msg = {};
+      await getVersion.call(node, msg, param);
+
+      assert.equal(errmsg, 'Exception while getting version: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('FIWARE version node', () => {
@@ -135,19 +141,23 @@ describe('version.js', () => {
       red.createNode({
         openapis: {
           apiEndpoint: 'http://orion:1026',
-          getToken: () => {},
+          getToken: () => { },
         }
       });
 
       let actual;
-      sourceNode.__set__('getVersion', (param) => {actual = param; return orion_version;});
+      sourceNode.__set__('getVersion', (msg, param) => {
+        actual = param;
+        msg.payload = orion_version;
+        msg.statusCode = 200;
+      });
 
-      await red.inputWithAwait({payload: null});
+      await red.inputWithAwait({ payload: null });
 
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/version');
-      const output = red.getOutput();
-      assert.equal(output.payload, orion_version);
+      assert.equal(typeof actual.getToken, 'function');
+      assert.deepEqual(red.getOutput(), { payload: orion_version, statusCode: 200 });
     });
     it('orion version without getToken', async () => {
       const red = new MockRed();
@@ -160,14 +170,18 @@ describe('version.js', () => {
       });
 
       let actual;
-      sourceNode.__set__('getVersion', (param) => {actual = param; return orion_version;});
+      sourceNode.__set__('getVersion', (msg, param) => {
+        actual = param;
+        msg.payload = orion_version;
+        msg.statusCode = 200;
+      });
 
-      await red.inputWithAwait({payload: null});
+      await red.inputWithAwait({ payload: null });
 
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/version');
-      const output = red.getOutput();
-      assert.equal(output.payload, orion_version);
+      assert.equal(actual.getToken, null);
+      assert.deepEqual(red.getOutput(), { payload: orion_version, statusCode: 200 });
     });
     it('error', async () => {
       const red = new MockRed();
@@ -175,19 +189,23 @@ describe('version.js', () => {
       red.createNode({
         openapis: {
           apiEndpoint: 'http://orion:1026',
-          getToken: () => {},
+          getToken: () => { },
         }
       });
 
       let actual;
-      sourceNode.__set__('getVersion', (param) => {actual = param; return null;});
+      sourceNode.__set__('getVersion', (msg, param) => {
+        actual = param;
+        msg.payload = 'error';
+        msg.statusCode = 400;
+      });
 
-      await red.inputWithAwait({payload: null});
+      await red.inputWithAwait({ payload: null });
 
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/version');
-      const output = red.getOutput();
-      assert.deepEqual(output, []);
+      assert.equal(typeof actual.getToken, 'function');
+      assert.deepEqual(red.getOutput(), { payload: 'error', statusCode: 400 });
     });
   });
 });

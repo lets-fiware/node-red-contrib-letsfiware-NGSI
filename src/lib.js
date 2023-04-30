@@ -158,14 +158,13 @@ function getServiceAndServicePath(msg, service, path) {
 }
 
 function convertDateTime(dt, value, unit) {
-  if (value === '') return '';
+  if (value === '') return ['', null];
 
   if (unit !== 'ISO8601') {
     value = Number(value.replace(/^-/, ''));
 
     if (isNaN(value)) {
-      this.error('dateTime not Number');
-      return null;
+      return [null, 'dateTime not Number'];
     }
     value = Number(value);
   }
@@ -190,13 +189,12 @@ function convertDateTime(dt, value, unit) {
       dt.setSeconds(dt.getSeconds() - value);
       break;
     case 'ISO8601':
-      return value;
+      return [value, null];
     default:
-      this.error('Unit error: ' + unit);
-      return null;
+      return [null, 'Unit error: ' + unit];
   }
 
-  return dt.toISOString();
+  return [dt.toISOString(), null];
 }
 
 function jsonToNGSI(data) {
