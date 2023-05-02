@@ -34,25 +34,23 @@ It allows to read an attribute in NGSIv2 entity.
 -   `Metadata`: List of metadata names
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain information related to the attribute to read.
 
-```
+```json
 {}
 ```
 
-```
+```json
 {
   "attrName": "relativeHumidity"
 }
 ```
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -60,18 +58,26 @@ A `msg.payload` should contain information related to the attribute to read.
 }
 ```
 
-#### Output
+### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains an object representing the attribute.
 
-```
+```json
 {
   "type":"Number",
   "value":45,
   "metadata":{}
 }
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
 ```
 
 ## Update an attribute
@@ -93,33 +99,27 @@ It allows to update an attribute in NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an object representing the attribute to update.
 
-```
+```json
 {
   "type": "Number",
   "value": 1234.5
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Delete an attribute
@@ -138,25 +138,23 @@ It allows to delete an attribute in NGSIv2 entity.
 -   `Entity type`: Type of an entity containing an attribute to be delete
 -   `Attribute name`: Attribute name of an attribute to be deleted
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain information related to the attribute to delete.
 
-```
+```json
 {}
 ```
 
-```
+```json
 {
   "attrName": "relativeHumidity"
 }
 ```
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -164,19 +162,14 @@ A `msg.payload` should contain information related to the attribute to delete.
 }
 ```
 
+### Output
 
-#### Output
-
-Payload *Number* or *null*
+payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -200,28 +193,26 @@ It allows to read, update or delete an attribute in NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Examples
+### Input 1
+
+payload *JSON Object*
 
 When reading an attribute, a `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be read.
 
-#### Input 1
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "read",
   "attrName": "relativeHumidity"
 }
 ```
 
-#### Output 1
+### Output 1
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains an object representing the attribute.
 
-```
+```json
 {
   "type":"Number",
   "value":45,
@@ -229,13 +220,13 @@ A `msg.payload` contains an object representing the attribute.
 }
 ```
 
+### Input 2
+
+payload *JSON Object*
+
 When updating an attribute, a `msg.payload` should contain a JSON Object with `actionType` and `attribute` with related information the attribute to be updated.
 
-#### Input 2
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "update",
   "attribute": {
@@ -245,45 +236,37 @@ Payload *JSON Object*
 }
 ```
 
-#### Output 2
+### Output 2
 
-Payload *Number* or *null*
+payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input 3
+
+payload *JSON Object*
 
 When deleting an attribute, a `msg.payload` should contain a JSON Object with `actionType` and related information the attribute to be deleted.
 
-#### Input 3
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "delete",
   "attrName": "relativeHumidity"
 }
 ```
 
-#### Output 3
+### Output 3
 
-Payload *JSON Object*
+payload *JSON Object*
 
-Payload *Number* or *null*
+payload *Number* or *null*
 
 A `msg.payload` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```

@@ -36,11 +36,11 @@
 
 ## 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、NGSIv2 エンティティを取得するためのクエリ条件が含まれている必要があります。
 
-```
+```json
 {
   "idPattern": ".*",
   "type": "T",
@@ -56,9 +56,17 @@ Payload *JSON Object*
 
 ## 出力
 
-Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には NGSIv2 エンティティが含まれます。
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
 
 <a name="example"></a>
 
@@ -66,7 +74,7 @@ Payload *JSON Array*
 
 ### 入力 1
 
-```
+```json
 {
   "idPattern": ".*"
 }
@@ -74,7 +82,7 @@ Payload *JSON Array*
 
 ### 出力 1
 
-```
+```json
 [
   {
     "id": "E1",
@@ -109,7 +117,7 @@ Payload *JSON Array*
 
 ### 入力 2
 
-```
+```json
 {
   "type": "T",
   "attrs": [
@@ -120,7 +128,7 @@ Payload *JSON Array*
 
 ### 出力 2
 
-```
+```json
 [
   {
     "id": "E1",
@@ -145,7 +153,7 @@ Payload *JSON Array*
 
 ### 入力 3
 
-```
+```json
 {
   "type": "T",
   "q": "temperature>29"
@@ -154,7 +162,7 @@ Payload *JSON Array*
 
 ### 出力 3
 
-```
+```json
 [
   {
     "id": "E2",
@@ -175,7 +183,7 @@ Payload *JSON Array*
 
 ### 入力 4
 
-```
+```json
 {
   "type": "T",
   "q": "temperature>29",
@@ -185,7 +193,7 @@ Payload *JSON Array*
 
 ### 出力 4
 
-```
+```json
 [
   {
     "id": "E2",

@@ -67,7 +67,7 @@ For example, if you want to get historical context from 3 days ago to 2 days ago
 
 ### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` may contain attributes as shown:
 
@@ -94,9 +94,17 @@ an empty JSON Object to this node. If an attribute has a value, it overwrites th
 
 ### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains historical context data.
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
 
 ## Historical Aggregated Time Series Context Information
 
@@ -118,7 +126,7 @@ A `msg.payload` contains historical context data.
 
 ### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` may contain attributes as shown:
 
@@ -135,7 +143,7 @@ A `msg.payload` may contain attributes as shown:
   "fromUnit": "ISO8601", "years", "months", "days", "hours", "minutes" or "seconds"
   "dateTo: 
   "toUnit: 
-  "outputType: "raw", "value", "dashboard"
+  "outputType: "raw", "value" or "dashboard"
   "count": "true" or "false"
 }
 ```
@@ -145,9 +153,17 @@ an empty JSON Object to this node. If an attribute has a value, it overwrites th
 
 ### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains historical context data.
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
 
 ## Examples
 

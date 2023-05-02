@@ -71,7 +71,7 @@
 
 ### 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` は、次のような属性を含むことができます:
 
@@ -98,9 +98,17 @@ Payload *JSON Object*
 
 ### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には履歴コンテキスト・データが含まれます。
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
 
 <a name="historical-aggregated-time-series-context-information"></a>
 
@@ -124,7 +132,7 @@ Payload *JSON Object*
 
 ### 入力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、次のような属性を含むことができます:
 
@@ -141,7 +149,7 @@ Payload *JSON Object*
   "fromUnit": "ISO8601", "years", "months", "days", "hours", "minutes" or "seconds"
   "dateTo: 
   "toUnit: 
-  "outputType: "raw", "value", "dashboard"
+  "outputType: "raw", "value" or "dashboard"
   "count": "true" or "false"
 }
 ```
@@ -151,9 +159,17 @@ Payload *JSON Object*
 
 ### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には履歴コンテキスト・データが含まれます。
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
 
 <a name="examples"></a>
 

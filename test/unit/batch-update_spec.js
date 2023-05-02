@@ -59,9 +59,10 @@ describe('batch-update.js', () => {
       };
       const node = { send: () => { } };
 
-      const actual = await opUpdate.call(node, param);
+      const msg = {};
+      await opUpdate.call(node, msg, param);
 
-      assert.equal(actual, 204);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 204 });
     });
     it('Should be 400 Bad Request', async () => {
       batchUpdateNode.__set__('lib', {
@@ -74,13 +75,15 @@ describe('batch-update.js', () => {
         url: '/v2/op/update',
         config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
       };
+
       let errmsg;
       const node = { error: (e) => { errmsg = e; }, send: () => { } };
 
-      const actual = await opUpdate.call(node, param);
+      const msg = {};
+      await opUpdate.call(node, msg, param);
 
       assert.equal(errmsg, 'Error while updating entities: 400 Bad Request');
-      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('Should be 400 Bad Request with description', async () => {
       batchUpdateNode.__set__('lib', {
@@ -99,17 +102,18 @@ describe('batch-update.js', () => {
         config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await opUpdate.call(node, param);
+      const msg = {};
+      await opUpdate.call(node, msg, param);
 
-      assert.deepEqual(msg, ['Error while updating entities: 400 Bad Request', 'Details: error']);
-      assert.equal(actual, null);
+      assert.deepEqual(errmsg, ['Error while updating entities: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       batchUpdateNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
       });
@@ -118,31 +122,33 @@ describe('batch-update.js', () => {
         url: '/v2/op/update',
         config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
       };
+
       let errmsg;
       const node = { error: (e) => { errmsg = e; }, send: () => { } };
 
-      const actual = await opUpdate.call(node, param);
+      const msg = {};
+      await opUpdate.call(node, msg, param);
 
       assert.equal(errmsg, 'Exception while updating entities: unknown error');
-      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('createParam', () => {
     it('append entities (array)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: [] };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'append',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -150,6 +156,7 @@ describe('batch-update.js', () => {
         getToken: null,
         contentType: 'json',
         config: {
+          service: 'openiot',
           servicepath: '/',
           actionType: 'append',
           data: {
@@ -169,18 +176,18 @@ describe('batch-update.js', () => {
     it('append entities (JSON Object)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'append',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -188,6 +195,7 @@ describe('batch-update.js', () => {
         getToken: null,
         contentType: 'json',
         config: {
+          service: 'openiot',
           servicepath: '/',
           actionType: 'append',
           data: {
@@ -205,19 +213,19 @@ describe('batch-update.js', () => {
     });
     it('append entities (payload)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
-      const msg = { payload: { actionType: 'append', entities: [], keyValues: true } };
-      const defaultConfig = {
+      const msg = { payload: { actionType: 'append', entities: [{ id: 'E', type: 'T' }], keyValues: true } };
+      const config = {
         servicepath: '/',
         actionType: 'payload',
-        data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        data: {},
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       const expected = {
         host: 'http://orion:1026',
@@ -225,14 +233,18 @@ describe('batch-update.js', () => {
         getToken: null,
         contentType: 'json',
         config: {
+          service: 'openiot',
           servicepath: '/',
           actionType: 'payload',
-          data: [
-            {
-              id: 'E',
-              type: 'T',
-            },
-          ],
+          data: {
+            actionType: 'append',
+            entities: [
+              {
+                id: 'E',
+                type: 'T'
+              }
+            ]
+          },
           keyValues: true,
           overrideMetadata: false,
           forcedUpdate: false,
@@ -242,110 +254,119 @@ describe('batch-update.js', () => {
 
       assert.deepEqual(actual, expected);
     });
-    it('payload not JSON Object (null)', () => {
+    it('FIWARE GE type not Orion', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: null };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'payload',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not JSON Object');
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
+    it('payload not JSON Object (null)', () => {
+      const createParam = batchUpdateNode.__get__('createParam');
+      const msg = { payload: null };
+      const config = {
+        servicepath: '/',
+        actionType: 'payload',
+        data: [{ id: 'E', type: 'T' }],
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
+      };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON Object' } });
     });
     it('payload not JSON Object (string)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: '' };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'payload',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'payload not JSON Object');
+      assert.deepEqual(msg, { payload: { error: 'payload not JSON Object' } });
     });
     it('actionType and/or entities missing', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: { actionType: 'append' } };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'payload',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'actionType and/or entities missing');
+      assert.deepEqual(msg, { payload: { error: 'actionType and/or entities missing' } });
     });
     it('not boolean', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: { actionType: 'append', entities: [], keyValues: 'true' } };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'payload',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'keyValues not boolean');
+      assert.deepEqual(msg, { payload: { error: 'keyValues not boolean' } });
     });
     it('ActionType error', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         servicepath: '/',
         actionType: 'create',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(err, 'ActionType error: create');
+      assert.deepEqual(msg, { payload: { error: 'ActionType error: create' } });
     });
   });
   describe('batch update node', () => {
@@ -359,10 +380,10 @@ describe('batch-update.js', () => {
         servicepath: '/',
         actionType: 'append',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -373,7 +394,11 @@ describe('batch-update.js', () => {
       });
 
       let actual;
-      batchUpdateNode.__set__('opUpdate', (param) => actual = param);
+      batchUpdateNode.__set__('opUpdate', (msg, param) => {
+        actual = param;
+        msg.payload = undefined;
+        msg.statusCode = 204;
+      });
 
       await red.inputWithAwait({ payload: { id: 'E1', type: 'T' } });
 
@@ -383,29 +408,7 @@ describe('batch-update.js', () => {
       assert.equal(actual.config.service, 'openiot');
       assert.equal(actual.config.servicepath, '/');
       assert.deepEqual(actual.config.data, { actionType: 'append', entities: [{ id: 'E1', type: 'T' }] });
-    });
-    it('FIWARE GE type not Orion', async () => {
-      const red = new MockRed();
-      batchUpdateNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: 'append',
-        data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
-
-        openapis: {
-          borkerNedpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'fiware',
-        }
-      });
-      await red.inputWithAwait({});
-
-      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+      assert.deepEqual(red.getOutput(), { payload: undefined, statusCode: 204 });
     });
     it('payload not JSON Object', async () => {
       const red = new MockRed();
@@ -414,10 +417,10 @@ describe('batch-update.js', () => {
         servicepath: '/',
         actionType: 'append',
         data: [{ id: 'E', type: 'T' }],
-        keyValues: false,
-        overrideMetadata: false,
-        forcedUpdate: false,
-        flowControl: false,
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
 
         openapis: {
           borkerNedpoint: 'http://orion:1026',

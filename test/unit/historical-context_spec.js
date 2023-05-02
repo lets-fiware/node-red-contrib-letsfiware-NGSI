@@ -131,9 +131,17 @@ describe('historical-context.js', () => {
         }
       };
 
-      const actual = await getHistoricalContext(param);
+      const msg = {};
+      const actual = await getHistoricalContext(msg, param);
 
       assert.deepEqual(actual, [{ 'type': 'StructuredValue', 'value': [] }, null]);
+      assert.deepEqual(msg, {
+        payload: {
+          type: 'StructuredValue',
+          value: [],
+        },
+        statusCode: 200,
+      });
     });
     it('get HistoricalContext with count', async () => {
       historicalNode.__set__('lib', {
@@ -157,9 +165,17 @@ describe('historical-context.js', () => {
         }
       };
 
-      const actual = await getHistoricalContext(param);
+      const msg = {};
+      const actual = await getHistoricalContext(msg, param);
 
       assert.deepEqual(actual, [{ 'type': 'StructuredValue', 'value': [] }, 10]);
+      assert.deepEqual(msg, {
+        payload: {
+          type: 'StructuredValue',
+          value: [],
+        },
+        statusCode: 200,
+      });
     });
     it('should be 400 Bad Request', async () => {
       historicalNode.__set__('lib', {
@@ -179,13 +195,18 @@ describe('historical-context.js', () => {
         }
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await getHistoricalContext.call(node, param);
+      const msg = {};
+      const actual = await getHistoricalContext.call(node, msg, param);
 
       assert.deepEqual(actual, [null, null]);
-      assert.equal(msg, 'Error while retrieving historical context: 400 Bad Request');
+      assert.equal(errmsg, 'Error while retrieving historical context: 400 Bad Request');
+      assert.deepEqual(msg, {
+        payload: undefined,
+        statusCode: 400,
+      });
     });
     it('should be 400 Bad Request with description', async () => {
       historicalNode.__set__('lib', {
@@ -205,17 +226,24 @@ describe('historical-context.js', () => {
         }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await getHistoricalContext.call(node, param);
+      const msg = {};
+      const actual = await getHistoricalContext.call(node, msg, param);
 
       assert.deepEqual(actual, [null, null]);
-      assert.deepEqual(msg, ['Error while retrieving historical context: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while retrieving historical context: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, {
+        payload: {
+          description: 'error',
+        },
+        statusCode: 400,
+      });
     });
     it('Should be unknown error', async () => {
       historicalNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -231,13 +259,20 @@ describe('historical-context.js', () => {
         }
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await getHistoricalContext.call(node, param);
+      const msg = {};
+      const actual = await getHistoricalContext.call(node, msg, param);
 
       assert.deepEqual(actual, [null, null]);
-      assert.equal(msg, 'Exception while retrieving historical context: unknown error');
+      assert.equal(errmsg, 'Exception while retrieving historical context: unknown error');
+      assert.deepEqual(msg, {
+        payload: {
+          error: 'unknown error',
+        },
+        statusCode: 500,
+      });
     });
   });
   describe('validateConfig', () => {
@@ -245,119 +280,111 @@ describe('historical-context.js', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { entityType: 'T1', dataType: 'raw', lastN: 5, hLimit: null, hOffset: null };
 
-      const actual = validateConfig(param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, true);
+      assert.deepEqual(msg, {});
     });
     it('Empty param', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = {};
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Parameter empty');
+      assert.deepEqual(msg, { payload: { error: 'Parameter empty' } });
     });
     it('Entity Id missing', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { entityId: '' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Entity Id missing');
+      assert.deepEqual(msg, { payload: { error: 'Entity Id missing' } });
     });
     it('Entity type missing', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { entityType: '' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Entity type missing');
+      assert.deepEqual(msg, { payload: { error: 'Entity type missing' } });
     });
     it('Attrname missing', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { attrName: '' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Attribute name missing');
+      assert.deepEqual(msg, { payload: { error: 'Attribute name missing' } });
     });
     it('Data type error', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'sum3' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Data type error: sum3');
+      assert.deepEqual(msg, { payload: { error: 'Data type error: sum3' } });
     });
     it('lastN or a set of hLimit and hOffset missing', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'raw', lastN: null, hLimit: null, hOffset: null };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'lastN or a set of hLimit and hOffset missing');
+      assert.deepEqual(msg, { payload: { error: 'lastN or a set of hLimit and hOffset missing' } });
     });
     it('Must be a set of hLimit and hOffset', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'raw', lastN: null, hLimit: '2', hOffset: null };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Must be a set of hLimit and hOffset');
+      assert.deepEqual(msg, { payload: { error: 'Must be a set of hLimit and hOffset' } });
     });
     it('Must specify lastN or a set of hLimit and hOffset', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'raw', lastN: '1', hLimit: '2', hOffset: '3' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'Must specify lastN or a set of hLimit and hOffset');
+      assert.deepEqual(msg, { payload: { error: 'Must specify lastN or a set of hLimit and hOffset' } });
     });
     it('NaN', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'raw', lastN: 'a', hLimit: null, hOffset: null };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'a not number');
+      assert.deepEqual(msg, { payload: { error: 'a not number' } });
     });
     it('AggrPeriod error', () => {
       const validateConfig = historicalNode.__get__('validateConfig');
       const param = { dataType: 'sum', aggrPeriod: 'year' };
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
 
-      const actual = validateConfig.call(node, param);
+      const msg = {};
+      const actual = validateConfig(msg, param);
 
       assert.equal(actual, false);
-      assert.equal(msg, 'AggrPeriod error: year');
+      assert.deepEqual(msg, { payload: { error: 'AggrPeriod error: year' } });
     });
   });
   describe('calculateAverage', () => {
@@ -419,6 +446,539 @@ describe('historical-context.js', () => {
       assert.deepEqual(actual, expected);
     });
   });
+  describe('createParam', () => {
+    it('raw', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'raw',
+        count: 'false',
+      };
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'raw',
+        'count': 'false',
+      });
+    });
+    it('raw with payload null', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'raw',
+        count: 'false',
+      };
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: () => { return '9352111f14465d8cf32d8875c16e2f5991257430'; },
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'raw',
+        'count': 'false',
+      });
+    });
+    it('raw with payload string', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'raw',
+        count: 'false',
+      };
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'raw',
+        'count': 'false',
+      });
+    });
+    it('value', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'value',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'value',
+        'count': 'false',
+      });
+    });
+    it('ave', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ave',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: 'month',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'value',
+        count: 'false',
+      };
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'ave',
+        'aggrPeriod': 'month',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'value',
+        'count': 'false',
+      });
+    });
+    it('dashboard', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': 3,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': null,
+        'hOffset': null,
+        'outputType': 'dashboard',
+        'count': 'false',
+      });
+    });
+    it('count', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '',
+        hlimit: '3',
+        hoffset: '0',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'true',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': null,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': 3,
+        'hOffset': 0,
+        'outputType': 'dashboard',
+        'count': 'true',
+      });
+    });
+    it('historical is null', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '',
+        hlimit: '3',
+        hoffset: '0',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.deepEqual(actual.config, {
+        'service': 'openiot',
+        'servicepath': '/',
+        'entityType': 'T1',
+        'entityId': 'E',
+        'attrName': 'A1',
+        'lastN': null,
+        'dataType': 'raw',
+        'aggrPeriod': '',
+        'dateFrom': '',
+        'fromUnit': '',
+        'dateTo': '',
+        'toUnit': '',
+        'hLimit': 3,
+        'hOffset': 0,
+        'outputType': 'dashboard',
+        'count': 'false',
+      });
+    });
+    it('GE Type error', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'raw',
+        lastn: '3',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'orion'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Comet' } });
+    });
+    it('datefrom not Number', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ngsi',
+        lastn: '',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: 'abc',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'dateTime not Number' } });
+    });
+    it('dateto not Number', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ngsi',
+        lastn: '',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: 'abc',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'dateTime not Number' } });
+    });
+    it('param error', async () => {
+      const createParam = historicalNode.__get__('createParam');
+
+      const msg = {};
+      const config = {
+        servicepath: '/',
+        entityid: 'E',
+        entitytype: 'T1',
+        attrname: 'A1',
+        datatype: 'ngsi',
+        lastn: '',
+        hlimit: '',
+        hoffset: '',
+        aggrperiod: '',
+        datefrom: '',
+        fromunit: '',
+        dateto: '',
+        tounit: '',
+        outputtype: 'dashboard',
+        count: 'false',
+      };
+
+      const openapis = {
+        apiEndpoint: 'http://comet:8666',
+        service: 'openiot',
+        getToken: null,
+        geType: 'comet'
+      };
+
+      const actual = createParam(msg, config, openapis);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'Data type error: ngsi' } });
+    });
+  });
   describe('Historical Context node', () => {
     afterEach(() => {
       historicalNode.__ResetDependency__('getHistoricalContext');
@@ -452,9 +1012,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -479,7 +1039,10 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -515,7 +1078,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -567,9 +1131,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -594,7 +1158,9 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: null });
@@ -630,7 +1196,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -682,9 +1249,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -709,7 +1276,9 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: '{}' });
@@ -745,7 +1314,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -797,9 +1367,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -824,7 +1394,9 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -857,7 +1429,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -909,9 +1482,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -929,7 +1502,9 @@ describe('historical-context.js', () => {
               ]
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -957,7 +1532,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -1009,9 +1585,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -1036,7 +1612,9 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, null];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, null];
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -1076,7 +1654,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: null,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -1128,9 +1707,9 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
-        return [{
+        msg.payload = {
           type: 'StructuredValue',
           value: [
             {
@@ -1155,7 +1734,9 @@ describe('historical-context.js', () => {
               recvTime: '2023-01-25T11:42:55.145Z'
             }
           ]
-        }, 10];
+        };
+        msg.statusCode = 200;
+        return [msg.payload, 10];
       });
 
       await red.inputWithAwait({ payload: {}, context: {} });
@@ -1195,7 +1776,8 @@ describe('historical-context.js', () => {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
           fiwareTotalCount: 10,
-        }
+        },
+        statusCode: 200
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -1247,23 +1829,16 @@ describe('historical-context.js', () => {
       });
 
       let actual;
-      historicalNode.__set__('getHistoricalContext', (param) => {
+      historicalNode.__set__('getHistoricalContext', (msg, param) => {
         actual = param;
+        msg.payload = null;
+        msg.statusCode = 400;
         return [null, null];
       });
 
       await red.inputWithAwait({ payload: {}, context: {} });
 
-      const expected = {
-        payload: null,
-        context: {
-          fiwareService: 'openiot',
-          fiwareServicePath: '/',
-          fiwareTotalCount: null,
-        }
-      };
-
-      assert.deepEqual(red.getOutput(), expected);
+      assert.deepEqual(red.getOutput(), { payload: null, statusCode: 400 });
       assert.deepEqual(actual.config, {
         'service': 'openiot',
         'servicepath': '/',
@@ -1313,7 +1888,8 @@ describe('historical-context.js', () => {
 
       await red.inputWithAwait({ payload: {} });
 
-      assert.equal(red.getMessage(), 'FIWARE GE type not comet');
+      assert.equal(red.getMessage(), 'FIWARE GE type not Comet');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'FIWARE GE type not Comet' }, statusCode: 500 });
     });
     it('datefrom not Number', async () => {
       const red = new MockRed();
@@ -1346,6 +1922,7 @@ describe('historical-context.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'dateTime not Number');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'dateTime not Number' }, statusCode: 500 });
     });
     it('dateto not Number', async () => {
       const red = new MockRed();
@@ -1378,6 +1955,7 @@ describe('historical-context.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'dateTime not Number');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'dateTime not Number' }, statusCode: 500 });
     });
     it('param error', async () => {
       const red = new MockRed();
@@ -1410,6 +1988,7 @@ describe('historical-context.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'Data type error: ngsi');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'Data type error: ngsi' }, statusCode: 500 });
     });
   });
 });

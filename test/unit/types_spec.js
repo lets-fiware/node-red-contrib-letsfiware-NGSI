@@ -66,11 +66,12 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await getTypes(param);
+      const msg = {};
+      await getTypes(msg, param);
 
       const expected = [{ 'type': 'Sensor', 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 }, { 'type': 'T', 'attrs': { 'test': { 'types': ['Test'] } }, 'count': 1 }, { 'type': 'Thing', 'attrs': { 'temperature': { 'types': ['StructuredValue'] } }, 'count': 1 }];
 
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: expected, statusCode: 200 });
     });
     it('types - total count: 2', async () => {
       typesNode.__set__('lib', {
@@ -96,14 +97,15 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await getTypes(param);
+      const msg = {};
+      await getTypes(msg, param);
 
       const expected = [
         { 'type': 'Sensor', 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 }, { 'type': 'T', 'attrs': { 'test': { 'types': ['Test'] } }, 'count': 1 }, { 'type': 'Thing', 'attrs': { 'temperature': { 'types': ['StructuredValue'] } }, 'count': 1 },
         { 'type': 'Sensor', 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 }, { 'type': 'T', 'attrs': { 'test': { 'types': ['Test'] } }, 'count': 1 }, { 'type': 'Thing', 'attrs': { 'temperature': { 'types': ['StructuredValue'] } }, 'count': 1 },
       ];
 
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: expected, statusCode: 200 });
     });
     it('empty', async () => {
       typesNode.__set__('lib', {
@@ -127,11 +129,10 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await getTypes(param);
+      const msg = {};
+      await getTypes(msg, param);
 
-      const expected = [];
-
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: [], statusCode: 200 });
     });
     it('total count 0', async () => {
       typesNode.__set__('lib', {
@@ -155,11 +156,10 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await getTypes(param);
+      const msg = {};
+      await getTypes(msg, param);
 
-      const expected = [{}];
-
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: [{}], statusCode: 200 });
     });
     it('should be 400 Bad Request', async () => {
       typesNode.__set__('lib', {
@@ -178,13 +178,14 @@ describe('types.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await getTypes.call(node, param);
+      const msg = {};
+      await getTypes.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Error while retrieving entity types: 400 Bad Request');
+      assert.equal(errmsg, 'Error while retrieving entity types: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       typesNode.__set__('lib', {
@@ -203,17 +204,18 @@ describe('types.js', () => {
         },
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      const node = { msg: '', error: (e) => { errmsg.push(e); } };
 
-      const actual = await getTypes.call(node, param);
+      const msg = {};
+      await getTypes.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.deepEqual(msg, ['Error while retrieving entity types: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while retrieving entity types: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       typesNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -228,13 +230,14 @@ describe('types.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await getTypes.call(node, param);
+      const msg = {};
+      await getTypes.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Exception while retrieving entity types: unknown error');
+      assert.equal(errmsg, 'Exception while retrieving entity types: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('getTypes', () => {
@@ -263,11 +266,12 @@ describe('types.js', () => {
         },
       };
 
-      const actual = await getType(param);
+      const msg = {};
+      await getType(msg, param);
 
       const expected = { 'attrs': { 'TimeInstant': { 'types': ['DateTime'] }, 'atmosphericPressure': { 'types': ['Number'] }, 'dateObserved': { 'types': ['DateTime'] }, 'location': { 'types': ['geo:json'] }, 'relativeHumidity': { 'types': ['Number'] }, 'temperature': { 'types': ['Number'] } }, 'count': 1 };
 
-      assert.deepEqual(actual, expected);
+      assert.deepEqual(msg, { payload: expected, statusCode: 200 });
     });
     it('should be 400 Bad Request', async () => {
       typesNode.__set__('lib', {
@@ -286,17 +290,18 @@ describe('types.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await gettype.call(node, param);
+      const msg = {};
+      await gettype.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Error while retrieving entity type: 400 Bad Request');
+      assert.equal(errmsg, 'Error while retrieving entity type: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       typesNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -311,33 +316,33 @@ describe('types.js', () => {
         },
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      const actual = await gettype.call(node, param);
+      const msg = {};
+      await gettype.call(node, msg, param);
 
-      assert.deepEqual(actual, null);
-      assert.equal(msg, 'Exception while retrieving entity type: unknown error');
+      assert.equal(errmsg, 'Exception while retrieving entity type: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('createParam', () => {
     it('payload: null', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: null };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'types',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 100,
-        offset: 0,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -352,7 +357,7 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          limit: 100,
+          limit: 20,
           offset: 0,
         },
       };
@@ -362,20 +367,19 @@ describe('types.js', () => {
     it('payload: String', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: 'Sensor' };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'type',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 100,
-        offset: 0,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -390,7 +394,7 @@ describe('types.js', () => {
           type: 'Sensor',
           values: false,
           noAttrDetail: false,
-          limit: 100,
+          limit: 20,
           offset: 0,
         },
       };
@@ -400,20 +404,19 @@ describe('types.js', () => {
     it('actionType', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: { actionType: 'types' } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'payload',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 100,
-        offset: 0,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -428,7 +431,7 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          limit: 100,
+          limit: 20,
           offset: 0,
         },
       };
@@ -438,22 +441,23 @@ describe('types.js', () => {
     it('getToken', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'types',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 100,
-        offset: 0,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.getToken, 'function');
       actual.getToken = null;
+
+      assert.equal(typeof actual.func, 'function');
       actual.func = null;
 
       const expected = {
@@ -468,58 +472,65 @@ describe('types.js', () => {
           type: '',
           values: false,
           noAttrDetail: false,
-          limit: 100,
+          limit: 20,
           offset: 0,
         },
       };
 
       assert.deepEqual(actual, expected);
     });
-    it('actionType not found', () => {
+    it('FIWARE GE type not Orion', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: {} };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'payload',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 100,
-        offset: 0,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      createParam(msg, config, openAPIsConfig);
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
+    it('actionType not found', () => {
+      const createParam = typesNode.__get__('createParam');
+      const msg = { payload: {} };
+      const config = {
+        service: 'orion',
+        servicepath: '/',
+        actionType: 'payload',
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
+      };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      assert.equal(actual, null);
-      assert.equal(err, 'actionType not found');
+      createParam(msg, config, openAPIsConfig);
+
+      assert.deepEqual(msg, { payload: { error: 'actionType not found' } });
     });
     it('type not string', () => {
       const createParam = typesNode.__get__('createParam');
       const msg = { payload: { actionType: 'type', type: {} } };
-      const defaultConfig = {
+      const config = {
         service: 'orion',
         servicepath: '/',
         actionType: 'payload',
-        type: '',
-        values: false,
-        noAttrDetail: false,
+        entityType: '',
+        values: 'false',
+        noAttrDetail: 'false',
         limit: 100,
         offset: 0,
       };
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      createParam(msg, config, openAPIsConfig);
 
-      const actual = createParam.call(node, msg, defaultConfig, openAPIsConfig);
-
-      assert.equal(actual, null);
-      assert.equal(err, 'type not string');
+      assert.deepEqual(msg, { payload: { error: 'type not string' } });
     });
   });
   describe('NGSI Types node', () => {
@@ -533,10 +544,8 @@ describe('types.js', () => {
         servicepath: '/',
         actionType: 'types',
         entityType: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 20,
-        offset: 0,
+        values: 'false',
+        noAttrDetail: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -547,82 +556,21 @@ describe('types.js', () => {
       });
 
       let actual;
-      typesNode.__set__('getTypes', (param) => {
+      typesNode.__set__('getTypes', (msg, param) => {
         actual = param;
-        return [{ type: 'Sensor', attrs: { TimeInstant: { types: ['DateTime'] }, atmosphericPressure: { types: ['Number'] }, dateObserved: { types: ['DateTime'] }, location: { types: ['geo:json'] }, relativeHumidity: { types: ['Number'] }, temperature: { types: ['Number'] } }, count: 1 }, { type: 'T', attrs: { test: { types: ['Test'] } }, count: 1 }, { type: 'Thing', attrs: { temperature: { types: ['StructuredValue'] } }, count: 1 }];
+        msg.payload = [{ type: 'Sensor', attrs: { TimeInstant: { types: ['DateTime'] }, atmosphericPressure: { types: ['Number'] }, dateObserved: { types: ['DateTime'] }, location: { types: ['geo:json'] }, relativeHumidity: { types: ['Number'] }, temperature: { types: ['Number'] } }, count: 1 }, { type: 'T', attrs: { test: { types: ['Test'] } }, count: 1 }, { type: 'Thing', attrs: { temperature: { types: ['StructuredValue'] } }, count: 1 }];
+        msg.statusCode = 200;
       });
 
       await red.inputWithAwait({ payload: {} });
 
       const expected = {
         payload: [{ type: 'Sensor', attrs: { TimeInstant: { types: ['DateTime'] }, atmosphericPressure: { types: ['Number'] }, dateObserved: { types: ['DateTime'] }, location: { types: ['geo:json'] }, relativeHumidity: { types: ['Number'] }, temperature: { types: ['Number'] } }, count: 1 }, { type: 'T', attrs: { test: { types: ['Test'] } }, count: 1 }, { type: 'Thing', attrs: { temperature: { types: ['StructuredValue'] } }, count: 1 }],
-        context: { fiwareService: 'openiot', fiwareServicePath: '/' }
+        context: { fiwareService: 'openiot', fiwareServicePath: '/' },
+        statusCode: 200,
       };
 
       assert.deepEqual(red.getOutput(), expected);
-      assert.deepEqual(actual.config, {
-        service: 'openiot',
-        servicepath: '/',
-        actionType: 'types',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 20,
-        offset: 0,
-      });
-    });
-    it('GE Type error', async () => {
-      const red = new MockRed();
-      typesNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: 'types',
-        type: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 20,
-        offset: 0,
-
-        openapis: {
-          apiEndpoint: 'http://comet:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'comet'
-        }
-      });
-
-      await red.inputWithAwait({ payload: {} });
-
-      assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
-    });
-    it('error', async () => {
-      const red = new MockRed();
-      typesNode(red);
-      red.createNode({
-        servicepath: '/',
-        actionType: 'types',
-        entityType: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 20,
-        offset: 0,
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      let actual;
-      typesNode.__set__('getTypes', (param) => {
-        actual = param;
-        return null;
-      });
-
-      await red.inputWithAwait({ payload: {} });
-
       assert.deepEqual(actual.config, {
         service: 'openiot',
         servicepath: '/',
@@ -641,10 +589,8 @@ describe('types.js', () => {
         servicepath: '/',
         actionType: 'fiware',
         entityType: '',
-        values: false,
-        noAttrDetail: false,
-        limit: 20,
-        offset: 0,
+        values: 'false',
+        noAttrDetail: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -657,6 +603,7 @@ describe('types.js', () => {
       await red.inputWithAwait({ payload: {} });
 
       assert.equal(red.getMessage(), 'ActionType error: fiware');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'ActionType error: fiware' }, statusCode: 500 });
     });
   });
 });

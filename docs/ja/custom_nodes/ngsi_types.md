@@ -33,25 +33,23 @@
 -   `Values`: true の場合、レスポンス・ペイロードは、エンティティ・タイプのリストを含む JSON 配列です。
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
 
-### 例
+### 入力
 
-#### 入力 
-
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、空の JSON オブジェクトが含まれている必要があります。
 
-```
+```text
 {}
 ```
 
-#### 出力
+### 出力
 
-Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には、エンティティ・タイプのリストが含まれています。
 
-```
+```text
 [
   {
     "type": "Sensor",
@@ -92,6 +90,14 @@ Payload *JSON Array*
 ]
 ```
 
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
 <a name="retrieve-entity-information-for-a-given-type"></a>
 
 ## 特定のタイプのエンティティ情報を取得
@@ -109,21 +115,20 @@ Payload *JSON Array*
 -   `Entity type`: エンティティ情報を取得するエンティティのタイプ
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
 
-### 例
 
-#### 入力
+### 入力
 
-Payload  *String*
+payload  *String*
 
 `msg.payload` には、エンティティ・タイプが含まれている必要があります。
 
-```
+```text
 Sensor
 ```
 
-#### 出力
+### 出力
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、エンティティ情報が含まれます。
 
@@ -165,6 +170,14 @@ Payload *JSON Object*
 }
 ```
 
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
 <a name="use-value-of-actiontype-in-payload"></a>
 
 ## Use value of actionType in payload
@@ -183,29 +196,27 @@ Payload *JSON Object*
 -   `Values`: true の場合、レスポンス・ペイロードは、エンティティ・タイプのリストを含む JSON 配列です。
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
 
-### 例
+### 入力 (types)
+
+payload *JSON Object*
 
 エンティティ・タイプのリストを取得する場合、`msg.payload` には、actionType `types` を持つ JSON オブジェクトが含まれている必要があります。
 
-#### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、`types` の値を持つ actionType が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "types"
 }
 ```
 
-#### Output
+### Output (types)
 
-Payload *JSON Array*
+payload *JSON Array*
 
 `msg.payload` には、エンティティ・タイプのリストが含まれています。
 
-```
+```json
 [
   {
     "type": "Sensor",
@@ -246,28 +257,28 @@ Payload *JSON Array*
 ]
 ```
 
+
+### Input (type)
+
+payload  *JSON Object*
+
 特定のタイプのエンティティ情報を取得する場合、 `msg.payload` には、actionType `type` とエンティティ・タイプを持つ JSON オブジェクトが含まれている必要があります。
-
-#### Input
-
-Payload  *JSON Object*
-
 `msg.payload` には、エンティティ・タイプと `type` の値を持つ actionType が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "type",
   "type": "Sensor"
 }
 ```
 
-#### Output
+### Output (type)
 
-Payload *JSON Object*
+payload *JSON Object*
 
 `msg.payload` には、エンティティ情報が含まれています。
 
-```
+```json
 {
   "attrs": {
     "TimeInstant": {
@@ -303,4 +314,12 @@ Payload *JSON Object*
   },
   "count": 1
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```

@@ -26,11 +26,10 @@ This operation allows to create a new registration.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `create`
 
-### Examples
 
-#### Input
+### Input
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains a NGSIv2 registration data.
 
@@ -56,14 +55,22 @@ A `msg.payload` contains a NGSIv2 registration data.
 }
 ```
 
-#### Output
+### Output
 
-Payload  *string*
+payload  *string*
 
 A `msg.payload` contains a registration id.
 
 ```text
 63ed51173bdeaadaf909c57b
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+201
 ```
 
 ## Delete a registration
@@ -79,30 +86,24 @@ This operation allows to delete a existing registration.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `delete`
 
-### Example
+### Input
 
-#### Input
-
-Payload *string*
+payload *string*
 
 A `msg.payload` contains a registration id.
 
-```
+```text
 63ed51173bdeaadaf909c57b
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -118,11 +119,12 @@ This operation allows to create or delete a registration.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `value of actionType in payload`
 
-### Example
+
+### Input (create)
+
+payload *JSON Object*
 
 When creating a new registration, A `msg.payload` should contain a JSON Object with actionType and registration data.
-
-#### Input
 
 ```json
 {
@@ -131,9 +133,9 @@ When creating a new registration, A `msg.payload` should contain a JSON Object w
 }
 ```
 
-#### Output
+### Output (create)
 
-Payload  *string*
+payload  *string*
 
 A `msg.payload` contains a registration id.
 
@@ -141,9 +143,19 @@ A `msg.payload` contains a registration id.
 63ed51173bdeaadaf909c57b
 ```
 
-When deleting a existing registration, A `msg.payload` should contain a JSON Object with actionType and registration id.
+statusCode *Number*
 
-#### Input
+A `msg.statusCode` contains a status code.
+
+```text
+201
+```
+
+### Input (delete)
+
+payload *JSON Object*
+
+When deleting a existing registration, A `msg.payload` should contain a JSON Object with actionType and registration id.
 
 ```json
 {
@@ -152,16 +164,12 @@ When deleting a existing registration, A `msg.payload` should contain a JSON Obj
 }
 ```
 
-#### Output
+#### Output (delete)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```

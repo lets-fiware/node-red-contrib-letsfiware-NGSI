@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const httpRequest = async function (param) {
+const httpRequest = async function (msg, param) {
   const options = {
     method: 'get',
     baseURL: param.host,
@@ -41,20 +41,22 @@ const httpRequest = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 200) {
-      return res.data;
+      return;
     } else if (res.status === 404) {
-      return [];
+      msg.payload = [];
     } else {
       this.error(`Error while retrieving timeseries context: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while retrieving timeseries context: ${error}`);
-    return null;
+    this.error(`Exception while retrieving timeseries context: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
@@ -62,11 +64,11 @@ const paramsString = ['id', 'type', 'attrName', 'aggrMethod', 'aggrPeriod', 'fro
 const paramsNumber = ['lastN', 'offset', 'limit'];
 const actionTypeList = ['entities', 'entity', 'type', 'attribute'];
 
-const validateConfig = function (config) {
+const validateConfig = function (msg, config) {
   for (let i = 0; i < paramsString.length; i++) {
     const e = paramsString[i];
     if (typeof config[e] !== 'string') {
-      this.error(e + ' not String');
+      msg.payload = { error: e + ' not String' };
       return false;
     }
   }
@@ -74,38 +76,38 @@ const validateConfig = function (config) {
   for (let i = 0; i < paramsNumber.length; i++) {
     const e = paramsNumber[i];
     if (config[e] !== '' && isNaN(config[e])) {
-      this.error(e + ' not Number');
+      msg.payload = { error: e + ' not Number' };
       return false;
     }
   }
 
   if (typeof config.value !== 'boolean') {
-    this.error('value not Boolean');
+    msg.payload = { error: 'value not Boolean' };
     return false;
   }
 
   if (!actionTypeList.includes(config.actionType)) {
-    this.error('actionType error: ' + config.actionType);
+    msg.payload = { error: 'actionType error: ' + config.actionType };
     return false;
   }
 
   if (config.actionType === 'entity' && config.id === '') {
-    this.error('id required');
+    msg.payload = { error: 'id required' };
     return false;
   }
 
   if (config.actionType === 'type' && config.type === '') {
-    this.error('type required');
+    msg.payload = { error: 'type required' };
     return false;
   }
 
   if (config.georel !== '' && config.geometry === '') {
-    this.error('geometry required if georel is specified');
+    msg.payload = { error: 'geometry required if georel is specified' };
     return false;
   }
 
   if (config.georel !== '' && config.coords === '') {
-    this.error('coords required if georel is specified');
+    msg.payload = { error: 'coords required if georel is specified' };
     return false;
   }
 
@@ -122,9 +124,36 @@ const validateConfig = function (config) {
   return true;
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'quantumleap') {
+    msg.payload = { error: 'FIWARE GE type not Quantumleap' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType,
+    id: config.entityId.trim(),
+    type: config.entityType.trim(),
+    attrName: config.attribute.trim(),
+    aggrMethod: config.aggrMethod.trim(),
+    aggrPeriod: config.aggrPeriod.trim(),
+    lastN: config.lastN.trim(),
+    fromDate: config.fromDate.trim(),
+    fromUnit: config.fromUnit.trim(),
+    toDate: config.toDate.trim(),
+    toUnit: config.toUnit.trim(),
+    georel: config.georel.trim(),
+    geometry: config.geometry.trim(),
+    coords: config.coords.trim(),
+    value: config.value === 'true',
+    limit: config.limit.trim(),
+    offset: config.offset.trim(),
+  };
+
   if (!msg.payload || typeof msg.payload !== 'object' || Array.isArray(msg.payload)) {
-    this.error('payload not JSON Object');
+    msg.payload = { error: 'payload not JSON Object' };
     return null;
   }
 
@@ -132,7 +161,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
     if ('actionType' in msg.payload) {
       defaultConfig.actionType = msg.payload.actionType;
     } else {
-      this.error('actionType not found');
+      msg.payload = { error: 'actionType not found' };
       return null;
     }
   }
@@ -153,7 +182,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
     defaultConfig.value = msg.payload.value;
   }
 
-  if (!validateConfig.call(this, defaultConfig)) {
+  if (!validateConfig(msg, defaultConfig)) {
     return null;
   }
 
@@ -165,12 +194,15 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   };
 
   const dt = new Date();
-  param.config.fromDate = lib.convertDateTime.call(this, dt, param.config.fromDate, param.config.fromUnit);
+  let errmsg;
+  [param.config.fromDate, errmsg] = lib.convertDateTime(dt, param.config.fromDate, param.config.fromUnit);
   if (param.config.fromDate === null) {
+    msg.payload = { error: errmsg };
     return null;
   }
-  param.config.toDate = lib.convertDateTime.call(this, dt, param.config.toDate, param.config.toUnit);
+  [param.config.toDate, errmsg] = lib.convertDateTime(dt, param.config.toDate, param.config.toUnit);
   if (param.config.toDate === null) {
+    msg.payload = { error: errmsg };
     return null;
   }
 
@@ -217,40 +249,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'quantumleap') {
-        node.error('FIWARE GE type not Quantumleap');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType,
-        id: config.entityId.trim(),
-        type: config.entityType.trim(),
-        attrName: config.attribute.trim(),
-        aggrMethod: config.aggrMethod.trim(),
-        aggrPeriod: config.aggrPeriod.trim(),
-        lastN: config.lastN.trim(),
-        fromDate: config.fromDate.trim(),
-        fromUnit: config.fromUnit.trim(),
-        toDate: config.toDate.trim(),
-        toUnit: config.toUnit.trim(),
-        georel: config.georel.trim(),
-        geometry: config.geometry.trim(),
-        coords: config.coords.trim(),
-        value: config.value === 'true',
-        limit: config.limit.trim(),
-        offset: config.offset.trim(),
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam.call(node, msg, config, openAPIsConfig);
 
       if (param) {
-        const result = await httpRequest.call(node, param);
-        msg.payload = result;
-        node.send(msg);
+        await httpRequest.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI timeseries', NGSITimeseries);

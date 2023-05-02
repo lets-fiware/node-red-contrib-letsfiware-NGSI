@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const getTypes = async function (param) {
+const getTypes = async function (msg, param) {
   let totalCount = 0;
   param.config.count = true;
 
@@ -47,6 +47,8 @@ const getTypes = async function (param) {
 
     try {
       const res = await lib.http(options);
+      msg.payload = res.data;
+      msg.statusCode = Number(res.status);
       if (res.status === 200) {
         if (res.data.length === 0) {
           break;
@@ -64,18 +66,21 @@ const getTypes = async function (param) {
         if (res.data && res.data.description) {
           this.error(`Details: ${res.data.description}`);
         }
-        return null;
+        return;
       }
     } catch (error) {
-      this.error(`Exception while retrieving entity types: ${error}`);
-      return null;
+      this.error(`Exception while retrieving entity types: ${error.message}`);
+      msg.payload = { error: error.message };
+      msg.statusCode = 500;
+      return;
     }
   } while (param.config.offset < totalCount);
 
-  return types;
+  msg.payload = types;
+  msg.statusCode = 200;
 };
 
-const getType = async function (param) {
+const getType = async function (msg, param) {
   const options = {
     method: param.method,
     baseURL: param.host,
@@ -86,24 +91,43 @@ const getType = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 200) {
-      return res.data;
+      return;
     } else {
       this.error(`Error while retrieving entity type: ${res.status} ${res.statusText}`);
-      return null;
+      return;
     }
   } catch (error) {
-    this.error(`Exception while retrieving entity type: ${error}`);
-    return null;
+    this.error(`Exception while retrieving entity type: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType.trim(),
+    type: config.entityType.trim(),
+    values: config.values === 'true',
+    noAttrDetail: config.noAttrDetail === 'true',
+    limit: 20,
+    offset: 0,
+  };
+
   if (defaultConfig.actionType === 'payload') {
     if ('actionType' in msg.payload) {
       defaultConfig = Object.assign(defaultConfig, msg.payload);
     } else {
-      this.error('actionType not found');
+      msg.payload = { error: 'actionType not found' };
       return;
     }
   } else {
@@ -124,12 +148,12 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   } else if (defaultConfig.actionType === 'type') {
     param.func = getType;
     if (typeof defaultConfig.type !== 'string') {
-      this.error('type not string');
-      return;
+      msg.payload = { error: 'type not string' };
+      return null;
     }
     param.pathname += '/' + defaultConfig.type;
   } else {
-    this.error('ActionType error: ' + defaultConfig.actionType);
+    msg.payload = { error: 'ActionType error: ' + defaultConfig.actionType };
     return null;
   }
 
@@ -146,30 +170,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
+      const param = createParam.call(node, msg, config, openAPIsConfig);
 
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType.trim(),
-        type: config.entityType.trim(),
-        values: config.values === 'true',
-        noAttrDetail: config.noAttrDetail === 'true',
-        limit: 20,
-        offset: 0,
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
       if (param) {
-        const result = await param.func.call(node, param);
-        if (result) {
-          msg.payload = result;
-          node.send(msg);
-        }
+        await param.func.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI Types', NGSITypes);

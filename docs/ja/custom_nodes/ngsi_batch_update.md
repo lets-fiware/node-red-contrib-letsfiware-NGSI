@@ -40,7 +40,7 @@
 
 ### 入力
 
-Payload *JSON Array* または *JSON Object*
+payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
@@ -69,16 +69,12 @@ Payload *JSON Array* または *JSON Object*
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="appendstrict-entities"></a>
@@ -102,11 +98,11 @@ null
 
 ### 入力
 
-Payload *JSON Array* または *JSON Object*
+payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor003",
@@ -131,16 +127,12 @@ Payload *JSON Array* または *JSON Object*
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="update-entities"></a>
@@ -164,11 +156,11 @@ null
 
 ### 入力
 
-Payload *JSON Array* または *JSON Object*
+payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -193,16 +185,12 @@ Payload *JSON Array* または *JSON Object*
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="replace-entities"></a>
@@ -226,11 +214,11 @@ null
 
 ### 入力
 
-Payload *JSON Array* または *JSON Object*
+payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -255,16 +243,12 @@ Payload *JSON Array* または *JSON Object*
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 <a name="delete-entities"></a>
@@ -288,11 +272,11 @@ null
 
 ### 入力
 
-Payload *JSON Array* または *JSON Object*
+payload *JSON Array* または *JSON Object*
 
 `msg.payload` には、JSON 配列または JSON オブジェクトとして NGSIv2 エンティティが含まれている必要があります。
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -317,16 +301,12 @@ Payload *JSON Array* または *JSON Object*
 
 ### 出力
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -346,15 +326,14 @@ null
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
 
+### 入力 (append)
+
+payload *JSON Object*
+
 エンティティを追加する場合, `msg.payload` には、JSON オブジェクトとして `actionType` および NGSIv2 エンティティが含まれている必要があります。
-
-### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、JSON Object として、`actionType` and `entities` が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "append",
   "entities": [
@@ -380,29 +359,24 @@ Payload *JSON Object*
 }
 ```
 
-### 出力
+### 出力 (append)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
+### 入力 (append strictly)
 
-```
-null
-```
+payload *JSON Object*
 
 エンティティを厳格に追加する場合、`msg.payload` には、JSON オブジェクトとして `actionType` および NGSIv2 エンティティが含まれている必要があります。
 
-### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、JSON Object として、`actionType` and `entities` が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "appendStrict",
   "entities": [
@@ -428,29 +402,24 @@ Payload *JSON Object*
 }
 ```
 
-### 出力
+### 出力 (append strictly)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 (update)
+
+payload *JSON Object*
 
 エンティティを更新する場合、`msg.payload` には、JSON オブジェクトとして `actionType` および NGSIv2 エンティティが含まれている必要があります。
-
-### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、JSON Object として、`actionType` and `entities` が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "update",
   "entities": [
@@ -476,29 +445,24 @@ Payload *JSON Object*
 }
 ```
 
-### 出力
+### 出力 (update)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 (replace)
+
+payload *JSON Object*
 
 エンティティを置換する場合、`msg.payload` には、JSON オブジェクトとして `actionType` および NGSIv2 エンティティが含まれている必要があります。
-
-### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、JSON Object として、`actionType` and `entities` が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "replace",
   "entities": [
@@ -524,29 +488,24 @@ Payload *JSON Object*
 }
 ```
 
-### 出力
+### 出力 (replace)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### 入力 (delete)
+
+payload *JSON Object*
 
 エンティティを削除する場合、`msg.payload` には、JSON オブジェクトとして `actionType` および NGSIv2 エンティティが含まれている必要があります。
-
-### 入力
-
-Payload *JSON Object*
-
 `msg.payload` には、JSON Object として、`actionType` and `entities` が含まれている必要があります。
 
-```
+```json
 {
   "actionType": "delete",
   "entities": [
@@ -572,16 +531,12 @@ Payload *JSON Object*
 }
 ```
 
-### 出力
+### 出力 (delete)
 
-Payload *Number* または *null*
+statusCode *Number*
 
-`msg.payload` にはステータス・コードが含まれています。
+`msg.statusCode` にはステータス・コードが含まれています。
 
-```
+```text
 204
-```
-
-```
-null
 ```

@@ -39,17 +39,19 @@
 -   `Limit`: 1回のレスポンスで取得する結果の最大数
 -   `Offset`: レスポンス結果に適用するオフセット
 
-### 例
+### 入力
 
-#### 入力
+payload *JSON Object*
 
-```
+```json
 {}
 ```
 
-#### 出力
+### 出力
 
-```
+payload *JSON Object*
+
+```json
 [
   {
     "timeseriesId": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -57,6 +59,14 @@
     "index": "2023-02-19T10:37:15.797+00:00"
   }
 ]
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="entity"></a>
@@ -90,13 +100,15 @@
 -   `Limit`: 1回のレスポンスで取得する結果の最大数
 -   `Offset`: レスポンス結果に適用するオフセット
 
-### 例: Entity attributes
+### Entity attributes
 
 特定のエンティティの N 個の属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "lastN": 3
@@ -105,7 +117,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attributes": [
     {
@@ -143,13 +157,23 @@
 }
 ```
 
-### 例: Entity attributes value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Entity attributes value
 
 特定のエンティティの N 個の属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "value": true,
@@ -159,7 +183,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attributes": [
     {
@@ -195,13 +221,23 @@
 }
 ```
 
-### 例: Entity attribute
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Entity attribute
 
 特定のエンティティの属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "attrName": "temperature",
@@ -211,7 +247,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "timeseriesId": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -229,13 +267,23 @@
 }
 ```
 
-### 例: Entity attribute value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Entity attribute value
 
 特定のエンティティの属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "id": "urn:ngsi-ld:WeatherObserved:sensor001",
   "attrName": "temperature",
@@ -246,7 +294,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "index": [
     "2023-02-19T10:43:00.000+00:00",
@@ -259,6 +309,14 @@
     19.899999618530273
   ]
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="type"></a>
@@ -292,13 +350,15 @@
 -   `Limit`: 1回のレスポンスで取得する結果の最大数
 -   `Offset`: レスポンス結果に適用するオフセット
 
-### 例: Type entity
+### Type entity
 
 同じタイプの N 個のエンティティの N 個の属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "lastN": 3
@@ -307,7 +367,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "entities": [
     {
@@ -349,13 +411,23 @@
 }
 ```
 
-### 例: Type entity value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Type entity value
 
 同じタイプの N 個のエンティティの N 個の属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "lastN": 3,
@@ -365,7 +437,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -406,13 +480,23 @@
 }
 ```
 
-### 例: Type attribute
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Type attribute
 
 同じタイプの N 個のエンティティの属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "attrName": "temperature",
@@ -422,7 +506,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "entities": [
@@ -440,13 +526,23 @@
 }
 ```
 
-### 例: Type attribute value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Type attribute value
 
 同じタイプの N 個のエンティティの属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "type": "Sensor",
   "attrName": "temperature",
@@ -457,7 +553,9 @@
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -471,6 +569,14 @@
     }
   ]
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="attribute"></a>
@@ -504,13 +610,15 @@ N タイプの N エンティティの N 属性 (値のみ) の履歴をクエ�
 -   `Limit`: 1回のレスポンスで取得する結果の最大数
 -   `Offset`: レスポンス結果に適用するオフセット
 
-### 例: Attributes
+### Attributes
 
 N タイプの N エンティティの N 属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "lastN": 3
 }
@@ -518,7 +626,9 @@ N タイプの N エンティティの N 属性の履歴をクエリできます
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrs": [
     {
@@ -594,13 +704,23 @@ N タイプの N エンティティの N 属性の履歴をクエリできます
 }
 ```
 
-### 例: Attributes value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Attributes value
 
 N タイプの N エンティティの N 属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "value": true,
   "lastN": 3
@@ -609,7 +729,9 @@ N タイプの N エンティティの N 属性 (値のみ) の履歴をクエ�
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -685,13 +807,23 @@ N タイプの N エンティティの N 属性 (値のみ) の履歴をクエ�
 }
 ```
 
-### 例: Attribute
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Attribute
 
 N タイプの N エンティティの属性の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "lastN": 3
@@ -700,7 +832,9 @@ N タイプの N エンティティの属性の履歴をクエリできます。
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "types": [
@@ -722,13 +856,23 @@ N タイプの N エンティティの属性の履歴をクエリできます。
 }
 ```
 
-### 例: Attribute value
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
+```
+
+### Attribute value
 
 N タイプの N エンティティの属性 (値のみ) の履歴をクエリできます。
 
 #### 入力
 
-```
+payload *JSON Object*
+
+```json
 {
   "attrName": "temperature",
   "value": true,
@@ -738,7 +882,9 @@ N タイプの N エンティティの属性 (値のみ) の履歴をクエリ�
 
 #### 出力
 
-```
+payload *JSON Object*
+
+```json
 {
   "values": [
     {
@@ -757,6 +903,14 @@ N タイプの N エンティティの属性 (値のみ) の履歴をクエリ�
     }
   ]
 }
+```
+
+statusCode *Number*
+
+`msg.statusCode` にはステータス・コードが含まれています。
+
+```text
+200
 ```
 
 <a name="api-reference"></a>

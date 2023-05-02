@@ -30,13 +30,13 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 -   `Query`: query conditions using Simple Query Language
 -   `Buffering`: whether to output all retrieved entities at once
 
-## Inputs
+## Input
 
-### Payload  *JSON Object*
+payload  *JSON Object*
 
 A `msg.payload` should contain a query condition to retrieves NGSIv2 entitites.
 
-```
+```json
 {
   "idPattern": ".*",
   "type": "T",
@@ -48,17 +48,25 @@ A `msg.payload` should contain a query condition to retrieves NGSIv2 entitites.
 }
 ```
 
-## Outputs
+## Output
 
-### Payload *JSON Array*
+payload *JSON Array*
 
 A `msg.payload` contains NGSIv2 entities.
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
 
 ## Examples
 
 ### Input 1
 
-```
+```json
 {
   "idPattern": ".*"
 }
@@ -66,7 +74,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Output 1
 
-```
+```json
 [
   {
     "id": "E1",
@@ -101,7 +109,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Input 2
 
-```
+```json
 {
   "type": "T",
   "attrs": [
@@ -112,7 +120,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Output 2
 
-```
+```json
 [
   {
     "id": "E1",
@@ -137,7 +145,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Input 3
 
-```
+```json
 {
   "type": "T",
   "q": "temperature>29"
@@ -146,7 +154,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Output 3
 
-```
+```json
 [
   {
     "id": "E2",
@@ -167,7 +175,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Input 4
 
-```
+```json
 {
   "type": "T",
   "q": "temperature>29",
@@ -177,7 +185,7 @@ A `msg.payload` contains NGSIv2 entities.
 
 ### Output 4
 
-```
+```json
 [
   {
     "id": "E2",

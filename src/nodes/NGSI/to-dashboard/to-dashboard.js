@@ -77,10 +77,10 @@ function transformHistorical(payload) {
 
 function getDateTime(attribute) {
   let dt = null;
-  if (Object.prototype.hasOwnProperty.call(attribute, 'metadata')) {
-    if (Object.prototype.hasOwnProperty.call(attribute.metadata, 'TimeInstant')) {
+  if ('metadata' in attribute) {
+    if ('TimeInstant' in attribute.metadata) {
       dt = Date.parse(attribute.metadata.TimeInstant.value);
-    } else if (Object.prototype.hasOwnProperty.call(attribute.metadata, 'dateModified')) {
+    } else if ('dateModified' in attribute.metadata) {
       dt = Date.parse(attribute.metadata.dateModified.value);
     }
   }

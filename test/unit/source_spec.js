@@ -57,17 +57,24 @@ describe('source.js', () => {
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
 
+      let actual;
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }, {}),
+        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
         config: {
           offset: 0,
           limit: 1,
         }
       };
 
-      await getEntities(param);
+      const msg = {};
+      await getEntities(msg, param);
+
+      assert.deepEqual(actual, {
+        payload: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }],
+        statusCode: 200
+      });
     });
     it('get entities', async () => {
       sourceNode.__set__('lib', {
@@ -82,17 +89,24 @@ describe('source.js', () => {
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
 
+      let actual;
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }, {}),
+        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 1,
         }
       };
 
-      await getEntities(param);
+      const msg = {};
+      await getEntities(msg, param);
+
+      assert.deepEqual(actual, {
+        payload: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }],
+        statusCode: 200
+      });
     });
     it('get no entities', async () => {
       sourceNode.__set__('lib', {
@@ -107,17 +121,24 @@ describe('source.js', () => {
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
 
+      let actual;
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }),
+        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
         config: {
           offset: 0,
           limit: 2,
         }
       };
 
-      await getEntities(param);
+      const msg = {};
+      await getEntities(msg, param);
+
+      assert.deepEqual(actual, {
+        payload: [],
+        statusCode: 200
+      });
     });
     it('total count 0', async () => {
       sourceNode.__set__('lib', {
@@ -132,17 +153,24 @@ describe('source.js', () => {
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
 
+      let actual;
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }),
+        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
         config: {
           offset: 0,
           limit: 2,
         }
       };
 
-      await getEntities(param);
+      const msg = {};
+      await getEntities(msg, param);
+
+      assert.deepEqual(actual, {
+        payload: [{}],
+        statusCode: 200
+      });
     });
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
@@ -163,15 +191,19 @@ describe('source.js', () => {
         }
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-      await getEntities.call(node, param);
+      let errmsg = '';
+      let out = {};
+      const node = { msg: '', error: (e) => { errmsg = e; }, send: (o) => { out = o; } };
 
-      assert.equal(msg, 'Error while retrieving entities: 400 Bad Request');
+      const msg = {};
+      await getEntities.call(node, msg, param);
+
+      assert.equal(errmsg, 'Error while retrieving entities: 400 Bad Request');
+      assert.deepEqual(out, { payload: undefined, statusCode: 400 });
     });
     it('should be 400 Bad Request with description', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } } ),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -188,16 +220,19 @@ describe('source.js', () => {
         }
       };
 
-      let msg = [];
-      const node = { msg: '', error: (e) => { msg.push(e); } };
+      let errmsg = [];
+      let out = {};
+      const node = { msg: '', error: (e) => { errmsg.push(e); }, send: (o) => { out = o; } };
 
-      await getEntities.call(node, param);
+      const msg = {};
+      await getEntities.call(node, msg, param);
 
-      assert.deepEqual(msg, ['Error while retrieving entities: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(errmsg, ['Error while retrieving entities: 400 Bad Request', 'Details: error']);
+      assert.deepEqual(out, { payload: { description: 'error' }, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
+        http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
       });
@@ -214,11 +249,15 @@ describe('source.js', () => {
         }
       };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-      await getEntities.call(node, param);
+      let errmsg = '';
+      let out = {};
+      const node = { msg: '', error: (e) => { errmsg = e; }, send: (o) => { out = o; } };
 
-      assert.equal(msg, 'Exception while retrieving entities: unknown error');
+      const msg = {};
+      await getEntities.call(node, msg, param);
+
+      assert.equal(errmsg, 'Exception while retrieving entities: unknown error');
+      assert.deepEqual(out, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('nobuffering', () => {
@@ -231,7 +270,7 @@ describe('source.js', () => {
       nobuffering.send([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
-      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
 
     });
     it('should have a entities', () => {
@@ -245,8 +284,8 @@ describe('source.js', () => {
       nobuffering.close();
 
       assert.deepEqual(actual, [
-        { payload: [{ id: 'E1', type: 'T' }] },
-        { payload: [{ id: 'E2', type: 'T' }] },
+        { payload: [{ id: 'E1', type: 'T' }], statusCode: 200 },
+        { payload: [{ id: 'E2', type: 'T' }], statusCode: 200 },
       ]);
     });
     it('should be empty', () => {
@@ -269,7 +308,7 @@ describe('source.js', () => {
       nobuffering.out([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
-      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
 
     });
   });
@@ -283,7 +322,7 @@ describe('source.js', () => {
       buffering.send([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
-      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
 
     });
     it('should have a entities', () => {
@@ -301,7 +340,8 @@ describe('source.js', () => {
           payload: [
             { id: 'E1', type: 'T' },
             { id: 'E2', type: 'T' },
-          ]
+          ],
+          statusCode: 200
         },
       ]);
     });
@@ -313,7 +353,7 @@ describe('source.js', () => {
       buffering.open({ send: (data) => { actual.push(data); } }, msg);
       buffering.close();
 
-      assert.deepEqual(actual, [{ 'payload': [] }]);
+      assert.deepEqual(actual, [{ payload: [], statusCode: 200 }]);
 
     });
     it('should have a entity', () => {
@@ -325,7 +365,7 @@ describe('source.js', () => {
       buffering.out([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
-      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }] }]);
+      assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
 
     });
   });
@@ -334,22 +374,22 @@ describe('source.js', () => {
       const createParam = sourceNode.__get__('createParam');
       const msg = { payload: '.*' };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
-        buffering: true,
-        keyValues: true,
-        type: '',
-        idPattern: '',
+        buffering: 'on',
+        keyValues: 'keyValues',
+        entitytype: '',
+        idpattern: '',
         attrs: '',
-        q: '',
-        limit: 100,
-        offset: 0,
+        query: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.buffer, 'object');
       actual.buffer = null;
 
       const expected = {
@@ -377,23 +417,24 @@ describe('source.js', () => {
       const createParam = sourceNode.__get__('createParam');
       const msg = { payload: '.*' };
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
-        buffering: false,
-        keyValues: true,
-        type: '',
-        idPattern: '',
+        buffering: 'off',
+        keyValues: 'keyValues',
+        entitytype: '',
+        idpattern: '',
         attrs: '',
-        q: '',
-        limit: 100,
-        offset: 0,
+        query: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
-      const actual = createParam(msg, defaultConfig, openAPIsConfig);
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(typeof actual.buffer, 'object');
       actual.buffer = null;
+      assert.equal(typeof actual.getToken, 'function');
       actual.getToken = null;
 
       const expected = {
@@ -417,57 +458,71 @@ describe('source.js', () => {
 
       assert.deepEqual(actual, expected);
     });
+    it('FIWARE GE type not Orion', async () => {
+      const createParam = sourceNode.__get__('createParam');
+
+      const config = {
+        service: 'openiot',
+        servicepath: '/',
+        buffering: 'off',
+        keyValues: 'normalized',
+        entitytype: '',
+        idpattern: '',
+        attrs: '',
+        query: '',
+      };
+
+      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const msg = { payload: null };
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'FIWARE GE type not Orion' } });
+    });
     it('payload is null', async () => {
       const createParam = sourceNode.__get__('createParam');
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
-        buffering: false,
-        keyValues: false,
-        type: '',
-        idPattern: '',
+        buffering: 'off',
+        keyValues: 'normalized',
+        entitytype: '',
+        idpattern: '',
         attrs: '',
-        q: '',
-        limit: 100,
-        offset: 0,
+        query: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = createParam.call(node, { payload: null }, defaultConfig, openAPIsConfig);
+      const msg = { payload: null };
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(msg, 'payload is null');
+      assert.deepEqual(msg, { payload: { error: 'payload is null' } });
     });
     it('payload not string or JSON Object', async () => {
       const createParam = sourceNode.__get__('createParam');
 
-      const defaultConfig = {
+      const config = {
         service: 'openiot',
         servicepath: '/',
-        buffering: false,
-        keyValues: false,
-        type: '',
-        idPattern: '',
+        buffering: 'off',
+        keyValues: 'normalized',
+        entitytype: '',
+        idpattern: '',
         attrs: '',
-        q: '',
-        limit: 100,
-        offset: 0,
+        query: '',
       };
 
-      const openAPIsConfig = { apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
-      let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
-
-      const actual = createParam.call(node, { payload: [] }, defaultConfig, openAPIsConfig);
+      const msg = { payload: [] };
+      const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.equal(msg, 'payload not string or JSON Object');
+      assert.deepEqual(msg, { payload: { error: 'payload not string or JSON Object' } });
     });
   });
   describe('NGSI source node', () => {
@@ -485,8 +540,6 @@ describe('source.js', () => {
         attrs: '',
         query: '',
         buffering: 'on',
-        limit: 100,
-        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -497,97 +550,24 @@ describe('source.js', () => {
       });
 
       let actual;
-      sourceNode.__set__('getEntities', (param) => { actual = param; });
+      sourceNode.__set__('getEntities', (msg, param) => {
+        actual = param;
+      });
 
       await red.inputWithAwait({ payload: '.*' });
 
-      assert.equal(actual.config.idPattern, '.*');
-    });
-    it('payload object', async () => {
-      const red = new MockRed();
-      sourceNode(red);
-      red.createNode({
+      assert.deepEqual(actual.config, {
+        service: 'openiot',
         servicepath: '/',
-        mode: 'normalized',
-        entitytype: '',
-        idpattern: '',
+        buffering: true,
+        keyValues: false,
+        type: '',
+        idPattern: '.*',
         attrs: '',
-        query: '',
-        buffering: 'on',
+        q: '',
         limit: 100,
-        offset: 0,
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
+        offset: 0
       });
-
-      let actual;
-      sourceNode.__set__('getEntities', (param) => { actual = param; });
-
-      await red.inputWithAwait({ payload: { idPattern: '.*' } });
-
-      assert.equal(actual.config.idPattern, '.*');
-    });
-    it('keyValues', async () => {
-      const red = new MockRed();
-      sourceNode(red);
-      red.createNode({
-        servicepath: '/',
-        mode: 'keyvalues',
-        entitytype: '',
-        idpattern: '',
-        attrs: '',
-        query: '',
-        buffering: 'off',
-        limit: 100,
-        offset: 0,
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: null,
-          geType: 'orion',
-        }
-      });
-
-      let actual;
-      sourceNode.__set__('getEntities', (param) => { actual = param; });
-
-      await red.inputWithAwait({ payload: '.*' });
-
-      assert.equal(actual.config.keyValues, true);
-    });
-    it('payload empty', async () => {
-      const red = new MockRed();
-      sourceNode(red);
-      red.createNode({
-        servicepath: '/',
-        mode: 'normalized',
-        entitytype: 'T',
-        idpattern: '.*',
-        attrs: 'temperature',
-        query: 'temperature>20',
-        buffering: 'off',
-        limit: 100,
-        offset: 0,
-
-        openapis: {
-          apiEndpoint: 'http://orion:1026',
-          service: 'openiot',
-          getToken: () => { },
-          geType: 'orion',
-        }
-      });
-
-      sourceNode.__set__('getEntities', () => { });
-
-      await red.inputWithAwait({ payload: null });
-
-      assert.equal(red.getMessage(), 'payload is null');
     });
     it('FIWARE GE type not Orion', async () => {
       const red = new MockRed();
@@ -600,8 +580,6 @@ describe('source.js', () => {
         attrs: 'temperature',
         query: 'temperature>20',
         buffering: 'off',
-        limit: 100,
-        offset: 0,
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -616,6 +594,7 @@ describe('source.js', () => {
       await red.inputWithAwait({ payload: null });
 
       assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'FIWARE GE type not Orion' }, statusCode: 500 });
     });
   });
 });

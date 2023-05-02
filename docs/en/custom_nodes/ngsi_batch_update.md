@@ -38,11 +38,11 @@ It allows to append several entities.
 
 ### Input
 
-Payload *JSON Array* or *JSON Object*
+payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -67,16 +67,12 @@ A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## AppendStrict entities
@@ -98,11 +94,11 @@ It allows to append several entities strictly.
 
 ### Input
 
-Payload *JSON Array* or *JSON Object*
+payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor003",
@@ -127,16 +123,12 @@ A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Update entities
@@ -158,11 +150,11 @@ It allows to update several entities.
 
 ### Input
 
-Payload *JSON Array* or *JSON Object*
+payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -187,16 +179,12 @@ A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Replace entities
@@ -218,11 +206,11 @@ It allows to replace several entities.
 
 ### Input
 
-Payload *JSON Array* or *JSON Object*
+payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -247,16 +235,12 @@ A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Delete entities
@@ -278,11 +262,11 @@ It allows to delete several entities.
 
 ### Input
 
-Payload *JSON Array* or *JSON Object*
+payload *JSON Array* or *JSON Object*
 
 A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
-```
+```json
 [
   {
     "id": "urn:ngsi-ld:WeatherObserved:sensor001",
@@ -307,16 +291,12 @@ A `msg.payload` should contain NGSIv2 entities as JSON Array or JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -336,15 +316,15 @@ It allows to append, appendStrict, update, replace or delete several entities.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
+
+### Input (append)
+
+payload *JSON Object*
+
 When appending entities, a `msg.payload` should contain actionType and NGSIv2 entities as JSON Object.
-
-### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
-```
+```json
 {
   "actionType": "append",
   "entities": [
@@ -372,27 +352,22 @@ A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
 ### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (append strictly)
+
+payload *JSON Object*
 
 When appending entities strictly, a `msg.payload` should contain actionType and NGSIv2 entities as JSON Object.
-
-### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
-```
+```json
 {
   "actionType": "appendStrict",
   "entities": [
@@ -418,29 +393,24 @@ A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 }
 ```
 
-### Output
+### Output (append strictly)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (update)
+
+payload *JSON Object*
 
 When updating entities, a `msg.payload` should contain actionType and NGSIv2 entities as JSON Object.
-
-### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
-```
+```json
 {
   "actionType": "update",
   "entities": [
@@ -466,29 +436,24 @@ A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 }
 ```
 
-### Output
+### Output (update)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (replace)
+
+payload *JSON Object*
 
 When replacing entities, a `msg.payload` should contain actionType and NGSIv2 entities as JSON Object.
-
-### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
-```
+```json
 {
   "actionType": "replace",
   "entities": [
@@ -514,29 +479,24 @@ A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 }
 ```
 
-### Output
+### Output (replace)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (delete)
+
+payload *JSON Object*
 
 When deleting entities, a `msg.payload` should contain actionType and NGSIv2 entities as JSON Object.
-
-### Input
-
-Payload *JSON Object*
-
 A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 
-```
+```json
 {
   "actionType": "delete",
   "entities": [
@@ -562,16 +522,12 @@ A `msg.payload` should contain `actionType` and `entities` as JSON Object.
 }
 ```
 
-### Output
+### Output (delete)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```

@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const httpRequest = async function (param) {
+const httpRequest = async function (msg, param) {
   const options = {
     method: param.method,
     baseURL: param.host,
@@ -45,45 +45,61 @@ const httpRequest = async function (param) {
 
   try {
     const res = await lib.http(options);
-    if (res.status === 200 && param.config.actionType === 'read') {
-      return res.data;
-    } else if (res.status === 201 && param.config.actionType === 'create') {
-      return Number(res.status);
-    } else if (res.status === 204 && (param.config.actionType === 'upsert' || param.config.actionType === 'delete')) {
-      return Number(res.status);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
+    if ((res.status === 200 && param.config.actionType === 'read') ||
+      (res.status === 201 && param.config.actionType === 'create') ||
+      (res.status === 204 && (param.config.actionType === 'upsert' || param.config.actionType === 'delete'))) {
+      return;
     } else {
       this.error(`Error while managing entity: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while managing entity: ${error}`);
-    return null;
+    this.error(`Exception while managing entity: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
-const createParam = function (msg, defaultConfig, openAPIsConfig) {
+const createParam = function (msg, config, openAPIsConfig) {
+  if (openAPIsConfig.geType !== 'orion') {
+    msg.payload = { error: 'FIWARE GE type not Orion' };
+    return null;
+  }
+
+  let defaultConfig = {
+    service: openAPIsConfig.service.trim(),
+    servicepath: config.servicepath.trim(),
+    actionType: config.actionType,
+    id: config.entityId.trim(),
+    type: config.entityType.trim(),
+    attrs: config.attrs.trim(),
+    keyValues: config.keyValues === 'true',
+    dateModified: config.dateModified === 'true',
+  };
+
   if (!msg.payload) {
-    this.error('payload is null');
-    return;
+    msg.payload = { error: 'payload is null' };
+    return null;
   }
 
   if (typeof msg.payload === 'string') {
     defaultConfig.id = msg.payload;
     msg.payload = {};
   } else if (typeof msg.payload !== 'object' || Array.isArray(msg.payload)) {
-    this.error('payload not JSON Object');
-    return;
+    msg.payload = { error: 'payload not JSON Object' };
+    return null;
   }
 
   if (defaultConfig.actionType === 'payload') {
     if ('actionType' in msg.payload) {
       defaultConfig = Object.assign(defaultConfig, msg.payload);
     } else {
-      this.error('actionType not found');
-      return;
+      msg.payload = { error: 'actionType not found' };
+      return null;
     }
   } else {
     if (defaultConfig.actionType === 'create' || defaultConfig.actionType === 'upsert') {
@@ -94,7 +110,7 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
   }
 
   if (defaultConfig.id === '' && (defaultConfig.actionType === 'read' || defaultConfig.actionType === 'delete')) {
-    this.error('Entity id not found');
+    msg.payload = { error: 'Entity id not found' };
     return null;
   }
 
@@ -143,11 +159,10 @@ const createParam = function (msg, defaultConfig, openAPIsConfig) {
       delete param.config.dateModified;
       break;
     default:
-      this.error('ActionType error: ' + param.config.actionType);
+      msg.payload = { error: 'ActionType error: ' + param.config.actionType };
+      delete msg.context;
       return null;
   }
-
-
 
   return param;
 };
@@ -160,29 +175,15 @@ module.exports = function (RED) {
     const openAPIsConfig = RED.nodes.getNode(config.openapis);
 
     node.on('input', async function (msg) {
-      if (openAPIsConfig.geType !== 'orion') {
-        node.error('FIWARE GE type not Orion');
-        return;
-      }
-
-      const defaultConfig = {
-        service: openAPIsConfig.service.trim(),
-        servicepath: config.servicepath.trim(),
-        actionType: config.actionType,
-        id: config.entityId.trim(),
-        type: config.entityType.trim(),
-        attrs: config.attrs.trim(),
-        keyValues: config.keyValues === 'true',
-        dateModified: config.dateModified === 'true',
-      };
-
-      const param = createParam.call(node, msg, defaultConfig, openAPIsConfig);
+      const param = createParam(msg, config, openAPIsConfig);
 
       if (param) {
-        const result = await httpRequest.call(node, param);
-        msg.payload = result;
-        node.send(msg);
+        await httpRequest.call(node, msg, param);
+      } else {
+        node.error(msg.payload.error);
+        msg.statusCode = 500;
       }
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI Entity', NGSIEntity);

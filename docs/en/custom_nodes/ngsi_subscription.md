@@ -36,12 +36,9 @@ This operation allows to create a new subscription.
 -   `Attrs`: List of attributes to be included in notification messages
 -   `Attrs format`: Specify how the entities are represented in notifications
 
+### Input
 
-### Examples
-
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain a NGSIv2 subscription data.
 
@@ -92,14 +89,22 @@ A `msg.payload` should contain a NGSIv2 subscription data.
 }
 ```
 
-#### Output
+### Output
 
-Payload *String*
+payload *String*
 
 A `msg.payload` contains a subscription id.
 
 ```text
 5fa7988a627088ba9b91b1c1
+```
+
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+201
 ```
 
 ## Update a subscription
@@ -122,33 +127,27 @@ This operation allows to update a existing subscription.
 -   `Attrs`: List of attributes to be included in notification messages
 -   `Attrs format`: Specify how the entities are represented in notifications
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain a NGSIv2 subscription fragment with a subscription id.
 
-```
+```json
 {
   "id": "5fa7988a627088ba9b91b1c1",
   "expires": "2030-04-05T14:00:00.00Z"
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
 ```text
 204
-```
-
-```text
-null
 ```
 
 ## Delete a subscription
@@ -164,30 +163,24 @@ This operation allows to delete a existing subscription.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `delete`
 
-### Example
+### Input
 
-#### Input
-
-Payload *String*
+payload *String*
 
 A `msg.payload` should contain a subscription id.
 
-```
+```text
 5fa7988a627088ba9b91b1c1
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -203,11 +196,12 @@ This operation allows to create, update or delete a subscription.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `value of actionType in payload`
 
-### Example
+
+### Input (create)
+
+payload *JSON Object*
 
 When creating a new subscription, a `msg.payload` should contain a JSON Object with actionType and subscription data.
-
-#### Input
 
 ```json
 {
@@ -226,9 +220,9 @@ When creating a new subscription, a `msg.payload` should contain a JSON Object w
 }
 ```
 
-#### Output
+### Output (create)
 
-Payload *String*
+payload *String*
 
 A `msg.payload` contains a subscription id.
 
@@ -236,9 +230,19 @@ A `msg.payload` contains a subscription id.
 5fa7988a627088ba9b91b1c1
 ```
 
-When updating a existing subscription, a `msg.payload` should contain a JSON Object with actionType, subscription id and subscription data.
+statusCode *Number*
 
-#### Input
+A `msg.statusCode` contains a status code.
+
+```text
+201
+```
+
+### Input (update)
+
+payload *JSON Object*
+
+When updating a existing subscription, a `msg.payload` should contain a JSON Object with actionType, subscription id and subscription data.
 
 ```json
 {
@@ -250,23 +254,21 @@ When updating a existing subscription, a `msg.payload` should contain a JSON Obj
 }
 ```
 
-#### Output
+### Output (update)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (delete)
+
+payload *JSON Object*
 
 When deleting a existing subscription, a `msg.payload` should contain a JSON Object with actionType and subscription id.
-
-#### Input
 
 ```json
 {
@@ -275,16 +277,12 @@ When deleting a existing subscription, a `msg.payload` should contain a JSON Obj
 }
 ```
 
-#### Output
+### Output (delete)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```

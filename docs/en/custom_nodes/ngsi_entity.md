@@ -31,15 +31,13 @@ It allows to create a NGSIv2 entity.
 -   `Action type`: `create`
 -   `Representation`: normalized or keyValues
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an entity to create.
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -66,18 +64,14 @@ A `msg.payload` should contain an entity to create.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 201
-```
-
-```
-null
 ```
 
 ## Read an entity
@@ -98,21 +92,19 @@ It allows to read a NGSIv2 entity.
 -   `Representation`: normalized or keyValues
 -   `Date Modified`: retrieve attribute and metadata of dateModified
 
-### Examples
+### Input
 
-#### Input
-
-Payload *string* or *JSON Object*
+payload *string* or *JSON Object*
 
 A `msg.payload` should contain an entity Id to read the NGSI v2 entity.
 
-```
+```text
 urn:ngsi-ld:Building:store001
 ```
 
 A `msg.payload` should contain a condition to read the NGSI v2 entity.
 
-```
+```json
 {
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
@@ -122,13 +114,13 @@ A `msg.payload` should contain a condition to read the NGSI v2 entity.
 }
 ```
 
-#### Output
+### Output
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains the NGSIv2 entity.
 
-```
+```json
 {
   "id": "E1",
   "type": "T",
@@ -145,6 +137,14 @@ A `msg.payload` contains the NGSIv2 entity.
 }
 ```
 
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
 ## Upsert an entity
 
 It allows to upsert a NGSIv2 entity.
@@ -159,15 +159,13 @@ It allows to upsert a NGSIv2 entity.
 -   `Action type`: `upsert`
 -   `Representation`: normalized or keyValues
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an entity to upsert.
 
-```
+```json
 {
   "id": "E",
   "type": "T",
@@ -194,18 +192,14 @@ A `msg.payload` should contain an entity to upsert.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Delete an entity
@@ -223,39 +217,33 @@ It allows to delete a NGSIv2 entity.
 -   `Entity id`: id of an entity to be deleted
 -   `Entity type`: type of an entity to be deleted
 
-### Example
+### Input
 
-#### Input
-
-Payload *string* or *JSON Object*
+payload *string* or *JSON Object*
 
 A `msg.payload` should contain an entity Id to delete the NGSI v2 entity.
 
-```
+```text
 urn:ngsi-ld:Building:store001
 ```
 
 A `msg.payload` should contain a condition to delete the NGSI v2 entity.
 
-```
+```json
 {
   "id": "urn:ngsi-ld:Building:store001",
   "type": "Building",
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -275,15 +263,13 @@ It allows to create, read, upsert or delete a NGSIv2 entity.
 -   `Representation`: normalized or keyValues
 -   `Date Modified`: retrieve attribute and metadata of dateModified
 
-### Example
+### Input (create)
+
+payload *JSON Object*
 
 When creating an entity, a `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
-#### Input
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "create",
   "entity": {
@@ -313,27 +299,23 @@ Payload *JSON Object*
 }
 ```
 
-#### Output
+### Output (create)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 201
 ```
 
-```
-null
-```
+### Input (read)
+
+payload *JSON Object*
 
 When reading an entity, a `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be read.
 
-#### Input
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "read",
   "id": "E",
@@ -341,13 +323,13 @@ Payload *JSON Object*
 }
 ```
 
-#### Output
+### Output (read)
 
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` contains an object representing the entity.
 
-```
+```json
 {
   "type":"Number",
   "value":45,
@@ -355,13 +337,21 @@ A `msg.payload` contains an object representing the entity.
 }
 ```
 
+statusCode *Number*
+
+A `msg.statusCode` contains a status code.
+
+```text
+200
+```
+
+#### Input (upsert)
+
+payload *JSON Object*
+
 When upserting an entity, a `msg.payload` should contain a JSON Object with `actionType` and `entity`.
 
-#### Input
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "upsert",
   "entity": {
@@ -391,27 +381,23 @@ Payload *JSON Object*
 }
 ```
 
-#### Output
+### Output (upsert)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
 ```
 
-```
-null
-```
+### Input (delete)
+
+payload *JSON Object*
 
 When deleting an entity, a `msg.payload` should contain a JSON Object with `actionType` and related information the entity to be deleted.
 
-#### Input
-
-Payload *JSON Object*
-
-```
+```json
 {
   "actionType": "delete",
   "id": "E",
@@ -419,16 +405,12 @@ Payload *JSON Object*
 }
 ```
 
-#### Output
+### Output (delete)
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```

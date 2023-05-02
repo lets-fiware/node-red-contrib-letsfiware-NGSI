@@ -30,7 +30,7 @@
 
 const lib = require('../../../lib.js');
 
-const getVersion = async function (param) {
+const getVersion = async function (msg, param) {
   const options = {
     method: 'get',
     baseURL: param.host,
@@ -40,18 +40,20 @@ const getVersion = async function (param) {
 
   try {
     const res = await lib.http(options);
+    msg.payload = res.data;
+    msg.statusCode = Number(res.status);
     if (res.status === 200) {
-      return res.data;
+      return;
     } else {
       this.error(`Error while getting version: ${res.status} ${res.statusText}`);
       if (res.data && res.data.description) {
         this.error(`Details: ${res.data.description}`);
       }
-      return null;
     }
   } catch (error) {
-    this.error(`Exception while getting version: ${error}`);
-    return null;
+    this.error(`Exception while getting version: ${error.message}`);
+    msg.payload = { error: error.message };
+    msg.statusCode = 500;
   }
 };
 
@@ -69,12 +71,8 @@ module.exports = function (RED) {
         getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
       };
 
-      const version = await getVersion.call(node, param);
-
-      if (version) {
-        msg.payload = version;
-        node.send(msg);
-      }
+      await getVersion.call(node, msg, param);
+      node.send(msg);
     });
   }
   RED.nodes.registerType('FIWARE version', FIWAREVersion);

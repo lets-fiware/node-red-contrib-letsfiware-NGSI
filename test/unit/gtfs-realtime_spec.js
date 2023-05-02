@@ -33,9 +33,9 @@
 require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
-  
+
 const { assert } = require('chai');
-  
+
 const gtfsRealtimeNode = require('../../src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js');
 const MockRed = require('./helpers/mockred.js');
 
@@ -65,49 +65,56 @@ describe('gtfs-realtime.js', () => {
           status: 200,
           data: data
         }),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       gtfsRealtimeNode.__set__('gtfsRealtimeBindings', {
         transit_realtime: {
           FeedMessage: {
-            decode: (data) => {return data;}
+            decode: (data) => { return data; }
           }
         }
       });
       const getGtfsRealtime = gtfsRealtimeNode.__get__('getGtfsRealtime');
 
-      const res = await getGtfsRealtime('http://gtfs-realtime');
+      const msg = { payload: 'http://gtfs-realtime' };
+      await getGtfsRealtime(msg);
 
-      assert.deepEqual(res, data);
+      assert.deepEqual(msg, { payload: data, statusCode: 200 });
     });
     it('should be 400 Bad Request', async () => {
       gtfsRealtimeNode.__set__('lib', {
-        http: async () => Promise.resolve({status: 400, statusText: 'Bad Request'}),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const getGtfsRealtime = gtfsRealtimeNode.__get__('getGtfsRealtime');
 
-      let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
-      await getGtfsRealtime.call(node, 'http://gtfs-realtime');
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      assert.equal(msg, 'Error while retrieving gtfs realtime data: 400 Bad Request');
+      const msg = { payload: 'http://gtfs-realtime' };
+      await getGtfsRealtime.call(node, msg);
+
+      assert.equal(errmsg, 'Error while retrieving gtfs realtime data: 400 Bad Request');
+      assert.deepEqual(msg, { payload: undefined, statusCode: 400 });
     });
     it('Should be unknown error', async () => {
       gtfsRealtimeNode.__set__('lib', {
-        http: async () => Promise.reject('unknown error'),
-        buildHTTPHeader: ()=>{return{};},
-        buildSearchParams: () =>new URLSearchParams(),
+        http: async () => Promise.reject({ message: 'unknown error' }),
+        buildHTTPHeader: () => { return {}; },
+        buildSearchParams: () => new URLSearchParams(),
       });
       const getGtfsRealtime = gtfsRealtimeNode.__get__('getGtfsRealtime');
 
-      let msg = '';
-      const node ={msg: '', error:(e)=>{msg = e;}};
-      await getGtfsRealtime.call(node, 'http://gtfs-realtime');
+      let errmsg = '';
+      const node = { msg: '', error: (e) => { errmsg = e; } };
 
-      assert.equal(msg, 'Exception while retrieving gtfs realtime data: unknown error');
+      const msg = { payload: 'http://gtfs-realtime' };
+      await getGtfsRealtime.call(node, msg);
+
+      assert.equal(errmsg, 'Exception while retrieving gtfs realtime data: unknown error');
+      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
     });
   });
   describe('vehicle2ngsi', () => {
@@ -135,7 +142,7 @@ describe('gtfs-realtime.js', () => {
             'id': 'bus01'
           }
         }
-      }; 
+      };
       const expected = {
         'currentStatus': {
           'type': 'Text',
@@ -270,7 +277,7 @@ describe('gtfs-realtime.js', () => {
             'id': 'bus01'
           }
         }
-      }]; 
+      }];
       const expected = [{
         'currentStatus': {
           'type': 'Text',
@@ -433,48 +440,71 @@ describe('gtfs-realtime.js', () => {
       red.createNode({});
 
       let actual;
-      gtfsRealtimeNode.__set__('getGtfsRealtime', (param) => {actual = param; return {entity:[data]};});
+      gtfsRealtimeNode.__set__('getGtfsRealtime', (msg) => {
+        actual = Object.assign({}, msg);
+        msg.payload = { entity: [data] };
+        msg.statusCode = 200;
+      });
 
-      await red.inputWithAwait({payload: 'http://gtfs-realtime'});
+      await red.inputWithAwait({ payload: 'http://gtfs-realtime' });
 
-      assert.equal(actual, 'http://gtfs-realtime');
-      assert.deepEqual(red.getOutput(), {payload:[expected]});
+      assert.deepEqual(actual, { payload: 'http://gtfs-realtime' });
+      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
+    });
+    it('get error', async () => {
+      const red = new MockRed();
+      gtfsRealtimeNode(red);
+      red.createNode({});
+
+      let actual;
+      gtfsRealtimeNode.__set__('getGtfsRealtime', (msg) => {
+        actual = Object.assign({}, msg);
+        msg.payload = { error: 'error' };
+        msg.statusCode = 400;
+      });
+
+      await red.inputWithAwait({ payload: 'http://gtfs-realtime' });
+
+      assert.deepEqual(actual, { payload: 'http://gtfs-realtime' });
+      assert.deepEqual(red.getOutput(), { payload: { error: 'error' }, statusCode: 400 });
     });
     it('payload object', async () => {
       const red = new MockRed();
       gtfsRealtimeNode(red);
-      red.createNode({ });
+      red.createNode({});
 
-      await red.inputWithAwait({payload: data});
+      await red.inputWithAwait({ payload: data });
 
-      assert.deepEqual(red.getOutput(), {payload:[expected]});
+      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
     });
     it('payload array', async () => {
       const red = new MockRed();
       gtfsRealtimeNode(red);
-      red.createNode({ });
+      red.createNode({});
 
-      await red.inputWithAwait({payload: [data]});
+      await red.inputWithAwait({ payload: [data] });
 
-      assert.deepEqual(red.getOutput(), {payload:[expected]});
+      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
     });
     it('payload error', async () => {
       const red = new MockRed();
       gtfsRealtimeNode(red);
-      red.createNode({ });
+      red.createNode({});
 
-      await red.inputWithAwait({payload: 1});
+      await red.inputWithAwait({ payload: 1 });
 
       assert.equal(red.getMessage(), 'payload error');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'payload error' }, statusCode: 500 });
     });
-    it('payload error', async () => {
+    it('entities empty', async () => {
       const red = new MockRed();
       gtfsRealtimeNode(red);
-      red.createNode({ });
+      red.createNode({});
 
-      await red.inputWithAwait({payload: []});
+      await red.inputWithAwait({ payload: [] });
 
       assert.equal(red.getMessage(), 'entities empty');
+      assert.deepEqual(red.getOutput(), { payload: { error: 'entities empty' }, statusCode: 500 });
     });
   });
 });

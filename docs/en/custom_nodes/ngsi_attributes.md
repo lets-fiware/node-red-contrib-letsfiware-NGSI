@@ -36,15 +36,13 @@ It allows to append attributes of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -54,18 +52,14 @@ A `msg.payload` should contain an object with the attributes.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Update attributes
@@ -87,15 +81,13 @@ It allows to update attributes of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -105,18 +97,14 @@ A `msg.payload` should contain an object with the attributes.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Upsert attributes
@@ -138,15 +126,13 @@ It allows to upsert attributes of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -161,18 +147,14 @@ A `msg.payload` should contain an object with the attributes.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Replace attributes
@@ -194,15 +176,13 @@ It allows to replace attributes of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain an object with the attributes.
 
-```
+```json
 {
   "temperature": {
     "type": "Number",
@@ -222,18 +202,14 @@ A `msg.payload` should contain an object with the attributes.
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
 
 ## Use value of actionType in payload
@@ -255,15 +231,13 @@ It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
 
-### Example
+### Input
 
-#### Input
-
-Payload *JSON Object*
+payload *JSON Object*
 
 A `msg.payload` should contain a JSON Object with actionType and an object with the attributes.
 
-```
+```json
 {
   "actionType": "append",
   "id": "E2",
@@ -277,7 +251,7 @@ A `msg.payload` should contain a JSON Object with actionType and an object with 
 }
 ```
 
-```
+```json
 {
   "actionType": "update",
   "id": "E2",
@@ -291,7 +265,7 @@ A `msg.payload` should contain a JSON Object with actionType and an object with 
 }
 ```
 
-```
+```json
 {
   "actionType": "upsert",
   "id": "E2",
@@ -310,7 +284,7 @@ A `msg.payload` should contain a JSON Object with actionType and an object with 
 }
 ```
 
-```
+```json
 {
   "actionType": "replace",
   "id": "E2",
@@ -334,16 +308,12 @@ A `msg.payload` should contain a JSON Object with actionType and an object with 
 }
 ```
 
-#### Output
+### Output
 
-Payload *Number* or *null*
+statusCode *Number*
 
-A `msg.payload` contains a status code.
+A `msg.statusCode` contains a status code.
 
-```
+```text
 204
-```
-
-```
-null
 ```
