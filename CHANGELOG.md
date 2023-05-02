@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.13.0-next
 
+-  ADD GitHub Discussions badge (#128)
 -  Improve output data (#127)
 -  UPDATE Node.js dependencies (#126)
 -  Fix typos in documentation (#125)
