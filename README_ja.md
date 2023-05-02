@@ -47,6 +47,40 @@ FIWARE Open APIs の Node-RED 実装
 npm install node-red-contrib-letsfiware-ngsi
 ```
 
+## チュートリアル
+
+最初に、このリポジトリをクローンします。
+
+```
+git clone https://github.com/lets-fiware/node-red-letsfiware-NGSI.git
+```
+
+現在のディレクトリを に移動しますnode-red-letsfiware-NGSI/examples。
+
+```
+cd node-red-letsfiware-NGSI/examples
+```
+
+チュートリアル用の Docker コンテナーを作成します。
+
+```
+./service create
+```
+
+コンテナを起動する
+
+```
+./service start
+```
+
+次の URL を使用して Node-RED を開きます: `http://IP address:1880/`。これは、Docker エンジンを実行しているマシンの IP アドレスです。
+
+コンテナーを停止するには、次のコマンドを実行します。
+
+```
+./service stop
+```
+
 ## ソースコード
 
 -   [https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI)

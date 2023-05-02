@@ -5,6 +5,7 @@ nav:
   - 'Home':
     - 'Index': index.md
     - 'Installation': installation.md
+    - 'Tutorial': tutorial.md
     - 'Custom nodes':
       - 'NGSI Entity': custom_nodes/ngsi_entity.md
       - 'NGSI Source': custom_nodes/ngsi_source.md
