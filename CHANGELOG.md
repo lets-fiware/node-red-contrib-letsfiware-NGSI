@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.13.0-next
+## node-red-contrib-letsfiware-NGSI v0.14.0 - 02 May, 2023
 
 -  ADD tutorial (#129)
 -  ADD GitHub Discussions badge (#128)
