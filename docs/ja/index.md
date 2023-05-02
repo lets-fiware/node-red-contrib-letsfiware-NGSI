@@ -6,6 +6,8 @@ FIWARE Open APIs の Node-RED 実装
 <br/>
 [![Unit Tests](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/actions/workflows/ci.yml/badge.svg)](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/lets-fiware/node-red-contrib-letsfiware-NGSI/badge.svg?branch=main)](https://coveralls.io/github/lets-fiware/node-red-contrib-letsfiware-NGSI?branch=main)
+<br/>
+[![GitHub Discussions](https://img.shields.io/github/discussions/lets-fiware/node-red-contrib-letsfiware-NGSI)](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/discussions)
 
 ## サポートしているカスタム・ノード
 
