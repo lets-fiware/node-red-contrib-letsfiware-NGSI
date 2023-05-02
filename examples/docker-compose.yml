@@ -2,13 +2,14 @@ version: "3"
 
 services:
   node-red:
+    restart: always
     build: .
-    image: letsfiware/node-red-local
     ports:
       - 1880:1880
 
   orion:
-    image: fiware/orion:3.7.0
+    image: fiware/orion:3.8.1
+    restart: always
     ports:
       - 1026:1026
     depends_on:
@@ -17,4 +18,54 @@ services:
 
   mongo:
     image: mongo:4.4
+    restart: always
     command: --nojournal
+
+  cygnus:
+    image: telefonicaiot/fiware-cygnus:2.20.0
+    ports:
+      - 5080:5080
+      - 5051:5051
+    depends_on:
+      - mongo
+    environment:
+      - CYGNUS_API_PORT=5080
+      - CYGNUS_MONGO_SERVICE_PORT=5051
+      - CYGNUS_MONGO_HOSTS=mongo:27017
+    healthcheck:
+      test: curl --fail -s http://cygnus:5080/v1/version || exit 1
+    restart: always
+
+  comet:
+    image: telefonicaiot/fiware-sth-comet:2.10.0
+    init: true
+    ports:
+      - 8666:8666
+    depends_on:
+      - cygnus
+      - mongo
+      - orion
+    environment:
+      - STH_HOST=0.0.0.0
+      - STH_PORT=8666
+      - DB_PREFIX=sth_
+      - DB_URI=mongo:27017
+    healthcheck:
+      test: curl --fail -s http://comet:8666/version || exit 1
+    restart: always
+
+  quantumleap:
+    image: orchestracities/quantumleap:0.8.3
+    ports:
+      - 8668:8668
+    depends_on:
+      - crate
+      - orion
+    environment:
+      - CRATE_HOST=crate
+
+  crate:
+    image: crate:4.6.6
+    command: crate -Cauth.host_based.enabled=false -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"
+    environment:
+      - CRATE_HEAP_SIZE=2g

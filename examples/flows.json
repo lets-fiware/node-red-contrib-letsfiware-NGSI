@@ -2,95 +2,171 @@
     {
         "id": "f6f2187d.f17ca8",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Version",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "6cab9bb7c3fe109f",
-        "type": "NGSI Entity",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "openapis": "4bc2c9fd034d58a0",
-        "servicepath": "/",
-        "entityId": "",
-        "entityType": "",
-        "attrs": "",
-        "x": 330,
-        "y": 140,
-        "wires": [
-            [
-                "4610359bcd855d95"
-            ]
-        ]
+        "id": "b9894ccfa5887dda",
+        "type": "tab",
+        "label": "NGSI entity",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
-        "id": "002b29f2bf3e56cb",
-        "type": "NGSI source",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "openapis": "4bc2c9fd034d58a0",
-        "servicepath": "/",
-        "mode": "normalized",
-        "entitytype": "",
-        "idpattern": "",
-        "attrs": "",
-        "query": "",
-        "buffering": "off",
-        "x": 330,
-        "y": 220,
-        "wires": [
-            [
-                "4610359bcd855d95"
-            ]
-        ]
+        "id": "49b801ab6c13addc",
+        "type": "tab",
+        "label": "NGSI source",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
-        "id": "22eed2f444a65b52",
-        "type": "NGSI subscription",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "openapis": "4bc2c9fd034d58a0",
-        "servicepath": "/",
-        "entitytypes": "",
-        "idpattern": "",
-        "watchedattrs": "",
-        "query": "",
-        "url": "",
-        "attrs": "",
-        "mode": "normalized",
-        "x": 350,
-        "y": 300,
-        "wires": [
-            [
-                "4610359bcd855d95"
-            ]
-        ]
+        "id": "c911fe8e77452adc",
+        "type": "tab",
+        "label": "NGSI Attribute",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
-        "id": "9133e467e4434795",
-        "type": "NGSI to worldmap",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "attrname": "name",
-        "attrworldmap": "__worldmap__",
-        "x": 350,
-        "y": 460,
-        "wires": [
-            []
-        ]
+        "id": "a180ca4ca3ddad80",
+        "type": "tab",
+        "label": "NGSI attribute value",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bc90b22d418d5571",
+        "type": "tab",
+        "label": "NGSI attributes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "09c250656932026f",
+        "type": "tab",
+        "label": "NGSI Batch update",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "32280c71f0756df8",
+        "type": "tab",
+        "label": "NGSI subscription",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3233eb4c086338c8",
+        "type": "tab",
+        "label": "NGSI registration",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6120061f2326fac4",
+        "type": "tab",
+        "label": "NGSI types",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ae1583d3652cf590",
+        "type": "tab",
+        "label": "Historical Context",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6154ca584a976350",
+        "type": "tab",
+        "label": "NGSI timeseries",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b36210a53417e946",
+        "type": "tab",
+        "label": "Service and ServicePath",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b09ca0658a59d2b4",
+        "type": "tab",
+        "label": "OpenWatherMap",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "13b4031b3cf4cd3e",
+        "type": "tab",
+        "label": "GTFS Realtime to NGSI",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9fe279acf4242705",
+        "type": "tab",
+        "label": "NGSI to worldmap",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "75794bca315ac044",
+        "type": "Open APIs",
+        "name": "STH-Comet",
+        "geType": "comet",
+        "apiEndpoint": "http://comet:8666",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    },
+    {
+        "id": "8a5400cf6326a10c",
+        "type": "Open APIs",
+        "name": "Orion",
+        "geType": "orion",
+        "apiEndpoint": "http://orion:1026",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
+    },
+    {
+        "id": "63a94ad39cef2077",
+        "type": "Open APIs",
+        "name": "Quantumleap",
+        "geType": "quantumleap",
+        "apiEndpoint": "http://quantumleap:8668",
+        "service": "openiot",
+        "idmEndpoint": "",
+        "idmType": "none"
     },
     {
         "id": "963c4389ac253554",
         "type": "FIWARE version",
         "z": "f6f2187d.f17ca8",
         "name": "",
-        "openapis": "4bc2c9fd034d58a0",
-        "x": 340,
+        "openapis": "8a5400cf6326a10c",
+        "x": 420,
         "y": 60,
         "wires": [
             [
-                "4610359bcd855d95"
+                "d21b174efdea6ebb"
             ]
         ]
     },
@@ -98,7 +174,7 @@
         "id": "3bb81dc75e0f084f",
         "type": "inject",
         "z": "f6f2187d.f17ca8",
-        "name": "",
+        "name": "Orion version",
         "props": [
             {
                 "p": "payload"
@@ -111,7 +187,7 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 90,
+        "x": 130,
         "y": 60,
         "wires": [
             [
@@ -120,7 +196,7 @@
         ]
     },
     {
-        "id": "4610359bcd855d95",
+        "id": "d21b174efdea6ebb",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "",
@@ -128,148 +204,1388 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "781efd40d6d5eac3",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Comet version",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "b7177d14bab715ac"
+            ]
+        ]
+    },
+    {
+        "id": "b7177d14bab715ac",
+        "type": "FIWARE version",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "openapis": "75794bca315ac044",
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "d21b174efdea6ebb"
+            ]
+        ]
+    },
+    {
+        "id": "3bb65d303f419928",
+        "type": "FIWARE version",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "d21b174efdea6ebb"
+            ]
+        ]
+    },
+    {
+        "id": "f007d180a4b4116e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Quantumleap version",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "3bb65d303f419928"
+            ]
+        ]
+    },
+    {
+        "id": "fba68ee08b1cc17e",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 60,
+        "wires": [
+            [
+                "1f93b0460863f941"
+            ]
+        ]
+    },
+    {
+        "id": "a751a9318bf9a9c0",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:entity:001\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":45,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1003.5,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "fba68ee08b1cc17e"
+            ]
+        ]
+    },
+    {
+        "id": "1f93b0460863f941",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "646d26e444a61f6e",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:entity:001\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "7e87669d68192748"
+            ]
+        ]
+    },
+    {
+        "id": "7e87669d68192748",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "1f93b0460863f941"
+            ]
+        ]
+    },
+    {
+        "id": "fc08af462ec778e9",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "true",
+        "dateModified": "false",
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "1f93b0460863f941"
+            ]
+        ]
+    },
+    {
+        "id": "da421f7112fd501a",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Read entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:entity:001\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "fc08af462ec778e9"
+            ]
+        ]
+    },
+    {
+        "id": "230676741929d27c",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "upsert",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "1f93b0460863f941"
+            ]
+        ]
+    },
+    {
+        "id": "919d825ed398a1d5",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Upsert entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:entity:001\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":29,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":58,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1234.5,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "230676741929d27c"
+            ]
+        ]
+    },
+    {
+        "id": "651da5e28106c5ea",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "ae5476927bd5e50a"
+            ]
+        ]
+    },
+    {
+        "id": "fc162acbcadf8072",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"create\",\"entity\":{\"id\":\"urn:ngsi-ld:entity:002\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":45,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1003.5,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "651da5e28106c5ea"
+            ]
+        ]
+    },
+    {
+        "id": "ae5476927bd5e50a",
+        "type": "debug",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3cc94b1e213a1046",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"delete\",\"id\":\"urn:ngsi-ld:entity:002\",\"type\":\"Thing\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "eb1a7ddf523fadf8"
+            ]
+        ]
+    },
+    {
+        "id": "eb1a7ddf523fadf8",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "E",
+        "entityType": "T",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 520,
+        "wires": [
+            [
+                "ae5476927bd5e50a"
+            ]
+        ]
+    },
+    {
+        "id": "20f93fbd897b35cd",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "true",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "ae5476927bd5e50a"
+            ]
+        ]
+    },
+    {
+        "id": "55fd0984542e4608",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Read entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"read\",\"id\":\"urn:ngsi-ld:entity:002\",\"type\":\"Thing\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "20f93fbd897b35cd"
+            ]
+        ]
+    },
+    {
+        "id": "e042e677999e3e2f",
+        "type": "NGSI Entity",
+        "z": "b9894ccfa5887dda",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "ae5476927bd5e50a"
+            ]
+        ]
+    },
+    {
+        "id": "93999ccf9dfb756d",
+        "type": "inject",
+        "z": "b9894ccfa5887dda",
+        "name": "Upsert entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"upsert\",\"entity\":{\"id\":\"urn:ngsi-ld:entity:002\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":29,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":58,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1234.5,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "e042e677999e3e2f"
+            ]
+        ]
+    },
+    {
+        "id": "0f4bad1a0a547ccb",
+        "type": "NGSI Batch update",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "append",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "089ecbbf718dbef8",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Create entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:entities:001\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:entities:002\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:entities:003\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:entities:004\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "0f4bad1a0a547ccb"
+            ]
+        ]
+    },
+    {
+        "id": "7f548a2f5f2d42ed",
+        "type": "NGSI source",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "74c09cd4b0f16a8a",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "List entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "7f548a2f5f2d42ed"
+            ]
+        ]
+    },
+    {
+        "id": "1de25a86f24eac7b",
+        "type": "debug",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 810,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1191940c4c981f96",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "Delete entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:entities:001\"},{\"id\":\"urn:ngsi-ld:entities:002\"},{\"id\":\"urn:ngsi-ld:entities:003\"},{\"id\":\"urn:ngsi-ld:entities:004\"}]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "e1b408918da138c8"
+            ]
+        ]
+    },
+    {
+        "id": "e1b408918da138c8",
+        "type": "NGSI Batch update",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "0211267288c07103",
+        "type": "NGSI source",
+        "z": "49b801ab6c13addc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 450,
+        "y": 180,
+        "wires": [
+            [
+                "1de25a86f24eac7b"
+            ]
+        ]
+    },
+    {
+        "id": "6005eed54399993b",
+        "type": "inject",
+        "z": "49b801ab6c13addc",
+        "name": "idPattern",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:entities:001",
+        "payloadType": "str",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "0211267288c07103"
+            ]
+        ]
+    },
+    {
+        "id": "b348fb6b0601bca5",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "6dd2ed9a55228e0c",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Get entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:attribute:001",
+        "payloadType": "str",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "b348fb6b0601bca5"
+            ]
+        ]
+    },
+    {
+        "id": "67d14f13a705b5e8",
+        "type": "debug",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ba373270d2851811",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute:001\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "c37a151ce118fe2e"
+            ]
+        ]
+    },
+    {
+        "id": "9c0c3b438986162d",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute:001\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":45,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1003.5,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "e21c679c6c6360c8"
+            ]
+        ]
+    },
+    {
+        "id": "0e65b91d3288f58d",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "urn:ngsi-ld:attribute:001",
+        "entityType": "",
+        "attrName": "temperature",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "f9848b94b396668a",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Read attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "0e65b91d3288f58d"
+            ]
+        ]
+    },
+    {
+        "id": "d16c169e549f4c91",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrName": "temperature",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "964f0f97ae5fb1c9",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Read attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute:001\",\"attrName\":\"relativeHumidity\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "d16c169e549f4c91"
+            ]
+        ]
+    },
+    {
+        "id": "13e6eda8eaeb4b7a",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityId": "urn:ngsi-ld:attribute:001",
+        "entityType": "",
+        "attrName": "atmosphericPressure",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "01b71d7e4d1a2386",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Update attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\": \"Number\", \"value\": 1234.5}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "13e6eda8eaeb4b7a"
+            ]
+        ]
+    },
+    {
+        "id": "1fa4737f5586be10",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "urn:ngsi-ld:attribute:001",
+        "entityType": "",
+        "attrName": "",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "6e2af996316e447f",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Delete attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"attrName\": \"relativeHumidity\"}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 360,
+        "wires": [
+            [
+                "1fa4737f5586be10"
+            ]
+        ]
+    },
+    {
+        "id": "b9ee2d5393951a85",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "f97a9203b4daf301",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Get entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:attribute:002",
+        "payloadType": "str",
+        "x": 180,
+        "y": 600,
+        "wires": [
+            [
+                "b9ee2d5393951a85"
+            ]
+        ]
+    },
+    {
+        "id": "fa6fbdb9b6ac626c",
+        "type": "debug",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "5096629f5f5a23db",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute:002\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 840,
+        "wires": [
+            [
+                "6e75651bac330972"
+            ]
+        ]
+    },
+    {
+        "id": "8267d9847082e451",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute:002\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{\"TimeInstant\":{\"type\":\"DateTime\",\"value\":\"2023-02-10T20:33:53.199Z\"}}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":45,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1003.5,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 540,
+        "wires": [
+            [
+                "e231ed216b0b4b60"
+            ]
+        ]
+    },
+    {
+        "id": "69d620381858cc1d",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "urn:ngsi-ld:attribute:002",
+        "entityType": "",
+        "attrName": "temperature",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 660,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "044f8cb1c20eabb9",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Read attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"read\", \"attrName\": \"relativeHumidity\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 660,
+        "wires": [
+            [
+                "69d620381858cc1d"
+            ]
+        ]
+    },
+    {
+        "id": "1ea00dd3a50f810e",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "urn:ngsi-ld:attribute:002",
+        "entityType": "",
+        "attrName": "atmosphericPressure",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 720,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "ddbf0929bc180e7b",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Update attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"attribute\": {\"type\": \"Number\", \"value\": 1234.5}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 720,
+        "wires": [
+            [
+                "1ea00dd3a50f810e"
+            ]
+        ]
+    },
+    {
+        "id": "5085e86b77edecb7",
+        "type": "NGSI Attribute",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "urn:ngsi-ld:attribute:002",
+        "entityType": "",
+        "attrName": "",
+        "metadata": "",
+        "skipForwarding": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 780,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "0c8b4180ca5046eb",
+        "type": "inject",
+        "z": "c911fe8e77452adc",
+        "name": "Delete attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"delete\", \"attrName\": \"relativeHumidity\"}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 780,
+        "wires": [
+            [
+                "5085e86b77edecb7"
+            ]
+        ]
+    },
+    {
+        "id": "e21c679c6c6360c8",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "c37a151ce118fe2e",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "67d14f13a705b5e8"
+            ]
+        ]
+    },
+    {
+        "id": "e231ed216b0b4b60",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 540,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "6e75651bac330972",
+        "type": "NGSI Entity",
+        "z": "c911fe8e77452adc",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 840,
+        "wires": [
+            [
+                "fa6fbdb9b6ac626c"
+            ]
+        ]
+    },
+    {
+        "id": "951f400e20c760bb",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"test\":{\"type\":\"Test\",\"value\":1,\"metadata\":{}}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "8d94a837e074ffe8"
+            ]
+        ]
+    },
+    {
+        "id": "151f971383f7c9cb",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
         "y": 60,
         "wires": []
     },
     {
-        "id": "f246ed68c1bb1e99",
-        "type": "NGSI Batch update",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "openapis": "4bc2c9fd034d58a0",
-        "servicepath": "/",
-        "actiontype": "append",
-        "x": 610,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "017ae2294c0dd707",
+        "id": "a22361d5e20dc0d8",
         "type": "inject",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "http://gtfs.realtime/GTFS/GTFS_RT-VP.bin",
-        "payloadType": "str",
-        "x": 90,
-        "y": 380,
-        "wires": [
-            [
-                "62503c9ccec4c767"
-            ]
-        ]
-    },
-    {
-        "id": "fa3edb3ff5cb9bd6",
-        "type": "inject",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "E1",
-        "payloadType": "str",
-        "x": 90,
-        "y": 140,
-        "wires": [
-            [
-                "6cab9bb7c3fe109f"
-            ]
-        ]
-    },
-    {
-        "id": "0a88b49f515fb5d1",
-        "type": "inject",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{   \"idPattern\": \".*\",   \"type\": \"T\",   \"attrs\": [     \"humidity\"   ],   \"q\": \"temperature>29\",   \"keyValues\": true }",
-        "payloadType": "json",
-        "x": 90,
-        "y": 220,
-        "wires": [
-            [
-                "002b29f2bf3e56cb"
-            ]
-        ]
-    },
-    {
-        "id": "cc8a7a41c175e575",
-        "type": "http in",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "url": "/notify",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 460,
-        "wires": [
-            [
-                "9133e467e4434795"
-            ]
-        ]
-    },
-    {
-        "id": "00e3e047379ed84e",
-        "type": "inject",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{   \"type\": \"T\",   \"idPattern\": \".*\",   \"watchedAttrs\": \"temperature,humidity\",   \"q\": \"temperature>10\",   \"url\": \"http://node-red/notify\",   \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\",   \"expires\": \"2030-04-05T14:00:00.00Z\",   \"throttling\": 5 }",
-        "payloadType": "json",
-        "x": 90,
-        "y": 300,
-        "wires": [
-            [
-                "22eed2f444a65b52"
-            ]
-        ]
-    },
-    {
-        "id": "bd55114956f0b16a",
-        "type": "inject",
-        "z": "f6f2187d.f17ca8",
+        "z": "a180ca4ca3ddad80",
         "name": "",
         "props": [
             {
@@ -283,8 +1599,2981 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 90,
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "e50e874f79ecbe15"
+            ]
+        ]
+    },
+    {
+        "id": "e50e874f79ecbe15",
+        "type": "NGSI Attribute value",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "urn:ngsi-ld:attribute-value:001",
+        "entityType": "",
+        "attrName": "test",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "1e87645260b77f09"
+            ]
+        ]
+    },
+    {
+        "id": "1e87645260b77f09",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a5bbcfea5bd9de9c",
+        "type": "NGSI Attribute value",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityId": "urn:ngsi-ld:attribute-value:001",
+        "entityType": "Thing",
+        "attrName": "test",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 460,
+        "wires": [
+            [
+                "75bbfbb4bc016fb1"
+            ]
+        ]
+    },
+    {
+        "id": "75bbfbb4bc016fb1",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "4fb37143205945ec",
+        "type": "NGSI Entity",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "1e87645260b77f09"
+            ]
+        ]
+    },
+    {
+        "id": "1767159e1bb84e9f",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:attribute-value:001",
+        "payloadType": "str",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "4fb37143205945ec"
+            ]
+        ]
+    },
+    {
+        "id": "2cd691aa49225e18",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "null",
+        "payloadType": "json",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "f1b0abe0e1db5674",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "0bca6119c55b5e2d",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "123",
+        "payloadType": "num",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "1ace0289bc368744",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "abc",
+        "payloadType": "str",
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "6cb09971a233bdaf",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"abc\": 123}",
+        "payloadType": "json",
+        "x": 190,
         "y": 540,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "e72c276780fa5047",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[123, \"abc\"]",
+        "payloadType": "json",
+        "x": 190,
+        "y": 600,
+        "wires": [
+            [
+                "a5bbcfea5bd9de9c"
+            ]
+        ]
+    },
+    {
+        "id": "0a14e82ccf14d38d",
+        "type": "NGSI Attribute value",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "",
+        "entityType": "",
+        "attrName": "",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 780,
+        "wires": [
+            [
+                "672f8f90410a15c0"
+            ]
+        ]
+    },
+    {
+        "id": "672f8f90410a15c0",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "d660b0b63f1d91b0",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "null",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":null}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 780,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "1d653aa57a0c9da4",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":true}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "1cb297edf9f7c270",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "123",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":123}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 900,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "92e1bf65e1c0c750",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "abc",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":\"abc\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 960,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "e99bba3e51b79349",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "{\"abc\": 123}",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":{\"abc\":123}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1020,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "170e4c8389942add",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "[123, \"abc\"]",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\",\"value\":[123,\"abc\"]}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1080,
+        "wires": [
+            [
+                "0a14e82ccf14d38d"
+            ]
+        ]
+    },
+    {
+        "id": "502833af5a921c0d",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"read\",\"id\":\"urn:ngsi-ld:attribute-value:001\",\"type\":\"Thing\",\"attrName\":\"test\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 700,
+        "wires": [
+            [
+                "b92aed9d8d7bf145"
+            ]
+        ]
+    },
+    {
+        "id": "b92aed9d8d7bf145",
+        "type": "NGSI Attribute value",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrName": "",
+        "skipForwarding": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 480,
+        "y": 700,
+        "wires": [
+            [
+                "01239044bde62f49"
+            ]
+        ]
+    },
+    {
+        "id": "01239044bde62f49",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "8d94a837e074ffe8",
+        "type": "NGSI Entity",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 450,
+        "y": 60,
+        "wires": [
+            [
+                "151f971383f7c9cb"
+            ]
+        ]
+    },
+    {
+        "id": "651f30dbf995c650",
+        "type": "NGSI Entity",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 450,
+        "y": 1160,
+        "wires": [
+            [
+                "c6a7fb40f55c6539"
+            ]
+        ]
+    },
+    {
+        "id": "196142a821ffbb1c",
+        "type": "inject",
+        "z": "a180ca4ca3ddad80",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attribute-value:001\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1160,
+        "wires": [
+            [
+                "651f30dbf995c650"
+            ]
+        ]
+    },
+    {
+        "id": "c6a7fb40f55c6539",
+        "type": "debug",
+        "z": "a180ca4ca3ddad80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "901bf2c2521828d2",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "replace",
+        "entityId": "urn:ngsi-ld:attributes:001",
+        "entityType": "",
+        "keyValues": "true",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "9a8581420fb16e6b",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "adbf524b7821881c",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Get entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:attributes:001",
+        "payloadType": "str",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "9a8581420fb16e6b"
+            ]
+        ]
+    },
+    {
+        "id": "e0815fbe1d68ccaf",
+        "type": "debug",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b7437ffec6878452",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Replace attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"relativeHumidity\": {\"type\": \"Number\", \"value\": 45.0, \"metadata\": {} }, \"atmosphericPressure\": {\"type\": \"Number\", \"value\": 1003.5, \"metadata\": {} }}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "901bf2c2521828d2"
+            ]
+        ]
+    },
+    {
+        "id": "f75b791d94bba2be",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Append attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 17, \"metadata\": {} }}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "194fce2d97ca74b2"
+            ]
+        ]
+    },
+    {
+        "id": "194fce2d97ca74b2",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "append",
+        "entityId": "urn:ngsi-ld:attributes:001",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "265ae0d5550e8ca5",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attributes:001\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "91656fd2f23afb11"
+            ]
+        ]
+    },
+    {
+        "id": "8db5edcec2164397",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attributes:001\",\"type\":\"Thing\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "aa0b9682fcf4ed98"
+            ]
+        ]
+    },
+    {
+        "id": "77da6cc9cae74810",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityId": "urn:ngsi-ld:attributes:001",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "36de5edc70ee4a0d",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "upsert",
+        "entityId": "urn:ngsi-ld:attributes:001",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "c4e472d776532ef8",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Update attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 20, \"metadata\": {} }}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "77da6cc9cae74810"
+            ]
+        ]
+    },
+    {
+        "id": "94f14ba8eaac9317",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Upsert attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\": {\"type\": \"Number\", \"value\": 25, \"metadata\": {} }, \"humidity\": {\"type\": \"Number\", \"value\": 42.9, \"metadata\": {} }}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "36de5edc70ee4a0d"
+            ]
+        ]
+    },
+    {
+        "id": "924863bea11c9da6",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "E2",
+        "entityType": "",
+        "keyValues": "true",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "ba724c8177691752",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "read",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "e57e40ab714bd275",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Get entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "urn:ngsi-ld:attributes:002",
+        "payloadType": "str",
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "ba724c8177691752"
+            ]
+        ]
+    },
+    {
+        "id": "9ea895239cdcb380",
+        "type": "debug",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "f80331d48422a839",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Replace attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"replace\",\"id\":\"urn:ngsi-ld:attributes:002\",\"attributes\":{\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{}},\"relativeHumidity\":{\"type\":\"Number\",\"value\":45,\"metadata\":{}},\"atmosphericPressure\":{\"type\":\"Number\",\"value\":1003.5,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 880,
+        "wires": [
+            [
+                "924863bea11c9da6"
+            ]
+        ]
+    },
+    {
+        "id": "2868a39fb00c076a",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Append attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"append\",\"id\":\"urn:ngsi-ld:attributes:002\",\"attributes\":{\"temperature\":{\"type\":\"Number\",\"value\":17,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "2abf87a0cb6e30b4"
+            ]
+        ]
+    },
+    {
+        "id": "2abf87a0cb6e30b4",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "E2",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 700,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "cd8298a357ae6821",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Delete entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attributes:002\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "ead3698d2cd80867"
+            ]
+        ]
+    },
+    {
+        "id": "6bf81f798b641693",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Create entity",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:attributes:002\",\"type\":\"Thing\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "98c2709b2a2d65eb"
+            ]
+        ]
+    },
+    {
+        "id": "952446f86d3cfebc",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "E2",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 760,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "29a87a4ae6f9f5e1",
+        "type": "NGSI Attributes",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityId": "E2",
+        "entityType": "",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 420,
+        "y": 820,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "89a9fe45eb656c25",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Update attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"id\":\"urn:ngsi-ld:attributes:002\",\"attributes\":{\"temperature\":{\"type\":\"Number\",\"value\":20,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 760,
+        "wires": [
+            [
+                "952446f86d3cfebc"
+            ]
+        ]
+    },
+    {
+        "id": "10d924f172fe17b4",
+        "type": "inject",
+        "z": "bc90b22d418d5571",
+        "name": "Upsert attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"upsert\",\"id\":\"urn:ngsi-ld:attributes:002\",\"attributes\":{\"temperature\":{\"type\":\"Number\",\"value\":25,\"metadata\":{}},\"humidity\":{\"type\":\"Number\",\"value\":42.9,\"metadata\":{}}}}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 820,
+        "wires": [
+            [
+                "29a87a4ae6f9f5e1"
+            ]
+        ]
+    },
+    {
+        "id": "aa0b9682fcf4ed98",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "91656fd2f23afb11",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "e0815fbe1d68ccaf"
+            ]
+        ]
+    },
+    {
+        "id": "98c2709b2a2d65eb",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 580,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "ead3698d2cd80867",
+        "type": "NGSI Entity",
+        "z": "bc90b22d418d5571",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 410,
+        "y": 940,
+        "wires": [
+            [
+                "9ea895239cdcb380"
+            ]
+        ]
+    },
+    {
+        "id": "07713d60e5eb40a7",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "append",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "1f8f8ff1cd8c8a0d",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "appendStrict",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "7b9818ab701a28ae",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "56535361dfd7ec7b",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "replace",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 320,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "6516911d7498fa9f",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 380,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "026ae359497d1890",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Append",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:001\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:002\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "07713d60e5eb40a7"
+            ]
+        ]
+    },
+    {
+        "id": "6e37d88c5215a831",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "AppendStrict",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:003\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:004\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "1f8f8ff1cd8c8a0d"
+            ]
+        ]
+    },
+    {
+        "id": "3b4705f66e4878bf",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Update",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:001\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":30.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:002\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":30.6,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "7b9818ab701a28ae"
+            ]
+        ]
+    },
+    {
+        "id": "9b41db4379bd20bc",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Replace",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:001\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:002\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "56535361dfd7ec7b"
+            ]
+        ]
+    },
+    {
+        "id": "cddf98db32ea188f",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:001\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:002\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "6516911d7498fa9f"
+            ]
+        ]
+    },
+    {
+        "id": "97488c572a95a126",
+        "type": "NGSI source",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "ddcd61caad7fcc4d",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "97488c572a95a126"
+            ]
+        ]
+    },
+    {
+        "id": "e112236fa1e0dadf",
+        "type": "debug",
+        "z": "09c250656932026f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "35eea7f9fb9ef789",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Delete entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:batch-update:001\"},{\"id\":\"urn:ngsi-ld:batch-update:002\"},{\"id\":\"urn:ngsi-ld:batch-update:003\"},{\"id\":\"urn:ngsi-ld:batch-update:004\"}]",
+        "payloadType": "json",
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "05a1848cf2bf6daf"
+            ]
+        ]
+    },
+    {
+        "id": "05a1848cf2bf6daf",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "e112236fa1e0dadf"
+            ]
+        ]
+    },
+    {
+        "id": "6c535c0fc31afd6b",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 580,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "bb9633b7fb59817a",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 640,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "4021e25877b6fe22",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "69da556be53a3ef4",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 760,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "fce3dd2f0d13fded",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 820,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "490690ffccaabd09",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Append",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"append\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:011\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:012\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "6c535c0fc31afd6b"
+            ]
+        ]
+    },
+    {
+        "id": "b9fdf8a9fe750e4f",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "AppendStrict",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"appendStrict\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:013\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:014\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 640,
+        "wires": [
+            [
+                "bb9633b7fb59817a"
+            ]
+        ]
+    },
+    {
+        "id": "29d06b1b50951fe5",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Update",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"update\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:011\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":30.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:012\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":30.6,\"metadata\":{}}}]}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 700,
+        "wires": [
+            [
+                "4021e25877b6fe22"
+            ]
+        ]
+    },
+    {
+        "id": "0a7429af7eaed2a7",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Replace",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"replace\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:011\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:012\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}}]}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "69da556be53a3ef4"
+            ]
+        ]
+    },
+    {
+        "id": "bc1dde6a8208edd4",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"delete\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:011\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:batch-update:012\",\"type\":\"Sensor\",\"humidity\":{\"type\":\"Number\",\"value\":31,\"metadata\":{}}}]}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 820,
+        "wires": [
+            [
+                "fce3dd2f0d13fded"
+            ]
+        ]
+    },
+    {
+        "id": "660e8db0a0114a37",
+        "type": "NGSI source",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "f2c205c8c7817b31",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 520,
+        "wires": [
+            [
+                "660e8db0a0114a37"
+            ]
+        ]
+    },
+    {
+        "id": "d48f4fef9c02f95f",
+        "type": "debug",
+        "z": "09c250656932026f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "f95fb15569621f69",
+        "type": "inject",
+        "z": "09c250656932026f",
+        "name": "Delete entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"delete\",\"entities\":[{\"id\":\"urn:ngsi-ld:batch-update:011\"},{\"id\":\"urn:ngsi-ld:batch-update:012\"},{\"id\":\"urn:ngsi-ld:batch-update:013\"},{\"id\":\"urn:ngsi-ld:batch-update:014\"}]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 880,
+        "wires": [
+            [
+                "6fbf9ac75b43bcf8"
+            ]
+        ]
+    },
+    {
+        "id": "6fbf9ac75b43bcf8",
+        "type": "NGSI Batch update",
+        "z": "09c250656932026f",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 430,
+        "y": 880,
+        "wires": [
+            [
+                "d48f4fef9c02f95f"
+            ]
+        ]
+    },
+    {
+        "id": "5403699fb0c2aec2",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Create subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"type\": \"T\",   \"idPattern\": \".*\",   \"watchedAttrs\": \"temperature,humidity\",   \"q\": \"temperature>10\",   \"url\": \"http://context-consumer\",   \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\",   \"expires\": \"2030-04-05T14:00:00.00Z\",   \"throttling\": 5 }",
+        "payloadType": "json",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "949906f07a4a8dfe"
+            ]
+        ]
+    },
+    {
+        "id": "9f0e94312e79a876",
+        "type": "debug",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "949906f07a4a8dfe",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "9f0e94312e79a876"
+            ]
+        ]
+    },
+    {
+        "id": "3a7b41b2cc940132",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "update",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "9f0e94312e79a876"
+            ]
+        ]
+    },
+    {
+        "id": "84d61d13ec364321",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Update subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\": \"63ea11e4a0cec98fc6017aae\", \"expires\": \"2030-04-05T14:00:00.00Z\" }",
+        "payloadType": "json",
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "3a7b41b2cc940132"
+            ]
+        ]
+    },
+    {
+        "id": "ba3298bc4f1d2401",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Delete subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "63ea0733a0cec98fc6017aac",
+        "payloadType": "str",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "5a5e23fb4b447dbf"
+            ]
+        ]
+    },
+    {
+        "id": "5a5e23fb4b447dbf",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "9f0e94312e79a876"
+            ]
+        ]
+    },
+    {
+        "id": "abf633a9c8270ef1",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Create subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"create\", \"subscription\": {\"type\": \"T\", \"idPattern\": \".*\", \"watchedAttrs\": \"temperature,humidity\", \"q\": \"temperature>10\", \"url\": \"http://context-consumer\", \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\", \"expires\": \"2030-04-05T14:00:00.00Z\", \"throttling\": 5 }}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "eeed7c2999474051"
+            ]
+        ]
+    },
+    {
+        "id": "424febda4ab05a55",
+        "type": "debug",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "eeed7c2999474051",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "424febda4ab05a55"
+            ]
+        ]
+    },
+    {
+        "id": "f79b6853772943f2",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "424febda4ab05a55"
+            ]
+        ]
+    },
+    {
+        "id": "c7f285d8e94eaac5",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Update subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"update\", \"id\": \"63ea11e4a0cec98fc6017aae\", \"subscription\": {\"expires\": \"2030-04-05T14:00:00.00Z\" }}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "f79b6853772943f2"
+            ]
+        ]
+    },
+    {
+        "id": "4f9fad06d8adadea",
+        "type": "inject",
+        "z": "32280c71f0756df8",
+        "name": "Delete subscription",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"delete\", \"id\": \"63ea11e4a0cec98fc6017aae\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 560,
+        "wires": [
+            [
+                "17d5b099b0c94564"
+            ]
+        ]
+    },
+    {
+        "id": "17d5b099b0c94564",
+        "type": "NGSI subscription",
+        "z": "32280c71f0756df8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "attrsFormat": "",
+        "x": 410,
+        "y": 560,
+        "wires": [
+            [
+                "424febda4ab05a55"
+            ]
+        ]
+    },
+    {
+        "id": "b51c8934ec19f95f",
+        "type": "inject",
+        "z": "3233eb4c086338c8",
+        "name": "Create registration",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{ \"description\": \"Relative Humidity Context Source\", \"dataProvided\": { \"entities\": [ { \"id\": \"room\", \"type\": \"Room\" } ], \"attrs\": [ \"relativeHumidity\" ] }, \"provider\": { \"http\":{ \"url\": \"http://orion:1026\" } } }",
+        "payloadType": "json",
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "dc9a9041ea2ee1e8"
+            ]
+        ]
+    },
+    {
+        "id": "1bae2a13b97301be",
+        "type": "debug",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dc9a9041ea2ee1e8",
+        "type": "NGSI registration",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "create",
+        "registrationId": "",
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "1bae2a13b97301be"
+            ]
+        ]
+    },
+    {
+        "id": "0ae09b05b2b22c2f",
+        "type": "NGSI registration",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "delete",
+        "registrationId": "",
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "1bae2a13b97301be"
+            ]
+        ]
+    },
+    {
+        "id": "df0d1cb72a91d9e5",
+        "type": "inject",
+        "z": "3233eb4c086338c8",
+        "name": "Delete registration",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "63ed51173bdeaadaf909c57b",
+        "payloadType": "str",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "0ae09b05b2b22c2f"
+            ]
+        ]
+    },
+    {
+        "id": "98be69dea23f7c8d",
+        "type": "inject",
+        "z": "3233eb4c086338c8",
+        "name": "Create registration",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{ \"actionType\": \"create\", \"registration\": { \"description\": \"Relative Humidity Context Source\", \"dataProvided\": { \"entities\": [ { \"id\": \"room\", \"type\": \"Room\" } ], \"attrs\": [ \"relativeHumidity\" ] }, \"provider\": { \"http\":{ \"url\": \"http://orion:1026\" } } } }",
+        "payloadType": "json",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "e4bce9b0c76e6ad7"
+            ]
+        ]
+    },
+    {
+        "id": "b6241c2b09646e46",
+        "type": "debug",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e4bce9b0c76e6ad7",
+        "type": "NGSI registration",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "registrationId": "",
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "b6241c2b09646e46"
+            ]
+        ]
+    },
+    {
+        "id": "c6e8df1175b86c51",
+        "type": "NGSI registration",
+        "z": "3233eb4c086338c8",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "registrationId": "",
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "b6241c2b09646e46"
+            ]
+        ]
+    },
+    {
+        "id": "5752134d8b858476",
+        "type": "inject",
+        "z": "3233eb4c086338c8",
+        "name": "Delete registration",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{ \"actionType\": \"delete\", \"id\": \"63ed53123bdeaadaf909c57d\" }",
+        "payloadType": "json",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "c6e8df1175b86c51"
+            ]
+        ]
+    },
+    {
+        "id": "c951c352efa35d11",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "9e952883d8c05a33"
+            ]
+        ]
+    },
+    {
+        "id": "51df3d6da7f72ceb",
+        "type": "debug",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "9e952883d8c05a33",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "types",
+        "entityType": "",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "51df3d6da7f72ceb"
+            ]
+        ]
+    },
+    {
+        "id": "cb863810c0b71bfc",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "type",
+        "entityType": "",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "51df3d6da7f72ceb"
+            ]
+        ]
+    },
+    {
+        "id": "44ed57ca7e0ec583",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Sensor",
+        "payloadType": "str",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "cb863810c0b71bfc"
+            ]
+        ]
+    },
+    {
+        "id": "e05cb4b2bfe85ed1",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "03e4928a850368fd"
+            ]
+        ]
+    },
+    {
+        "id": "03e4928a850368fd",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "type",
+        "entityType": "Sensor",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "51df3d6da7f72ceb"
+            ]
+        ]
+    },
+    {
+        "id": "768d310a010d6e5b",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"types\"}",
+        "payloadType": "json",
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "661ad63ce0f381af"
+            ]
+        ]
+    },
+    {
+        "id": "d50290fea5618d5f",
+        "type": "debug",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "661ad63ce0f381af",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 460,
+        "wires": [
+            [
+                "d50290fea5618d5f"
+            ]
+        ]
+    },
+    {
+        "id": "9557eb44320641b6",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 540,
+        "wires": [
+            [
+                "d50290fea5618d5f"
+            ]
+        ]
+    },
+    {
+        "id": "e5ffaf1a442fd6fb",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"type\", \"type\": \"Sensor\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "9557eb44320641b6"
+            ]
+        ]
+    },
+    {
+        "id": "cd19a16ca6febf7a",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\": \"type\"}",
+        "payloadType": "json",
+        "x": 220,
+        "y": 620,
+        "wires": [
+            [
+                "a77b176bfd33767d"
+            ]
+        ]
+    },
+    {
+        "id": "a77b176bfd33767d",
+        "type": "NGSI Types",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "entityType": "Sensor",
+        "values": "false",
+        "noAttrDetail": "false",
+        "x": 450,
+        "y": 620,
+        "wires": [
+            [
+                "d50290fea5618d5f"
+            ]
+        ]
+    },
+    {
+        "id": "833b83b6a499e2bf",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "Append",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"id\":\"urn:ngsi-ld:types:001\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:types:002\",\"type\":\"Sensor\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:types:003\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}},{\"id\":\"urn:ngsi-ld:types:004\",\"type\":\"Thing\",\"temperature\":{\"type\":\"Number\",\"value\":20.6,\"metadata\":{}}}]",
+        "payloadType": "json",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "bb0b5a4ad91c4e08"
+            ]
+        ]
+    },
+    {
+        "id": "bb0b5a4ad91c4e08",
+        "type": "NGSI Batch update",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "append",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "09b90f8df4609478"
+            ]
+        ]
+    },
+    {
+        "id": "09b90f8df4609478",
+        "type": "debug",
+        "z": "6120061f2326fac4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3bae10177142dbbd",
+        "type": "NGSI source",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "09b90f8df4609478"
+            ]
+        ]
+    },
+    {
+        "id": "106a7dbd327f2fde",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "3bae10177142dbbd"
+            ]
+        ]
+    },
+    {
+        "id": "eff18654b802c858",
+        "type": "inject",
+        "z": "6120061f2326fac4",
+        "name": "Delete entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"actionType\":\"delete\",\"entities\":[{\"id\":\"urn:ngsi-ld:types:001\"},{\"id\":\"urn:ngsi-ld:types:002\"},{\"id\":\"urn:ngsi-ld:types:003\"},{\"id\":\"urn:ngsi-ld:types:004\"}]}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 720,
+        "wires": [
+            [
+                "0d5092e74706adc5"
+            ]
+        ]
+    },
+    {
+        "id": "0d5092e74706adc5",
+        "type": "NGSI Batch update",
+        "z": "6120061f2326fac4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "payload",
+        "keyValues": "false",
+        "overrideMetadata": "false",
+        "forcedUpdate": "false",
+        "flowControl": "false",
+        "x": 470,
+        "y": 720,
+        "wires": [
+            [
+                "0c72ff134f1905a3"
+            ]
+        ]
+    },
+    {
+        "id": "0c72ff134f1905a3",
+        "type": "debug",
+        "z": "6120061f2326fac4",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "bd55114956f0b16a",
+        "type": "inject",
+        "z": "ae1583d3652cf590",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 160,
         "wires": [
             [
                 "d764a19a70cdd47f"
@@ -294,7 +4583,7 @@
     {
         "id": "d764a19a70cdd47f",
         "type": "Historical Context",
-        "z": "f6f2187d.f17ca8",
+        "z": "ae1583d3652cf590",
         "name": "",
         "openapis": "75794bca315ac044",
         "servicepath": "/",
@@ -312,8 +4601,8 @@
         "tounit": "ISO8601",
         "outputtype": "value",
         "count": "false",
-        "x": 350,
-        "y": 540,
+        "x": 370,
+        "y": 160,
         "wires": [
             [
                 "6eb35ac027c69703"
@@ -323,24 +4612,845 @@
     {
         "id": "6eb35ac027c69703",
         "type": "NGSI to dashboard",
-        "z": "f6f2187d.f17ca8",
+        "z": "ae1583d3652cf590",
         "name": "",
         "inputType": "entity",
         "attrs": "",
         "names": "",
-        "x": 610,
-        "y": 540,
+        "x": 630,
+        "y": 160,
         "wires": [
             []
         ]
     },
     {
+        "id": "f1e13ac4b5f0e832",
+        "type": "inject",
+        "z": "ae1583d3652cf590",
+        "name": "Comet version",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "1e14b2f169720fa0"
+            ]
+        ]
+    },
+    {
+        "id": "1e14b2f169720fa0",
+        "type": "FIWARE version",
+        "z": "ae1583d3652cf590",
+        "name": "",
+        "openapis": "75794bca315ac044",
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "7a3b6e566222c55e"
+            ]
+        ]
+    },
+    {
+        "id": "7a3b6e566222c55e",
+        "type": "debug",
+        "z": "ae1583d3652cf590",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b5be1504f83985b9",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Entities",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "b7e83f2607475eea"
+            ]
+        ]
+    },
+    {
+        "id": "37cb46d23bdaefa7",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "QuantumLeap version",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 220,
+        "y": 60,
+        "wires": [
+            [
+                "9fce38e05f989e38"
+            ]
+        ]
+    },
+    {
+        "id": "9fce38e05f989e38",
+        "type": "FIWARE version",
+        "z": "6154ca584a976350",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "x": 460,
+        "y": 60,
+        "wires": [
+            [
+                "05f2f85ca2c5be26"
+            ]
+        ]
+    },
+    {
+        "id": "05f2f85ca2c5be26",
+        "type": "debug",
+        "z": "6154ca584a976350",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "e5405f3106174dd9",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Entity attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:WeatherObserved:sensor001\", \"attrName\": \"temperature\", \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "d2fd6e095e425ad7"
+            ]
+        ]
+    },
+    {
+        "id": "d2fd6e095e425ad7",
+        "type": "NGSI timeseries",
+        "z": "6154ca584a976350",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "servicepath": "/",
+        "actionType": "entity",
+        "entityId": "",
+        "entityType": "",
+        "attribute": "",
+        "aggrMethod": "avg",
+        "aggrPeriod": "minute",
+        "lastN": "",
+        "fromDate": "",
+        "fromUnit": "ISO8601",
+        "toDate": "",
+        "toUnit": "ISO8601",
+        "georel": "",
+        "geometry": "",
+        "coords": "",
+        "value": "false",
+        "limit": "",
+        "offset": "",
+        "x": 460,
+        "y": 320,
+        "wires": [
+            [
+                "05f2f85ca2c5be26"
+            ]
+        ]
+    },
+    {
+        "id": "63f4ca0cb1ce520b",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Entity attribute value",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:WeatherObserved:sensor001\", \"attrName\": \"temperature\", \"value\": true, \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 210,
+        "y": 400,
+        "wires": [
+            [
+                "d2fd6e095e425ad7"
+            ]
+        ]
+    },
+    {
+        "id": "d575d78b06df6d11",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Types",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\": \"Sensor\", \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "134dc6696b503783"
+            ]
+        ]
+    },
+    {
+        "id": "158089da6b39f12e",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Types attrbute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\": \"Sensor\", \"attrName\": \"temperature\",\"lastN\": 3}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 620,
+        "wires": [
+            [
+                "134dc6696b503783"
+            ]
+        ]
+    },
+    {
+        "id": "d04886f1422dd694",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Types attrbute value",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\": \"Sensor\", \"attrName\": \"temperature\",\"lastN\": 3, \"value\": true}",
+        "payloadType": "json",
+        "x": 210,
+        "y": 680,
+        "wires": [
+            [
+                "134dc6696b503783"
+            ]
+        ]
+    },
+    {
+        "id": "e9661c692b51616b",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Entity attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:WeatherObserved:sensor001\", \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 220,
+        "wires": [
+            [
+                "d2fd6e095e425ad7"
+            ]
+        ]
+    },
+    {
+        "id": "38e0f7ca85951ad5",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Entity attributes value",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:WeatherObserved:sensor001\", \"value\": true, \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "d2fd6e095e425ad7"
+            ]
+        ]
+    },
+    {
+        "id": "139dd25d50c0968b",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Types",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\": \"Sensor\", \"value\": true, \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 560,
+        "wires": [
+            [
+                "134dc6696b503783"
+            ]
+        ]
+    },
+    {
+        "id": "f4cf74265b393d84",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Attributes",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"lastN\": 3}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 780,
+        "wires": [
+            [
+                "9865fec4d8907bf7"
+            ]
+        ]
+    },
+    {
+        "id": "187c9fd4d2b87a70",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Attributes value",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"value\": true, \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "9865fec4d8907bf7"
+            ]
+        ]
+    },
+    {
+        "id": "9865fec4d8907bf7",
+        "type": "NGSI timeseries",
+        "z": "6154ca584a976350",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "servicepath": "/",
+        "actionType": "attribute",
+        "entityId": "",
+        "entityType": "",
+        "attribute": "",
+        "aggrMethod": "sum",
+        "aggrPeriod": "month",
+        "lastN": "",
+        "fromDate": "",
+        "fromUnit": "ISO8601",
+        "toDate": "",
+        "toUnit": "ISO8601",
+        "georel": "",
+        "geometry": "",
+        "coords": "",
+        "value": "false",
+        "limit": "",
+        "offset": "",
+        "x": 440,
+        "y": 780,
+        "wires": [
+            [
+                "05f2f85ca2c5be26"
+            ]
+        ]
+    },
+    {
+        "id": "8f3124b9ad1e201d",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Attribute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"attrName\": \"temperature\",\"lastN\": 3}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 900,
+        "wires": [
+            [
+                "9865fec4d8907bf7"
+            ]
+        ]
+    },
+    {
+        "id": "0baeeb32ded10f99",
+        "type": "inject",
+        "z": "6154ca584a976350",
+        "name": "Attribute value",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"attrName\": \"temperature\", \"value\": true, \"lastN\": 3}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 960,
+        "wires": [
+            [
+                "9865fec4d8907bf7"
+            ]
+        ]
+    },
+    {
+        "id": "b7e83f2607475eea",
+        "type": "NGSI timeseries",
+        "z": "6154ca584a976350",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "servicepath": "/",
+        "actionType": "entities",
+        "entityId": "",
+        "entityType": "",
+        "attribute": "",
+        "aggrMethod": "sum",
+        "aggrPeriod": "month",
+        "lastN": "",
+        "fromDate": "",
+        "fromUnit": "ISO8601",
+        "toDate": "",
+        "toUnit": "ISO8601",
+        "georel": "",
+        "geometry": "",
+        "coords": "",
+        "value": "false",
+        "limit": "",
+        "offset": "",
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "05f2f85ca2c5be26"
+            ]
+        ]
+    },
+    {
+        "id": "134dc6696b503783",
+        "type": "NGSI timeseries",
+        "z": "6154ca584a976350",
+        "name": "",
+        "openapis": "63a94ad39cef2077",
+        "servicepath": "/",
+        "actionType": "type",
+        "entityId": "",
+        "entityType": "",
+        "attribute": "",
+        "aggrMethod": "sum",
+        "aggrPeriod": "month",
+        "lastN": "",
+        "fromDate": "",
+        "fromUnit": "ISO8601",
+        "toDate": "",
+        "toUnit": "ISO8601",
+        "georel": "",
+        "geometry": "",
+        "coords": "",
+        "value": "false",
+        "limit": "",
+        "offset": "",
+        "x": 460,
+        "y": 500,
+        "wires": [
+            [
+                "05f2f85ca2c5be26"
+            ]
+        ]
+    },
+    {
+        "id": "a861b0ba42dae9d7",
+        "type": "inject",
+        "z": "b36210a53417e946",
+        "name": "Add",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "493eed92dba914cf"
+            ]
+        ]
+    },
+    {
+        "id": "493eed92dba914cf",
+        "type": "Service and ServicePath",
+        "z": "b36210a53417e946",
+        "name": "",
+        "serviceMode": "add",
+        "serviceValue": "OpenIoT",
+        "servicePathMode": "add",
+        "servicePathValue": "/iot",
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "0260a7ce4acf77c1"
+            ]
+        ]
+    },
+    {
+        "id": "0260a7ce4acf77c1",
+        "type": "debug",
+        "z": "b36210a53417e946",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "context",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "540abf2e90aa467c",
+        "type": "inject",
+        "z": "b36210a53417e946",
+        "name": "Passthrough",
+        "props": [
+            {
+                "p": "context",
+                "v": "{\"fiwareService\":\"openiot\",\"fiwareServicePath\":\"/iot\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "31a136e14840b727"
+            ]
+        ]
+    },
+    {
+        "id": "31a136e14840b727",
+        "type": "Service and ServicePath",
+        "z": "b36210a53417e946",
+        "name": "",
+        "serviceMode": "pass",
+        "serviceValue": "",
+        "servicePathMode": "pass",
+        "servicePathValue": "",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "0260a7ce4acf77c1"
+            ]
+        ]
+    },
+    {
+        "id": "c2fff4f1bb42c982",
+        "type": "inject",
+        "z": "b36210a53417e946",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "context",
+                "v": "{\"fiwareService\":\"openiot\",\"fiwareServicePath\":\"/iot\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "9b9657cb5ba0a001"
+            ]
+        ]
+    },
+    {
+        "id": "9b9657cb5ba0a001",
+        "type": "Service and ServicePath",
+        "z": "b36210a53417e946",
+        "name": "",
+        "serviceMode": "delete",
+        "serviceValue": "",
+        "servicePathMode": "delete",
+        "servicePathValue": "",
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "0260a7ce4acf77c1"
+            ]
+        ]
+    },
+    {
+        "id": "6fd7bb9eadec8a07",
+        "type": "inject",
+        "z": "b09ca0658a59d2b4",
+        "name": "",
+        "props": [
+            {
+                "p": "data",
+                "v": "{\"coord\":{\"lon\":139.6917,\"lat\":35.6895},\"weather\":[{\"id\":803,\"main\":\"Clouds\",\"description\":\"broken clouds\",\"icon\":\"04n\"}],\"base\":\"stations\",\"main\":{\"temp\":278.23,\"feels_like\":275.04,\"temp_min\":275.4,\"temp_max\":280.12,\"pressure\":1022,\"humidity\":55},\"visibility\":10000,\"wind\":{\"speed\":4.12,\"deg\":320},\"clouds\":{\"all\":75},\"dt\":1677100198,\"sys\":{\"type\":2,\"id\":2001249,\"country\":\"JP\",\"sunrise\":1677100803,\"sunset\":1677140982},\"timezone\":32400,\"id\":1850144,\"name\":\"Tokyo\",\"cod\":200}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "2c1d2f055fb055b2"
+            ]
+        ]
+    },
+    {
+        "id": "1ff2d025596c9baa",
+        "type": "debug",
+        "z": "b09ca0658a59d2b4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2c1d2f055fb055b2",
+        "type": "OpenWeatherMap to NGSI",
+        "z": "b09ca0658a59d2b4",
+        "name": "",
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "1ff2d025596c9baa",
+                "8e67a20cc3078d00"
+            ]
+        ]
+    },
+    {
+        "id": "8e67a20cc3078d00",
+        "type": "NGSI Entity",
+        "z": "b09ca0658a59d2b4",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "actionType": "upsert",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "keyValues": "false",
+        "dateModified": "false",
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "1ff2d025596c9baa"
+            ]
+        ]
+    },
+    {
+        "id": "f246ed68c1bb1e99",
+        "type": "NGSI Batch update",
+        "z": "13b4031b3cf4cd3e",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "x": 670,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "017ae2294c0dd707",
+        "type": "inject",
+        "z": "13b4031b3cf4cd3e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "http://gtfs.realtime/GTFS/GTFS_RT-VP.bin",
+        "payloadType": "str",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "62503c9ccec4c767"
+            ]
+        ]
+    },
+    {
         "id": "62503c9ccec4c767",
         "type": "GTFS Realtime to NGSI",
-        "z": "f6f2187d.f17ca8",
+        "z": "13b4031b3cf4cd3e",
         "name": "",
         "x": 370,
-        "y": 380,
+        "y": 80,
         "wires": [
             [
                 "f246ed68c1bb1e99"
@@ -348,23 +5458,184 @@
         ]
     },
     {
-        "id": "4bc2c9fd034d58a0",
-        "type": "Open APIs",
-        "name": "Orion",
-        "geType": "orion",
-        "apiEndpoint": "http://orion:1026",
-        "service": "openiot",
-        "idmEndpoint": "",
-        "idmType": "none"
+        "id": "6cab9bb7c3fe109f",
+        "type": "NGSI Entity",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "entityId": "",
+        "entityType": "",
+        "attrs": "",
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
     },
     {
-        "id": "75794bca315ac044",
-        "type": "Open APIs",
-        "name": "Comet",
-        "geType": "comet",
-        "apiEndpoint": "http://comet:8666",
-        "service": "openiot",
-        "idmEndpoint": "",
-        "idmType": "none"
+        "id": "002b29f2bf3e56cb",
+        "type": "NGSI source",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "mode": "normalized",
+        "entitytype": "",
+        "idpattern": "",
+        "attrs": "",
+        "query": "",
+        "buffering": "off",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "22eed2f444a65b52",
+        "type": "NGSI subscription",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "openapis": "8a5400cf6326a10c",
+        "servicepath": "/",
+        "idPattern": "",
+        "watchedAttrs": "",
+        "query": "",
+        "url": "",
+        "attrs": "",
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "4610359bcd855d95"
+            ]
+        ]
+    },
+    {
+        "id": "9133e467e4434795",
+        "type": "NGSI to worldmap",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "attrname": "name",
+        "attrworldmap": "__worldmap__",
+        "x": 390,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4610359bcd855d95",
+        "type": "debug",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fa3edb3ff5cb9bd6",
+        "type": "inject",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "E1",
+        "payloadType": "str",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "6cab9bb7c3fe109f"
+            ]
+        ]
+    },
+    {
+        "id": "0a88b49f515fb5d1",
+        "type": "inject",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"idPattern\": \".*\",   \"type\": \"T\",   \"attrs\": [     \"humidity\"   ],   \"q\": \"temperature>29\",   \"keyValues\": true }",
+        "payloadType": "json",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "002b29f2bf3e56cb"
+            ]
+        ]
+    },
+    {
+        "id": "cc8a7a41c175e575",
+        "type": "http in",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "url": "/notify",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "9133e467e4434795"
+            ]
+        ]
+    },
+    {
+        "id": "00e3e047379ed84e",
+        "type": "inject",
+        "z": "9fe279acf4242705",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"type\": \"T\",   \"idPattern\": \".*\",   \"watchedAttrs\": \"temperature,humidity\",   \"q\": \"temperature>10\",   \"url\": \"http://node-red/notify\",   \"attrs\": \"humidity\",   \"description\": \"subscription for node-red\",   \"expires\": \"2030-04-05T14:00:00.00Z\",   \"throttling\": 5 }",
+        "payloadType": "json",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "22eed2f444a65b52"
+            ]
+        ]
     }
 ]
