@@ -40,15 +40,16 @@ const httpRequest = async function (msg, param) {
   };
 
   if (param.config.actionType === 'update') {
-    options.data = param.config.attribute;
+    options.data = lib.encodeNGSI(param.config.attribute, param.config.forbidden);
   }
 
   try {
     const res = await lib.http(options);
     msg.payload = res.data;
     msg.statusCode = Number(res.status);
-    if ((res.status === 200 && param.config.actionType === 'read') ||
-      (res.status === 204 && (param.config.actionType === 'update' || param.config.actionType === 'delete'))) {
+    if (res.status === 200 && param.config.actionType === 'read') {
+      msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
+    } else if (res.status === 204 && (param.config.actionType === 'update' || param.config.actionType === 'delete')) {
       return;
     } else {
       this.error(`Error while managing attribute: ${res.status} ${res.statusText}`);
@@ -81,6 +82,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     overrideMetadata: config.overrideMetadata === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (!msg.payload) {
@@ -118,7 +120,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     return null;
   }
 
-  const options = ['skipForwarding', 'overrideMetadata', 'forcedUpdate', 'flowControl'];
+  const options = ['skipForwarding', 'overrideMetadata', 'forcedUpdate', 'flowControl', 'forbidden'];
 
   for (let i = 0; i < options.length; i++) {
     if (typeof defaultConfig[options[i]] !== 'boolean') {

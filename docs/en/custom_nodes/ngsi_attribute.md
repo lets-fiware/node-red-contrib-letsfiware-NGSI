@@ -33,6 +33,7 @@ It allows to read an attribute in NGSIv2 entity.
 -   `Attribute name`: Attribute name of an attribute to be read
 -   `Metadata`: List of metadata names
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -98,6 +99,7 @@ It allows to update an attribute in NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -137,6 +139,7 @@ It allows to delete an attribute in NGSIv2 entity.
 -   `Entity id`: Id of an entity containing an attribute to be deleted
 -   `Entity type`: Type of an entity containing an attribute to be delete
 -   `Attribute name`: Attribute name of an attribute to be deleted
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -192,6 +195,7 @@ It allows to read, update or delete an attribute in NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input 1
 

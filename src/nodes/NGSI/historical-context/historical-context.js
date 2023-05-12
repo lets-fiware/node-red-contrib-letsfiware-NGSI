@@ -83,7 +83,7 @@ const getHistoricalContext = async function (msg, param) {
 
   try {
     const res = await lib.http(options);
-    msg.payload = res.data;
+    msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
     msg.statusCode = Number(res.status);
     if (res.status === 200) {
       const count = res.headers['fiware-total-count'] ? res.headers['fiware-total-count'] : null;
@@ -191,6 +191,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     toUnit: config.tounit.trim(),
     outputType: config.outputtype,
     count: config.count === 'true' ? 'true' : 'false',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   const param = {

@@ -36,7 +36,7 @@ const opUpdate = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.data,
+    data: lib.encodeNGSI(param.config.data, param.config.forbidden),
   };
 
   try {
@@ -73,6 +73,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     overrideMetadata: config.overrideMetadata === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (!msg.payload || !(typeof msg.payload === 'object')) {

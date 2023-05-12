@@ -51,6 +51,8 @@ describe('batch-update.js', () => {
         http: async () => Promise.resolve({ status: 204, statusText: 'No Content' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const param = {
         host: 'http://orion:1026',
@@ -69,6 +71,8 @@ describe('batch-update.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const param = {
         host: 'http://orion:1026',
@@ -95,6 +99,8 @@ describe('batch-update.js', () => {
           }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const param = {
         host: 'http://orion:1026',
@@ -116,6 +122,8 @@ describe('batch-update.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildSearchParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const param = {
         host: 'http://orion:1026',
@@ -168,6 +176,7 @@ describe('batch-update.js', () => {
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
+          forbidden: false,
         },
       };
 
@@ -184,6 +193,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -206,6 +216,7 @@ describe('batch-update.js', () => {
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
+          forbidden: false,
         },
       };
 
@@ -222,6 +233,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -249,6 +261,7 @@ describe('batch-update.js', () => {
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
+          forbidden: false,
         },
       };
 
@@ -265,6 +278,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -284,6 +298,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -303,6 +318,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -322,6 +338,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -341,6 +358,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -360,6 +378,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -384,6 +403,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -421,6 +441,7 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           borkerNedpoint: 'http://orion:1026',

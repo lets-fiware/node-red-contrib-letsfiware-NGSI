@@ -59,6 +59,8 @@ describe('timeseries.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = timeseriesNode.__get__('httpRequest');
 
@@ -89,6 +91,8 @@ describe('timeseries.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = timeseriesNode.__get__('httpRequest');
 
@@ -108,6 +112,8 @@ describe('timeseries.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = timeseriesNode.__get__('httpRequest');
 
@@ -136,6 +142,8 @@ describe('timeseries.js', () => {
           }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = timeseriesNode.__get__('httpRequest');
 
@@ -159,6 +167,8 @@ describe('timeseries.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = timeseriesNode.__get__('httpRequest');
 
@@ -201,6 +211,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -229,6 +240,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -257,6 +269,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -285,6 +298,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -313,6 +327,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -323,7 +338,7 @@ describe('timeseries.js', () => {
       assert.equal(actual, false);
       assert.deepEqual(msg, { payload: { error: 'lastN not Number' } });
     });
-    it('not Boolean', () => {
+    it('value not Boolean', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
       const config = {
         actionType: 'entities',
@@ -341,6 +356,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: {},
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -350,6 +366,35 @@ describe('timeseries.js', () => {
 
       assert.equal(actual, false);
       assert.deepEqual(msg, { payload: { error: 'value not Boolean' } });
+    });
+    it('forbidden not Boolean', () => {
+      const validateConfig = timeseriesNode.__get__('validateConfig');
+      const config = {
+        actionType: 'entities',
+        id: '',
+        type: '',
+        attrName: '',
+        aggrMethod: '',
+        aggrPeriod: '',
+        lastN: '',
+        fromDate: '',
+        fromUnit: '',
+        toDate: '',
+        toUnit: '',
+        georel: '',
+        geometry: '',
+        coords: '',
+        value: false,
+        forbidden: {},
+        limit: '',
+        offset: '',
+      };
+
+      const msg = {};
+      const actual = validateConfig(msg, config);
+
+      assert.equal(actual, false);
+      assert.deepEqual(msg, { payload: { error: 'forbidden not Boolean' } });
     });
     it('actionType error', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
@@ -369,6 +414,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -397,6 +443,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -425,6 +472,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -453,6 +501,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -463,7 +512,7 @@ describe('timeseries.js', () => {
       assert.equal(actual, false);
       assert.deepEqual(msg, { payload: { error: 'geometry required if georel is specified' } });
     });
-    it('', () => {
+    it('coords required if georel is specified', () => {
       const validateConfig = timeseriesNode.__get__('validateConfig');
       const config = {
         actionType: 'entity',
@@ -481,6 +530,7 @@ describe('timeseries.js', () => {
         geometry: 'geo:distance',
         coords: '',
         value: false,
+        forbidden: false,
         limit: '',
         offset: '',
       };
@@ -544,6 +594,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -570,6 +621,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -600,6 +652,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -628,6 +681,7 @@ describe('timeseries.js', () => {
         value: 'false',
         limit: '',
         offset: '',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -656,6 +710,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -684,6 +739,7 @@ describe('timeseries.js', () => {
         value: 'false',
         limit: '',
         offset: '',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -712,6 +768,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -738,6 +795,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -768,6 +826,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -794,6 +853,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -824,6 +884,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -850,6 +911,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -880,6 +942,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -908,6 +971,7 @@ describe('timeseries.js', () => {
         value: 'false',
         limit: '',
         offset: '',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -936,6 +1000,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -964,6 +1029,7 @@ describe('timeseries.js', () => {
         value: 'false',
         limit: '',
         offset: '',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'quantumleap', apiEndpoint: 'quantumleap:8668', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -992,6 +1058,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -1018,6 +1085,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'true',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1048,6 +1116,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -1074,6 +1143,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'true',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1106,6 +1176,7 @@ describe('timeseries.js', () => {
           coords: '',
           limit: '',
           offset: '',
+          forbidden: false,
         },
       };
 
@@ -1132,6 +1203,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1163,6 +1235,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1194,6 +1267,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1225,6 +1299,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'true',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1256,6 +1331,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'true',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1287,6 +1363,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'true',
+        forbidden: 'false',
         limit: '',
         offset: '',
       };
@@ -1322,6 +1399,7 @@ describe('timeseries.js', () => {
         geometry: '',
         coords: '',
         value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
 
@@ -1383,6 +1461,7 @@ describe('timeseries.js', () => {
         coords: '',
         limit: '',
         offset: '',
+        forbidden: false,
       });
     });
     it('actionType not found', async () => {
@@ -1404,7 +1483,8 @@ describe('timeseries.js', () => {
         georel: '',
         geometry: '',
         coords: '',
-        value: false,
+        value: 'false',
+        forbidden: 'false',
         limit: '',
         offset: '',
 

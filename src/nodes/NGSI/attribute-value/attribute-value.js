@@ -30,9 +30,9 @@
 
 const lib = require('../../../lib.js');
 
-const typeConversion = function (value) {
+const typeConversion = function (value, forbidden) {
   if (typeof value === 'object') {
-    return value;
+    return lib.decodeNGSI(value, forbidden);
   }
   if (typeof value === 'boolean') {
     return value;
@@ -42,6 +42,9 @@ const typeConversion = function (value) {
   }
   if (!isNaN(value)) {
     return Number(value);
+  }
+  if (typeof value === 'string') {
+    return forbidden ? lib.decodeforbiddenChar(value) : value;
   }
 
   return value;
@@ -57,7 +60,7 @@ const attrValue = async function (msg, param) {
   };
 
   if (typeof param.config.value !== 'undefined') {
-    options.data = param.config.value;
+    options.data = lib.encodeNGSI(param.config.value, param.config.forbidden);
   }
 
   try {
@@ -65,7 +68,7 @@ const attrValue = async function (msg, param) {
     msg.payload = res.data;
     msg.statusCode = Number(res.status);
     if (res.status === 200 && param.config.actionType === 'read') {
-      msg.payload = typeConversion(res.data);
+      msg.payload = typeConversion(res.data, param.config.forbidden);
     } else if (res.status === 204 && param.config.actionType === 'update') {
       return;
     } else {
@@ -97,6 +100,7 @@ function createParam(msg, config, openAPIsConfig) {
     skipForwarding: config.skipForwarding === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (defaultConfig.actionType === 'payload') {
@@ -128,7 +132,7 @@ function createParam(msg, config, openAPIsConfig) {
     return null;
   }
 
-  const options = ['skipForwarding', 'forcedUpdate', 'flowControl'];
+  const options = ['skipForwarding', 'forcedUpdate', 'flowControl', 'forbidden'];
 
   for (let i = 0; i < options.length; i++) {
     if (typeof defaultConfig[options[i]] !== 'boolean') {

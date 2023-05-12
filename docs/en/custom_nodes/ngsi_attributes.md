@@ -35,6 +35,7 @@ It allows to append attributes of NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -80,6 +81,7 @@ It allows to update attributes of NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -125,6 +127,7 @@ It allows to upsert attributes of NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -175,6 +178,7 @@ It allows to replace attributes of NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -230,6 +234,7 @@ It allows to append, update, upsert or replace attributes of NGSIv2 entity.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 

@@ -64,6 +64,7 @@ For example, if you want to get historical context from 3 days ago to 2 days ago
 -   `Unit for data to`: unit for the final date
 -   `Output type`: `raw`, `value` or `dashboard`
 -   `Count`: the total count of elements
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -123,6 +124,7 @@ A `msg.statusCode` contains a status code.
 -   `Date to`: the final date and time until which the raw context information is desired. It is an optional parameter.
 -   `Unit for data to`: unit for the final date
 -   `Output type`: `raw`, `value` or `dashboard`
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input
 

@@ -31,6 +31,7 @@ It allows to read an attribute value of NGSIv2 entity.
 -   `Entity type`: Type of an entity containing an attribute to be read a value
 -   `Attribute name`: Attribute name of an attribute to be read a value
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -86,6 +87,7 @@ It allows to update an attribute value of NGSIv2 entity.
 -   `Attribute name`: Attribute name of an attribute to be updated a value
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -147,6 +149,7 @@ It allows to read or update an attribute value of NGSIv2 entity.
 -   `Skip forwarding`: If true, Context Broker skips forwarding to Context Providers
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input 1
 

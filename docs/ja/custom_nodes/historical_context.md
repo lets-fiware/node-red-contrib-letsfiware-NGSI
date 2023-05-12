@@ -68,6 +68,7 @@
 -   `Unit for data to`: 最終日時の単位
 -   `Output type`: `raw`, `value` または `dashboard`
 -   `Count`: 要素の総数
+-   `Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -129,6 +130,7 @@ statusCode *Number*
 -   `Date to`: 未加工のコンテキスト情報が必要な最終日時。これはオプションのパラメーターです
 -   `Unit for data to`: 最終日時の単位
 -   `Output type`: `raw`, `value` または `dashboard`
+-   `Decode forbidden chars`: `off` または `on`
 
 ### 入力
 

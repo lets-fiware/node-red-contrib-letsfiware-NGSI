@@ -47,51 +47,72 @@ describe('attribute-value.js', () => {
     it('null', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion('null');
+      const actual = typeConversion('null', false);
 
       assert.equal(actual, null);
     });
     it('number', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion('123');
+      const actual = typeConversion('123', false);
 
       assert.equal(actual, 123);
     });
     it('string', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion('abc');
+      const actual = typeConversion('abc', false);
 
       assert.equal(actual, 'abc');
+    });
+    it('string - forbidden false', async () => {
+      const typeConversion = attributeValueNode.__get__('typeConversion');
+
+      const actual = typeConversion('%3C%3E', false);
+
+      assert.equal(actual, '%3C%3E');
+    });
+    it('string - forbidden true', async () => {
+      const typeConversion = attributeValueNode.__get__('typeConversion');
+
+      const actual = typeConversion('%3C%3E', true);
+
+      assert.equal(actual, '<>');
     });
     it('boolean - true', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion(true);
+      const actual = typeConversion(true, false);
 
       assert.equal(actual, true);
     });
     it('boolean - false', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion(false);
+      const actual = typeConversion(false, false);
 
       assert.equal(actual, false);
     });
     it('JSON Object', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion({ 'abc': 123 });
+      const actual = typeConversion({ 'abc': 123 }, false);
 
       assert.deepEqual(actual, { 'abc': 123 });
     });
     it('Array', async () => {
       const typeConversion = attributeValueNode.__get__('typeConversion');
 
-      const actual = typeConversion(['abc', 123]);
+      const actual = typeConversion(['abc', 123], false);
 
       assert.deepEqual(actual, ['abc', 123]);
+    });
+    it('Function', async () => {
+      const typeConversion = attributeValueNode.__get__('typeConversion');
+
+      const actual = typeConversion(() => { }, false);
+
+      assert.equal(typeof actual, 'function');
     });
   });
   describe('attrValue', () => {
@@ -107,6 +128,8 @@ describe('attribute-value.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const attrValue = attributeValueNode.__get__('attrValue');
 
@@ -132,6 +155,8 @@ describe('attribute-value.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const attrValue = attributeValueNode.__get__('attrValue');
 
@@ -155,6 +180,8 @@ describe('attribute-value.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const attrValue = attributeValueNode.__get__('attrValue');
 
@@ -185,6 +212,8 @@ describe('attribute-value.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const attrValue = attributeValueNode.__get__('attrValue');
 
@@ -211,6 +240,8 @@ describe('attribute-value.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const attrValue = attributeValueNode.__get__('attrValue');
 
@@ -264,6 +295,7 @@ describe('attribute-value.js', () => {
           type: 'T',
           attrName: 'temperature',
           skipForwarding: false,
+          forbidden: false,
         },
         method: 'get',
       };
@@ -283,6 +315,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -300,6 +333,7 @@ describe('attribute-value.js', () => {
           type: 'T2',
           attrName: 'temp',
           skipForwarding: true,
+          forbidden: false,
         },
         method: 'get',
       };
@@ -319,6 +353,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -339,6 +374,7 @@ describe('attribute-value.js', () => {
           attrName: 'temperature',
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           value: 'true',
         },
       };
@@ -358,6 +394,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -378,6 +415,7 @@ describe('attribute-value.js', () => {
           attrName: 'temperature',
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           value: '25',
         },
       };
@@ -397,6 +435,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -417,6 +456,7 @@ describe('attribute-value.js', () => {
           attrName: 'temperature',
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           value: '"fiware"',
         },
       };
@@ -436,6 +476,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -456,6 +497,7 @@ describe('attribute-value.js', () => {
           attrName: 'temperature',
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           value: 'null',
         },
       };
@@ -475,11 +517,13 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.getToken, 'function');
       actual.getToken = null;
 
       const expected = {
@@ -497,6 +541,7 @@ describe('attribute-value.js', () => {
           attrName: 'temperature',
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           value: 'null',
         },
       };
@@ -516,6 +561,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -537,6 +583,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -558,6 +605,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -579,6 +627,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -600,6 +649,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -621,6 +671,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -646,6 +697,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -679,6 +731,7 @@ describe('attribute-value.js', () => {
         value: {},
         forcedUpdate: false,
         flowControl: false,
+        forbidden: false,
         service: 'openiot',
         servicepath: '/',
       });
@@ -695,6 +748,7 @@ describe('attribute-value.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:1026',

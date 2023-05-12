@@ -41,7 +41,7 @@ const httpRequest = async function (msg, param) {
 
   try {
     const res = await lib.http(options);
-    msg.payload = res.data;
+    msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
     msg.statusCode = Number(res.status);
     if (res.status === 200) {
       return;
@@ -62,6 +62,7 @@ const httpRequest = async function (msg, param) {
 
 const paramsString = ['id', 'type', 'attrName', 'aggrMethod', 'aggrPeriod', 'fromDate', 'fromUnit', 'toDate', 'toUnit', 'georel', 'geometry', 'coords'];
 const paramsNumber = ['lastN', 'offset', 'limit'];
+const paramBoolean = ['value', 'forbidden'];
 const actionTypeList = ['entities', 'entity', 'type', 'attribute'];
 
 const validateConfig = function (msg, config) {
@@ -81,9 +82,12 @@ const validateConfig = function (msg, config) {
     }
   }
 
-  if (typeof config.value !== 'boolean') {
-    msg.payload = { error: 'value not Boolean' };
-    return false;
+  for (let i = 0; i < paramBoolean.length; i++) {
+    const e = paramBoolean[i];
+    if (typeof config[e] !== 'boolean') {
+      msg.payload = { error: e + ' not Boolean' };
+      return false;
+    }
   }
 
   if (!actionTypeList.includes(config.actionType)) {
@@ -150,6 +154,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     value: config.value === 'true',
     limit: config.limit.trim(),
     offset: config.offset.trim(),
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (!msg.payload || typeof msg.payload !== 'object' || Array.isArray(msg.payload)) {

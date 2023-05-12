@@ -118,6 +118,8 @@ describe('historical-context.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
 
@@ -152,6 +154,8 @@ describe('historical-context.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
 
@@ -182,6 +186,8 @@ describe('historical-context.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
 
@@ -213,6 +219,8 @@ describe('historical-context.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
 
@@ -246,6 +254,8 @@ describe('historical-context.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getHistoricalContext = historicalNode.__get__('getHistoricalContext');
 
@@ -494,6 +504,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'raw',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('raw with payload null', async () => {
@@ -516,6 +527,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'raw',
         count: 'false',
+        forbidden: 'false',
       };
       const openapis = {
         apiEndpoint: 'http://comet:8666',
@@ -543,6 +555,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'raw',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('raw with payload string', async () => {
@@ -565,6 +578,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'raw',
         count: 'false',
+        forbidden: 'false',
       };
       const openapis = {
         apiEndpoint: 'http://comet:8666',
@@ -592,6 +606,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'raw',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('value', async () => {
@@ -614,6 +629,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'value',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -642,6 +658,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'value',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('ave', async () => {
@@ -664,6 +681,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'value',
         count: 'false',
+        forbidden: 'false',
       };
       const openapis = {
         apiEndpoint: 'http://comet:8666',
@@ -691,6 +709,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'value',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('dashboard', async () => {
@@ -713,6 +732,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -741,6 +761,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'dashboard',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('count', async () => {
@@ -763,6 +784,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'true',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -791,6 +813,7 @@ describe('historical-context.js', () => {
         'hOffset': 0,
         'outputType': 'dashboard',
         'count': 'true',
+        forbidden: false,
       });
     });
     it('historical is null', async () => {
@@ -813,6 +836,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -841,6 +865,7 @@ describe('historical-context.js', () => {
         'hOffset': 0,
         'outputType': 'dashboard',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('GE Type error', async () => {
@@ -863,6 +888,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
       const openapis = {
         apiEndpoint: 'http://comet:8666',
@@ -896,6 +922,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -930,6 +957,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -964,6 +992,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
       };
 
       const openapis = {
@@ -1002,6 +1031,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'raw',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1099,7 +1129,8 @@ describe('historical-context.js', () => {
         'hLimit': null,
         'hOffset': null,
         'outputType': 'raw',
-        'count': 'false',
+        count: 'false',
+        forbidden: false,
       });
     });
     it('raw with payload null', async () => {
@@ -1121,6 +1152,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'raw',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1218,6 +1250,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'raw',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('raw with payload string', async () => {
@@ -1239,6 +1272,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'raw',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1336,6 +1370,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'raw',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('value', async () => {
@@ -1357,6 +1392,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'value',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1451,6 +1487,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'value',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('ave', async () => {
@@ -1472,6 +1509,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'value',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1554,6 +1592,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'value',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('dashboard', async () => {
@@ -1575,6 +1614,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1676,6 +1716,7 @@ describe('historical-context.js', () => {
         'hOffset': null,
         'outputType': 'dashboard',
         'count': 'false',
+        forbidden: false,
       });
     });
     it('count', async () => {
@@ -1697,6 +1738,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'true',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1798,6 +1840,7 @@ describe('historical-context.js', () => {
         'hOffset': 0,
         'outputType': 'dashboard',
         'count': 'true',
+        forbidden: false,
       });
     });
     it('historical is null', async () => {
@@ -1819,6 +1862,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1855,7 +1899,8 @@ describe('historical-context.js', () => {
         'hLimit': 3,
         'hOffset': 0,
         'outputType': 'dashboard',
-        'count': 'false',
+        count: 'false',
+        forbidden: false,
       });
     });
     it('GE Type error', async () => {
@@ -1877,6 +1922,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1910,6 +1956,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1943,6 +1990,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: false,
 
         openapis: {
           apiEndpoint: 'http://comet:8666',
@@ -1976,6 +2024,7 @@ describe('historical-context.js', () => {
         tounit: '',
         outputtype: 'dashboard',
         count: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:8666',

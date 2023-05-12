@@ -37,6 +37,7 @@ NGSIv2 エンティティの複数属性を追加できます。
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -84,6 +85,7 @@ NGSIv2 エンティティの複数属性を更新できます。
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -131,6 +133,7 @@ NGSIv2 エンティティの複数属性をアップサートできます。
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -183,6 +186,7 @@ NGSIv2 エンティティの複数属性を置換できます。
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -240,6 +244,7 @@ NGSIv2 エンティティの複数属性を追加、更新、アップサート�
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 

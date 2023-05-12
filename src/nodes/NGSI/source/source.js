@@ -46,7 +46,7 @@ const getEntities = async function (msg, param) {
     try {
       const res = await lib.http(options);
       if (res.status === 200) {
-        param.buffer.send(res.data);
+        param.buffer.send(lib.decodeNGSI(res.data, param.config.forbidden));
         if (res.data.length === 0) {
           break;
         }
@@ -142,6 +142,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     q: config.query.trim(),
     limit: 100,
     offset: 0,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (!msg.payload) {

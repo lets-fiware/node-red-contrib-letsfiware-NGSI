@@ -35,6 +35,7 @@ NGSIv2 エンティティの属性を読み取ることができます。
 -   `Attribute name`: 読み取る属性の名前
 -   `Metadata`: 属性を読み取る属性名
 -   `Skip forwarding`: Context Broker は Context Provider への転送をスキップします
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -102,6 +103,7 @@ NGSIv2 エンティティの属性を更新できます。
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -143,6 +145,7 @@ NGSIv2 エンティティの属性を削除できます。
 -   `Entity id`: 削除する属性のエンティティ id
 -   `Entity type`: 削除する属性のエンティティ・タイプ
 -   `Attribute name`: 削除する属性の名前
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -200,6 +203,7 @@ NGSIv2 エンティティの属性の読み取り、更新、または削除が�
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力 1
 

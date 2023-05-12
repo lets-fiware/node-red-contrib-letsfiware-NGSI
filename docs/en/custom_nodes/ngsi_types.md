@@ -29,6 +29,7 @@ It allows to retrieve a list of entity types.
 -   `Action Type`: `List Entity Types`
 -   `Values`: If true, the response payload is a JSON array with a list of entity types
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -109,6 +110,7 @@ It allows to retrieve entity information for a given type.
 -   `Action Type`: `Entity information for a given type`
 -   `Entity type`: Type of Entity to retrieve an entity information
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -187,7 +189,7 @@ It allows to retrieve a list of entity types or entity information for a given t
 -   `Entity type`: Type of Entity to retrieve an entity information
 -   `Values`: If true, the response payload is a JSON array with a list of entity types
 -   `NoAttrDetail`: If true, the request does not provide attribute type details
-
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input (types)
 

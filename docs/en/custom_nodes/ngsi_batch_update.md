@@ -35,6 +35,7 @@ It allows to append several entities.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -91,6 +92,7 @@ It allows to append several entities strictly.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -147,6 +149,7 @@ It allows to update several entities.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -203,6 +206,7 @@ It allows to replace several entities.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -259,6 +263,7 @@ It allows to delete several entities.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -315,7 +320,7 @@ It allows to append, appendStrict, update, replace or delete several entities.
 -   `Override metadata`: If true, it replaces the existing metadata
 -   `Forced update`: If true, it triggers matching subscriptions
 -   `Flow control`: If true, it enables flow control mechanism
-
+-   `Encode forbidden chars`: `off` or `on`
 
 ### Input (append)
 
