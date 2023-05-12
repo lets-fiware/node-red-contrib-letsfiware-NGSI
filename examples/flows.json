@@ -79,6 +79,14 @@
         "env": []
     },
     {
+        "id": "52cae7ec2d9a8674",
+        "type": "tab",
+        "label": "Encode / Decode",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "ae1583d3652cf590",
         "type": "tab",
         "label": "Historical Context",
@@ -4554,6 +4562,99 @@
         "x": 700,
         "y": 720,
         "wires": []
+    },
+    {
+        "id": "cac886a3a35f60af",
+        "type": "inject",
+        "z": "52cae7ec2d9a8674",
+        "name": "Decode data",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:TemperatureSensor:001\",\"type\":\"TemperatureSensor\",\"name\":\"%3CSensor%3E\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "cd5120564dc59769"
+            ]
+        ]
+    },
+    {
+        "id": "c3c998a5f5587b71",
+        "type": "debug",
+        "z": "52cae7ec2d9a8674",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "98e527c08685f7c3",
+        "type": "NGSI-LD Encode",
+        "z": "52cae7ec2d9a8674",
+        "name": "",
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "c3c998a5f5587b71"
+            ]
+        ]
+    },
+    {
+        "id": "cd5120564dc59769",
+        "type": "NGSI-LD Decode",
+        "z": "52cae7ec2d9a8674",
+        "name": "",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "c3c998a5f5587b71"
+            ]
+        ]
+    },
+    {
+        "id": "52e589aad4341443",
+        "type": "inject",
+        "z": "52cae7ec2d9a8674",
+        "name": "Encode data",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"urn:ngsi-ld:TemperatureSensor:001\",\"type\":\"TemperatureSensor\",\"name\":\"<Sensor>\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "98e527c08685f7c3"
+            ]
+        ]
     },
     {
         "id": "bd55114956f0b16a",

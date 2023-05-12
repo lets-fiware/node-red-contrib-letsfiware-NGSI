@@ -20,6 +20,8 @@
       "NGSI-subscription": "src/nodes/NGSI/subscription/subscription.js",
       "NGSI-registration": "src/nodes/NGSI/registration/registration.js",
       "NGSI-types": "src/nodes/NGSI/types/types.js",
+      "NGSI-encode": "src/nodes/NGSI/encode/encode.js",
+      "NGSI-decode": "src/nodes/NGSI/decode/decode.js",
       "FIWARE-Service-and-ServicePath": "src/nodes/NGSI/service-and-servicepath/service-and-servicepath.js",
       "NGSI-GTFS-Realtime": "src/nodes/NGSI/gtfs-realtime/gtfs-realtime.js",
       "NGSI-to-worldmap": "src/nodes/NGSI/to-worldmap/to-worldmap.js",
@@ -56,11 +58,11 @@
     "gtfs-realtime-bindings": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.5",
+    "@babel/core": "^7.21.8",
     "babel-plugin-rewire": "^1.2.0",
     "babel-register": "^6.26.0",
     "chai": "^4.3.7",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-json": "^3.1.0",
     "mocha": "^10.2.0",

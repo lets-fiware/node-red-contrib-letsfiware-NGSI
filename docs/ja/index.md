@@ -20,6 +20,8 @@ FIWARE Open APIs の Node-RED 実装
 -   [NGSI Subscription](custom_nodes/ngsi_subscription.md)
 -   [NGSI Registration](custom_nodes/ngsi_registration.md)
 -   [NGSI Types](custom_nodes/ngsi_types.md)
+-   [NGSI Encode](custom_nodes/ngsi_encode.md)
+-   [NGSI Decode](custom_nodes/ngsi_decode.md)
 -   [Historical context](custom_nodes/historical_context.md) (STH-Comet)
 -   [NGSI Timeseries](custom_nodes/ngsi_timeseries.md) (QuantumLeap)
 -   [NGSI to Worldmap](custom_nodes/ngsi_to_worldmap.md)

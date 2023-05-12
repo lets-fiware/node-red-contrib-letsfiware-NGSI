@@ -516,4 +516,164 @@ describe('lib.js', () => {
       assert.deepEqual(actual, expected);
     });
   });
+  describe('encodeforbiddenChar', () => {
+    it('encode forbidden characters', () => {
+      const actual = lib.encodeforbiddenChar('%<>"\'=;()%<>"\'=;()%<>"\'=;()%<>"\'=;()', true);
+
+      const expected = '%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29';
+
+      assert.equal(actual, expected);
+    });
+    it('encode characters', () => {
+      const actual = lib.encodeforbiddenChar('abc123', true);
+
+      const expected = 'abc123';
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+  describe('decodeforbiddenChar', () => {
+    it('decode forbidden characters', () => {
+      const actual = lib.decodeforbiddenChar('%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29', true);
+
+      const expected = '%<>"\'=;()%<>"\'=;()%<>"\'=;()%<>"\'=;()';
+
+      assert.equal(actual, expected);
+    });
+    it('decode characters', () => {
+      const actual = lib.decodeforbiddenChar('abc123', true);
+
+      const expected = 'abc123';
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+  describe('replaceObject', () => {
+    let replaceObject;
+    before(() => {
+      replaceObject = lib.__get__('replaceObject');
+    });
+    it('string', () => {
+      const actual = replaceObject({ test: '<>' }, lib.encodeforbiddenChar);
+
+      const expected = { test: '%3C%3E' };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Object', () => {
+      const actual = replaceObject({ test: { test2: '<>' } }, lib.encodeforbiddenChar);
+
+      const expected = { test: { test2: '%3C%3E' } };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Array', () => {
+      const actual = replaceObject({ test: ['<>'] }, lib.encodeforbiddenChar);
+
+      const expected = { test: ['%3C%3E'] };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('Number', () => {
+      const actual = replaceObject({ test: 123 }, lib.encodeforbiddenChar);
+
+      const expected = { test: 123 };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+  describe('replaceArray', () => {
+    let replaceArray;
+    before(() => {
+      replaceArray = lib.__get__('replaceArray');
+    });
+    it('string', () => {
+      const actual = replaceArray(['<>'], lib.encodeforbiddenChar);
+
+      const expected = ['%3C%3E'];
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Object', () => {
+      const actual = replaceArray([{ test: '<>' }], lib.encodeforbiddenChar);
+
+      const expected = [{ test: '%3C%3E' }];
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Array', () => {
+      const actual = replaceArray([['<>']], lib.encodeforbiddenChar);
+
+      const expected = [['%3C%3E']];
+
+      assert.deepEqual(actual, expected);
+    });
+    it('Number', () => {
+      const actual = replaceArray([123], lib.encodeforbiddenChar);
+
+      const expected = [123];
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+  describe('encodeNGSI', () => {
+    it('string', () => {
+      const actual = lib.encodeNGSI({ test: '<>' }, true);
+
+      const expected = { test: '%3C%3E' };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Object', () => {
+      const actual = lib.encodeNGSI({ test: { test2: '<>' } }, true);
+
+      const expected = { test: { test2: '%3C%3E' } };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Array', () => {
+      const actual = lib.encodeNGSI([{ test: ['<>'] }], true);
+
+      const expected = [{ test: ['%3C%3E'] }];
+
+      assert.deepEqual(actual, expected);
+    });
+    it('off', () => {
+      const actual = lib.encodeNGSI({ test: '<>' }, false);
+
+      const expected = { test: '<>' };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+  describe('decodeNGSI', () => {
+    it('string', () => {
+      const actual = lib.decodeNGSI({ test: '%3C%3E' }, true);
+
+      const expected = { test: '<>' };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Object', () => {
+      const actual = lib.decodeNGSI({ test: { test2: '%3C%3E' } }, true);
+
+      const expected = { test: { test2: '<>' } };
+
+      assert.deepEqual(actual, expected);
+    });
+    it('JSON Array', () => {
+      const actual = lib.decodeNGSI([{ test: ['%3C%3E'] }], true);
+
+      const expected = [{ test: ['<>'] }];
+
+      assert.deepEqual(actual, expected);
+    });
+    it('off', () => {
+      const actual = lib.decodeNGSI({ test: '<>' }, false);
+
+      const expected = { test: '<>' };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
 });
