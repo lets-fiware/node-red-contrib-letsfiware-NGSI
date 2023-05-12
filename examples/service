@@ -4,9 +4,9 @@
 #
 # Copyright 2023 Kazuhito Suda
 #
-# This file is part of node-red-contrib-NGSI-LD
+# This file is part of node-red-contrib-letsfiware-NGSI
 #
-# https://github.com/lets-fiware/node-red-contrib-NGSI-LD
+# https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal

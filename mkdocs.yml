@@ -7,10 +7,23 @@ nav:
     - 'Installation': installation.md
     - 'Tutorial': tutorial.md
     - 'Custom nodes':
+      - 'FIWARE version': custom_nodes/fiware_version.md
       - 'NGSI Entity': custom_nodes/ngsi_entity.md
       - 'NGSI Source': custom_nodes/ngsi_source.md
+      - 'NGSI Attributes': custom_nodes/ngsi_attributes.md
+      - 'NGSI Attribute': custom_nodes/ngsi_attribute.md
+      - 'NGSI Attribute value': custom_nodes/ngsi_attribute_value.md
       - 'NGSI Batch update': custom_nodes/ngsi_batch_update.md
       - 'NGSI Subscription': custom_nodes/ngsi_subscription.md
+      - 'NGSI Registration': custom_nodes/ngsi_registration.md
+      - 'NGSI Types': custom_nodes/ngsi_types.md
+      - 'NGSI Encode': custom_nodes/ngsi_encode.md
+      - 'NGSI Decode': custom_nodes/ngsi_decode.md
+      - 'Historical context': custom_nodes/historical_context.md
+      - 'NGSI Timeseries': custom_nodes/ngsi_timeseries.md
       - 'NGSI to Worldmap': custom_nodes/ngsi_to_worldmap.md
-      - 'NGSI GTFS realtime': custom_nodes/ngsi_gtfs_realtime.md
+      - 'NGSI to Dashboard': custom_nodes/ngsi_to_dashboard.md
+      - 'OpenWeatherMap to NGSI': custom_nodes/openweathermap_to_ngsi.md
+      - 'GTFS realtime to NGSI': custom_nodes/ngsi_gtfs_realtime.md
       - 'NGSI Open APIs': custom_nodes/ngsi_open-apis.md
+      - 'FIWARE Service and ServicePath': custom_nodes/service-and-servicepath.md
