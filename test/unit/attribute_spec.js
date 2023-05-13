@@ -53,6 +53,8 @@ describe('attribute.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -79,6 +81,8 @@ describe('attribute.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -106,6 +110,8 @@ describe('attribute.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -129,6 +135,8 @@ describe('attribute.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: undefined }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -156,6 +164,8 @@ describe('attribute.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -183,6 +193,8 @@ describe('attribute.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -240,6 +252,7 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           skipForwarding: false,
+          forbidden: false,
         },
       };
 
@@ -259,6 +272,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -278,6 +292,7 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           skipForwarding: false,
+          forbidden: false,
         },
       };
 
@@ -297,6 +312,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -318,6 +334,7 @@ describe('attribute.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
         },
       };
 
@@ -337,6 +354,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -354,6 +372,7 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           attrName: 'temperature',
+          forbidden: false,
         },
       };
 
@@ -373,11 +392,13 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.getToken, 'function');
       actual.getToken = null;
 
       const expected = {
@@ -392,6 +413,7 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           attrName: 'temperature',
+          forbidden: false,
         },
       };
 
@@ -411,6 +433,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -434,6 +457,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -457,6 +481,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -480,6 +505,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -503,6 +529,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -526,6 +553,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -549,6 +577,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -573,6 +602,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         service: 'openiot',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -601,6 +631,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -637,6 +668,7 @@ describe('attribute.js', () => {
         flowControl: false,
         service: 'openiot',
         servicepath: '/',
+        forbidden: false,
       });
     });
     it('ActionType error', async () => {
@@ -653,6 +685,7 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:1026',

@@ -40,15 +40,16 @@ const httpRequest = async function (msg, param) {
   };
 
   if (param.config.actionType === 'create' || param.config.actionType === 'upsert') {
-    options.data = param.config.entity;
+    options.data = lib.encodeNGSI(param.config.entity, param.config.forbidden);
   }
 
   try {
     const res = await lib.http(options);
     msg.payload = res.data;
     msg.statusCode = Number(res.status);
-    if ((res.status === 200 && param.config.actionType === 'read') ||
-      (res.status === 201 && param.config.actionType === 'create') ||
+    if (res.status === 200 && param.config.actionType === 'read') {
+      msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
+    } else if ((res.status === 201 && param.config.actionType === 'create') ||
       (res.status === 204 && (param.config.actionType === 'upsert' || param.config.actionType === 'delete'))) {
       return;
     } else {
@@ -79,6 +80,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     attrs: config.attrs.trim(),
     keyValues: config.keyValues === 'true',
     dateModified: config.dateModified === 'true',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (!msg.payload) {

@@ -36,6 +36,7 @@ It allows to list of all the entity id available.
 -   `Unit for date`: Unit for to date
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -95,6 +96,7 @@ It allows to query history of attribute(s) (values only) of a given entity.
 -   `Coords`: Specifies the reference shape (geometry) in terms of WGS 84 coordinates
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Entity attributes
 
@@ -343,6 +345,7 @@ It allows to query history of attribute(s) (values only) of N entities of the sa
 -   `Coords`: Specifies the reference shape (geometry) in terms of WGS 84 coordinates
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Type entity
 
@@ -601,6 +604,7 @@ It allows to query history of N attribute(s) (values only) of N entities of N ty
 -   `Coords`: Specifies the reference shape (geometry) in terms of WGS 84 coordinates
 -   `Limit`: Maximum number of results to retrieve in a single response
 -   `Offset`: Offset to apply to the response results
+-   `Decode forbidden chars`: `off` or `on`
 
 ### Attributes
 

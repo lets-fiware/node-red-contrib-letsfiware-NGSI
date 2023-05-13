@@ -53,6 +53,8 @@ describe('source.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -85,6 +87,8 @@ describe('source.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -117,6 +121,8 @@ describe('source.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -149,6 +155,8 @@ describe('source.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -177,6 +185,8 @@ describe('source.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -206,6 +216,8 @@ describe('source.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -235,6 +247,8 @@ describe('source.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -408,6 +422,7 @@ describe('source.js', () => {
           q: '',
           limit: 100,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -426,6 +441,7 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
@@ -453,6 +469,7 @@ describe('source.js', () => {
           q: '',
           limit: 100,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -470,6 +487,7 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -492,6 +510,7 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -514,6 +533,7 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -540,6 +560,7 @@ describe('source.js', () => {
         attrs: '',
         query: '',
         buffering: 'on',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -566,7 +587,8 @@ describe('source.js', () => {
         attrs: '',
         q: '',
         limit: 100,
-        offset: 0
+        offset: 0,
+        forbidden: false,
       });
     });
     it('FIWARE GE type not Orion', async () => {
@@ -580,6 +602,7 @@ describe('source.js', () => {
         attrs: 'temperature',
         query: 'temperature>20',
         buffering: 'off',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',

@@ -30,6 +30,7 @@ It allows to create a NGSIv2 entity.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `create`
 -   `Representation`: normalized or keyValues
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -91,6 +92,7 @@ It allows to read a NGSIv2 entity.
 -   `attributes`: list of attributes of an entity to be read
 -   `Representation`: normalized or keyValues
 -   `Date Modified`: retrieve attribute and metadata of dateModified
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -158,6 +160,7 @@ It allows to upsert a NGSIv2 entity.
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `upsert`
 -   `Representation`: normalized or keyValues
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -216,6 +219,7 @@ It allows to delete a NGSIv2 entity.
 -   `Action type`: `delete`
 -   `Entity id`: id of an entity to be deleted
 -   `Entity type`: type of an entity to be deleted
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input
 
@@ -262,6 +266,7 @@ It allows to create, read, upsert or delete a NGSIv2 entity.
 -   `Entity type`: Type of an entity to be created, read, upserted or deleted
 -   `Representation`: normalized or keyValues
 -   `Date Modified`: retrieve attribute and metadata of dateModified
+-   `Encode / Decode forbidden chars`: `off` or `on`
 
 ### Input (create)
 

@@ -91,7 +91,7 @@ const getType = async function (msg, param) {
 
   try {
     const res = await lib.http(options);
-    msg.payload = res.data;
+    msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
     msg.statusCode = Number(res.status);
     if (res.status === 200) {
       return;
@@ -121,6 +121,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     noAttrDetail: config.noAttrDetail === 'true',
     limit: 20,
     offset: 0,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
   };
 
   if (defaultConfig.actionType === 'payload') {

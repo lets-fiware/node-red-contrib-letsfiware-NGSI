@@ -32,6 +32,7 @@ NGSIv2 エンティティを作成できます。
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `create`
 -   `Representation`: `normalized` または `keyValues`
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -95,6 +96,7 @@ NGSIv2 エンティティを読み取ることができます。
 -   `attributes`: 読み取るエンティティの属性のリスト
 -   `Representation`: `normalized` または `keyValues`
 -   `Date Modified`: true の場合、dateModified の属性とメタデータを取得します
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -164,6 +166,7 @@ NGSIv2 エンティティをアップサート (upsert) できます。
 -   `ServicePath`: FIWARE Service Path
 -   `Action type`: `upsert`
 -   `Representation`: `normalized` または `keyValues`
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -224,6 +227,7 @@ NGSIv2 エンティティを削除できます。
 -   `Action type`: `delete`
 -   `Entity id`: 削除するエンティティの id
 -   `Entity type`: 削除するエンティティのタイプ
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -272,6 +276,7 @@ NGSIv2 エンティティの属性を作成、読み取り、アップサート�
 -   `Entity type`: 作成、読み取り、アップサート、または削除するエンティティのタイプ
 -   `Representation`: `normalized` または `keyValues`
 -   `Date Modified`: true の場合、dateModified の属性とメタデータを取得します
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力 (create)
 

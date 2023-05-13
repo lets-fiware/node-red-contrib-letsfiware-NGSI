@@ -52,6 +52,8 @@ describe('attributes.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const updateAttrs = attributesNode.__get__('updateAttrs');
 
@@ -75,6 +77,8 @@ describe('attributes.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const updateAttrs = attributesNode.__get__('updateAttrs');
 
@@ -101,6 +105,8 @@ describe('attributes.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const updateAttrs = attributesNode.__get__('updateAttrs');
 
@@ -127,6 +133,8 @@ describe('attributes.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const updateAttrs = attributesNode.__get__('updateAttrs');
 
@@ -183,6 +191,7 @@ describe('attributes.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           append: true,
           attributes: {},
         },
@@ -202,6 +211,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -223,6 +233,7 @@ describe('attributes.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           append: true,
           attributes: {},
         },
@@ -242,6 +253,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -263,6 +275,7 @@ describe('attributes.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           attributes: {},
         },
       };
@@ -281,6 +294,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -302,6 +316,7 @@ describe('attributes.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           attributes: {},
         },
       };
@@ -320,6 +335,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -341,6 +357,7 @@ describe('attributes.js', () => {
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
+          forbidden: false,
           attributes: {}
         },
       };
@@ -359,12 +376,14 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
+      assert.equal(typeof actual.getToken, 'function');
       actual.getToken = null;
 
       const expected = {
@@ -383,6 +402,7 @@ describe('attributes.js', () => {
           flowControl: false,
           forcedUpdate: false,
           append: true,
+          forbidden: false,
           attributes: {}
         },
       };
@@ -401,6 +421,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -422,6 +443,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -443,6 +465,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -464,6 +487,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -485,6 +509,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -506,6 +531,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -527,6 +553,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
@@ -553,6 +580,7 @@ describe('attributes.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
         append: 'false',
 
         openapis: {
@@ -589,6 +617,7 @@ describe('attributes.js', () => {
         overrideMetadata: false,
         forcedUpdate: false,
         flowControl: false,
+        forbidden: false,
         service: 'openiot',
         servicepath: '/',
       });
@@ -605,6 +634,7 @@ describe('attributes.js', () => {
         skipForwarding: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://comet:1026',

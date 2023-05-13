@@ -29,6 +29,7 @@ This custom node is a simple node that allows to obtain NGSIv2 entities.
 -   `Attrs`: list of attributes to retrieve
 -   `Query`: query conditions using Simple Query Language
 -   `Buffering`: whether to output all retrieved entities at once
+-   `Decode forbidden chars`: `off` or `on`
 
 ## Input
 

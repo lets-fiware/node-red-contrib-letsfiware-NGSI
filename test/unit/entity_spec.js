@@ -53,6 +53,8 @@ describe('entity.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -62,6 +64,7 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
+          forbidden: false,
         },
       };
 
@@ -78,6 +81,8 @@ describe('entity.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -88,6 +93,7 @@ describe('entity.js', () => {
         config: {
           actionType: 'create',
           data: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
+          forbidden: false,
         },
       };
 
@@ -104,6 +110,8 @@ describe('entity.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -114,6 +122,7 @@ describe('entity.js', () => {
         config: {
           actionType: 'upsert',
           data: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
+          forbidden: false,
         },
       };
 
@@ -130,6 +139,8 @@ describe('entity.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -139,6 +150,7 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'delete',
+          forbidden: false,
         },
       };
 
@@ -152,6 +164,8 @@ describe('entity.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -161,6 +175,7 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
+          forbidden: false,
         },
       };
 
@@ -178,6 +193,8 @@ describe('entity.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -187,6 +204,7 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
+          forbidden: false,
         },
       };
 
@@ -204,6 +222,8 @@ describe('entity.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -213,6 +233,7 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
+          forbidden: false,
         },
       };
 
@@ -239,6 +260,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'false',
+        forbidden: 'true',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -253,6 +275,7 @@ describe('entity.js', () => {
           servicepath: '/',
           actionType: 'create',
           keyValues: true,
+          forbidden: true,
           entity: {
             id: 'I',
             type: 'E',
@@ -289,6 +312,7 @@ describe('entity.js', () => {
           servicepath: '/',
           actionType: 'create',
           keyValues: true,
+          forbidden: false,
           entity: {
             id: 'E',
             type: 'T',
@@ -311,6 +335,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -328,6 +353,7 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
+          forbidden: false,
           attrs: 'dateModified,*',
           metadata: 'dateModified,*',
         },
@@ -348,6 +374,7 @@ describe('entity.js', () => {
         attrs: 'temperature',
         keyValues: 'false',
         dateModified: 'true',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -365,6 +392,7 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
+          forbidden: false,
           attrs: 'temperature,dateModified',
           metadata: 'dateModified,*',
         },
@@ -385,6 +413,7 @@ describe('entity.js', () => {
         attrs: 'temperature',
         keyValues: 'false',
         dateModified: 'true',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -402,6 +431,7 @@ describe('entity.js', () => {
           type: 'E',
           keyValues: false,
           dateModified: true,
+          forbidden: false,
           attrs: 'temperature,dateModified',
           metadata: 'dateModified,*',
         },
@@ -422,6 +452,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -437,6 +468,7 @@ describe('entity.js', () => {
           actionType: 'upsert',
           upsert: true,
           keyValues: false,
+          forbidden: false,
           entity: {
             id: 'I',
             type: 'E',
@@ -459,6 +491,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -472,6 +505,7 @@ describe('entity.js', () => {
           service: 'openiot',
           servicepath: '/',
           actionType: 'delete',
+          forbidden: false,
           id: 'I',
           type: 'E',
         },
@@ -492,6 +526,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
@@ -512,7 +547,8 @@ describe('entity.js', () => {
           id: 'I',
           type: 'E',
           attrs: '',
-          dateModified: false
+          dateModified: false,
+          forbidden: false,
         },
         method: 'get',
       };
@@ -531,6 +567,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -551,6 +588,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -571,6 +609,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -591,6 +630,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -611,6 +651,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -631,6 +672,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -651,6 +693,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -675,6 +718,7 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -704,6 +748,7 @@ describe('entity.js', () => {
         'keyValues': false,
         'service': 'openiot',
         'servicepath': '/',
+        forbidden: false,
       });
     });
     it('ActionType error: append', async () => {

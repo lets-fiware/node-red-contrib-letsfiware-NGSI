@@ -33,6 +33,7 @@ NGSIv2 エンティティの属性値を読み取ることができます。
 -   `Entity type`: 読み取る属性値のエンティティ・タイプ
 -   `Attribute name`: 読み取る属性値の属性名
 -   `Skip forwarding`: Context Broker は Context Provider への転送をスキップします
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -90,6 +91,7 @@ NGSIv2 エンティティの属性値を更新できます。
 -   `Attribute name`: 更新する属性値の属性名
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -153,6 +155,7 @@ NGSIv2 エンティティの属性値を読み取ったり、更新したりで�
 -   `Skip forwarding`: Context Broker は Context Provider への転送をスキップします
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode / Decode forbidden chars`: `off` または `on`
 
 ### 入力 1
 

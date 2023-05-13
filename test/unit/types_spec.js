@@ -53,6 +53,8 @@ describe('types.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -84,6 +86,8 @@ describe('types.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -116,6 +120,8 @@ describe('types.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -143,6 +149,8 @@ describe('types.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -166,6 +174,8 @@ describe('types.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -192,6 +202,8 @@ describe('types.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -218,6 +230,8 @@ describe('types.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getTypes = typesNode.__get__('getTypes');
 
@@ -253,6 +267,8 @@ describe('types.js', () => {
         }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const getType = typesNode.__get__('getType');
 
@@ -278,6 +294,8 @@ describe('types.js', () => {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const gettype = typesNode.__get__('getType');
 
@@ -304,6 +322,8 @@ describe('types.js', () => {
         http: async () => Promise.reject({ message: 'unknown error' }),
         buildHTTPHeader: () => { return {}; },
         buildParams: () => new URLSearchParams(),
+        encodeNGSI: (data) => data,
+        decodeNGSI: (data) => data,
       });
       const gettype = typesNode.__get__('getType');
 
@@ -359,6 +379,7 @@ describe('types.js', () => {
           noAttrDetail: false,
           limit: 20,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -374,6 +395,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -396,6 +418,7 @@ describe('types.js', () => {
           noAttrDetail: false,
           limit: 20,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -411,6 +434,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -433,6 +457,7 @@ describe('types.js', () => {
           noAttrDetail: false,
           limit: 20,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -448,6 +473,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
       };
 
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
@@ -474,6 +500,7 @@ describe('types.js', () => {
           noAttrDetail: false,
           limit: 20,
           offset: 0,
+          forbidden: false,
         },
       };
 
@@ -489,6 +516,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -506,6 +534,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
       };
       const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
 
@@ -523,6 +552,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
         limit: 100,
         offset: 0,
       };
@@ -546,6 +576,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',
@@ -578,6 +609,7 @@ describe('types.js', () => {
         type: '',
         values: false,
         noAttrDetail: false,
+        forbidden: false,
         limit: 20,
         offset: 0,
       });
@@ -591,6 +623,7 @@ describe('types.js', () => {
         entityType: '',
         values: 'false',
         noAttrDetail: 'false',
+        forbidden: 'false',
 
         openapis: {
           apiEndpoint: 'http://orion:1026',

@@ -39,7 +39,7 @@ const updateAttrs = async function (msg, param) {
     params: lib.buildParams(param.config),
   };
 
-  options.data = param.config.attributes;
+  options.data = lib.encodeNGSI(param.config.attributes, param.config.forbidden);
 
   try {
     const res = await lib.http(options);
@@ -76,6 +76,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     overrideMetadata: config.overrideMetadata === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
+    forbidden: config.forbidden ? config.forbidden === 'true' : false,
     append: false,
   };
 
@@ -105,7 +106,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     return null;
   }
 
-  const options = ['keyValues', 'overrideMetadata', 'forcedUpdate', 'flowControl'];
+  const options = ['keyValues', 'overrideMetadata', 'forcedUpdate', 'flowControl', 'forbidden'];
 
   for (let i = 0; i < options.length; i++) {
     if (typeof defaultConfig[options[i]] !== 'boolean') {

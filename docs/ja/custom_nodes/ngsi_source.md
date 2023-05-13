@@ -31,6 +31,7 @@
 -   `Attrs`: 読み取り対象となるエンティティの属性のリスト
 -   `Query`: Simple Query Language を使用したクエリ条件
 -   `Buffering`: 取得したすべてのエンティティを一度に出力するかどうか
+-   `Decode forbidden chars`: `off` または `on`
 
 <a name="input"></a>
 

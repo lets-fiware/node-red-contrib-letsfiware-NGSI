@@ -37,6 +37,7 @@
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -95,6 +96,7 @@ statusCode *Number*
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -153,6 +155,7 @@ statusCode *Number*
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -211,6 +214,7 @@ statusCode *Number*
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -269,6 +273,7 @@ statusCode *Number*
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -325,6 +330,7 @@ statusCode *Number*
 -   `Override metadata`: true の場合、既存のメタデータを置き換えます
 -   `Forced update`: true の場合、一致するサブスクリプションをトリガーします
 -   `Flow control`: true の場合、フロー制御メカニズムが有効になります
+-   `Encode forbidden chars`: `off` または `on`
 
 ### 入力 (append)
 

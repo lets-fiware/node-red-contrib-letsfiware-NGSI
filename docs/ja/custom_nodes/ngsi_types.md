@@ -32,6 +32,7 @@
 -   `Action Type`: `List Entity Types`
 -   `Values`: true の場合、レスポンス・ペイロードは、エンティティ・タイプのリストを含む JSON 配列です。
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
+-   `Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -114,7 +115,7 @@ statusCode *Number*
 -   `Action Type`: `Entity information for a given type`
 -   `Entity type`: エンティティ情報を取得するエンティティのタイプ
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
-
+-   `Decode forbidden chars`: `off` または `on`
 
 ### 入力
 
@@ -195,6 +196,7 @@ statusCode *Number*
 -   `Entity type`: エンティティ情報を取得するエンティティのタイプ
 -   `Values`: true の場合、レスポンス・ペイロードは、エンティティ・タイプのリストを含む JSON 配列です。
 -   `NoAttrDetail`: true の場合、リクエストは属性タイプの詳細を提供しません
+-   `Decode forbidden chars`: `off` または `on`
 
 ### 入力 (types)
 
