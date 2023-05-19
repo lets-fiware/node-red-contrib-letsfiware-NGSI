@@ -1,6 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.14.0-next
 
--  Add feature for encoding and decoding forbidden chars (#135)
+-  ADD GitHub action to close inactive issues (#136)
+-  ADD feature for encoding and decoding forbidden chars (#135)
 -  ADD encode / decode node (#133)
 
 ## node-red-contrib-letsfiware-NGSI v0.14.0 - 02 May, 2023
