@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.14.0-next
 
+-  FIX forbidden option that had no effect (#137)
 -  ADD GitHub action to close inactive issues (#136)
 -  ADD feature for encoding and decoding forbidden chars (#135)
 -  ADD encode / decode node (#133)
