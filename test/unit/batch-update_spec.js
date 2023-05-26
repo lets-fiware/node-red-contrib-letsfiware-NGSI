@@ -367,6 +367,26 @@ describe('batch-update.js', () => {
       assert.equal(actual, null);
       assert.deepEqual(msg, { payload: { error: 'keyValues not boolean' } });
     });
+    it('not boolean (forbidden)', () => {
+      const createParam = batchUpdateNode.__get__('createParam');
+      const msg = { payload: { actionType: 'append', entities: [], forbidden: 'true' } };
+      const config = {
+        servicepath: '/',
+        actionType: 'payload',
+        data: [{ id: 'E', type: 'T' }],
+        keyValues: 'false',
+        overrideMetadata: 'false',
+        forcedUpdate: 'false',
+        flowControl: 'false',
+        forbidden: 'false',
+      };
+      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+
+      const actual = createParam(msg, config, openAPIsConfig);
+
+      assert.equal(actual, null);
+      assert.deepEqual(msg, { payload: { error: 'forbidden not boolean' } });
+    });
     it('ActionType error', () => {
       const createParam = batchUpdateNode.__get__('createParam');
       const msg = { payload: {} };

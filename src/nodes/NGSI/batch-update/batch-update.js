@@ -88,7 +88,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     }
     defaultConfig.data.actionType = msg.payload.actionType;
     defaultConfig.data.entities = msg.payload.entities;
-    const options = ['keyValues', 'overrideMetadata', 'forcedUpdate', 'flowControl'];
+    const options = ['keyValues', 'overrideMetadata', 'forcedUpdate', 'flowControl', 'forbidden'];
     for (let i = 0; i < options.length; i++) {
       const e = options[i];
       if (msg.payload[e]) {
