@@ -3,8 +3,9 @@
   "version": "0.14.1",
   "description": "Node-RED implementation for FIWARE Open APIs",
   "scripts": {
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .json,.js . && eslint -c .eslintrc.html.json --ext .html src",
-    "format": "./node_modules/eslint/bin/eslint.js --fix --ext .json,.js . && eslint -c .eslintrc.html.json --fix --ext .html src",
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .json,.js src test",
+    "format": "./node_modules/.bin/prettier --write src test",
+    "fix": "npm run format && npm run lint",
     "test": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\"",
     "coverage": "mkdir -p coverage && ./node_modules/nyc/bin/nyc.js --reporter=text-lcov ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\" > ./coverage/coverage.lcov"
   },
@@ -63,10 +64,10 @@
     "babel-register": "^6.26.0",
     "chai": "^4.3.7",
     "eslint": "^8.40.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-json": "^3.1.0",
+    "eslint-config-prettier": "^8.8.0",
     "mocha": "^10.2.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prettier": "^2.8.8"
   },
   "engines": {
     "node": ">=12"
