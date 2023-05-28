@@ -27,68 +27,68 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI to dashboard', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: "" },
-        inputType: { value: "entity" },
-        attrs: { value: "" },
-        names: { value: "" },
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "NGSI to dashboard";
-      },
-      paletteLabel: 'ngsi to dashboard'
-    });
+  RED.nodes.registerType('NGSI to dashboard', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      inputType: { value: 'entity' },
+      attrs: { value: '' },
+      names: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI to dashboard';
+    },
+    paletteLabel: 'ngsi to dashboard'
+  });
 </script>
 
 <script type="text/x-red" data-template-name="NGSI to dashboard">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row" id="inputType">
-        <label for="node-input-inputType"><i class="fa fa-tag"></i> Input type</label>
-        <select id="node-input-inputType">
-            <option value="entity" enabled>Entiy (normalized)</option>
-            <option value="notification">Notification</option>
-            <option value="historical">Historical context</option>
-        </select>
-    </div>
-    <div class="form-row" id="attrs">
-        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attributes</label>
-        <input type="text" id="node-input-attrs">
-    </div>
-    <div class="form-row" id="names">
-        <label for="node-input-names"><i class="fa fa-tag"></i> Names to replace</label>
-        <input type="text" id="node-input-names">
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row" id="inputType">
+      <label for="node-input-inputType"><i class="fa fa-tag"></i> Input type</label>
+      <select id="node-input-inputType">
+          <option value="entity" enabled>Entiy (normalized)</option>
+          <option value="notification">Notification</option>
+          <option value="historical">Historical context</option>
+      </select>
+  </div>
+  <div class="form-row" id="attrs">
+      <label for="node-input-attrs"><i class="fa fa-tag"></i> Attributes</label>
+      <input type="text" id="node-input-attrs">
+  </div>
+  <div class="form-row" id="names">
+      <label for="node-input-names"><i class="fa fa-tag"></i> Names to replace</label>
+      <input type="text" id="node-input-names">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI to dashboard">
-    <p>
-    A simple node that allows to transform context data to data for the dashboard node.
-    </p>
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array</span>
-        </dt>
-        <dd>payload containing Entity (normalized), Notification or Historical context data.</dd>
-    </dl>
+  <p>
+  A simple node that allows to transform context data to data for the dashboard node.
+  </p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array</span>
+      </dt>
+      <dd>payload containing Entity (normalized), Notification or Historical context data.</dd>
+  </dl>
 
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array</span>
-        </dt>
-        <dd>msg containing data for the dashboard node.</dd>
-    </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array</span>
+      </dt>
+      <dd>msg containing data for the dashboard node.</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_to_dashboard/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_to_dashboard/">here</a> for full documentation.</p>
 </script>

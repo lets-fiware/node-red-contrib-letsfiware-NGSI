@@ -36,7 +36,7 @@ const createRegistration = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.registration,
+    data: param.config.registration
   };
 
   try {
@@ -65,7 +65,7 @@ const deleteRegistration = async function (msg, param) {
     method: 'delete',
     baseURL: param.host,
     url: param.pathname,
-    headers: await lib.buildHTTPHeader(param),
+    headers: await lib.buildHTTPHeader(param)
   };
 
   try {
@@ -98,7 +98,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     servicepath: config.servicepath.trim(),
     actionType: config.actionType.trim(),
     id: config.registrationId.trim(),
-    registration: {},
+    registration: {}
   };
 
   if (defaultConfig.actionType === 'payload') {
@@ -136,7 +136,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     pathname: '/v2/registrations',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
     contentType: 'json',
-    config: defaultConfig,
+    config: defaultConfig
   };
 
   switch (defaultConfig.actionType) {

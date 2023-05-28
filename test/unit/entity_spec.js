@@ -46,15 +46,22 @@ describe('entity.js', () => {
     });
     it('get entity', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: {},
-          data: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: {},
+            data: {
+              id: 'I',
+              type: 'E',
+              temperature: { type: 'Number', value: 6, metadata: {} }
+            }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -64,25 +71,35 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       const msg = {};
       await httpRequest(msg, param);
 
-      assert.deepEqual(msg, { payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } }, statusCode: 200 });
+      assert.deepEqual(msg, {
+        payload: {
+          id: 'I',
+          type: 'E',
+          temperature: { type: 'Number', value: 6, metadata: {} }
+        },
+        statusCode: 200
+      });
     });
     it('create entity', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 201,
-          headers: {},
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 201,
+            headers: {}
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -92,9 +109,13 @@ describe('entity.js', () => {
         pathname: '/entities',
         config: {
           actionType: 'create',
-          data: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
-          forbidden: false,
-        },
+          data: {
+            id: 'I',
+            type: 'E',
+            temperature: { type: 'Number', value: 6, metadata: {} }
+          },
+          forbidden: false
+        }
       };
 
       const msg = {};
@@ -104,14 +125,17 @@ describe('entity.js', () => {
     });
     it('upsert entity', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 204,
-          headers: {},
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 204,
+            headers: {}
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -121,9 +145,13 @@ describe('entity.js', () => {
         pathname: '/entities',
         config: {
           actionType: 'upsert',
-          data: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
-          forbidden: false,
-        },
+          data: {
+            id: 'I',
+            type: 'E',
+            temperature: { type: 'Number', value: 6, metadata: {} }
+          },
+          forbidden: false
+        }
       };
 
       const msg = {};
@@ -133,14 +161,17 @@ describe('entity.js', () => {
     });
     it('delete entity', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 204,
-          headers: {},
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 204,
+            headers: {}
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -150,8 +181,8 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'delete',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       const msg = {};
@@ -162,10 +193,12 @@ describe('entity.js', () => {
     it('should be 400 Bad Request', async () => {
       entityNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -175,12 +208,17 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
@@ -190,11 +228,18 @@ describe('entity.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       entityNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -204,26 +249,36 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while managing entity: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(msg, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('Should be unknown error', async () => {
       entityNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = entityNode.__get__('httpRequest');
 
@@ -233,24 +288,38 @@ describe('entity.js', () => {
         pathname: '/entities/I',
         config: {
           actionType: 'read',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
 
       assert.equal(errmsg, 'Exception while managing entity: unknown error');
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('createParam', () => {
     it('payload', () => {
       const createParam = entityNode.__get__('createParam');
-      const msg = { payload: { actionType: 'create', entity: { id: 'I', type: 'E' }, keyValues: true } };
+      const msg = {
+        payload: {
+          actionType: 'create',
+          entity: { id: 'I', type: 'E' },
+          keyValues: true
+        }
+      };
       const config = {
         service: 'orion',
         servicepath: '/',
@@ -260,9 +329,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'false',
-        forbidden: 'true',
+        forbidden: 'true'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -278,10 +353,10 @@ describe('entity.js', () => {
           forbidden: true,
           entity: {
             id: 'I',
-            type: 'E',
-          },
+            type: 'E'
+          }
         },
-        method: 'post',
+        method: 'post'
       };
 
       assert.deepEqual(actual, expected);
@@ -297,9 +372,15 @@ describe('entity.js', () => {
         entityType: '',
         attrs: '',
         keyValues: 'true',
-        dateModified: 'false',
+        dateModified: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -315,10 +396,10 @@ describe('entity.js', () => {
           forbidden: false,
           entity: {
             id: 'E',
-            type: 'T',
+            type: 'T'
           }
         },
-        method: 'post',
+        method: 'post'
       };
 
       assert.deepEqual(actual, expected);
@@ -335,9 +416,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -355,9 +442,9 @@ describe('entity.js', () => {
           dateModified: true,
           forbidden: false,
           attrs: 'dateModified,*',
-          metadata: 'dateModified,*',
+          metadata: 'dateModified,*'
         },
-        method: 'get',
+        method: 'get'
       };
 
       assert.deepEqual(actual, expected);
@@ -374,9 +461,15 @@ describe('entity.js', () => {
         attrs: 'temperature',
         keyValues: 'false',
         dateModified: 'true',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -394,9 +487,9 @@ describe('entity.js', () => {
           dateModified: true,
           forbidden: false,
           attrs: 'temperature,dateModified',
-          metadata: 'dateModified,*',
+          metadata: 'dateModified,*'
         },
-        method: 'get',
+        method: 'get'
       };
 
       assert.deepEqual(actual, expected);
@@ -413,9 +506,15 @@ describe('entity.js', () => {
         attrs: 'temperature',
         keyValues: 'false',
         dateModified: 'true',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -433,9 +532,9 @@ describe('entity.js', () => {
           dateModified: true,
           forbidden: false,
           attrs: 'temperature,dateModified',
-          metadata: 'dateModified,*',
+          metadata: 'dateModified,*'
         },
-        method: 'get',
+        method: 'get'
       };
 
       assert.deepEqual(actual, expected);
@@ -452,9 +551,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -471,10 +576,10 @@ describe('entity.js', () => {
           forbidden: false,
           entity: {
             id: 'I',
-            type: 'E',
-          },
+            type: 'E'
+          }
         },
-        method: 'post',
+        method: 'post'
       };
 
       assert.deepEqual(actual, expected);
@@ -491,9 +596,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'false',
         dateModified: 'true',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -507,9 +618,9 @@ describe('entity.js', () => {
           actionType: 'delete',
           forbidden: false,
           id: 'I',
-          type: 'E',
+          type: 'E'
         },
-        method: 'delete',
+        method: 'delete'
       };
 
       assert.deepEqual(actual, expected);
@@ -526,10 +637,16 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: () => {},
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -548,9 +665,9 @@ describe('entity.js', () => {
           type: 'E',
           attrs: '',
           dateModified: false,
-          forbidden: false,
+          forbidden: false
         },
-        method: 'get',
+        method: 'get'
       };
 
       assert.deepEqual(actual, expected);
@@ -567,9 +684,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion-ld',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -588,9 +711,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -609,9 +738,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -630,9 +765,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -651,9 +792,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -672,9 +819,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -693,9 +846,15 @@ describe('entity.js', () => {
         attrs: '',
         keyValues: 'true',
         dateModified: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -724,7 +883,7 @@ describe('entity.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion'
         }
       });
 
@@ -735,20 +894,32 @@ describe('entity.js', () => {
         msg.statusCode = 201;
       });
 
-      await red.inputWithAwait({ payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } } });
+      await red.inputWithAwait({
+        payload: {
+          id: 'I',
+          type: 'E',
+          temperature: { type: 'Number', value: 6, metadata: {} }
+        }
+      });
 
       const expected = {
-        payload: undefined, statusCode: 201, 'context': { 'fiwareService': 'openiot', 'fiwareServicePath': '/' }
+        payload: undefined,
+        statusCode: 201,
+        context: { fiwareService: 'openiot', fiwareServicePath: '/' }
       };
 
       assert.deepEqual(red.getOutput(), expected);
       assert.deepEqual(actual.config, {
-        'actionType': 'create',
-        'entity': { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } },
-        'keyValues': false,
-        'service': 'openiot',
-        'servicepath': '/',
-        forbidden: false,
+        actionType: 'create',
+        entity: {
+          id: 'I',
+          type: 'E',
+          temperature: { type: 'Number', value: 6, metadata: {} }
+        },
+        keyValues: false,
+        service: 'openiot',
+        servicepath: '/',
+        forbidden: false
       });
     });
     it('ActionType error: append', async () => {
@@ -767,16 +938,22 @@ describe('entity.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion'
         }
       });
 
-      await red.inputWithAwait({ payload: { 'id': 'I', 'type': 'E', 'temperature': { 'type': 'Number', 'value': 6, metadata: {} } } });
+      await red.inputWithAwait({
+        payload: {
+          id: 'I',
+          type: 'E',
+          temperature: { type: 'Number', value: 6, metadata: {} }
+        }
+      });
 
       assert.equal(red.getMessage(), 'ActionType error: append');
       assert.deepEqual(red.getOutput(), {
         payload: { error: 'ActionType error: append' },
-        statusCode: 500,
+        statusCode: 500
       });
     });
   });

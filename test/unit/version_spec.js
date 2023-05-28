@@ -39,18 +39,23 @@ const { assert } = require('chai');
 const sourceNode = require('../../src/nodes/NGSI/version/version.js');
 const MockRed = require('./helpers/mockred.js');
 
-const orion_version = JSON.parse('{"orion":{"version":"3.7.0","uptime":"0d,0h,0m,1s","git_hash":"8b19705a8ec645ba1452cb97847a5615f0b2d3ca","compile_time":"ThuMay2611:45:49UTC2022","compiled_by":"root","compiled_in":"025d96e1419a","release_date":"ThuMay2611:45:49UTC2022","machine":"x86_64","doc":"https://fiware-orion.rtfd.io/en/3.7.0/","libversions":{"boost":"1_74","libcurl":"libcurl/7.74.0OpenSSL/1.1.1nzlib/1.2.11brotli/1.0.9libidn2/2.3.0libpsl/0.21.0(+libidn2/2.3.0)libssh2/1.9.0nghttp2/1.43.0librtmp/2.3","libmosquitto":"2.0.12","libmicrohttpd":"0.9.70","openssl":"1.1","rapidjson":"1.1.0","mongoc":"1.17.4","bson":"1.17.4"}}}');
+const orion_version = JSON.parse(
+  '{"orion":{"version":"3.7.0","uptime":"0d,0h,0m,1s","git_hash":"8b19705a8ec645ba1452cb97847a5615f0b2d3ca","compile_time":"ThuMay2611:45:49UTC2022","compiled_by":"root","compiled_in":"025d96e1419a","release_date":"ThuMay2611:45:49UTC2022","machine":"x86_64","doc":"https://fiware-orion.rtfd.io/en/3.7.0/","libversions":{"boost":"1_74","libcurl":"libcurl/7.74.0OpenSSL/1.1.1nzlib/1.2.11brotli/1.0.9libidn2/2.3.0libpsl/0.21.0(+libidn2/2.3.0)libssh2/1.9.0nghttp2/1.43.0librtmp/2.3","libmosquitto":"2.0.12","libmicrohttpd":"0.9.70","openssl":"1.1","rapidjson":"1.1.0","mongoc":"1.17.4","bson":"1.17.4"}}}'
+);
 
 describe('version.js', () => {
   describe('getVersion', () => {
     it('get version', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          data: orion_version
-        }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            data: orion_version
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getVersion = sourceNode.__get__('getVersion');
 
@@ -67,8 +72,10 @@ describe('version.js', () => {
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getVersion = sourceNode.__get__('getVersion');
 
@@ -78,7 +85,12 @@ describe('version.js', () => {
       };
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await getVersion.call(node, msg, param);
@@ -88,9 +100,16 @@ describe('version.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getVersion = sourceNode.__get__('getVersion');
 
@@ -100,19 +119,29 @@ describe('version.js', () => {
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await getVersion.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while getting version: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(msg, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getVersion = sourceNode.__get__('getVersion');
 
@@ -122,13 +151,21 @@ describe('version.js', () => {
       };
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await getVersion.call(node, msg, param);
 
       assert.equal(errmsg, 'Exception while getting version: unknown error');
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('FIWARE version node', () => {
@@ -141,7 +178,7 @@ describe('version.js', () => {
       red.createNode({
         openapis: {
           apiEndpoint: 'http://orion:1026',
-          getToken: () => { },
+          getToken: () => {}
         }
       });
 
@@ -157,7 +194,10 @@ describe('version.js', () => {
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/version');
       assert.equal(typeof actual.getToken, 'function');
-      assert.deepEqual(red.getOutput(), { payload: orion_version, statusCode: 200 });
+      assert.deepEqual(red.getOutput(), {
+        payload: orion_version,
+        statusCode: 200
+      });
     });
     it('orion version without getToken', async () => {
       const red = new MockRed();
@@ -165,7 +205,7 @@ describe('version.js', () => {
       red.createNode({
         openapis: {
           apiEndpoint: 'http://orion:1026',
-          getToken: null,
+          getToken: null
         }
       });
 
@@ -181,7 +221,10 @@ describe('version.js', () => {
       assert.equal(actual.host, 'http://orion:1026');
       assert.equal(actual.pathname, '/version');
       assert.equal(actual.getToken, null);
-      assert.deepEqual(red.getOutput(), { payload: orion_version, statusCode: 200 });
+      assert.deepEqual(red.getOutput(), {
+        payload: orion_version,
+        statusCode: 200
+      });
     });
     it('error', async () => {
       const red = new MockRed();
@@ -189,7 +232,7 @@ describe('version.js', () => {
       red.createNode({
         openapis: {
           apiEndpoint: 'http://orion:1026',
-          getToken: () => { },
+          getToken: () => {}
         }
       });
 

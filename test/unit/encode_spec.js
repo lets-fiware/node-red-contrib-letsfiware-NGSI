@@ -64,17 +64,17 @@ describe('encode.js', () => {
 
       await red.inputWithAwait({
         payload: {
-          'id': 'urn:ngsi-ld:TemperatureSensor:001',
-          'type': 'TemperatureSensor',
-          'name': '<Sensor>'
+          id: 'urn:ngsi-ld:TemperatureSensor:001',
+          type: 'TemperatureSensor',
+          name: '<Sensor>'
         }
       });
 
       const expected = {
         payload: {
-          'id': 'urn:ngsi-ld:TemperatureSensor:001',
-          'type': 'TemperatureSensor',
-          'name': '%3CSensor%3E'
+          id: 'urn:ngsi-ld:TemperatureSensor:001',
+          type: 'TemperatureSensor',
+          name: '%3CSensor%3E'
         },
         statusCode: 200
       };

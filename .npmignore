@@ -10,10 +10,9 @@ signatures/
 .gitignore
 .eslintignore 
 .eslintrc
-.eslintrc.html.json
-.eslintrc.json
 .idea
 .eslintcache 
+.prettierrc
 *.swp
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md

@@ -44,16 +44,16 @@ describe('gtfs-realtime.js', () => {
     it('get gtfs data', async () => {
       const data = [
         {
-          'id': 'bus01',
-          'tripUpdate': {
-            'trip': {
-              'tripId': '1119'
+          id: 'bus01',
+          tripUpdate: {
+            trip: {
+              tripId: '1119'
             },
-            'stopTimeUpdate': [
+            stopTimeUpdate: [
               {
-                'stopSequence': 20,
-                'departure': {
-                  'delay': 7
+                stopSequence: 20,
+                departure: {
+                  delay: 7
                 }
               }
             ]
@@ -61,17 +61,22 @@ describe('gtfs-realtime.js', () => {
         }
       ];
       gtfsRealtimeNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          data: data
-        }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            data: data
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       gtfsRealtimeNode.__set__('gtfsRealtimeBindings', {
         transit_realtime: {
           FeedMessage: {
-            decode: (data) => { return data; }
+            decode: (data) => {
+              return data;
+            }
           }
         }
       });
@@ -85,13 +90,20 @@ describe('gtfs-realtime.js', () => {
     it('should be 400 Bad Request', async () => {
       gtfsRealtimeNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getGtfsRealtime = gtfsRealtimeNode.__get__('getGtfsRealtime');
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = { payload: 'http://gtfs-realtime' };
       await getGtfsRealtime.call(node, msg);
@@ -102,97 +114,104 @@ describe('gtfs-realtime.js', () => {
     it('Should be unknown error', async () => {
       gtfsRealtimeNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const getGtfsRealtime = gtfsRealtimeNode.__get__('getGtfsRealtime');
 
       let errmsg = '';
-      const node = { msg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = { payload: 'http://gtfs-realtime' };
       await getGtfsRealtime.call(node, msg);
 
       assert.equal(errmsg, 'Exception while retrieving gtfs realtime data: unknown error');
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('vehicle2ngsi', () => {
     it('should be a entity', () => {
       const vehicle2ngsi = gtfsRealtimeNode.__get__('vehicle2ngsi');
       const data = {
-        'id': 'bus01',
-        'vehicle': {
-          'trip': {
-            'tripId': '00000000000000000000000000000000',
-            'startDate': '20220301',
-            'scheduleRelationship': 'SCHEDULED',
-            'routeId': '001'
+        id: 'bus01',
+        vehicle: {
+          trip: {
+            tripId: '00000000000000000000000000000000',
+            startDate: '20220301',
+            scheduleRelationship: 'SCHEDULED',
+            routeId: '001'
           },
-          'position': {
-            'latitude': 35.1,
-            'longitude': 135.2,
-            'bearing': 180.3
+          position: {
+            latitude: 35.1,
+            longitude: 135.2,
+            bearing: 180.3
           },
-          'currentStopSequence': 1,
-          'currentStatus': 'IN_TRANSIT_TO',
-          'timestamp': '0000000001',
-          'stopId': 'S0001',
-          'vehicle': {
-            'id': 'bus01'
+          currentStopSequence: 1,
+          currentStatus: 'IN_TRANSIT_TO',
+          timestamp: '0000000001',
+          stopId: 'S0001',
+          vehicle: {
+            id: 'bus01'
           }
         }
       };
       const expected = {
-        'currentStatus': {
-          'type': 'Text',
-          'value': 'IN_TRANSIT_TO',
+        currentStatus: {
+          type: 'Text',
+          value: 'IN_TRANSIT_TO'
         },
-        'currentStopSequence': {
-          'type': 'Number',
-          'value': 1,
+        currentStopSequence: {
+          type: 'Number',
+          value: 1
         },
-        'id': 'urn:ngsi-ld:Vehicle:bus01',
-        'location': {
-          'type': 'geo:json',
-          'value': {
-            'coordinates': [
-              135.2,
-              35.1
-            ],
-            'type': 'Point',
-          },
+        id: 'urn:ngsi-ld:Vehicle:bus01',
+        location: {
+          type: 'geo:json',
+          value: {
+            coordinates: [135.2, 35.1],
+            type: 'Point'
+          }
         },
-        'position': {
-          'type': 'StructuredValues',
-          'value': {
-            'bearing': 180.3,
-            'latitude': 35.1,
-            'longitude': 135.2
-          },
+        position: {
+          type: 'StructuredValues',
+          value: {
+            bearing: 180.3,
+            latitude: 35.1,
+            longitude: 135.2
+          }
         },
-        'stopId': {
-          'type': 'Text',
-          'value': 'S0001'
+        stopId: {
+          type: 'Text',
+          value: 'S0001'
         },
-        'timestamp': {
-          'type': 'Text',
-          'value': '0000000001'
+        timestamp: {
+          type: 'Text',
+          value: '0000000001'
         },
-        'trip': {
-          'type': 'StructuredValues',
-          'value': {
-            'routeId': '001',
-            'scheduleRelationship': 'SCHEDULED',
-            'startDate': '20220301',
-            'tripId': '00000000000000000000000000000000'
-          },
+        trip: {
+          type: 'StructuredValues',
+          value: {
+            routeId: '001',
+            scheduleRelationship: 'SCHEDULED',
+            startDate: '20220301',
+            tripId: '00000000000000000000000000000000'
+          }
         },
-        'type': 'Vehicle',
-        'vehicle': {
-          'type': 'StructuredValues',
-          'value': {
-            'id': 'bus01'
+        type: 'Vehicle',
+        vehicle: {
+          type: 'StructuredValues',
+          value: {
+            id: 'bus01'
           }
         }
       };
@@ -207,16 +226,16 @@ describe('gtfs-realtime.js', () => {
       const tripUpdate2ngsi = gtfsRealtimeNode.__get__('tripUpdate2ngsi');
 
       const data = {
-        'id': 'bus01',
-        'tripUpdate': {
-          'trip': {
-            'tripId': '1119'
+        id: 'bus01',
+        tripUpdate: {
+          trip: {
+            tripId: '1119'
           },
-          'stopTimeUpdate': [
+          stopTimeUpdate: [
             {
-              'stopSequence': 20,
-              'departure': {
-                'delay': 7
+              stopSequence: 20,
+              departure: {
+                delay: 7
               }
             }
           ]
@@ -224,163 +243,165 @@ describe('gtfs-realtime.js', () => {
       };
 
       const expected = {
-        'id': 'urn:ngsi-ld:TripUpdate:bus01',
-        'stopTimeUpdate': {
-          'type': 'StructuredValues',
-          'value': [
+        id: 'urn:ngsi-ld:TripUpdate:bus01',
+        stopTimeUpdate: {
+          type: 'StructuredValues',
+          value: [
             {
-              'departure': {
-                'delay': 7
+              departure: {
+                delay: 7
               },
-              'stopSequence': 20
+              stopSequence: 20
             }
           ]
         },
-        'trip': {
-          'type': 'StructuredValues',
-          'value': {
-            'tripId': '1119'
+        trip: {
+          type: 'StructuredValues',
+          value: {
+            tripId: '1119'
           }
         },
-        'type': 'TripUpdate'
+        type: 'TripUpdate'
       };
 
       const actual = tripUpdate2ngsi(data);
 
       assert.deepEqual(actual, expected);
-
     });
   });
   describe('gtfs2ngsi', () => {
     it('should be vehicle', () => {
       const gtfs2ngsi = gtfsRealtimeNode.__get__('gtfs2ngsi');
 
-      const data = [{
-        'id': 'bus01',
-        'vehicle': {
-          'trip': {
-            'tripId': '00000000000000000000000000000000',
-            'startDate': '20220301',
-            'scheduleRelationship': 'SCHEDULED',
-            'routeId': '001'
-          },
-          'position': {
-            'latitude': 35.1,
-            'longitude': 135.2,
-            'bearing': 180.3
-          },
-          'currentStopSequence': 1,
-          'currentStatus': 'IN_TRANSIT_TO',
-          'timestamp': '0000000001',
-          'stopId': 'S0001',
-          'vehicle': {
-            'id': 'bus01'
+      const data = [
+        {
+          id: 'bus01',
+          vehicle: {
+            trip: {
+              tripId: '00000000000000000000000000000000',
+              startDate: '20220301',
+              scheduleRelationship: 'SCHEDULED',
+              routeId: '001'
+            },
+            position: {
+              latitude: 35.1,
+              longitude: 135.2,
+              bearing: 180.3
+            },
+            currentStopSequence: 1,
+            currentStatus: 'IN_TRANSIT_TO',
+            timestamp: '0000000001',
+            stopId: 'S0001',
+            vehicle: {
+              id: 'bus01'
+            }
           }
         }
-      }];
-      const expected = [{
-        'currentStatus': {
-          'type': 'Text',
-          'value': 'IN_TRANSIT_TO',
-        },
-        'currentStopSequence': {
-          'type': 'Number',
-          'value': 1,
-        },
-        'id': 'urn:ngsi-ld:Vehicle:bus01',
-        'location': {
-          'type': 'geo:json',
-          'value': {
-            'coordinates': [
-              135.2,
-              35.1
-            ],
-            'type': 'Point',
+      ];
+      const expected = [
+        {
+          currentStatus: {
+            type: 'Text',
+            value: 'IN_TRANSIT_TO'
           },
-        },
-        'position': {
-          'type': 'StructuredValues',
-          'value': {
-            'bearing': 180.3,
-            'latitude': 35.1,
-            'longitude': 135.2
+          currentStopSequence: {
+            type: 'Number',
+            value: 1
           },
-        },
-        'stopId': {
-          'type': 'Text',
-          'value': 'S0001'
-        },
-        'timestamp': {
-          'type': 'Text',
-          'value': '0000000001'
-        },
-        'trip': {
-          'type': 'StructuredValues',
-          'value': {
-            'routeId': '001',
-            'scheduleRelationship': 'SCHEDULED',
-            'startDate': '20220301',
-            'tripId': '00000000000000000000000000000000'
+          id: 'urn:ngsi-ld:Vehicle:bus01',
+          location: {
+            type: 'geo:json',
+            value: {
+              coordinates: [135.2, 35.1],
+              type: 'Point'
+            }
           },
-        },
-        'type': 'Vehicle',
-        'vehicle': {
-          'type': 'StructuredValues',
-          'value': {
-            'id': 'bus01'
+          position: {
+            type: 'StructuredValues',
+            value: {
+              bearing: 180.3,
+              latitude: 35.1,
+              longitude: 135.2
+            }
+          },
+          stopId: {
+            type: 'Text',
+            value: 'S0001'
+          },
+          timestamp: {
+            type: 'Text',
+            value: '0000000001'
+          },
+          trip: {
+            type: 'StructuredValues',
+            value: {
+              routeId: '001',
+              scheduleRelationship: 'SCHEDULED',
+              startDate: '20220301',
+              tripId: '00000000000000000000000000000000'
+            }
+          },
+          type: 'Vehicle',
+          vehicle: {
+            type: 'StructuredValues',
+            value: {
+              id: 'bus01'
+            }
           }
         }
-      }];
+      ];
       const actual = gtfs2ngsi(data);
 
       assert.deepEqual(actual, expected);
-
     });
     it('should be tripUpdate', () => {
       const gtfs2ngsi = gtfsRealtimeNode.__get__('gtfs2ngsi');
 
-      const data = [{
-        'id': 'bus01',
-        'tripUpdate': {
-          'trip': {
-            'tripId': '1119'
-          },
-          'stopTimeUpdate': [
-            {
-              'stopSequence': 20,
-              'departure': {
-                'delay': 7
+      const data = [
+        {
+          id: 'bus01',
+          tripUpdate: {
+            trip: {
+              tripId: '1119'
+            },
+            stopTimeUpdate: [
+              {
+                stopSequence: 20,
+                departure: {
+                  delay: 7
+                }
               }
-            }
-          ]
-        }
-      }];
-
-      const expected = [{
-        'id': 'urn:ngsi-ld:TripUpdate:bus01',
-        'stopTimeUpdate': {
-          'type': 'StructuredValues',
-          'value': [
-            {
-              'departure': {
-                'delay': 7
-              },
-              'stopSequence': 20
-            }
-          ]
-        },
-        'trip': {
-          'type': 'StructuredValues',
-          'value': {
-            'tripId': '1119'
+            ]
           }
-        },
-        'type': 'TripUpdate'
-      }];
+        }
+      ];
+
+      const expected = [
+        {
+          id: 'urn:ngsi-ld:TripUpdate:bus01',
+          stopTimeUpdate: {
+            type: 'StructuredValues',
+            value: [
+              {
+                departure: {
+                  delay: 7
+                },
+                stopSequence: 20
+              }
+            ]
+          },
+          trip: {
+            type: 'StructuredValues',
+            value: {
+              tripId: '1119'
+            }
+          },
+          type: 'TripUpdate'
+        }
+      ];
       const actual = gtfs2ngsi(data);
 
       assert.deepEqual(actual, expected);
-
     });
     it('should be unknown', () => {
       const gtfs2ngsi = gtfsRealtimeNode.__get__('gtfs2ngsi');
@@ -388,9 +409,7 @@ describe('gtfs-realtime.js', () => {
       const actual = gtfs2ngsi([{}]);
 
       assert.deepEqual(actual, []);
-
     });
-
   });
 
   describe('NGSI gtfs realtime node', () => {
@@ -398,41 +417,41 @@ describe('gtfs-realtime.js', () => {
       gtfsRealtimeNode.__ResetDependency__('getGtfsRealtime');
     });
     const data = {
-      'id': 'bus01',
-      'tripUpdate': {
-        'trip': {
-          'tripId': '1119'
+      id: 'bus01',
+      tripUpdate: {
+        trip: {
+          tripId: '1119'
         },
-        'stopTimeUpdate': [
+        stopTimeUpdate: [
           {
-            'stopSequence': 20,
-            'departure': {
-              'delay': 7
+            stopSequence: 20,
+            departure: {
+              delay: 7
             }
           }
         ]
       }
     };
     const expected = {
-      'id': 'urn:ngsi-ld:TripUpdate:bus01',
-      'stopTimeUpdate': {
-        'type': 'StructuredValues',
-        'value': [
+      id: 'urn:ngsi-ld:TripUpdate:bus01',
+      stopTimeUpdate: {
+        type: 'StructuredValues',
+        value: [
           {
-            'departure': {
-              'delay': 7
+            departure: {
+              delay: 7
             },
-            'stopSequence': 20
+            stopSequence: 20
           }
         ]
       },
-      'trip': {
-        'type': 'StructuredValues',
-        'value': {
-          'tripId': '1119'
+      trip: {
+        type: 'StructuredValues',
+        value: {
+          tripId: '1119'
         }
       },
-      'type': 'TripUpdate'
+      type: 'TripUpdate'
     };
     it('payload url', async () => {
       const red = new MockRed();
@@ -449,7 +468,10 @@ describe('gtfs-realtime.js', () => {
       await red.inputWithAwait({ payload: 'http://gtfs-realtime' });
 
       assert.deepEqual(actual, { payload: 'http://gtfs-realtime' });
-      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
+      assert.deepEqual(red.getOutput(), {
+        payload: [expected],
+        statusCode: 200
+      });
     });
     it('get error', async () => {
       const red = new MockRed();
@@ -466,7 +488,10 @@ describe('gtfs-realtime.js', () => {
       await red.inputWithAwait({ payload: 'http://gtfs-realtime' });
 
       assert.deepEqual(actual, { payload: 'http://gtfs-realtime' });
-      assert.deepEqual(red.getOutput(), { payload: { error: 'error' }, statusCode: 400 });
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'error' },
+        statusCode: 400
+      });
     });
     it('payload object', async () => {
       const red = new MockRed();
@@ -475,7 +500,10 @@ describe('gtfs-realtime.js', () => {
 
       await red.inputWithAwait({ payload: data });
 
-      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
+      assert.deepEqual(red.getOutput(), {
+        payload: [expected],
+        statusCode: 200
+      });
     });
     it('payload array', async () => {
       const red = new MockRed();
@@ -484,7 +512,10 @@ describe('gtfs-realtime.js', () => {
 
       await red.inputWithAwait({ payload: [data] });
 
-      assert.deepEqual(red.getOutput(), { payload: [expected], statusCode: 200 });
+      assert.deepEqual(red.getOutput(), {
+        payload: [expected],
+        statusCode: 200
+      });
     });
     it('payload error', async () => {
       const red = new MockRed();
@@ -494,7 +525,10 @@ describe('gtfs-realtime.js', () => {
       await red.inputWithAwait({ payload: 1 });
 
       assert.equal(red.getMessage(), 'payload error');
-      assert.deepEqual(red.getOutput(), { payload: { error: 'payload error' }, statusCode: 500 });
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'payload error' },
+        statusCode: 500
+      });
     });
     it('entities empty', async () => {
       const red = new MockRed();
@@ -504,7 +538,10 @@ describe('gtfs-realtime.js', () => {
       await red.inputWithAwait({ payload: [] });
 
       assert.equal(red.getMessage(), 'entities empty');
-      assert.deepEqual(red.getOutput(), { payload: { error: 'entities empty' }, statusCode: 500 });
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'entities empty' },
+        statusCode: 500
+      });
     });
   });
 });

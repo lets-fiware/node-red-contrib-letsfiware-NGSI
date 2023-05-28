@@ -40,7 +40,7 @@ const getEntities = async function (msg, param) {
       baseURL: param.host,
       url: param.pathname,
       headers: await lib.buildHTTPHeader(param),
-      params: lib.buildParams(param.config),
+      params: lib.buildParams(param.config)
     };
 
     try {
@@ -93,13 +93,13 @@ const nobuffering = {
     message.statusCode = 200;
     this.node.send(message);
   },
-  close: function () { },
+  close: function () {},
   out: function (entities) {
     const message = Object.assign({}, this.msg);
     message.payload = entities;
     message.statusCode = 200;
     this.node.send(message);
-  },
+  }
 };
 
 const buffering = {
@@ -122,7 +122,7 @@ const buffering = {
   },
   out: function (entities) {
     this.entities = this.entities.concat(entities);
-  },
+  }
 };
 
 const createParam = function (msg, config, openAPIsConfig) {
@@ -142,7 +142,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     q: config.query.trim(),
     limit: 100,
     offset: 0,
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   if (!msg.payload) {
@@ -164,7 +164,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     pathname: '/v2/entities',
     buffer: defaultConfig.buffering ? buffering.open(this, msg) : nobuffering.open(this, msg),
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-    config: Object.assign(defaultConfig, msg.payload),
+    config: Object.assign(defaultConfig, msg.payload)
   };
 
   [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);

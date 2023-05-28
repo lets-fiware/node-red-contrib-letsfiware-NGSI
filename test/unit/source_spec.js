@@ -46,15 +46,21 @@ describe('source.js', () => {
     });
     it('get entities', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: { 'fiware-total-count': 2 },
-          data: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }]
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: { 'fiware-total-count': 2 },
+            data: [
+              { id: 'E1', type: 'T' },
+              { id: 'E2', type: 'T' }
+            ]
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -63,10 +69,14 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
+        buffer: nobuffering.open({
+          send: (entities) => {
+            actual = entities;
+          }
+        }),
         config: {
           offset: 0,
-          limit: 1,
+          limit: 1
         }
       };
 
@@ -74,21 +84,30 @@ describe('source.js', () => {
       await getEntities(msg, param);
 
       assert.deepEqual(actual, {
-        payload: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }],
+        payload: [
+          { id: 'E1', type: 'T' },
+          { id: 'E2', type: 'T' }
+        ],
         statusCode: 200
       });
     });
     it('get entities', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: { 'fiware-total-count': 2 },
-          data: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }]
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: { 'fiware-total-count': 2 },
+            data: [
+              { id: 'E1', type: 'T' },
+              { id: 'E2', type: 'T' }
+            ]
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -97,10 +116,14 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
+        buffer: nobuffering.open({
+          send: (entities) => {
+            actual = entities;
+          }
+        }),
         config: {
           offset: 0,
-          limit: 1,
+          limit: 1
         }
       };
 
@@ -108,21 +131,27 @@ describe('source.js', () => {
       await getEntities(msg, param);
 
       assert.deepEqual(actual, {
-        payload: [{ id: 'E1', type: 'T' }, { id: 'E2', type: 'T' }],
+        payload: [
+          { id: 'E1', type: 'T' },
+          { id: 'E2', type: 'T' }
+        ],
         statusCode: 200
       });
     });
     it('get no entities', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: { 'fiware-total-count': 0 },
-          data: []
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: { 'fiware-total-count': 0 },
+            data: []
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -131,10 +160,14 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
+        buffer: nobuffering.open({
+          send: (entities) => {
+            actual = entities;
+          }
+        }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 2
         }
       };
 
@@ -148,15 +181,18 @@ describe('source.js', () => {
     });
     it('total count 0', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: { 'fiware-total-count': 0 },
-          data: [{}]
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: { 'fiware-total-count': 0 },
+            data: [{}]
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -165,10 +201,14 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: (entities) => { actual = entities; } }),
+        buffer: nobuffering.open({
+          send: (entities) => {
+            actual = entities;
+          }
+        }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 2
         }
       };
 
@@ -183,10 +223,12 @@ describe('source.js', () => {
     it('should be 400 Bad Request', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -194,16 +236,24 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }),
+        buffer: nobuffering.open({ send: () => {} }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 2
         }
       };
 
       let errmsg = '';
       let out = {};
-      const node = { msg: '', error: (e) => { errmsg = e; }, send: (o) => { out = o; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        },
+        send: (o) => {
+          out = o;
+        }
+      };
 
       const msg = {};
       await getEntities.call(node, msg, param);
@@ -213,11 +263,18 @@ describe('source.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       sourceNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -225,30 +282,43 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }),
+        buffer: nobuffering.open({ send: () => {} }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 2
         }
       };
 
       let errmsg = [];
       let out = {};
-      const node = { msg: '', error: (e) => { errmsg.push(e); }, send: (o) => { out = o; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        },
+        send: (o) => {
+          out = o;
+        }
+      };
 
       const msg = {};
       await getEntities.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while retrieving entities: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(out, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(out, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('Should be unknown error', async () => {
       sourceNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const getEntities = sourceNode.__get__('getEntities');
       const nobuffering = sourceNode.__get__('nobuffering');
@@ -256,22 +326,33 @@ describe('source.js', () => {
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/entities',
-        buffer: nobuffering.open({ send: () => { } }),
+        buffer: nobuffering.open({ send: () => {} }),
         config: {
           offset: 0,
-          limit: 2,
+          limit: 2
         }
       };
 
       let errmsg = '';
       let out = {};
-      const node = { msg: '', error: (e) => { errmsg = e; }, send: (o) => { out = o; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg = e;
+        },
+        send: (o) => {
+          out = o;
+        }
+      };
 
       const msg = {};
       await getEntities.call(node, msg, param);
 
       assert.equal(errmsg, 'Exception while retrieving entities: unknown error');
-      assert.deepEqual(out, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(out, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('nobuffering', () => {
@@ -280,26 +361,39 @@ describe('source.js', () => {
       const msg = {};
       const actual = [];
 
-      nobuffering.open({ send: (data) => { actual.push(data); } }, msg);
+      nobuffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       nobuffering.send([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
       assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
-
     });
     it('should have a entities', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const msg = {};
       const actual = [];
 
-      nobuffering.open({ send: (data) => { actual.push(data); } }, msg);
+      nobuffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       nobuffering.send([{ id: 'E1', type: 'T' }]);
       nobuffering.send([{ id: 'E2', type: 'T' }]);
       nobuffering.close();
 
       assert.deepEqual(actual, [
         { payload: [{ id: 'E1', type: 'T' }], statusCode: 200 },
-        { payload: [{ id: 'E2', type: 'T' }], statusCode: 200 },
+        { payload: [{ id: 'E2', type: 'T' }], statusCode: 200 }
       ]);
     });
     it('should be empty', () => {
@@ -307,23 +401,35 @@ describe('source.js', () => {
       const msg = {};
       const actual = [];
 
-      nobuffering.open({ send: (data) => { actual.push(data); } }, msg);
+      nobuffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       nobuffering.close();
 
       assert.deepEqual(actual, []);
-
     });
     it('should have a entity', () => {
       const nobuffering = sourceNode.__get__('nobuffering');
       const msg = {};
       const actual = [];
 
-      nobuffering.open({ send: (data) => { actual.push(data); } }, msg);
+      nobuffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       nobuffering.out([{ id: 'E1', type: 'T' }]);
       nobuffering.close();
 
       assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
-
     });
   });
   describe('buffering', () => {
@@ -332,19 +438,32 @@ describe('source.js', () => {
       const msg = {};
       const actual = [];
 
-      buffering.open({ send: (data) => { actual.push(data); } }, msg);
+      buffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       buffering.send([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
       assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
-
     });
     it('should have a entities', () => {
       const buffering = sourceNode.__get__('buffering');
       const msg = {};
       const actual = [];
 
-      buffering.open({ send: (data) => { actual.push(data); } }, msg);
+      buffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       buffering.send([{ id: 'E1', type: 'T' }]);
       buffering.send([{ id: 'E2', type: 'T' }]);
       buffering.close();
@@ -353,10 +472,10 @@ describe('source.js', () => {
         {
           payload: [
             { id: 'E1', type: 'T' },
-            { id: 'E2', type: 'T' },
+            { id: 'E2', type: 'T' }
           ],
           statusCode: 200
-        },
+        }
       ]);
     });
     it('should be empty', () => {
@@ -364,23 +483,35 @@ describe('source.js', () => {
       const msg = {};
       const actual = [];
 
-      buffering.open({ send: (data) => { actual.push(data); } }, msg);
+      buffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       buffering.close();
 
       assert.deepEqual(actual, [{ payload: [], statusCode: 200 }]);
-
     });
     it('should have a entity', () => {
       const buffering = sourceNode.__get__('buffering');
       const msg = {};
       const actual = [];
 
-      buffering.open({ send: (data) => { actual.push(data); } }, msg);
+      buffering.open(
+        {
+          send: (data) => {
+            actual.push(data);
+          }
+        },
+        msg
+      );
       buffering.out([{ id: 'E1', type: 'T' }]);
       buffering.close();
 
       assert.deepEqual(actual, [{ payload: [{ id: 'E1', type: 'T' }], statusCode: 200 }]);
-
     });
   });
   describe('createParam', () => {
@@ -396,10 +527,16 @@ describe('source.js', () => {
         entitytype: '',
         idpattern: '',
         attrs: '',
-        query: '',
+        query: ''
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -422,8 +559,8 @@ describe('source.js', () => {
           q: '',
           limit: 100,
           offset: 0,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -441,10 +578,16 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
-        forbidden: 'false',
+        forbidden: 'false'
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: () => {},
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -469,8 +612,8 @@ describe('source.js', () => {
           q: '',
           limit: 100,
           offset: 0,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -487,10 +630,16 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
-        forbidden: 'false',
+        forbidden: 'false'
       };
 
-      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion-ld',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const msg = { payload: null };
       const actual = createParam(msg, config, openAPIsConfig);
@@ -510,10 +659,16 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
-        forbidden: 'false',
+        forbidden: 'false'
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const msg = { payload: null };
       const actual = createParam(msg, config, openAPIsConfig);
@@ -533,16 +688,24 @@ describe('source.js', () => {
         idpattern: '',
         attrs: '',
         query: '',
-        forbidden: 'false',
+        forbidden: 'false'
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const msg = { payload: [] };
       const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.deepEqual(msg, { payload: { error: 'payload not string or JSON Object' } });
+      assert.deepEqual(msg, {
+        payload: { error: 'payload not string or JSON Object' }
+      });
     });
   });
   describe('NGSI source node', () => {
@@ -566,7 +729,7 @@ describe('source.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion'
         }
       });
 
@@ -588,7 +751,7 @@ describe('source.js', () => {
         q: '',
         limit: 100,
         offset: 0,
-        forbidden: false,
+        forbidden: false
       });
     });
     it('FIWARE GE type not Orion', async () => {
@@ -607,17 +770,20 @@ describe('source.js', () => {
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => { },
-          geType: 'fiware',
+          getToken: () => {},
+          geType: 'fiware'
         }
       });
 
-      sourceNode.__set__('getEntities', () => { });
+      sourceNode.__set__('getEntities', () => {});
 
       await red.inputWithAwait({ payload: null });
 
       assert.equal(red.getMessage(), 'FIWARE GE type not Orion');
-      assert.deepEqual(red.getOutput(), { payload: { error: 'FIWARE GE type not Orion' }, statusCode: 500 });
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'FIWARE GE type not Orion' },
+        statusCode: 500
+      });
     });
   });
 });

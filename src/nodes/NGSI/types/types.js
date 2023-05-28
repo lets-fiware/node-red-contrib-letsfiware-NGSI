@@ -42,7 +42,7 @@ const getTypes = async function (msg, param) {
       baseURL: param.host,
       url: param.pathname,
       headers: await lib.buildHTTPHeader(param),
-      params: lib.buildParams(param.config),
+      params: lib.buildParams(param.config)
     };
 
     try {
@@ -86,7 +86,7 @@ const getType = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    params: lib.buildParams(param.config),
+    params: lib.buildParams(param.config)
   };
 
   try {
@@ -121,7 +121,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     noAttrDetail: config.noAttrDetail === 'true',
     limit: 20,
     offset: 0,
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   if (defaultConfig.actionType === 'payload') {
@@ -141,7 +141,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/types',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-    config: defaultConfig,
+    config: defaultConfig
   };
 
   if (defaultConfig.actionType === 'types') {

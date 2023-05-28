@@ -33,9 +33,9 @@
 require('babel-register')({
   plugins: ['babel-plugin-rewire']
 });
-  
+
 const { assert } = require('chai');
-  
+
 const openAPIsNode = require('../../src/nodes/NGSI/open-apis/open-apis.js');
 const MockRed = require('./helpers/mockred.js');
 
@@ -49,7 +49,7 @@ describe('open-apis.js', () => {
         apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
-        idmType: '',
+        idmType: ''
       });
     });
     it('Init Open APIs node', async () => {
@@ -60,7 +60,7 @@ describe('open-apis.js', () => {
         apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
-        idmType: 'none',
+        idmType: 'none'
       });
     });
     it('Init Open APIs node with IdM', async () => {
@@ -71,7 +71,7 @@ describe('open-apis.js', () => {
         apiEndpoint: 'http://orion:1026',
         service: 'openiot',
         idmEndpoint: '',
-        idmType: 'keyrock',
+        idmType: 'keyrock'
       });
     });
   });
@@ -122,7 +122,7 @@ describe('open-apis.js', () => {
     it('should get cached access token', async () => {
       const config = {
         accessToken: '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
-        tokenExpires: new Date(Date.now() + 10 * 1000),
+        tokenExpires: new Date(Date.now() + 10 * 1000)
       };
       const actual = await getToken.call(config);
       assert.equal(actual, '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4');
@@ -135,21 +135,22 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: null,
-          clientsecret: null,
+          clientsecret: null
         },
         accessToken: '',
-        tokenExpires: null,
+        tokenExpires: null
       };
       openAPIsNode.__set__('http', async () => {
-        return {status: 200, data:{
-          'access_token': '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
-          'token_type': 'bearer',
-          'expires_in': 3599,
-          'refresh_token': '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
-          'scope': [
-            'bearer'
-          ]
-        }};
+        return {
+          status: 200,
+          data: {
+            access_token: '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
+            token_type: 'bearer',
+            expires_in: 3599,
+            refresh_token: '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
+            scope: ['bearer']
+          }
+        };
       });
       const actual = await getToken.call(config);
       assert.equal(actual, '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4');
@@ -162,21 +163,22 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: null,
-          clientsecret: null,
+          clientsecret: null
         },
         accessToken: '',
-        tokenExpires: null,
+        tokenExpires: null
       };
       openAPIsNode.__set__('http', async () => {
-        return {status: 200, data:{
-          'access_token': '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
-          'token_type': 'bearer',
-          'expires_in': 3599,
-          'refresh_token': '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
-          'scope': [
-            'bearer'
-          ]
-        }};
+        return {
+          status: 200,
+          data: {
+            access_token: '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
+            token_type: 'bearer',
+            expires_in: 3599,
+            refresh_token: '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
+            scope: ['bearer']
+          }
+        };
       });
       const actual = await getToken.call(config);
       assert.equal(actual, '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4');
@@ -189,21 +191,22 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: '58de156f-0fec-400b-bc7c-86265a885bee',
-          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70',
+          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70'
         },
         accessToken: '',
-        tokenExpires: null,
+        tokenExpires: null
       };
       openAPIsNode.__set__('http', async () => {
-        return {status: 200, data:{
-          'access_token': '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
-          'token_type': 'bearer',
-          'expires_in': 3599,
-          'refresh_token': '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
-          'scope': [
-            'bearer'
-          ]
-        }};
+        return {
+          status: 200,
+          data: {
+            access_token: '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
+            token_type: 'bearer',
+            expires_in: 3599,
+            refresh_token: '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
+            scope: ['bearer']
+          }
+        };
       });
       const actual = await getToken.call(config);
       assert.equal(actual, '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4');
@@ -216,21 +219,22 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: '58de156f-0fec-400b-bc7c-86265a885bee',
-          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70',
+          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70'
         },
         accessToken: '',
-        tokenExpires: null,
+        tokenExpires: null
       };
       openAPIsNode.__set__('http', async () => {
-        return {status: 200, data:{
-          'access_token': '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
-          'token_type': 'bearer',
-          'expires_in': 3599,
-          'refresh_token': '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
-          'scope': [
-            'bearer'
-          ]
-        }};
+        return {
+          status: 200,
+          data: {
+            access_token: '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4',
+            token_type: 'bearer',
+            expires_in: 3599,
+            refresh_token: '8b23aeabcb97b2b6b09670c8fa4c448a46ab5268',
+            scope: ['bearer']
+          }
+        };
       });
       const actual = await getToken.call(config);
       assert.equal(actual, '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4');
@@ -244,14 +248,16 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: '58de156f-0fec-400b-bc7c-86265a885bee',
-          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70',
+          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70'
         },
         accessToken: '',
         tokenExpires: null,
-        error: (msg) => {message =msg;},
+        error: (msg) => {
+          message = msg;
+        }
       };
       openAPIsNode.__set__('http', async () => {
-        return {status: 401, statusText: 'Unauthorized'};
+        return { status: 401, statusText: 'Unauthorized' };
       });
       await getToken.call(config);
       assert.equal(message, 'Error while obtaining token. Status Code: 401 Unauthorized');
@@ -265,11 +271,13 @@ describe('open-apis.js', () => {
           username: 'fiware',
           password: '1234',
           clientid: '58de156f-0fec-400b-bc7c-86265a885bee',
-          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70',
+          clientsecret: '921cf732-b39c-4e7c-815c-a91277e52b70'
         },
         accessToken: '',
         tokenExpires: null,
-        error: (msg) => {message =msg;},
+        error: (msg) => {
+          message = msg;
+        }
       };
       openAPIsNode.__set__('http', async () => Promise.reject('unknown error'));
       await getToken.call(config);

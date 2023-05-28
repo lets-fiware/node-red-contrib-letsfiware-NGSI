@@ -36,7 +36,7 @@ const updateAttrs = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    params: lib.buildParams(param.config),
+    params: lib.buildParams(param.config)
   };
 
   options.data = lib.encodeNGSI(param.config.attributes, param.config.forbidden);
@@ -77,7 +77,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
     forbidden: config.forbidden ? config.forbidden === 'true' : false,
-    append: false,
+    append: false
   };
 
   if (!msg.payload) {
@@ -118,7 +118,7 @@ const createParam = function (msg, config, openAPIsConfig) {
   const param = {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/entities/' + defaultConfig.id + '/attrs',
-    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig)
   };
 
   switch (defaultConfig.actionType) {

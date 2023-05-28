@@ -62,12 +62,19 @@ function transformHistorical(payload) {
 
   let values = [];
   if (payload.dataType === 'raw') {
-    values = payload.value.map((e) => { return { 'x': Date.parse(e.recvTime), 'y': e.attrValue }; });
+    values = payload.value.map((e) => {
+      return { x: Date.parse(e.recvTime), y: e.attrValue };
+    });
   } else {
     payload.value.forEach((e) => {
       const origin = e._id.origin;
       const resolution = e._id.resolution;
-      e.points.forEach((e) => values.push({ 'x': calculateDateTime(origin, resolution, e.offset), 'y': e[dataType] }));
+      e.points.forEach((e) =>
+        values.push({
+          x: calculateDateTime(origin, resolution, e.offset),
+          y: e[dataType]
+        })
+      );
     });
   }
   data.data.push(values);
@@ -109,7 +116,6 @@ module.exports = function (RED) {
             node.send(msg);
           }
         });
-
       } else if (config.inputType === 'notification') {
         const entity = msg.payload.data[0];
         attrs.forEach((item, index) => {
@@ -120,14 +126,12 @@ module.exports = function (RED) {
             node.send(msg);
           }
         });
-
       } else if (config.inputType === 'historical') {
         msg.payload = transformHistorical(msg.payload);
         node.send(msg);
       } else {
         node.error('Input type error: ' + config.inputType);
       }
-
     });
   }
   RED.nodes.registerType('NGSI to dashboard', ngsi2dashboard);

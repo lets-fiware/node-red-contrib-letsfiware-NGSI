@@ -27,139 +27,139 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI Attributes', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: "Open APIs",
-          required: true
-        },
-        servicepath: { value: '/' },
-        actionType: { value: 'append' },
-        entityId: { value: '' },
-        entityType: { value: '' },
-        keyValues: { value: 'false' },
-        overrideMetadata: { value: 'false' },
-        forcedUpdate: { value: 'false' },
-        flowControl: { value: 'false' },
+  RED.nodes.registerType('NGSI Attributes', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "NGSI Attributes";
-      },
-      paletteLabel: 'attributes'
-    });
+      servicepath: { value: '/' },
+      actionType: { value: 'append' },
+      entityId: { value: '' },
+      entityType: { value: '' },
+      keyValues: { value: 'false' },
+      overrideMetadata: { value: 'false' },
+      forcedUpdate: { value: 'false' },
+      flowControl: { value: 'false' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI Attributes';
+    },
+    paletteLabel: 'attributes'
+  });
 </script>
 
 <script type="text/x-red" data-template-name="NGSI Attributes">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
-        <input type="text" id="node-input-openapis">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actionType">
-            <option value="append">append</option>
-            <option value="update">update</option>
-            <option value="upsert">upsert</option>
-            <option value="replace">replace</option>
-            <option value="payload">value of ActionType in payload</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
-        <input type="text" id="node-input-entityId">
-    </div>
-    <div class="form-row">
-        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entityType">
-    </div>
-    <div class="form-row">
-        <label for="node-input-keyValues"><i class="fa fa-tag"></i> Representation</label>
-        <select id="node-input-keyValues">
-            <option value="false" enabled>normalized</option>
-            <option value="true">keyValues</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-overrideMetadata"><i class="fa fa-tag"></i> Override metadata</label>
-        <select id="node-input-overrideMetadata">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
-        <select id="node-input-forcedUpdate">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
-        <select id="node-input-flowControl">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-forbidden"><i class="fa fa-tag"></i> Encode forbidden chars</label>
-        <select id="node-input-forbidden">
-            <option value="false" selected>off</option>
-            <option value="true">on</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
+      <input type="text" id="node-input-openapis">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+      <select id="node-input-actionType">
+          <option value="append">append</option>
+          <option value="update">update</option>
+          <option value="upsert">upsert</option>
+          <option value="replace">replace</option>
+          <option value="payload">value of ActionType in payload</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
+      <input type="text" id="node-input-entityId">
+  </div>
+  <div class="form-row">
+      <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entityType">
+  </div>
+  <div class="form-row">
+      <label for="node-input-keyValues"><i class="fa fa-tag"></i> Representation</label>
+      <select id="node-input-keyValues">
+          <option value="false" enabled>normalized</option>
+          <option value="true">keyValues</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-overrideMetadata"><i class="fa fa-tag"></i> Override metadata</label>
+      <select id="node-input-overrideMetadata">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
+      <select id="node-input-forcedUpdate">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
+      <select id="node-input-flowControl">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-forbidden"><i class="fa fa-tag"></i> Encode forbidden chars</label>
+      <select id="node-input-forbidden">
+          <option value="false" selected>off</option>
+          <option value="true">on</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI Attributes">
-    <p>A simple node that allows to append, update, upsert or replace attributes of NGSIv2 entity. 
-    </p>
-    <h3>Append, update, upsert or replace attributes</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>An object with the attributes</dd>
-    </dl>
+  <p>A simple node that allows to append, update, upsert or replace attributes of NGSIv2 entity.
+  </p>
+  <h3>Append, update, upsert or replace attributes</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>An object with the attributes</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">string</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">string</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Use value of actionType in payload</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>A JSON Object with actionType and an object with the attributes.</dd>
-    </dl>
+  <h3>Use value of actionType in payload</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>A JSON Object with actionType and an object with the attributes.</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">string</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">string</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_attributes/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_attributes/">here</a> for full documentation.</p>
 </script>

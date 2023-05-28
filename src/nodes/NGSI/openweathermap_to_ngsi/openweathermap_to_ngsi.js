@@ -31,7 +31,6 @@
 const lib = require('../../../lib.js');
 
 const transform = function (data) {
-
   if (!data || typeof data !== 'object' || Array.isArray(data)) {
     this.error('data not object');
     return null;
@@ -42,7 +41,7 @@ const transform = function (data) {
   res.location = {
     type: 'geo:json',
     value: {
-      type: 'Point',
+      type: 'Point'
     }
   };
 

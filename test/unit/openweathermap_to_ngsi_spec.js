@@ -43,7 +43,41 @@ describe('openweathermap_to_ngsi.js', () => {
   describe('transform', () => {
     it('Weather', () => {
       const transform = openweathermapToNGSInode.__get__('transform');
-      const data = { 'coord': { 'lon': 139.6917, 'lat': 35.6895 }, 'weather': [{ 'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04n' }], 'base': 'stations', 'main': { 'temp': 278.23, 'feels_like': 275.04, 'temp_min': 275.4, 'temp_max': 280.12, 'pressure': 1022, 'humidity': 55 }, 'visibility': 10000, 'wind': { 'speed': 4.12, 'deg': 320 }, 'clouds': { 'all': 75 }, 'dt': 1677100198, 'sys': { 'type': 2, 'id': 2001249, 'country': 'JP', 'sunrise': 1677100803, 'sunset': 1677140982 }, 'timezone': 32400, 'id': 1850144, 'name': 'Tokyo', 'cod': 200 };
+      const data = {
+        coord: { lon: 139.6917, lat: 35.6895 },
+        weather: [
+          {
+            id: 803,
+            main: 'Clouds',
+            description: 'broken clouds',
+            icon: '04n'
+          }
+        ],
+        base: 'stations',
+        main: {
+          temp: 278.23,
+          feels_like: 275.04,
+          temp_min: 275.4,
+          temp_max: 280.12,
+          pressure: 1022,
+          humidity: 55
+        },
+        visibility: 10000,
+        wind: { speed: 4.12, deg: 320 },
+        clouds: { all: 75 },
+        dt: 1677100198,
+        sys: {
+          type: 2,
+          id: 2001249,
+          country: 'JP',
+          sunrise: 1677100803,
+          sunset: 1677140982
+        },
+        timezone: 32400,
+        id: 1850144,
+        name: 'Tokyo',
+        cod: 200
+      };
 
       const actual = transform(data);
 
@@ -52,8 +86,8 @@ describe('openweathermap_to_ngsi.js', () => {
           type: 'StructuredValue',
           value: {
             lon: 139.6917,
-            lat: 35.6895,
-          },
+            lat: 35.6895
+          }
         },
         weather: {
           type: 'StructuredValue',
@@ -62,13 +96,13 @@ describe('openweathermap_to_ngsi.js', () => {
               id: 803,
               main: 'Clouds',
               description: 'broken clouds',
-              icon: '04n',
-            },
-          ],
+              icon: '04n'
+            }
+          ]
         },
         base: {
           type: 'Text',
-          value: 'stations',
+          value: 'stations'
         },
         main: {
           type: 'StructuredValue',
@@ -78,29 +112,29 @@ describe('openweathermap_to_ngsi.js', () => {
             temp_min: 275.4,
             temp_max: 280.12,
             pressure: 1022,
-            humidity: 55,
-          },
+            humidity: 55
+          }
         },
         visibility: {
           type: 'Number',
-          value: 10000,
+          value: 10000
         },
         wind: {
           type: 'StructuredValue',
           value: {
             speed: 4.12,
-            deg: 320,
-          },
+            deg: 320
+          }
         },
         clouds: {
           type: 'StructuredValue',
           value: {
-            all: 75,
-          },
+            all: 75
+          }
         },
         dt: {
           type: 'Number',
-          value: 1677100198,
+          value: 1677100198
         },
         sys: {
           type: 'StructuredValue',
@@ -109,110 +143,106 @@ describe('openweathermap_to_ngsi.js', () => {
             id: 2001249,
             country: 'JP',
             sunrise: 1677100803,
-            sunset: 1677140982,
-          },
+            sunset: 1677140982
+          }
         },
         timezone: {
           type: 'Number',
-          value: 32400,
+          value: 32400
         },
         id: 'urn:ngsi-ld:OpenWeatherMapWeather:1850144',
         name: {
           type: 'Text',
-          value: 'Tokyo',
+          value: 'Tokyo'
         },
         cod: {
           type: 'Number',
-          value: 200,
+          value: 200
         },
         location: {
           type: 'geo:json',
           value: {
             type: 'Point',
-            coordinates: [
-              139.6917,
-              35.6895,
-            ],
-          },
+            coordinates: [139.6917, 35.6895]
+          }
         },
-        type: 'OpenWeatherMapWeather',
+        type: 'OpenWeatherMapWeather'
       };
       assert.deepEqual(actual, expected);
     });
     it('forcast', () => {
       const transform = openweathermapToNGSInode.__get__('transform');
       const data = {
-        'cod': '200',
-        'message': 0,
-        'cnt': 40,
-        'list': [
+        cod: '200',
+        message: 0,
+        cnt: 40,
+        list: [
           {
-            'dt': 1677121200,
-            'main': {
-              'temp': 280.79,
-              'feels_like': 280.79,
-              'temp_min': 280.79,
-              'temp_max': 283.38,
-              'pressure': 1020,
-              'sea_level': 1020,
-              'grnd_level': 1014,
-              'humidity': 46,
-              'temp_kf': -2.59
+            dt: 1677121200,
+            main: {
+              temp: 280.79,
+              feels_like: 280.79,
+              temp_min: 280.79,
+              temp_max: 283.38,
+              pressure: 1020,
+              sea_level: 1020,
+              grnd_level: 1014,
+              humidity: 46,
+              temp_kf: -2.59
             },
-            'weather': [
+            weather: [
               {
-                'id': 803,
-                'main': 'Clouds',
-                'description': 'broken clouds',
-                'icon': '04d'
+                id: 803,
+                main: 'Clouds',
+                description: 'broken clouds',
+                icon: '04d'
               }
             ],
-            'clouds': {
-              'all': 78
+            clouds: {
+              all: 78
             },
-            'wind': {
-              'speed': 1.19,
-              'deg': 259,
-              'gust': 3.2
+            wind: {
+              speed: 1.19,
+              deg: 259,
+              gust: 3.2
             },
-            'visibility': 10000,
-            'pop': 0.01,
-            'sys': {
-              'pod': 'd'
+            visibility: 10000,
+            pop: 0.01,
+            sys: {
+              pod: 'd'
             },
-            'dt_txt': '2023-02-23 03:00:00'
+            dt_txt: '2023-02-23 03:00:00'
           }
         ],
-        'city': {
-          'id': 1850144,
-          'name': 'Tokyo',
-          'coord': {
-            'lat': 35.6895,
-            'lon': 139.6917
+        city: {
+          id: 1850144,
+          name: 'Tokyo',
+          coord: {
+            lat: 35.6895,
+            lon: 139.6917
           },
-          'country': 'JP',
-          'population': 12445327,
-          'timezone': 32400,
-          'sunrise': 1677100803,
-          'sunset': 1677140982
+          country: 'JP',
+          population: 12445327,
+          timezone: 32400,
+          sunrise: 1677100803,
+          sunset: 1677140982
         }
       };
 
       const actual = transform(data);
 
-      const expected =
-      {
+      const expected = {
         cod: {
           type: 'Text',
-          value: '200',
+          value: '200'
         },
         message: {
           type: 'Number',
-          value: 0,
+          value: 0
         },
         cnt: {
           type: 'Number',
-          value: 40,
+          value: 40
         },
         list: {
           type: 'StructuredValue',
@@ -228,32 +258,32 @@ describe('openweathermap_to_ngsi.js', () => {
                 sea_level: 1020,
                 grnd_level: 1014,
                 humidity: 46,
-                temp_kf: -2.59,
+                temp_kf: -2.59
               },
               weather: [
                 {
                   id: 803,
                   main: 'Clouds',
                   description: 'broken clouds',
-                  icon: '04d',
-                },
+                  icon: '04d'
+                }
               ],
               clouds: {
-                all: 78,
+                all: 78
               },
               wind: {
                 speed: 1.19,
                 deg: 259,
-                gust: 3.2,
+                gust: 3.2
               },
               visibility: 10000,
               pop: 0.01,
               sys: {
-                pod: 'd',
+                pod: 'd'
               },
-              dt_txt: '2023-02-23 03:00:00',
-            },
-          ],
+              dt_txt: '2023-02-23 03:00:00'
+            }
+          ]
         },
         city: {
           type: 'StructuredValue',
@@ -262,27 +292,24 @@ describe('openweathermap_to_ngsi.js', () => {
             name: 'Tokyo',
             coord: {
               lat: 35.6895,
-              lon: 139.6917,
+              lon: 139.6917
             },
             country: 'JP',
             population: 12445327,
             timezone: 32400,
             sunrise: 1677100803,
-            sunset: 1677140982,
-          },
+            sunset: 1677140982
+          }
         },
         id: 'urn:ngsi-ld:OpenWeatherMapForecast:undefined',
         location: {
           type: 'geo:json',
           value: {
             type: 'Point',
-            coordinates: [
-              139.6917,
-              35.6895,
-            ],
-          },
+            coordinates: [139.6917, 35.6895]
+          }
         },
-        type: 'OpenWeatherMapForecast',
+        type: 'OpenWeatherMapForecast'
       };
 
       assert.deepEqual(actual, expected);
@@ -292,7 +319,12 @@ describe('openweathermap_to_ngsi.js', () => {
       const data = null;
 
       let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          msg = e;
+        }
+      };
 
       const actual = transform.call(node, data);
 
@@ -304,7 +336,12 @@ describe('openweathermap_to_ngsi.js', () => {
       const data = 'FIWARE';
 
       let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          msg = e;
+        }
+      };
 
       const actual = transform.call(node, data);
 
@@ -316,7 +353,12 @@ describe('openweathermap_to_ngsi.js', () => {
       const data = [];
 
       let msg = '';
-      const node = { msg: '', error: (e) => { msg = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          msg = e;
+        }
+      };
 
       const actual = transform.call(node, data);
 
@@ -331,18 +373,86 @@ describe('openweathermap_to_ngsi.js', () => {
       red.createNode({});
 
       await red.inputWithAwait({
-        data: { 'coord': { 'lon': 139.6917, 'lat': 35.6895 }, 'weather': [{ 'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04n' }], 'base': 'stations', 'main': { 'temp': 278.23, 'feels_like': 275.04, 'temp_min': 275.4, 'temp_max': 280.12, 'pressure': 1022, 'humidity': 55 }, 'visibility': 10000, 'wind': { 'speed': 4.12, 'deg': 320 }, 'clouds': { 'all': 75 }, 'dt': 1677100198, 'sys': { 'type': 2, 'id': 2001249, 'country': 'JP', 'sunrise': 1677100803, 'sunset': 1677140982 }, 'timezone': 32400, 'id': 1850144, 'name': 'Tokyo', 'cod': 200 },
+        data: {
+          coord: { lon: 139.6917, lat: 35.6895 },
+          weather: [
+            {
+              id: 803,
+              main: 'Clouds',
+              description: 'broken clouds',
+              icon: '04n'
+            }
+          ],
+          base: 'stations',
+          main: {
+            temp: 278.23,
+            feels_like: 275.04,
+            temp_min: 275.4,
+            temp_max: 280.12,
+            pressure: 1022,
+            humidity: 55
+          },
+          visibility: 10000,
+          wind: { speed: 4.12, deg: 320 },
+          clouds: { all: 75 },
+          dt: 1677100198,
+          sys: {
+            type: 2,
+            id: 2001249,
+            country: 'JP',
+            sunrise: 1677100803,
+            sunset: 1677140982
+          },
+          timezone: 32400,
+          id: 1850144,
+          name: 'Tokyo',
+          cod: 200
+        }
       });
 
       const expected = {
-        data: { 'coord': { 'lon': 139.6917, 'lat': 35.6895 }, 'weather': [{ 'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04n' }], 'base': 'stations', 'main': { 'temp': 278.23, 'feels_like': 275.04, 'temp_min': 275.4, 'temp_max': 280.12, 'pressure': 1022, 'humidity': 55 }, 'visibility': 10000, 'wind': { 'speed': 4.12, 'deg': 320 }, 'clouds': { 'all': 75 }, 'dt': 1677100198, 'sys': { 'type': 2, 'id': 2001249, 'country': 'JP', 'sunrise': 1677100803, 'sunset': 1677140982 }, 'timezone': 32400, 'id': 1850144, 'name': 'Tokyo', 'cod': 200 },
+        data: {
+          coord: { lon: 139.6917, lat: 35.6895 },
+          weather: [
+            {
+              id: 803,
+              main: 'Clouds',
+              description: 'broken clouds',
+              icon: '04n'
+            }
+          ],
+          base: 'stations',
+          main: {
+            temp: 278.23,
+            feels_like: 275.04,
+            temp_min: 275.4,
+            temp_max: 280.12,
+            pressure: 1022,
+            humidity: 55
+          },
+          visibility: 10000,
+          wind: { speed: 4.12, deg: 320 },
+          clouds: { all: 75 },
+          dt: 1677100198,
+          sys: {
+            type: 2,
+            id: 2001249,
+            country: 'JP',
+            sunrise: 1677100803,
+            sunset: 1677140982
+          },
+          timezone: 32400,
+          id: 1850144,
+          name: 'Tokyo',
+          cod: 200
+        },
         payload: {
           coord: {
             type: 'StructuredValue',
             value: {
               lon: 139.6917,
-              lat: 35.6895,
-            },
+              lat: 35.6895
+            }
           },
           weather: {
             type: 'StructuredValue',
@@ -351,13 +461,13 @@ describe('openweathermap_to_ngsi.js', () => {
                 id: 803,
                 main: 'Clouds',
                 description: 'broken clouds',
-                icon: '04n',
-              },
-            ],
+                icon: '04n'
+              }
+            ]
           },
           base: {
             type: 'Text',
-            value: 'stations',
+            value: 'stations'
           },
           main: {
             type: 'StructuredValue',
@@ -367,29 +477,29 @@ describe('openweathermap_to_ngsi.js', () => {
               temp_min: 275.4,
               temp_max: 280.12,
               pressure: 1022,
-              humidity: 55,
-            },
+              humidity: 55
+            }
           },
           visibility: {
             type: 'Number',
-            value: 10000,
+            value: 10000
           },
           wind: {
             type: 'StructuredValue',
             value: {
               speed: 4.12,
-              deg: 320,
-            },
+              deg: 320
+            }
           },
           clouds: {
             type: 'StructuredValue',
             value: {
-              all: 75,
-            },
+              all: 75
+            }
           },
           dt: {
             type: 'Number',
-            value: 1677100198,
+            value: 1677100198
           },
           sys: {
             type: 'StructuredValue',
@@ -398,34 +508,31 @@ describe('openweathermap_to_ngsi.js', () => {
               id: 2001249,
               country: 'JP',
               sunrise: 1677100803,
-              sunset: 1677140982,
-            },
+              sunset: 1677140982
+            }
           },
           timezone: {
             type: 'Number',
-            value: 32400,
+            value: 32400
           },
           id: 'urn:ngsi-ld:OpenWeatherMapWeather:1850144',
           name: {
             type: 'Text',
-            value: 'Tokyo',
+            value: 'Tokyo'
           },
           cod: {
             type: 'Number',
-            value: 200,
+            value: 200
           },
           location: {
             type: 'geo:json',
             value: {
               type: 'Point',
-              coordinates: [
-                139.6917,
-                35.6895,
-              ],
-            },
+              coordinates: [139.6917, 35.6895]
+            }
           },
-          type: 'OpenWeatherMapWeather',
-        },
+          type: 'OpenWeatherMapWeather'
+        }
       };
       assert.deepEqual(red.getOutput(), expected);
     });

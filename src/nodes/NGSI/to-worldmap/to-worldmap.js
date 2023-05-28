@@ -40,7 +40,7 @@ function createGeoSpatialInfo(location) {
     }
     case 'geo:line':
       payload.line = location.value.map((e) => {
-        return e.split(',').map(e => Number(e));
+        return e.split(',').map((e) => Number(e));
       });
       break;
     case 'geo:box':
@@ -63,9 +63,7 @@ function createGeoSpatialInfo(location) {
       payload.line = location.coordinates.map((e1) => e1.map((e2) => [e2[1], e2[0]]));
       break;
     case 'MultiPolygon':
-      payload.area = location.coordinates.map((e1) =>
-        e1.map((e2) => e2.map((e3) => [e3[1], e3[0]]))
-      );
+      payload.area = location.coordinates.map((e1) => e1.map((e2) => e2.map((e3) => [e3[1], e3[0]])));
       break;
   }
   return payload;
@@ -89,17 +87,12 @@ module.exports = function (RED) {
       }
       const pois = [];
       msg.payload.forEach((entity) => {
-        const location =
-          entity.location.coordinates == null ? entity.location.value : entity.location;
+        const location = entity.location.coordinates == null ? entity.location.value : entity.location;
 
         let poi = createGeoSpatialInfo(location);
 
         poi.name =
-          entity[config.attrname] == null
-            ? entity.id
-            : typeof entity[config.attrname] == 'string'
-              ? entity[config.attrname]
-              : entity[config.attrname].value;
+          entity[config.attrname] == null ? entity.id : typeof entity[config.attrname] == 'string' ? entity[config.attrname] : entity[config.attrname].value;
 
         if (entity[config.attrworldmap]) {
           if (entity[config.attrworldmap].value) {

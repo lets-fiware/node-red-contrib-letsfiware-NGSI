@@ -27,198 +27,198 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('Historical Context', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: "Open APIs",
-          required: true
-        },
-        servicepath: { value: "/" },
-        entityid: { value: "" },
-        attrname: { value: "" },
-        entitytype: { value: "" },
-        datatype: { value: "raw" },
-        lastn: { value: "" },
-        hlimit: { value: "" },
-        hoffset: { value: "" },
-        aggrperiod: { value: "month" },
-        datefrom: { value: "" },
-        fromunit: { value: "ISO8601" },
-        dateto: { value: "" },
-        tounit: { value: "ISO8601" },
-        outputtype: { value: "value" },
-        count: { value: "false" },
+  RED.nodes.registerType('Historical Context', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "Historical Context";
-      },
-      paletteLabel: 'historical'
-    });
+      servicepath: { value: '/' },
+      entityid: { value: '' },
+      attrname: { value: '' },
+      entitytype: { value: '' },
+      datatype: { value: 'raw' },
+      lastn: { value: '' },
+      hlimit: { value: '' },
+      hoffset: { value: '' },
+      aggrperiod: { value: 'month' },
+      datefrom: { value: '' },
+      fromunit: { value: 'ISO8601' },
+      dateto: { value: '' },
+      tounit: { value: 'ISO8601' },
+      outputtype: { value: 'value' },
+      count: { value: 'false' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'Historical Context';
+    },
+    paletteLabel: 'historical'
+  });
 
-    /* eslint no-unused-vars: 0 */
-    function historical_context_datatype_Changed(e) {
-      switch (e.target.value) {
-        case "raw":
-          document.getElementById('lastn').hidden = false;
-          document.getElementById('hlimit').hidden = false;
-          document.getElementById('hoffset').hidden = false;
-          document.getElementById('count').hidden = false;
-          document.getElementById('aggrperiod').hidden = true;
-          break;
-        default:
-          document.getElementById('lastn').hidden = true;
-          document.getElementById('hlimit').hidden = true;
-          document.getElementById('hoffset').hidden = true;
-          document.getElementById('count').hidden = true;
-          document.getElementById('aggrperiod').hidden = false;
-          break;
-      }
+  /* eslint no-unused-vars: 0 */
+  function historical_context_datatype_Changed(e) {
+    switch (e.target.value) {
+      case 'raw':
+        document.getElementById('lastn').hidden = false;
+        document.getElementById('hlimit').hidden = false;
+        document.getElementById('hoffset').hidden = false;
+        document.getElementById('count').hidden = false;
+        document.getElementById('aggrperiod').hidden = true;
+        break;
+      default:
+        document.getElementById('lastn').hidden = true;
+        document.getElementById('hlimit').hidden = true;
+        document.getElementById('hoffset').hidden = true;
+        document.getElementById('count').hidden = true;
+        document.getElementById('aggrperiod').hidden = false;
+        break;
     }
+  }
 </script>
 
 <script type="text/x-red" data-template-name="Historical Context">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="fa fa-tag"></i> Generic Enabler</label>
-        <input type="text" id="node-input-openapis">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-entityid"><i class="fa fa-tag"></i> Entity id</label>
-        <input type="text" id="node-input-entityid">
-    </div>
-    <div class="form-row">
-        <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entitytype">
-    </div>
-    <div class="form-row">
-        <label for="node-input-attrname"><i class="fa fa-tag"></i> Attribute</label>
-        <input type="text" id="node-input-attrname">
-    </div>
-    <div class="form-row">
-        <label for="node-input-datatype"><i class="fa fa-tag"></i> Data type</label>
-        <select id="node-input-datatype" onchange="historical_context_datatype_Changed(event)">
-            <option value="raw" enabled>Raw context information</option>
-            <option value="ave">Average of all the samples</option>
-            <option value="max">Maximum value</option>
-            <option value="sum">Sum of all the samples</option>
-            <option value="sum2">Sum of the square value of all the samples</option>
-            <option value="occur">Occur for attributes values of type string</option>
-        </select>
-    </div>
-    <div class="form-row" id="lastn">
-        <label for="node-input-lastn"><i class="fa fa-tag"></i> LastN</label>
-        <input type="text" id="node-input-lastn">
-    </div>
-    <div class="form-row" id="hlimit">
-        <label for="node-input-hlimit"><i class="fa fa-tag"></i> Limit</label>
-        <input type="text" id="node-input-hlimit">
-    </div>
-    <div class="form-row" id="hoffset">
-        <label for="node-input-hoffset"><i class="fa fa-tag"></i> Offset</label>
-        <input type="text" id="node-input-hoffset">
-    </div>
-    <div class="form-row" id="aggrperiod">
-        <label for="node-input-aggrperiod"><i class="fa fa-tag"></i> AggrPeriod</label>
-        <select id="node-input-aggrperiod">
-            <option value="month" enabled>month</option>
-            <option value="day">day</option>
-            <option value="hour">hour</option>
-            <option value="minute">minute</option>
-            <option value="second">second</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-datefrom"><i class="fa fa-tag"></i> Date from</label>
-        <input type="text" id="node-input-datefrom">
-    </div>
-    <div class="form-row">
-        <label for="node-input-fromunit"><i class="fa fa-tag"></i> Unit for data from</label>
-        <select id="node-input-fromunit">
-            <option value="ISO8601" enabled>ISO 8601</option>
-            <option value="years" >years</option>
-            <option value="months" >months</option>
-            <option value="days">days</option>
-            <option value="hours">hours</option>
-            <option value="minutes">minutes</option>
-            <option value="seconds">seconds</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-dateto"><i class="fa fa-tag"></i> Date to</label>
-        <input type="text" id="node-input-dateto">
-    </div>
-    <div class="form-row">
-        <label for="node-input-tounit"><i class="fa fa-tag"></i> Unit for date to</label>
-        <select id="node-input-tounit">
-            <option value="ISO8601" enabled>ISO 8601</option>
-            <option value="years" >years</option>
-            <option value="month" >months</option>
-            <option value="days">days</option>
-            <option value="hours">hours</option>
-            <option value="minutes">minutes</option>
-            <option value="seconds">seconds</option>
-        </select>
-    </div>
-    <div class="form-row" id="outputtype">
-        <label for="node-input-outputtype"><i class="fa fa-tag"></i> Output type</label>
-        <select id="node-input-outputtype">
-            <option value="raw">raw</option>
-            <option value="value" enabled>value</option>
-            <option value="dashboard" enabled>NGSI to dashboard</option>
-        </select>
-    </div>
-    <div class="form-row" id="count">
-        <label for="node-input-count"><i class="fa fa-tag"></i> Count</label>
-        <select id="node-input-count">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
-        <select id="node-input-forbidden">
-            <option value="false" selected>off</option>
-            <option value="true">on</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="fa fa-tag"></i> Generic Enabler</label>
+      <input type="text" id="node-input-openapis">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-entityid"><i class="fa fa-tag"></i> Entity id</label>
+      <input type="text" id="node-input-entityid">
+  </div>
+  <div class="form-row">
+      <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entitytype">
+  </div>
+  <div class="form-row">
+      <label for="node-input-attrname"><i class="fa fa-tag"></i> Attribute</label>
+      <input type="text" id="node-input-attrname">
+  </div>
+  <div class="form-row">
+      <label for="node-input-datatype"><i class="fa fa-tag"></i> Data type</label>
+      <select id="node-input-datatype" onchange="historical_context_datatype_Changed(event)">
+          <option value="raw" enabled>Raw context information</option>
+          <option value="ave">Average of all the samples</option>
+          <option value="max">Maximum value</option>
+          <option value="sum">Sum of all the samples</option>
+          <option value="sum2">Sum of the square value of all the samples</option>
+          <option value="occur">Occur for attributes values of type string</option>
+      </select>
+  </div>
+  <div class="form-row" id="lastn">
+      <label for="node-input-lastn"><i class="fa fa-tag"></i> LastN</label>
+      <input type="text" id="node-input-lastn">
+  </div>
+  <div class="form-row" id="hlimit">
+      <label for="node-input-hlimit"><i class="fa fa-tag"></i> Limit</label>
+      <input type="text" id="node-input-hlimit">
+  </div>
+  <div class="form-row" id="hoffset">
+      <label for="node-input-hoffset"><i class="fa fa-tag"></i> Offset</label>
+      <input type="text" id="node-input-hoffset">
+  </div>
+  <div class="form-row" id="aggrperiod">
+      <label for="node-input-aggrperiod"><i class="fa fa-tag"></i> AggrPeriod</label>
+      <select id="node-input-aggrperiod">
+          <option value="month" enabled>month</option>
+          <option value="day">day</option>
+          <option value="hour">hour</option>
+          <option value="minute">minute</option>
+          <option value="second">second</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-datefrom"><i class="fa fa-tag"></i> Date from</label>
+      <input type="text" id="node-input-datefrom">
+  </div>
+  <div class="form-row">
+      <label for="node-input-fromunit"><i class="fa fa-tag"></i> Unit for data from</label>
+      <select id="node-input-fromunit">
+          <option value="ISO8601" enabled>ISO 8601</option>
+          <option value="years" >years</option>
+          <option value="months" >months</option>
+          <option value="days">days</option>
+          <option value="hours">hours</option>
+          <option value="minutes">minutes</option>
+          <option value="seconds">seconds</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-dateto"><i class="fa fa-tag"></i> Date to</label>
+      <input type="text" id="node-input-dateto">
+  </div>
+  <div class="form-row">
+      <label for="node-input-tounit"><i class="fa fa-tag"></i> Unit for date to</label>
+      <select id="node-input-tounit">
+          <option value="ISO8601" enabled>ISO 8601</option>
+          <option value="years" >years</option>
+          <option value="month" >months</option>
+          <option value="days">days</option>
+          <option value="hours">hours</option>
+          <option value="minutes">minutes</option>
+          <option value="seconds">seconds</option>
+      </select>
+  </div>
+  <div class="form-row" id="outputtype">
+      <label for="node-input-outputtype"><i class="fa fa-tag"></i> Output type</label>
+      <select id="node-input-outputtype">
+          <option value="raw">raw</option>
+          <option value="value" enabled>value</option>
+          <option value="dashboard" enabled>NGSI to dashboard</option>
+      </select>
+  </div>
+  <div class="form-row" id="count">
+      <label for="node-input-count"><i class="fa fa-tag"></i> Count</label>
+      <select id="node-input-count">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
+      <select id="node-input-forbidden">
+          <option value="false" selected>off</option>
+          <option value="true">on</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="Historical Context">
-    <p>A simple node that allows to obtain historical context information from STH-Comet. Some attributes may be provided as part of the <code>msg.payload</code>. 
-    </p>
-    <h3>Input</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>payload containing some attribute to retrieve historical context data.</dd>
-    </dl>
+  <p>A simple node that allows to obtain historical context information from STH-Comet. Some attributes may be provided as part of the <code>msg.payload</code>.
+  </p>
+  <h3>Input</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>payload containing some attribute to retrieve historical context data.</dd>
+  </dl>
 
-    <h3>Output</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>payload containing historical context data</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h3>Output</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>payload containing historical context data</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/historical_context/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/historical_context/">here</a> for full documentation.</p>
 </script>

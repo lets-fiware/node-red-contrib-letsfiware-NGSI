@@ -47,7 +47,7 @@ describe('decode.js', () => {
       red.createNode({});
 
       await red.inputWithAwait({
-        payload: '%3CSensor%3E',
+        payload: '%3CSensor%3E'
       });
 
       const expected = {
@@ -64,17 +64,17 @@ describe('decode.js', () => {
 
       await red.inputWithAwait({
         payload: {
-          'id': 'urn:ngsi-ld:TemperatureSensor:001',
-          'type': 'TemperatureSensor',
-          'name': '%3CSensor%3E'
+          id: 'urn:ngsi-ld:TemperatureSensor:001',
+          type: 'TemperatureSensor',
+          name: '%3CSensor%3E'
         }
       });
 
       const expected = {
         payload: {
-          'id': 'urn:ngsi-ld:TemperatureSensor:001',
-          'type': 'TemperatureSensor',
-          'name': '<Sensor>'
+          id: 'urn:ngsi-ld:TemperatureSensor:001',
+          type: 'TemperatureSensor',
+          name: '<Sensor>'
         },
         statusCode: 200
       };
