@@ -27,108 +27,108 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI source', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: "Open APIs",
-          required: true
-        },
-        servicepath: { value: "/" },
-        mode: { value: "normalized" },
-        entitytype: { value: "" },
-        idpattern: { value: "" },
-        attrs: { value: "" },
-        query: { value: "" },
-        buffering: { value: "off" }
+  RED.nodes.registerType('NGSI source', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "NGSI source";
-      },
-      paletteLabel: 'source'
-    });
+      servicepath: { value: '/' },
+      mode: { value: 'normalized' },
+      entitytype: { value: '' },
+      idpattern: { value: '' },
+      attrs: { value: '' },
+      query: { value: '' },
+      buffering: { value: 'off' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI source';
+    },
+    paletteLabel: 'source'
+  });
 </script>
 
 <script type="text/x-red" data-template-name="NGSI source">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
-        <input type="text" id="node-input-openapis">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-mode"><i class="fa fa-tag"></i> Representation</label>
-        <select id="node-input-mode">
-            <option value="normalized">normalized</option>
-            <option value="keyValues">keyValues</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entitytype">
-    </div>
-    <div class="form-row">
-        <label for="node-input-idpattern"><i class="fa fa-tag"></i> ID pattern</label>
-        <input type="text" id="node-input-idpattern">
-    </div>
-    <div class="form-row">
-        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attrs</label>
-        <input type="text" id="node-input-attrs">
-    </div>
-    <div class="form-row">
-        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query">
-    </div>
-    <div class="form-row">
-        <label for="node-input-buffering"><i class="fa fa-tag"></i> Buffering</label>
-        <select id="node-input-buffering">
-            <option value="off" selected>off</option>
-            <option value="on">on</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
-        <select id="node-input-forbidden">
-            <option value="false" selected>off</option>
-            <option value="true">on</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
+      <input type="text" id="node-input-openapis">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-mode"><i class="fa fa-tag"></i> Representation</label>
+      <select id="node-input-mode">
+          <option value="normalized">normalized</option>
+          <option value="keyValues">keyValues</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-entitytype"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entitytype">
+  </div>
+  <div class="form-row">
+      <label for="node-input-idpattern"><i class="fa fa-tag"></i> ID pattern</label>
+      <input type="text" id="node-input-idpattern">
+  </div>
+  <div class="form-row">
+      <label for="node-input-attrs"><i class="fa fa-tag"></i> Attrs</label>
+      <input type="text" id="node-input-attrs">
+  </div>
+  <div class="form-row">
+      <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+      <input type="text" id="node-input-query">
+  </div>
+  <div class="form-row">
+      <label for="node-input-buffering"><i class="fa fa-tag"></i> Buffering</label>
+      <select id="node-input-buffering">
+          <option value="off" selected>off</option>
+          <option value="on">on</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
+      <select id="node-input-forbidden">
+          <option value="false" selected>off</option>
+          <option value="true">on</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI source">
-    <p>A simple node that allows to obtain NGSIv2 entities.
-    </p>
-    <h3>Input</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>payload containing a query condition that retrieves NGSIv2 entitites.</dd>
-    </dl>
+  <p>A simple node that allows to obtain NGSIv2 entities.
+  </p>
+  <h3>Input</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>payload containing a query condition that retrieves NGSIv2 entitites.</dd>
+  </dl>
 
-    <h3>Output</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array</span>
-        </dt>
-        <dd>List of NGSIv2 entities</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h3>Output</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array</span>
+      </dt>
+      <dd>List of NGSIv2 entities</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_source/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_source/">here</a> for full documentation.</p>
 </script>

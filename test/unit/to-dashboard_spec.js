@@ -124,29 +124,28 @@ describe('to-dashboard.js', () => {
         ]
       };
       const actual = transformHistorical(payload);
-      const expected = [{
-        series: [
-          'temperature',
-        ],
-        labels: [
-        ],
-        data: [
-          [
-            {
-              x: 1674861621201,
-              y: 22.2,
-            },
-            {
-              x: 1674861623199,
-              y: 22.2,
-            },
-            {
-              x: 1674861625201,
-              y: 22.2,
-            },
-          ],
-        ],
-      }];
+      const expected = [
+        {
+          series: ['temperature'],
+          labels: [],
+          data: [
+            [
+              {
+                x: 1674861621201,
+                y: 22.2
+              },
+              {
+                x: 1674861623199,
+                y: 22.2
+              },
+              {
+                x: 1674861625201,
+                y: 22.2
+              }
+            ]
+          ]
+        }
+      ];
 
       assert.deepEqual(actual, expected);
     });
@@ -155,78 +154,78 @@ describe('to-dashboard.js', () => {
       const payload = {
         attrName: 'temperature',
         dataType: 'sum',
-        'type': 'StructuredValue',
-        'value': [
+        type: 'StructuredValue',
+        value: [
           {
-            '_id': {
-              'attrName': 'temperature',
-              'origin': '2023-01-22T00:00:00.000Z',
-              'resolution': 'hour'
+            _id: {
+              attrName: 'temperature',
+              origin: '2023-01-22T00:00:00.000Z',
+              resolution: 'hour'
             },
-            'points': [
+            points: [
               {
-                'offset': 8,
-                'samples': 521,
-                'sum': 11586.000000000007
+                offset: 8,
+                samples: 521,
+                sum: 11586.000000000007
               },
               {
-                'offset': 9,
-                'samples': 1800,
-                'sum': 38774.09999999979
+                offset: 9,
+                samples: 1800,
+                sum: 38774.09999999979
               },
               {
-                'offset': 10,
-                'samples': 1799,
-                'sum': 38438.100000000326
+                offset: 10,
+                samples: 1799,
+                sum: 38438.100000000326
               },
               {
-                'offset': 11,
-                'samples': 1799,
-                'sum': 43591.9000000002
+                offset: 11,
+                samples: 1799,
+                sum: 43591.9000000002
               },
               {
-                'offset': 12,
-                'samples': 63,
-                'sum': 1448.1000000000008
+                offset: 12,
+                samples: 63,
+                sum: 1448.1000000000008
               }
             ]
           },
           {
-            '_id': {
-              'attrName': 'temperature',
-              'origin': '2023-01-27T00:00:00.000Z',
-              'resolution': 'hour'
+            _id: {
+              attrName: 'temperature',
+              origin: '2023-01-27T00:00:00.000Z',
+              resolution: 'hour'
             },
-            'points': [
+            points: [
               {
-                'offset': 12,
-                'samples': 969,
-                'sum': 23644.499999999833
+                offset: 12,
+                samples: 969,
+                sum: 23644.499999999833
               },
               {
-                'offset': 19,
-                'samples': 101,
-                'sum': 2094.2999999999993
+                offset: 19,
+                samples: 101,
+                sum: 2094.2999999999993
               },
               {
-                'offset': 20,
-                'samples': 1799,
-                'sum': 47159.79999999989
+                offset: 20,
+                samples: 1799,
+                sum: 47159.79999999989
               },
               {
-                'offset': 21,
-                'samples': 1799,
-                'sum': 50274.80000000073
+                offset: 21,
+                samples: 1799,
+                sum: 50274.80000000073
               },
               {
-                'offset': 22,
-                'samples': 1799,
-                'sum': 43363.00000000028
+                offset: 22,
+                samples: 1799,
+                sum: 43363.00000000028
               },
               {
-                'offset': 23,
-                'samples': 607,
-                'sum': 13309.900000000103
+                offset: 23,
+                samples: 607,
+                sum: 13309.900000000103
               }
             ]
           }
@@ -235,59 +234,56 @@ describe('to-dashboard.js', () => {
       const actual = transformHistorical(payload);
       const expected = [
         {
-          series: [
-            'temperature',
-          ],
-          labels: [
-          ],
+          series: ['temperature'],
+          labels: [],
           data: [
             [
               {
                 x: 1674374400000,
-                y: 11586.000000000007,
+                y: 11586.000000000007
               },
               {
                 x: 1674378000000,
-                y: 38774.09999999979,
+                y: 38774.09999999979
               },
               {
                 x: 1674381600000,
-                y: 38438.100000000326,
+                y: 38438.100000000326
               },
               {
                 x: 1674385200000,
-                y: 43591.9000000002,
+                y: 43591.9000000002
               },
               {
                 x: 1674388800000,
-                y: 1448.1000000000008,
+                y: 1448.1000000000008
               },
               {
                 x: 1674820800000,
-                y: 23644.499999999833,
+                y: 23644.499999999833
               },
               {
                 x: 1674846000000,
-                y: 2094.2999999999993,
+                y: 2094.2999999999993
               },
               {
                 x: 1674849600000,
-                y: 47159.79999999989,
+                y: 47159.79999999989
               },
               {
                 x: 1674853200000,
-                y: 50274.80000000073,
+                y: 50274.80000000073
               },
               {
                 x: 1674856800000,
-                y: 43363.00000000028,
+                y: 43363.00000000028
               },
               {
                 x: 1674860400000,
-                y: 13309.900000000103,
-              },
-            ],
-          ],
+                y: 13309.900000000103
+              }
+            ]
+          ]
         }
       ];
 
@@ -364,7 +360,7 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'entity',
         attrs: 'temperature,relativeHumidity',
-        names: 'temp,hum',
+        names: 'temp,hum'
       });
 
       const payload = {
@@ -398,12 +394,12 @@ describe('to-dashboard.js', () => {
         {
           payload: 22.4,
           topic: 'temp',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         },
         {
           payload: 32,
           topic: 'hum',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         }
       ];
 
@@ -415,7 +411,7 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'entity',
         attrs: 'temperature,relativeHumidity,atmosphericPressure',
-        names: '',
+        names: ''
       });
 
       const payload = {
@@ -437,12 +433,12 @@ describe('to-dashboard.js', () => {
         {
           payload: 22.4,
           topic: 'temperature',
-          timestamp: null,
+          timestamp: null
         },
         {
           payload: 32,
           topic: 'relativeHumidity',
-          timestamp: null,
+          timestamp: null
         }
       ];
 
@@ -454,7 +450,7 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'entity',
         attrs: 'temperature,relativeHumidity',
-        names: '',
+        names: ''
       });
 
       const payload = {
@@ -488,12 +484,12 @@ describe('to-dashboard.js', () => {
         {
           payload: 22.4,
           topic: 'temperature',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         },
         {
           payload: 32,
           topic: 'relativeHumidity',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         }
       ];
 
@@ -505,35 +501,37 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'notification',
         attrs: 'temperature,relativeHumidity',
-        names: '',
+        names: ''
       });
 
       const payload = {
         subscriptionId: '57edf55231cee478fe9fff1f',
-        data: [{
-          id: 'urn:ngsi-ld:WeatherObserved:sensor001',
-          type: 'Sensor',
-          relativeHumidity: {
-            type: 'Number',
-            value: 32,
-            metadata: {
-              TimeInstant: {
-                type: 'DateTime',
-                value: '2023-01-28T04:53:13.301Z'
+        data: [
+          {
+            id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+            type: 'Sensor',
+            relativeHumidity: {
+              type: 'Number',
+              value: 32,
+              metadata: {
+                TimeInstant: {
+                  type: 'DateTime',
+                  value: '2023-01-28T04:53:13.301Z'
+                }
               }
-            }
-          },
-          temperature: {
-            type: 'Number',
-            value: 22.4,
-            metadata: {
-              TimeInstant: {
-                type: 'DateTime',
-                value: '2023-01-28T04:53:13.301Z'
+            },
+            temperature: {
+              type: 'Number',
+              value: 22.4,
+              metadata: {
+                TimeInstant: {
+                  type: 'DateTime',
+                  value: '2023-01-28T04:53:13.301Z'
+                }
               }
             }
           }
-        }]
+        ]
       };
 
       await red.inputWithAwait({ payload: payload });
@@ -542,12 +540,12 @@ describe('to-dashboard.js', () => {
         {
           payload: 22.4,
           topic: 'temperature',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         },
         {
           payload: 32,
           topic: 'relativeHumidity',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         }
       ];
 
@@ -559,35 +557,37 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'notification',
         attrs: 'temperature,relativeHumidity,atmosphericPressure',
-        names: '',
+        names: ''
       });
 
       const payload = {
         subscriptionId: '57edf55231cee478fe9fff1f',
-        data: [{
-          id: 'urn:ngsi-ld:WeatherObserved:sensor001',
-          type: 'Sensor',
-          relativeHumidity: {
-            type: 'Number',
-            value: 32,
-            metadata: {
-              dateModified: {
-                type: 'DateTime',
-                value: '2023-01-28T04:53:13.301Z'
+        data: [
+          {
+            id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+            type: 'Sensor',
+            relativeHumidity: {
+              type: 'Number',
+              value: 32,
+              metadata: {
+                dateModified: {
+                  type: 'DateTime',
+                  value: '2023-01-28T04:53:13.301Z'
+                }
               }
-            }
-          },
-          temperature: {
-            type: 'Number',
-            value: 22.4,
-            metadata: {
-              dateModified: {
-                type: 'DateTime',
-                value: '2023-01-28T04:53:13.301Z'
+            },
+            temperature: {
+              type: 'Number',
+              value: 22.4,
+              metadata: {
+                dateModified: {
+                  type: 'DateTime',
+                  value: '2023-01-28T04:53:13.301Z'
+                }
               }
             }
           }
-        }]
+        ]
       };
 
       await red.inputWithAwait({ payload: payload });
@@ -596,12 +596,12 @@ describe('to-dashboard.js', () => {
         {
           payload: 22.4,
           topic: 'temperature',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         },
         {
           payload: 32,
           topic: 'relativeHumidity',
-          timestamp: 1674881593301,
+          timestamp: 1674881593301
         }
       ];
 
@@ -613,7 +613,7 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'historical',
         attrs: 'temperature',
-        names: '',
+        names: ''
       });
 
       const payload = {
@@ -649,28 +649,25 @@ describe('to-dashboard.js', () => {
 
       const expected = [
         {
-          series: [
-            'temperature',
-          ],
-          labels: [
-          ],
+          series: ['temperature'],
+          labels: [],
           data: [
             [
               {
                 x: 1674861621201,
-                y: 22.2,
+                y: 22.2
               },
               {
                 x: 1674861623199,
-                y: 22.2,
+                y: 22.2
               },
               {
                 x: 1674861625201,
-                y: 22.2,
-              },
-            ],
-          ],
-        },
+                y: 22.2
+              }
+            ]
+          ]
+        }
       ];
 
       assert.deepEqual(red.getOutput(), { payload: expected });
@@ -681,7 +678,7 @@ describe('to-dashboard.js', () => {
       red.createNode({
         inputType: 'raw',
         attrs: 'temperature',
-        names: '',
+        names: ''
       });
 
       await red.inputWithAwait({ payload: {} });
@@ -690,4 +687,3 @@ describe('to-dashboard.js', () => {
     });
   });
 });
-

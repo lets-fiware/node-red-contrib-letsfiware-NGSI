@@ -27,322 +27,322 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI timeseries', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: "Open APIs",
-          required: true
-        },
-        servicepath: { value: '/' },
-        actionType: { value: 'entities' },
-        entityId: { value: '' },
-        entityType: { value: '' },
-        attribute: { value: '' },
-        aggrMethod: { value: 'sum' },
-        aggrPeriod: { value: 'month' },
-        lastN: { value: '' },
-        fromDate: { value: '' },
-        fromUnit: { value: 'ISO8601' },
-        toDate: { value: '' },
-        toUnit: { value: 'ISO8601' },
-        georel: { value: '' },
-        geometry: { value: '' },
-        coords: { value: '' },
-        value: { value: 'false' },
-        limit: { value: '' },
-        offset: { value: '' },
+  RED.nodes.registerType('NGSI timeseries', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: 'fiware-non-free.svg',
-      label: function () {
-        return this.name || 'NGSI timeseries';
-      },
-      paletteLabel: 'timeseries'
-    });
+      servicepath: { value: '/' },
+      actionType: { value: 'entities' },
+      entityId: { value: '' },
+      entityType: { value: '' },
+      attribute: { value: '' },
+      aggrMethod: { value: 'sum' },
+      aggrPeriod: { value: 'month' },
+      lastN: { value: '' },
+      fromDate: { value: '' },
+      fromUnit: { value: 'ISO8601' },
+      toDate: { value: '' },
+      toUnit: { value: 'ISO8601' },
+      georel: { value: '' },
+      geometry: { value: '' },
+      coords: { value: '' },
+      value: { value: 'false' },
+      limit: { value: '' },
+      offset: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI timeseries';
+    },
+    paletteLabel: 'timeseries'
+  });
 
-    /* eslint no-unused-vars: 0 */
-    function timeseries_actionType_Changed(e) {
-      switch (e.target.value) {
-        case 'entities':
-          document.getElementById('entityId').hidden = true;
-          document.getElementById('entityType').hidden = false;
-          document.getElementById('attribute').hidden = true;
-          document.getElementById('aggrMethod').hidden = true;
-          document.getElementById('aggrPeriod').hidden = true;
-          document.getElementById('lastN').hidden = true;
-          document.getElementById('georel').hidden = true;
-          document.getElementById('geometry').hidden = true;
-          document.getElementById('coords').hidden = true;
-          document.getElementById('value').hidden = true;
-          break;
-        case "entity":
-          document.getElementById('entityId').hidden = false;
-          document.getElementById('entityType').hidden = false;
-          document.getElementById('attribute').hidden = false;
-          document.getElementById('aggrMethod').hidden = false;
-          document.getElementById('aggrPeriod').hidden = false;
-          document.getElementById('lastN').hidden = false;
-          document.getElementById('georel').hidden = false;
-          document.getElementById('geometry').hidden = false;
-          document.getElementById('coords').hidden = false;
-          document.getElementById('value').hidden = false;
-          break;
-        case 'type':
-          document.getElementById('entityId').hidden = false;
-          document.getElementById('entityType').hidden = false;
-          document.getElementById('attribute').hidden = false;
-          document.getElementById('aggrMethod').hidden = false;
-          document.getElementById('aggrPeriod').hidden = false;
-          document.getElementById('lastN').hidden = false;
-          document.getElementById('georel').hidden = false;
-          document.getElementById('geometry').hidden = false;
-          document.getElementById('coords').hidden = false;
-          document.getElementById('value').hidden = false;
-          break;
-        case 'attribute':
-          document.getElementById('entityId').hidden = false;
-          document.getElementById('entityType').hidden = false;
-          document.getElementById('attribute').hidden = false;
-          document.getElementById('aggrMethod').hidden = false;
-          document.getElementById('aggrPeriod').hidden = false;
-          document.getElementById('lastN').hidden = false;
-          document.getElementById('georel').hidden = false;
-          document.getElementById('geometry').hidden = false;
-          document.getElementById('coords').hidden = false;
-          document.getElementById('value').hidden = false;
-          break;
-        default:
-          break;
-      }
+  /* eslint no-unused-vars: 0 */
+  function timeseries_actionType_Changed(e) {
+    switch (e.target.value) {
+      case 'entities':
+        document.getElementById('entityId').hidden = true;
+        document.getElementById('entityType').hidden = false;
+        document.getElementById('attribute').hidden = true;
+        document.getElementById('aggrMethod').hidden = true;
+        document.getElementById('aggrPeriod').hidden = true;
+        document.getElementById('lastN').hidden = true;
+        document.getElementById('georel').hidden = true;
+        document.getElementById('geometry').hidden = true;
+        document.getElementById('coords').hidden = true;
+        document.getElementById('value').hidden = true;
+        break;
+      case 'entity':
+        document.getElementById('entityId').hidden = false;
+        document.getElementById('entityType').hidden = false;
+        document.getElementById('attribute').hidden = false;
+        document.getElementById('aggrMethod').hidden = false;
+        document.getElementById('aggrPeriod').hidden = false;
+        document.getElementById('lastN').hidden = false;
+        document.getElementById('georel').hidden = false;
+        document.getElementById('geometry').hidden = false;
+        document.getElementById('coords').hidden = false;
+        document.getElementById('value').hidden = false;
+        break;
+      case 'type':
+        document.getElementById('entityId').hidden = false;
+        document.getElementById('entityType').hidden = false;
+        document.getElementById('attribute').hidden = false;
+        document.getElementById('aggrMethod').hidden = false;
+        document.getElementById('aggrPeriod').hidden = false;
+        document.getElementById('lastN').hidden = false;
+        document.getElementById('georel').hidden = false;
+        document.getElementById('geometry').hidden = false;
+        document.getElementById('coords').hidden = false;
+        document.getElementById('value').hidden = false;
+        break;
+      case 'attribute':
+        document.getElementById('entityId').hidden = false;
+        document.getElementById('entityType').hidden = false;
+        document.getElementById('attribute').hidden = false;
+        document.getElementById('aggrMethod').hidden = false;
+        document.getElementById('aggrPeriod').hidden = false;
+        document.getElementById('lastN').hidden = false;
+        document.getElementById('georel').hidden = false;
+        document.getElementById('geometry').hidden = false;
+        document.getElementById('coords').hidden = false;
+        document.getElementById('value').hidden = false;
+        break;
+      default:
+        break;
     }
+  }
 </script>
 
 <script type="text/x-red" data-template-name="NGSI timeseries">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="fa fa-tag"></i> QuantumLeap</label>
-        <input type="text" id="node-input-openapis">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actionType" onchange="timeseries_actionType_Changed(event)">
-            <option value="entities">Entities</option>
-            <option value="entity">Entity</option>
-            <option value="type">Type</option>
-            <option value="attribute">Attribute</option>
-        </select>
-    </div>
-    <div class="form-row" id="value">
-        <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
-        <select id="node-input-vale">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row" id="entityId">
-        <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
-        <input type="text" id="node-input-entityId">
-    </div>
-    <div class="form-row" id="entityType">
-        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entityType">
-    </div>
-    <div class="form-row" id="attribute">
-        <label for="node-input-attribute"><i class="fa fa-tag"></i> Attribute name</label>
-        <input type="text" id="node-input-attribute">
-    </div>
-    <div class="form-row" id="aggrMethod">
-        <label for="node-input-aggrMethod"><i class="fa fa-tag"></i> AggrMethod</label>
-        <select id="node-input-aggrMethod">
-            <option value="count" >Count</option>
-            <option value="sum" enabled>Sum</option>
-            <option value="avg">Average</option>
-            <option value="min">Min</option>
-            <option value="max">Max</option>
-        </select>
-    </div>
-    <div class="form-row" id="aggrPeriod">
-        <label for="node-input-aggrPeriod"><i class="fa fa-tag"></i> AggrPeriod</label>
-        <select id="node-input-aggrPeriod">
-            <option value="year">year</option>
-            <option value="month" enabled>month</option>
-            <option value="day">day</option>
-            <option value="hour">hour</option>
-            <option value="minute">minute</option>
-            <option value="second">second</option>
-        </select>
-    </div>
-    <div class="form-row" id="lastN">
-        <label for="node-input-lastN"><i class="fa fa-tag"></i> LastN</label>
-        <input type="text" id="node-input-lastN">
-    </div>
-    <div class="form-row" id="fromDate">
-        <label for="node-input-fromDate"><i class="fa fa-tag"></i> from date</label>
-        <input type="text" id="node-input-fromDate">
-    </div>
-    <div class="form-row" id="fromUnit">
-        <label for="node-input-fromUnit"><i class="fa fa-tag"></i> Unit for date</label>
-        <select id="node-input-fromUnit">
-            <option value="ISO8601" enabled>ISO 8601</option>
-            <option value="years" >years</option>
-            <option value="months" >months</option>
-            <option value="days">days</option>
-            <option value="hours">hours</option>
-            <option value="minutes">minutes</option>
-            <option value="seconds">seconds</option>
-        </select>
-    </div>
-    <div class="form-row" id="toDate">
-        <label for="node-input-toDate"><i class="fa fa-tag"></i> to date</label>
-        <input type="text" id="node-input-toDate">
-    </div>
-    <div class="form-row" id="toUnit">
-        <label for="node-input-toUnit"><i class="fa fa-tag"></i> Unit for date</label>
-        <select id="node-input-toUnit">
-            <option value="ISO8601" enabled>ISO 8601</option>
-            <option value="years" >years</option>
-            <option value="month" >months</option>
-            <option value="days">days</option>
-            <option value="hours">hours</option>
-            <option value="minutes">minutes</option>
-            <option value="seconds">seconds</option>
-        </select>
-    </div>
-    <div class="form-row" id="georel">
-        <label for="node-input-georel"><i class="fa fa-tag"></i> Georel</label>
-        <input type="text" id="node-input-georel">
-    </div>
-    <div class="form-row" id="geometry">
-        <label for="node-input-geometry"><i class="fa fa-tag"></i> Geometry</label>
-        <input type="text" id="node-input-geometry">
-    </div>
-    <div class="form-row" id="coords">
-        <label for="node-input-coords"><i class="fa fa-tag"></i> Coords</label>
-        <input type="text" id="node-input-coords">
-    </div>
-    <div class="form-row">
-        <label for="node-input-limit"><i class="fa fa-tag"></i> Limit</label>
-        <input type="text" id="node-input-limit">
-    </div>
-    <div class="form-row">
-        <label for="node-input-offset"><i class="fa fa-tag"></i> Offset</label>
-        <input type="text" id="node-input-offset">
-    </div>
-    <div class="form-row">
-        <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
-        <select id="node-input-forbidden">
-            <option value="false" selected>off</option>
-            <option value="true">on</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="fa fa-tag"></i> QuantumLeap</label>
+      <input type="text" id="node-input-openapis">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+      <select id="node-input-actionType" onchange="timeseries_actionType_Changed(event)">
+          <option value="entities">Entities</option>
+          <option value="entity">Entity</option>
+          <option value="type">Type</option>
+          <option value="attribute">Attribute</option>
+      </select>
+  </div>
+  <div class="form-row" id="value">
+      <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
+      <select id="node-input-vale">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row" id="entityId">
+      <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
+      <input type="text" id="node-input-entityId">
+  </div>
+  <div class="form-row" id="entityType">
+      <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entityType">
+  </div>
+  <div class="form-row" id="attribute">
+      <label for="node-input-attribute"><i class="fa fa-tag"></i> Attribute name</label>
+      <input type="text" id="node-input-attribute">
+  </div>
+  <div class="form-row" id="aggrMethod">
+      <label for="node-input-aggrMethod"><i class="fa fa-tag"></i> AggrMethod</label>
+      <select id="node-input-aggrMethod">
+          <option value="count" >Count</option>
+          <option value="sum" enabled>Sum</option>
+          <option value="avg">Average</option>
+          <option value="min">Min</option>
+          <option value="max">Max</option>
+      </select>
+  </div>
+  <div class="form-row" id="aggrPeriod">
+      <label for="node-input-aggrPeriod"><i class="fa fa-tag"></i> AggrPeriod</label>
+      <select id="node-input-aggrPeriod">
+          <option value="year">year</option>
+          <option value="month" enabled>month</option>
+          <option value="day">day</option>
+          <option value="hour">hour</option>
+          <option value="minute">minute</option>
+          <option value="second">second</option>
+      </select>
+  </div>
+  <div class="form-row" id="lastN">
+      <label for="node-input-lastN"><i class="fa fa-tag"></i> LastN</label>
+      <input type="text" id="node-input-lastN">
+  </div>
+  <div class="form-row" id="fromDate">
+      <label for="node-input-fromDate"><i class="fa fa-tag"></i> from date</label>
+      <input type="text" id="node-input-fromDate">
+  </div>
+  <div class="form-row" id="fromUnit">
+      <label for="node-input-fromUnit"><i class="fa fa-tag"></i> Unit for date</label>
+      <select id="node-input-fromUnit">
+          <option value="ISO8601" enabled>ISO 8601</option>
+          <option value="years" >years</option>
+          <option value="months" >months</option>
+          <option value="days">days</option>
+          <option value="hours">hours</option>
+          <option value="minutes">minutes</option>
+          <option value="seconds">seconds</option>
+      </select>
+  </div>
+  <div class="form-row" id="toDate">
+      <label for="node-input-toDate"><i class="fa fa-tag"></i> to date</label>
+      <input type="text" id="node-input-toDate">
+  </div>
+  <div class="form-row" id="toUnit">
+      <label for="node-input-toUnit"><i class="fa fa-tag"></i> Unit for date</label>
+      <select id="node-input-toUnit">
+          <option value="ISO8601" enabled>ISO 8601</option>
+          <option value="years" >years</option>
+          <option value="month" >months</option>
+          <option value="days">days</option>
+          <option value="hours">hours</option>
+          <option value="minutes">minutes</option>
+          <option value="seconds">seconds</option>
+      </select>
+  </div>
+  <div class="form-row" id="georel">
+      <label for="node-input-georel"><i class="fa fa-tag"></i> Georel</label>
+      <input type="text" id="node-input-georel">
+  </div>
+  <div class="form-row" id="geometry">
+      <label for="node-input-geometry"><i class="fa fa-tag"></i> Geometry</label>
+      <input type="text" id="node-input-geometry">
+  </div>
+  <div class="form-row" id="coords">
+      <label for="node-input-coords"><i class="fa fa-tag"></i> Coords</label>
+      <input type="text" id="node-input-coords">
+  </div>
+  <div class="form-row">
+      <label for="node-input-limit"><i class="fa fa-tag"></i> Limit</label>
+      <input type="text" id="node-input-limit">
+  </div>
+  <div class="form-row">
+      <label for="node-input-offset"><i class="fa fa-tag"></i> Offset</label>
+      <input type="text" id="node-input-offset">
+  </div>
+  <div class="form-row">
+      <label for="node-input-forbidden"><i class="fa fa-tag"></i> Decode forbidden chars</label>
+      <select id="node-input-forbidden">
+          <option value="false" selected>off</option>
+          <option value="true">on</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI timeseries">
-    <p>A simple node that allows to create, read, upsert or delete an NGSIv2 entity</p>
-    <h3>Create entity</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>An entity to create</dd>
-    </dl>
+  <p>A simple node that allows to create, read, upsert or delete an NGSIv2 entity</p>
+  <h3>Create entity</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>An entity to create</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Read entity</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string or JSON object</span>
-        </dt>
-        <dd>A condition to read entity</dd>
-    </dl>
+  <h3>Read entity</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string or JSON object</span>
+      </dt>
+      <dd>A condition to read entity</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>An entity</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>An entity</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Upsert entity</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>An entity to upsert</dd>
-    </dl>
+  <h3>Upsert entity</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>An entity to upsert</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Delete entity</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string or JSON object</span>
-        </dt>
-        <dd>A condition to delete entity</dd>
-    </dl>
+  <h3>Delete entity</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string or JSON object</span>
+      </dt>
+      <dd>A condition to delete entity</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Use value of actionType in payload</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>JSON object with action Type and related information</dd>
-    </dl>
+  <h3>Use value of actionType in payload</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>JSON object with action Type and related information</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string or JSON object</span>
-        </dt>
-        <dd>An entity</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string or JSON object</span>
+      </dt>
+      <dd>An entity</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_timeseries/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_timeseries/">here</a> for full documentation.</p>
 </script>

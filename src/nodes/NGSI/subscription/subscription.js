@@ -102,7 +102,7 @@ const createSubscription = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.subscription,
+    data: param.config.subscription
   };
 
   try {
@@ -135,7 +135,7 @@ const updateSubscription = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    data: param.config.subscription,
+    data: param.config.subscription
   };
 
   try {
@@ -165,7 +165,7 @@ const deleteSubscription = async function (msg, param) {
     method: 'delete',
     baseURL: param.host,
     url: param.pathname,
-    headers: await lib.buildHTTPHeader(param),
+    headers: await lib.buildHTTPHeader(param)
   };
 
   try {
@@ -208,8 +208,8 @@ const createParam = function (msg, config, openAPIsConfig) {
       q: config.query.trim(),
       url: config.url.trim(),
       attrs: config.attrs.trim(),
-      attrsFormat: config.attrsFormat.trim(),
-    }),
+      attrsFormat: config.attrsFormat.trim()
+    })
   };
 
   if (defaultConfig.actionType === 'payload') {
@@ -233,7 +233,8 @@ const createParam = function (msg, config, openAPIsConfig) {
         msg.payload = { error: 'payload not string' };
         return null;
       }
-    } else { // create, update
+    } else {
+      // create, update
       if (Array.isArray(msg.payload) || typeof msg.payload !== 'object') {
         msg.payload = { error: 'payload not JSON object' };
         return null;
@@ -246,8 +247,10 @@ const createParam = function (msg, config, openAPIsConfig) {
         defaultConfig.id = msg.payload.id;
         delete msg.payload.id;
       }
-      defaultConfig.subscription = Object.assign(defaultConfig.subscription,
-        'notification' in msg.payload || 'subject' in msg.payload ? msg.payload : buildSubscription(msg.payload));
+      defaultConfig.subscription = Object.assign(
+        defaultConfig.subscription,
+        'notification' in msg.payload || 'subject' in msg.payload ? msg.payload : buildSubscription(msg.payload)
+      );
     }
   }
 
@@ -261,7 +264,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     pathname: '/v2/subscriptions',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
     contentType: 'json',
-    config: defaultConfig,
+    config: defaultConfig
   };
 
   switch (defaultConfig.actionType) {

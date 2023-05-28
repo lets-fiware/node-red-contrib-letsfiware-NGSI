@@ -60,9 +60,9 @@ const getToken = async function () {
     method: 'post',
     baseURL: this.idmEndpoint,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    data: `username=${this.credentials.username}&password=${this.credentials.password}&grant_type=password`,
+    data: `username=${this.credentials.username}&password=${this.credentials.password}&grant_type=password`
   };
 
   if (this.idmType === 'tokenproxy') {
@@ -71,9 +71,7 @@ const getToken = async function () {
     }
     options.data = `username=${this.credentials.username}&password=${this.credentials.password}`;
   } else {
-    const authBearer = Buffer.from(`${this.credentials.clientid}:${this.credentials.clientsecret}`).toString(
-      'base64'
-    );
+    const authBearer = Buffer.from(`${this.credentials.clientid}:${this.credentials.clientsecret}`).toString('base64');
     options.headers.Authorization = `Basic ${authBearer}`;
     if (this.idmType === 'keyrock' && !this.idmEndpoint.endsWith('/oauth2/token')) {
       options.url = '/oauth2/token';
@@ -109,10 +107,7 @@ module.exports = function (RED) {
     node.accessToken = null;
     node.tokenExpires = null;
 
-    node.getToken =
-      node.idmType === 'none'
-        ? null
-        : getToken;
+    node.getToken = node.idmType === 'none' ? null : getToken;
 
     node.geType = config.geType;
   }
@@ -122,7 +117,7 @@ module.exports = function (RED) {
       username: { type: 'text' },
       password: { type: 'password' },
       clientid: { type: 'text' },
-      clientsecret: { type: 'password' },
-    },
+      clientsecret: { type: 'password' }
+    }
   });
 };

@@ -35,7 +35,7 @@
       serviceMode: { value: 'pass' },
       serviceValue: { value: '' },
       servicePathMode: { value: 'pass' },
-      servicePathValue: { value: '' },
+      servicePathValue: { value: '' }
     },
     inputs: 1,
     outputs: 1,
@@ -71,55 +71,55 @@
 </script>
 
 <script type="text/x-red" data-template-name="Service and ServicePath">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-serviceMode"><i class="icon-tag"></i> FIWARE Service</label>
-        <select id="node-input-serviceMode" onchange="serviceMode_actionType_Changed(event)">
-            <option value="pass">Passthrough</option>
-            <option value="add">Add</option>
-            <option value="delete">Delete</option>
-        </select>
-    </div>
-    <div class="form-row" id="serviceValue">
-        <label for="node-input-serviceValue"><i class="fa fa-tag"></i> Service value</label>
-        <input type="text" id="node-input-serviceValue">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicePathMode"><i class="icon-tag"></i> FIWARE ServicePath</label>
-        <select id="node-input-servicePathMode" onchange="servicePathMode_actionType_Changed(event)">
-            <option value="pass">Passthrough</option>
-            <option value="add">Add</option>
-            <option value="delete">Delete</option>
-        </select>
-    </div>
-    <div class="form-row" id="servicePathValue">
-        <label for="node-input-servicePathValue"><i class="fa fa-tag"></i> ServicePath value</label>
-        <input type="text" id="node-input-servicePathValue">
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-serviceMode"><i class="icon-tag"></i> FIWARE Service</label>
+      <select id="node-input-serviceMode" onchange="serviceMode_actionType_Changed(event)">
+          <option value="pass">Passthrough</option>
+          <option value="add">Add</option>
+          <option value="delete">Delete</option>
+      </select>
+  </div>
+  <div class="form-row" id="serviceValue">
+      <label for="node-input-serviceValue"><i class="fa fa-tag"></i> Service value</label>
+      <input type="text" id="node-input-serviceValue">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicePathMode"><i class="icon-tag"></i> FIWARE ServicePath</label>
+      <select id="node-input-servicePathMode" onchange="servicePathMode_actionType_Changed(event)">
+          <option value="pass">Passthrough</option>
+          <option value="add">Add</option>
+          <option value="delete">Delete</option>
+      </select>
+  </div>
+  <div class="form-row" id="servicePathValue">
+      <label for="node-input-servicePathValue"><i class="fa fa-tag"></i> ServicePath value</label>
+      <input type="text" id="node-input-servicePathValue">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="Service and ServicePath">
-    <p>A simple node that allows to mange FIWARE Service and FIWARE ServicePath</p>
-    <h3>Create entity</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>msg.context</dd>
-    </dl>
+  <p>A simple node that allows to mange FIWARE Service and FIWARE ServicePath</p>
+  <h3>Create entity</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>msg.context</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>msg.context</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>msg.context</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/service-and-servicepath/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/service-and-servicepath/">here</a> for full documentation.</p>
 </script>

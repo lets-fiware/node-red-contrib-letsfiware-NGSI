@@ -35,7 +35,9 @@ const getGtfsRealtime = async function (msg) {
   const url = msg.payload;
   try {
     const res = await lib.http({
-      method: 'get', baseURL: url, responseType: 'arraybuffer',
+      method: 'get',
+      baseURL: url,
+      responseType: 'arraybuffer',
       responseEncoding: 'binary'
     });
     msg.payload = res.data;
@@ -112,7 +114,7 @@ function tripUpdate2ngsi(v) {
 function gtfs2ngsi(data) {
   const entities = [];
 
-  data.forEach(e => {
+  data.forEach((e) => {
     if (e.vehicle) {
       entities.push(vehicle2ngsi(e));
     } else if (e.tripUpdate) {

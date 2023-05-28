@@ -27,76 +27,76 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI to worldmap', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: "" },
-        attrname: { value: "name" },
-        attrworldmap: { value: "__worldmap__" },
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "NGSI to worldmap";
-      },
-      paletteLabel: 'ngsi to worldmap'
-    });
+  RED.nodes.registerType('NGSI to worldmap', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      attrname: { value: 'name' },
+      attrworldmap: { value: '__worldmap__' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI to worldmap';
+    },
+    paletteLabel: 'ngsi to worldmap'
+  });
 </script>
 
 <script type="text/x-red" data-template-name="NGSI to worldmap">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-attrname"><i class="icon-tag"></i> attr to use as name</label>
-        <input type="text" id="node-input-attrname" placeholder="">
-    </div>
-    <div class="form-row">
-        <label for="node-input-attrworldmap"><i class="icon-tag"></i> attr for worldmap</label>
-        <input type="text" id="node-input-attrworldmap" placeholder="">
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-attrname"><i class="icon-tag"></i> attr to use as name</label>
+      <input type="text" id="node-input-attrname" placeholder="">
+  </div>
+  <div class="form-row">
+      <label for="node-input-attrworldmap"><i class="icon-tag"></i> attr for worldmap</label>
+      <input type="text" id="node-input-attrworldmap" placeholder="">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI to worldmap">
-    <p>
-    A simple node that allows to transform from NGSIv2 entities to "things" data for the worldmap node.
-    </p>
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array</span>
-        </dt>
-        <dd>payload containing NGSIv2 entities
-        If a <code>string</code> or a <code>JSON Object</code> containing NGSIv2 entities
-        is provided, it will be automatically converted to a <code>JSON Array</code></dd>
-    </dl>
+  <p>
+  A simple node that allows to transform from NGSIv2 entities to "things" data for the worldmap node.
+  </p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array</span>
+      </dt>
+      <dd>payload containing NGSIv2 entities
+      If a <code>string</code> or a <code>JSON Object</code> containing NGSIv2 entities
+      is provided, it will be automatically converted to a <code>JSON Array</code></dd>
+  </dl>
 
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array</span>
-        </dt>
-        <dd>"things" data for the worldmap node</dd>
-    </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array</span>
+      </dt>
+      <dd>"things" data for the worldmap node</dd>
+  </dl>
 
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>payload containing a NGSIv2 subscription data.</dd>
-    </dl>
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object or null</span>
-        </dt>
-        <dd>A subscription Id, a FIWARE Serrvice and a FIWARE ServicePath.</dd>
-    </dl>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>payload containing a NGSIv2 subscription data.</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object or null</span>
+      </dt>
+      <dd>A subscription Id, a FIWARE Serrvice and a FIWARE ServicePath.</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_to_worldmap/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_to_worldmap/">here</a> for full documentation.</p>
 </script>

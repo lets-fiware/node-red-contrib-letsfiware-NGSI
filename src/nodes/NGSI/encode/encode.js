@@ -46,7 +46,9 @@ module.exports = function (RED) {
           msg.statusCode = 200;
           break;
         default:
-          msg.payload = { error: 'payload not string, JSON Object or JSON Array' };
+          msg.payload = {
+            error: 'payload not string, JSON Object or JSON Array'
+          };
           msg.statusCode = 500;
           break;
       }

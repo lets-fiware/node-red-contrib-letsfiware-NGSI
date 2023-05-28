@@ -27,150 +27,149 @@
 -->
 
 <script type="text/javascript">
-    const urlValidator = function (required, v) {
-      if (!required && (!v || v.trim().length == 0)) {
-        return true;
-      }
-      try {
-        const url = new URL(v.trim());
-        if (url.protocol !== "http:" && url.protocol !== "https:") {
-          return false;
-        }
-        if (url.search !== "") {
-          return false;
-        }
-        return true;
-      }
-      catch (e) {
+  const urlValidator = function (required, v) {
+    if (!required && (!v || v.trim().length == 0)) {
+      return true;
+    }
+    try {
+      const url = new URL(v.trim());
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') {
         return false;
       }
-    };
-
-    RED.nodes.registerType('Open APIs', {
-      category: 'config',
-
-      defaults: {
-        name: {
-          value: ''
-        },
-        geType: {
-          value: 'orion'
-        },
-        apiEndpoint: {
-          value: '',
-          required: true,
-          validate: urlValidator.bind(null, true)
-        },
-        service: {
-          value: ''
-        },
-        idmEndpoint: {
-          value: '',
-          validate: urlValidator.bind(null, false)
-        },
-        idmType: {
-          value: 'none'
-        }
-      },
-
-      credentials: {
-        username: { type: 'text' },
-        password: { type: 'password' },
-        clientid: { type: 'text' },
-        clientsecret: { type: 'password' }
-      },
-
-      label: function () {
-        return this.name || 'Open APIs';
+      if (url.search !== '') {
+        return false;
       }
-    });
-
-    /* eslint no-unused-vars: 0 */
-    function fiware_open_apis_idmtype_Changed(e) {
-      switch (e.target.value) {
-        case "tokenproxy":
-          document.getElementById('idmEndpoint').hidden = false;
-          document.getElementById('username').hidden = false;
-          document.getElementById('password').hidden = false;
-          document.getElementById('clientid').hidden = true;
-          document.getElementById('clientsecret').hidden = true;
-          break;
-        case "keyrock":
-        case "generic":
-          document.getElementById('idmEndpoint').hidden = false;
-          document.getElementById('username').hidden = false;
-          document.getElementById('password').hidden = false;
-          document.getElementById('clientid').hidden = false;
-          document.getElementById('clientsecret').hidden = false;
-          break;
-        default:
-          document.getElementById('idmEndpoint').hidden = true;
-          document.getElementById('username').hidden = true;
-          document.getElementById('password').hidden = true;
-          document.getElementById('clientid').hidden = true;
-          document.getElementById('clientsecret').hidden = true;
-          break;
-      }
+      return true;
+    } catch (e) {
+      return false;
     }
+  };
+
+  RED.nodes.registerType('Open APIs', {
+    category: 'config',
+
+    defaults: {
+      name: {
+        value: ''
+      },
+      geType: {
+        value: 'orion'
+      },
+      apiEndpoint: {
+        value: '',
+        required: true,
+        validate: urlValidator.bind(null, true)
+      },
+      service: {
+        value: ''
+      },
+      idmEndpoint: {
+        value: '',
+        validate: urlValidator.bind(null, false)
+      },
+      idmType: {
+        value: 'none'
+      }
+    },
+
+    credentials: {
+      username: { type: 'text' },
+      password: { type: 'password' },
+      clientid: { type: 'text' },
+      clientsecret: { type: 'password' }
+    },
+
+    label: function () {
+      return this.name || 'Open APIs';
+    }
+  });
+
+  /* eslint no-unused-vars: 0 */
+  function fiware_open_apis_idmtype_Changed(e) {
+    switch (e.target.value) {
+      case 'tokenproxy':
+        document.getElementById('idmEndpoint').hidden = false;
+        document.getElementById('username').hidden = false;
+        document.getElementById('password').hidden = false;
+        document.getElementById('clientid').hidden = true;
+        document.getElementById('clientsecret').hidden = true;
+        break;
+      case 'keyrock':
+      case 'generic':
+        document.getElementById('idmEndpoint').hidden = false;
+        document.getElementById('username').hidden = false;
+        document.getElementById('password').hidden = false;
+        document.getElementById('clientid').hidden = false;
+        document.getElementById('clientsecret').hidden = false;
+        break;
+      default:
+        document.getElementById('idmEndpoint').hidden = true;
+        document.getElementById('username').hidden = true;
+        document.getElementById('password').hidden = true;
+        document.getElementById('clientid').hidden = true;
+        document.getElementById('clientsecret').hidden = true;
+        break;
+    }
+  }
 </script>
 
 <script type="text/x-red" data-template-name="Open APIs">
-    <div class="form-row">
-        <label for="node-config-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-config-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-geType"><i class="icon-tag"></i> Generic Enabler</label>
-        <select id="node-config-input-geType">
-            <option value="orion" selected>Orion Context Broker</option>
-            <option value="comet">STH-Comet</option>
-            <option value="quantumleap">Quantumleap</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-endpoint"><i class="icon-tag"></i> API Endpoint</label>
-        <input required type="url" id="node-config-input-apiEndpoint" placeholder="">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-service"><i class="icon-tag"></i> Service</label>
-        <input type="text" id="node-config-input-service">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-idmType"><i class="icon-tag"></i> IdM Type</label>
-        <select id="node-config-input-idmType" onchange="fiware_open_apis_idmtype_Changed(event)">
-            <option value="none" selected>None</option>
-            <option value="tokenproxy">Tokenproxy</option>
-            <option value="keyrock">Keyrock</option>
-            <option value="generic">Generic</option>
-        </select>
-    </div>
-    <div class="form-row" id="idmEndpoint">
-        <label for="node-config-input-idmEndpoint"><i class="icon-tag"></i> IdM Endpoint</label>
-        <input type="url" id="node-config-input-idmEndpoint" placeholder="">
-    </div>
-    <div class="form-row" id="username">
-        <label for="node-config-input-username"><i class="icon-tag"></i> Username</label>
-        <input type="text" id="node-config-input-username">
-    </div>
-    <div class="form-row" id="password">
-        <label for="node-config-input-password"><i class="icon-tag"></i> Password</label>
-        <input type="password" id="node-config-input-password">
-    </div>
-    <div class="form-row" id="clientid">
-        <label for="node-config-input-clientid"><i class="icon-tag"></i> Client ID</label>
-        <input type="text" id="node-config-input-clientid">
-    </div>
-    <div class="form-row" id="clientsecret">
-        <label for="node-config-input-clientsecret"><i class="icon-tag"></i> Client Secret</label>
-        <input type="password" id="node-config-input-clientsecret">
-    </div>
+  <div class="form-row">
+      <label for="node-config-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-config-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-geType"><i class="icon-tag"></i> Generic Enabler</label>
+      <select id="node-config-input-geType">
+          <option value="orion" selected>Orion Context Broker</option>
+          <option value="comet">STH-Comet</option>
+          <option value="quantumleap">Quantumleap</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-endpoint"><i class="icon-tag"></i> API Endpoint</label>
+      <input required type="url" id="node-config-input-apiEndpoint" placeholder="">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-service"><i class="icon-tag"></i> Service</label>
+      <input type="text" id="node-config-input-service">
+  </div>
+  <div class="form-row">
+      <label for="node-config-input-idmType"><i class="icon-tag"></i> IdM Type</label>
+      <select id="node-config-input-idmType" onchange="fiware_open_apis_idmtype_Changed(event)">
+          <option value="none" selected>None</option>
+          <option value="tokenproxy">Tokenproxy</option>
+          <option value="keyrock">Keyrock</option>
+          <option value="generic">Generic</option>
+      </select>
+  </div>
+  <div class="form-row" id="idmEndpoint">
+      <label for="node-config-input-idmEndpoint"><i class="icon-tag"></i> IdM Endpoint</label>
+      <input type="url" id="node-config-input-idmEndpoint" placeholder="">
+  </div>
+  <div class="form-row" id="username">
+      <label for="node-config-input-username"><i class="icon-tag"></i> Username</label>
+      <input type="text" id="node-config-input-username">
+  </div>
+  <div class="form-row" id="password">
+      <label for="node-config-input-password"><i class="icon-tag"></i> Password</label>
+      <input type="password" id="node-config-input-password">
+  </div>
+  <div class="form-row" id="clientid">
+      <label for="node-config-input-clientid"><i class="icon-tag"></i> Client ID</label>
+      <input type="text" id="node-config-input-clientid">
+  </div>
+  <div class="form-row" id="clientsecret">
+      <label for="node-config-input-clientsecret"><i class="icon-tag"></i> Client Secret</label>
+      <input type="password" id="node-config-input-clientsecret">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="Open APIs">
-    <p>
-    A configuration node that allows to configure Context Broker and IdM.
-    </p>
+  <p>
+  A configuration node that allows to configure Context Broker and IdM.
+  </p>
 
-    <h3>Details</h3>
-    <p>The only mandatory field is Context Broker endpoint.</p>
+  <h3>Details</h3>
+  <p>The only mandatory field is Context Broker endpoint.</p>
 </script>

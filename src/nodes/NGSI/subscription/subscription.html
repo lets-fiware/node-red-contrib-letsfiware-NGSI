@@ -27,192 +27,192 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI subscription', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: 'Open APIs',
-          required: true
-        },
-        servicepath: { value: '/' },
-        actionType: { value: 'create' },
-        entityType: { value: '' },
-        idPattern: { value: '' },
-        watchedAttrs: { value: '' },
-        query: { value: '' },
-        url: { value: '' },
-        attrs: { value: '' },
-        attrsFormat: { value: '' },
+  RED.nodes.registerType('NGSI subscription', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: 'fiware-non-free.svg',
-      label: function () {
-        return this.name || "NGSI subscription";
-      },
-      paletteLabel: 'subscription'
-    });
+      servicepath: { value: '/' },
+      actionType: { value: 'create' },
+      entityType: { value: '' },
+      idPattern: { value: '' },
+      watchedAttrs: { value: '' },
+      query: { value: '' },
+      url: { value: '' },
+      attrs: { value: '' },
+      attrsFormat: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI subscription';
+    },
+    paletteLabel: 'subscription'
+  });
 
-    /* eslint no-unused-vars: 0 */
-    function subscription_actionType_Changed(e) {
-      switch (e.target.value) {
-        case 'delete':
-          document.getElementById('entityType').hidden = true;
-          document.getElementById('idPattern').hidden = true;
-          document.getElementById('watchedAttrs').hidden = true;
-          document.getElementById('query').hidden = true;
-          document.getElementById('url').hidden = true;
-          document.getElementById('attrs').hidden = true;
-          document.getElementById('attrsFormat').hidden = true;
-          break;
-        default:
-          document.getElementById('entityType').hidden = false;
-          document.getElementById('idPattern').hidden = false;
-          document.getElementById('watchedAttrs').hidden = false;
-          document.getElementById('query').hidden = false;
-          document.getElementById('url').hidden = false;
-          document.getElementById('attrs').hidden = false;
-          document.getElementById('attrsFormat').hidden = false;
-          break;
-      }
+  /* eslint no-unused-vars: 0 */
+  function subscription_actionType_Changed(e) {
+    switch (e.target.value) {
+      case 'delete':
+        document.getElementById('entityType').hidden = true;
+        document.getElementById('idPattern').hidden = true;
+        document.getElementById('watchedAttrs').hidden = true;
+        document.getElementById('query').hidden = true;
+        document.getElementById('url').hidden = true;
+        document.getElementById('attrs').hidden = true;
+        document.getElementById('attrsFormat').hidden = true;
+        break;
+      default:
+        document.getElementById('entityType').hidden = false;
+        document.getElementById('idPattern').hidden = false;
+        document.getElementById('watchedAttrs').hidden = false;
+        document.getElementById('query').hidden = false;
+        document.getElementById('url').hidden = false;
+        document.getElementById('attrs').hidden = false;
+        document.getElementById('attrsFormat').hidden = false;
+        break;
     }
+  }
 </script>
 
 <script type="text/x-red" data-template-name="NGSI subscription">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="icon-tag"></i> Context Broker</label>
-        <input type="text" id="node-input-openapis" placeholder="">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actionType" onchange="subscription_actionType_Changed(event)">
-            <option value="create">create</option>
-            <option value="update">update</option>
-            <option value="delete">delete</option>
-            <option value="payload">value of ActionType in payload</option>
-        </select>
-    </div>
-    <div class="form-row" id="entityType">
-        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entitytype">
-    </div>
-    <div class="form-row" id="idPattern">
-        <label for="node-input-idPattern"><i class="fa fa-tag"></i> ID pattern</label>
-        <input type="text" id="node-input-idPattern">
-    </div>
-    <div class="form-row" id="watchedAttrs">
-        <label for="node-input-watchedAttrs"><i class="fa fa-tag"></i> Watched Attrs</label>
-        <input type="text" id="node-input-watchedAttrs">
-    </div>
-    <div class="form-row" id="query">
-        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query">
-    </div>
-    <div class="form-row" id="url">
-        <label for="node-input-url"><i class="fa fa-tag"></i> Notification Endpoint</label>
-        <input type="text" id="node-input-url">
-    </div>
-    <div class="form-row" id="attrs">
-        <label for="node-input-attrs"><i class="fa fa-tag"></i> Attrs</label>
-        <input type="text" id="node-input-attrs">
-    </div>
-    <div class="form-row" id="attrsFormat">
-        <label for="node-input-attrsFormat"><i class="fa fa-tag"></i> Attrs Format</label>
-        <select id="node-input-attrsFormat">
-            <option value="false">normalized</option>
-            <option value="true">keyValues</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="icon-tag"></i> Context Broker</label>
+      <input type="text" id="node-input-openapis" placeholder="">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+      <select id="node-input-actionType" onchange="subscription_actionType_Changed(event)">
+          <option value="create">create</option>
+          <option value="update">update</option>
+          <option value="delete">delete</option>
+          <option value="payload">value of ActionType in payload</option>
+      </select>
+  </div>
+  <div class="form-row" id="entityType">
+      <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entitytype">
+  </div>
+  <div class="form-row" id="idPattern">
+      <label for="node-input-idPattern"><i class="fa fa-tag"></i> ID pattern</label>
+      <input type="text" id="node-input-idPattern">
+  </div>
+  <div class="form-row" id="watchedAttrs">
+      <label for="node-input-watchedAttrs"><i class="fa fa-tag"></i> Watched Attrs</label>
+      <input type="text" id="node-input-watchedAttrs">
+  </div>
+  <div class="form-row" id="query">
+      <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+      <input type="text" id="node-input-query">
+  </div>
+  <div class="form-row" id="url">
+      <label for="node-input-url"><i class="fa fa-tag"></i> Notification Endpoint</label>
+      <input type="text" id="node-input-url">
+  </div>
+  <div class="form-row" id="attrs">
+      <label for="node-input-attrs"><i class="fa fa-tag"></i> Attrs</label>
+      <input type="text" id="node-input-attrs">
+  </div>
+  <div class="form-row" id="attrsFormat">
+      <label for="node-input-attrsFormat"><i class="fa fa-tag"></i> Attrs Format</label>
+      <select id="node-input-attrsFormat">
+          <option value="false">normalized</option>
+          <option value="true">keyValues</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI subscription">
-    <p>A simple node that allows to create, update or delete an NGSIv2 subscription.</p>
-    <h3>Create a subscription</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>a NGSIv2 subscription data</dd>
-    </dl>
+  <p>A simple node that allows to create, update or delete an NGSIv2 subscription.</p>
+  <h3>Create a subscription</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>a NGSIv2 subscription data</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">String</span>
-        </dt>
-        <dd>a subscription id</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">String</span>
+      </dt>
+      <dd>a subscription id</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Update a subscription</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string or JSON object</span>
-        </dt>
-        <dd>a NGSIv2 subscription fragment with a subscription id</dd>
-    </dl>
+  <h3>Update a subscription</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string or JSON object</span>
+      </dt>
+      <dd>a NGSIv2 subscription fragment with a subscription id</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Delete a subscription</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">String</span>
-        </dt>
-        <dd>a subscription id</dd>
-    </dl>
+  <h3>Delete a subscription</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">String</span>
+      </dt>
+      <dd>a subscription id</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Use value of actionType in payload</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>JSON object with action Type and related information</dd>
-    </dl>
+  <h3>Use value of actionType in payload</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>JSON object with action Type and related information</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">String or Number</span>
-        </dt>
-        <dd>A subscription id</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">String or Number</span>
+      </dt>
+      <dd>A subscription id</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_subscription/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_subscription/">here</a> for full documentation.</p>
 </script>

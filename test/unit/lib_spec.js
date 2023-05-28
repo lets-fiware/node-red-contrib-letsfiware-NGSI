@@ -61,15 +61,13 @@ describe('lib.js', () => {
       const Mockaxios = async () => Promise.reject({ status: 400 });
       Mockaxios.isAxiosError = () => true;
       lib.__set__('axios', Mockaxios);
-      await lib.http({}).catch(() => {
-      });
+      await lib.http({}).catch(() => {});
     });
     it('should be unknown exception', async () => {
       const Mockaxios = async () => Promise.reject({});
       Mockaxios.isAxiosError = () => false;
       lib.__set__('axios', Mockaxios);
-      await lib.http({}).catch(() => {
-      });
+      await lib.http({}).catch(() => {});
     });
   });
 
@@ -99,10 +97,16 @@ describe('lib.js', () => {
       assert.deepEqual(actual, expected);
     });
     it('Has Authorization header', async () => {
-      const param = { getToken: async () => { return '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4'; } };
+      const param = {
+        getToken: async () => {
+          return '3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4';
+        }
+      };
       const actual = await lib.buildHTTPHeader(param);
 
-      const expected = { 'Authorization': 'Bearer 3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4' };
+      const expected = {
+        Authorization: 'Bearer 3b7c02f9e8a0b8fb1ca0df27052b6dfc00f32df4'
+      };
 
       assert.deepEqual(actual, expected);
     });
@@ -229,7 +233,12 @@ describe('lib.js', () => {
     });
 
     it('id, type param', () => {
-      const param = { id: 'urn:ngsi-ld:Building:store001', type: 'Building', idPattern: '.*', typePattern: 'Build.*' };
+      const param = {
+        id: 'urn:ngsi-ld:Building:store001',
+        type: 'Building',
+        idPattern: '.*',
+        typePattern: 'Build.*'
+      };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('options'), null);
@@ -246,7 +255,13 @@ describe('lib.js', () => {
       assert.equal(actual.get('mq'), 'accuracy>100');
     });
     it('geo query', () => {
-      const param = { georel: 'near', geometry: 'point', coords: '-40.4,-3.5', maxDistance: 100, minDistance: 50 };
+      const param = {
+        georel: 'near',
+        geometry: 'point',
+        coords: '-40.4,-3.5',
+        maxDistance: 100,
+        minDistance: 50
+      };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('georel'), 'near');
@@ -256,7 +271,12 @@ describe('lib.js', () => {
       assert.equal(actual.get('minDistance'), '50');
     });
     it('attrs, metadata', () => {
-      const param = { limit: 100, page: 2, attrs: 'temperature', metadata: 'accuracy' };
+      const param = {
+        limit: 100,
+        page: 2,
+        attrs: 'temperature',
+        metadata: 'accuracy'
+      };
       const actual = lib.buildParams(param);
 
       assert.equal(actual.get('attrs'), 'temperature');
@@ -278,8 +298,8 @@ describe('lib.js', () => {
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
-          fiwareTotalCount: 10,
-        },
+          fiwareTotalCount: 10
+        }
       });
     });
     it('empty context', () => {
@@ -290,8 +310,8 @@ describe('lib.js', () => {
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/',
-          fiwareTotalCount: 10,
-        },
+          fiwareTotalCount: 10
+        }
       });
     });
   });
@@ -309,13 +329,17 @@ describe('lib.js', () => {
       assert.deepEqual(actual, ['openiot', '/']);
     });
     it('empty context', () => {
-      const msg = { context: { fiwareService: 'orion', fiwareServicePath: '/#' } };
+      const msg = {
+        context: { fiwareService: 'orion', fiwareServicePath: '/#' }
+      };
       const actual = lib.getServiceAndServicePath(msg, 'openio', '/');
 
       assert.deepEqual(actual, ['orion', '/#']);
     });
     it('toLowerCase', () => {
-      const msg = { context: { fiwareService: 'ORION', fiwareServicePath: '/#' } };
+      const msg = {
+        context: { fiwareService: 'ORION', fiwareServicePath: '/#' }
+      };
       const actual = lib.getServiceAndServicePath(msg, 'openio', '/');
 
       assert.deepEqual(actual, ['orion', '/#']);
@@ -449,7 +473,7 @@ describe('lib.js', () => {
       const expected = {
         none: {
           type: 'None',
-          value: null,
+          value: null
         }
       };
 
@@ -461,7 +485,7 @@ describe('lib.js', () => {
       const expected = {
         keyValues: {
           type: 'Boolean',
-          value: true,
+          value: true
         }
       };
 
@@ -473,7 +497,7 @@ describe('lib.js', () => {
       const expected = {
         temperature: {
           type: 'Number',
-          value: 28.4,
+          value: 28.4
         }
       };
 
@@ -485,7 +509,7 @@ describe('lib.js', () => {
       const expected = {
         name: {
           type: 'Text',
-          value: 'fiware',
+          value: 'fiware'
         }
       };
 
@@ -497,7 +521,7 @@ describe('lib.js', () => {
       const expected = {
         location: {
           type: 'StructuredValue',
-          value: {},
+          value: {}
         }
       };
 
@@ -509,7 +533,7 @@ describe('lib.js', () => {
       const expected = {
         list: {
           type: 'StructuredValue',
-          value: [],
+          value: []
         }
       };
 
@@ -534,7 +558,10 @@ describe('lib.js', () => {
   });
   describe('decodeforbiddenChar', () => {
     it('decode forbidden characters', () => {
-      const actual = lib.decodeforbiddenChar('%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29', true);
+      const actual = lib.decodeforbiddenChar(
+        '%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29%25%3C%3E%22%27%3D%3B%28%29',
+        true
+      );
 
       const expected = '%<>"\'=;()%<>"\'=;()%<>"\'=;()%<>"\'=;()';
 

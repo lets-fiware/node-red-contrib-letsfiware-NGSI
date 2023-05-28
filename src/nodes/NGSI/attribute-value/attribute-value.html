@@ -27,183 +27,183 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('NGSI Attribute value', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-        openapis: {
-          type: "Open APIs",
-          required: true
-        },
-        servicepath: { value: '/' },
-        actionType: { value: 'read' },
-        entityId: { value: '' },
-        entityType: { value: '' },
-        attrName: { value: '' },
-        skipForwarding: { value: 'false' },
-        forcedUpdate: { value: 'false' },
-        flowControl: { value: 'false' },
+  RED.nodes.registerType('NGSI Attribute value', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' },
+      openapis: {
+        type: 'Open APIs',
+        required: true
       },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "NGSI Attribute value";
-      },
-      paletteLabel: 'attribute value'
-    });
+      servicepath: { value: '/' },
+      actionType: { value: 'read' },
+      entityId: { value: '' },
+      entityType: { value: '' },
+      attrName: { value: '' },
+      skipForwarding: { value: 'false' },
+      forcedUpdate: { value: 'false' },
+      flowControl: { value: 'false' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'NGSI Attribute value';
+    },
+    paletteLabel: 'attribute value'
+  });
 
-    /* eslint no-unused-vars: 0 */
-    function attr_value_actionType_Changed(e) {
-      switch (e.target.value) {
-        case 'read':
-          document.getElementById('skipForwarding').hidden = false;
-          document.getElementById('forcedUpdate').hidden = true;
-          document.getElementById('flowControl').hidden = true;
-          break;
-        case 'update':
-          document.getElementById('skipForwarding').hidden = true;
-          document.getElementById('forcedUpdate').hidden = false;
-          document.getElementById('flowControl').hidden = false;
-          break;
-        default:
-          document.getElementById('skipForwarding').hidden = false;
-          document.getElementById('forcedUpdate').hidden = false;
-          document.getElementById('flowControl').hidden = false;
-          break;
-      }
+  /* eslint no-unused-vars: 0 */
+  function attr_value_actionType_Changed(e) {
+    switch (e.target.value) {
+      case 'read':
+        document.getElementById('skipForwarding').hidden = false;
+        document.getElementById('forcedUpdate').hidden = true;
+        document.getElementById('flowControl').hidden = true;
+        break;
+      case 'update':
+        document.getElementById('skipForwarding').hidden = true;
+        document.getElementById('forcedUpdate').hidden = false;
+        document.getElementById('flowControl').hidden = false;
+        break;
+      default:
+        document.getElementById('skipForwarding').hidden = false;
+        document.getElementById('forcedUpdate').hidden = false;
+        document.getElementById('flowControl').hidden = false;
+        break;
     }
+  }
 </script>
 
 <script type="text/x-red" data-template-name="NGSI Attribute value">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
-        <input type="text" id="node-input-openapis">
-    </div>
-    <div class="form-row">
-        <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
-        <input type="text" id="node-input-servicepath">
-    </div>
-    <div class="form-row">
-        <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
-        <select id="node-input-actionType" onchange="attr_value_actionType_Changed(event)">
-            <option value="read">read</option>
-            <option value="update">update</option>
-            <option value="payload">value of ActionType in payload</option>
-        </select>
-    </div>
-    <div class="form-row" id="entityId">
-        <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
-        <input type="text" id="node-input-entityId">
-    </div>
-    <div class="form-row" id="entityType">
-        <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
-        <input type="text" id="node-input-entityType">
-    </div>
-    <div class="form-row" id="attrName">
-        <label for="node-input-attrName"><i class="fa fa-tag"></i> Attribute name</label>
-        <input type="text" id="node-input-attrName">
-    </div>
-    <div class="form-row" id="skipForwarding">
-        <label for="node-input-skipForwarding"><i class="fa fa-tag"></i> Skip forwarding</label>
-        <select id="node-input-skipForwarding">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row" id="forcedUpdate">
-        <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
-        <select id="node-input-forcedUpdate">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row" id="flowControl">
-        <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
-        <select id="node-input-flowControl">
-            <option value="false" enabled>false</option>
-            <option value="true">true</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-forbidden"><i class="fa fa-tag"></i> Encode / Decode forbidden chars</label>
-        <select id="node-input-forbidden">
-            <option value="false" selected>off</option>
-            <option value="true">on</option>
-        </select>
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-openapis"><i class="fa fa-tag"></i> Context Broker</label>
+      <input type="text" id="node-input-openapis">
+  </div>
+  <div class="form-row">
+      <label for="node-input-servicepath"><i class="fa fa-tag"></i> ServicePath</label>
+      <input type="text" id="node-input-servicepath">
+  </div>
+  <div class="form-row">
+      <label for="node-input-actionType"><i class="icon-tag"></i> Action Type</label>
+      <select id="node-input-actionType" onchange="attr_value_actionType_Changed(event)">
+          <option value="read">read</option>
+          <option value="update">update</option>
+          <option value="payload">value of ActionType in payload</option>
+      </select>
+  </div>
+  <div class="form-row" id="entityId">
+      <label for="node-input-entityId"><i class="fa fa-tag"></i> Entity id</label>
+      <input type="text" id="node-input-entityId">
+  </div>
+  <div class="form-row" id="entityType">
+      <label for="node-input-entityType"><i class="fa fa-tag"></i> Entity type</label>
+      <input type="text" id="node-input-entityType">
+  </div>
+  <div class="form-row" id="attrName">
+      <label for="node-input-attrName"><i class="fa fa-tag"></i> Attribute name</label>
+      <input type="text" id="node-input-attrName">
+  </div>
+  <div class="form-row" id="skipForwarding">
+      <label for="node-input-skipForwarding"><i class="fa fa-tag"></i> Skip forwarding</label>
+      <select id="node-input-skipForwarding">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row" id="forcedUpdate">
+      <label for="node-input-forcedUpdate"><i class="fa fa-tag"></i> Forced update</label>
+      <select id="node-input-forcedUpdate">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row" id="flowControl">
+      <label for="node-input-flowControl"><i class="fa fa-tag"></i> Flow control</label>
+      <select id="node-input-flowControl">
+          <option value="false" enabled>false</option>
+          <option value="true">true</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-forbidden"><i class="fa fa-tag"></i> Encode / Decode forbidden chars</label>
+      <select id="node-input-forbidden">
+          <option value="false" selected>off</option>
+          <option value="true">on</option>
+      </select>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="NGSI Attribute value">
-    <p>A simple node that allows to read or update an attribute value of NGSIv2 entity.</p>
-    <h3>Read attribute value</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>NGSIv2 entity id and attriubte name to read</dd>
-    </dl>
+  <p>A simple node that allows to read or update an attribute value of NGSIv2 entity.</p>
+  <h3>Read attribute value</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>NGSIv2 entity id and attriubte name to read</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">null, boolean, number, string or JSON Object</span>
-        </dt>
-        <dd>attribute value</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">null, boolean, number, string or JSON Object</span>
+      </dt>
+      <dd>attribute value</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Update attribute value</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Object</span>
-        </dt>
-        <dd>an attribute value to update</dd>
-    </dl>
+  <h3>Update attribute value</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Object</span>
+      </dt>
+      <dd>an attribute value to update</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Use value of actionType in payload</h3>
-    <h4>Input</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON object</span>
-        </dt>
-        <dd>JSON object with action Type and related information</dd>
-    </dl>
+  <h3>Use value of actionType in payload</h3>
+  <h4>Input</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON object</span>
+      </dt>
+      <dd>JSON object with action Type and related information</dd>
+  </dl>
 
-    <h4>Output</h4>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">string or JSON object</span>
-        </dt>
-        <dd>An attribute value or a status code returned by the NGSIv2 API</dd>
-        <dt>statusCode
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>Status code returned by the NGSIv2 API</dd>
-    </dl>
+  <h4>Output</h4>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">string or JSON object</span>
+      </dt>
+      <dd>An attribute value or a status code returned by the NGSIv2 API</dd>
+      <dt>statusCode
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>Status code returned by the NGSIv2 API</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_attribute_value/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_attribute_value/">here</a> for full documentation.</p>
 </script>

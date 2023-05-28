@@ -36,7 +36,7 @@ const httpRequest = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    params: lib.buildParams(param.config),
+    params: lib.buildParams(param.config)
   };
 
   if (param.config.actionType === 'create' || param.config.actionType === 'upsert') {
@@ -49,8 +49,10 @@ const httpRequest = async function (msg, param) {
     msg.statusCode = Number(res.status);
     if (res.status === 200 && param.config.actionType === 'read') {
       msg.payload = lib.decodeNGSI(res.data, param.config.forbidden);
-    } else if ((res.status === 201 && param.config.actionType === 'create') ||
-      (res.status === 204 && (param.config.actionType === 'upsert' || param.config.actionType === 'delete'))) {
+    } else if (
+      (res.status === 201 && param.config.actionType === 'create') ||
+      (res.status === 204 && (param.config.actionType === 'upsert' || param.config.actionType === 'delete'))
+    ) {
       return;
     } else {
       this.error(`Error while managing entity: ${res.status} ${res.statusText}`);
@@ -80,7 +82,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     attrs: config.attrs.trim(),
     keyValues: config.keyValues === 'true',
     dateModified: config.dateModified === 'true',
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   if (!msg.payload) {
@@ -120,7 +122,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/entities',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-    config: defaultConfig,
+    config: defaultConfig
   };
 
   [param.config.service, param.config.servicepath] = lib.getServiceAndServicePath(msg, openAPIsConfig.service.trim(), defaultConfig.servicepath);

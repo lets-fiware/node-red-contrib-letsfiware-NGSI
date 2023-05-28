@@ -58,8 +58,8 @@ describe('to-worldmap.js', () => {
         line: [
           [1, 2],
           [3, 4],
-          [5, 6],
-        ],
+          [5, 6]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -70,13 +70,16 @@ describe('to-worldmap.js', () => {
       const expected = {
         area: [
           [1, 2],
-          [3, 4],
-        ],
+          [3, 4]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
     it('transform geo:polygon into area', () => {
-      const location = { type: 'geo:polygon', value: ['1, 2', '3, 4', '5, 6', '7, 8', '1, 2'] };
+      const location = {
+        type: 'geo:polygon',
+        value: ['1, 2', '3, 4', '5, 6', '7, 8', '1, 2']
+      };
       const actual = createGeoSpatialInfo(location);
 
       const expected = {
@@ -85,8 +88,8 @@ describe('to-worldmap.js', () => {
           [3, 4],
           [5, 6],
           [7, 8],
-          [1, 2],
-        ],
+          [1, 2]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -103,8 +106,8 @@ describe('to-worldmap.js', () => {
         coordinates: [
           [1, 2],
           [3, 4],
-          [5, 6],
-        ],
+          [5, 6]
+        ]
       };
       const actual = createGeoSpatialInfo(location);
 
@@ -112,8 +115,8 @@ describe('to-worldmap.js', () => {
         line: [
           [2, 1],
           [4, 3],
-          [6, 5],
-        ],
+          [6, 5]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -126,9 +129,9 @@ describe('to-worldmap.js', () => {
             [3, 4],
             [5, 6],
             [7, 8],
-            [1, 2],
-          ],
-        ],
+            [1, 2]
+          ]
+        ]
       };
       const actual = createGeoSpatialInfo(location);
 
@@ -139,9 +142,9 @@ describe('to-worldmap.js', () => {
             [4, 3],
             [6, 5],
             [8, 7],
-            [2, 1],
-          ],
-        ],
+            [2, 1]
+          ]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -152,15 +155,15 @@ describe('to-worldmap.js', () => {
           [
             [1, 2],
             [3, 4],
-            [5, 6],
+            [5, 6]
           ],
           [
             [11, 12],
             [13, 14],
             [15, 16],
-            [17, 18],
-          ],
-        ],
+            [17, 18]
+          ]
+        ]
       };
       const actual = createGeoSpatialInfo(location);
 
@@ -169,15 +172,15 @@ describe('to-worldmap.js', () => {
           [
             [2, 1],
             [4, 3],
-            [6, 5],
+            [6, 5]
           ],
           [
             [12, 11],
             [14, 13],
             [16, 15],
-            [18, 17],
-          ],
-        ],
+            [18, 17]
+          ]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -190,8 +193,8 @@ describe('to-worldmap.js', () => {
               [1, 2],
               [3, 4],
               [5, 6],
-              [7, 8],
-            ],
+              [7, 8]
+            ]
           ],
           [
             [
@@ -199,10 +202,10 @@ describe('to-worldmap.js', () => {
               [13, 14],
               [15, 16],
               [17, 18],
-              [19, 20],
-            ],
-          ],
-        ],
+              [19, 20]
+            ]
+          ]
+        ]
       };
       const actual = createGeoSpatialInfo(location);
 
@@ -213,8 +216,8 @@ describe('to-worldmap.js', () => {
               [2, 1],
               [4, 3],
               [6, 5],
-              [8, 7],
-            ],
+              [8, 7]
+            ]
           ],
           [
             [
@@ -222,10 +225,10 @@ describe('to-worldmap.js', () => {
               [14, 13],
               [16, 15],
               [18, 17],
-              [20, 19],
-            ],
-          ],
-        ],
+              [20, 19]
+            ]
+          ]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -238,8 +241,8 @@ describe('to-worldmap.js', () => {
               [1, 2],
               [3, 4],
               [5, 6],
-              [7, 8],
-            ],
+              [7, 8]
+            ]
           ],
           [
             [
@@ -248,16 +251,16 @@ describe('to-worldmap.js', () => {
               [13, 14],
               [15, 16],
               [17, 18],
-              [19, 20],
+              [19, 20]
             ],
             [
               [21, 22],
               [23, 24],
               [25, 26],
-              [27, 28],
-            ],
-          ],
-        ],
+              [27, 28]
+            ]
+          ]
+        ]
       };
       const actual = createGeoSpatialInfo(location);
 
@@ -268,8 +271,8 @@ describe('to-worldmap.js', () => {
               [2, 1],
               [4, 3],
               [6, 5],
-              [8, 7],
-            ],
+              [8, 7]
+            ]
           ],
           [
             [
@@ -278,16 +281,16 @@ describe('to-worldmap.js', () => {
               [14, 13],
               [16, 15],
               [18, 17],
-              [20, 19],
+              [20, 19]
             ],
             [
               [22, 21],
               [24, 23],
               [26, 25],
-              [28, 27],
-            ],
-          ],
-        ],
+              [28, 27]
+            ]
+          ]
+        ]
       };
       assert.deepEqual(actual, expected);
     });
@@ -298,89 +301,178 @@ describe('to-worldmap.js', () => {
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: {id: 'E1', type: 'T', location:{type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}}});
+      red.input({
+        payload: {
+          id: 'E1',
+          type: 'T',
+          location: {
+            type: 'geo:json',
+            value: { type: 'Point', coordinates: [2, 1] }
+          }
+        }
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'E1', lat: 1, lon: 2 }]
+      });
     });
     it('Transform an entity in subscription payload', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: {subscriptionId: '63ae1df6e9c583522509017e', data:[{id: 'E1', type: 'T', location:{type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}}]}});
+      red.input({
+        payload: {
+          subscriptionId: '63ae1df6e9c583522509017e',
+          data: [
+            {
+              id: 'E1',
+              type: 'T',
+              location: {
+                type: 'geo:json',
+                value: { type: 'Point', coordinates: [2, 1] }
+              }
+            }
+          ]
+        }
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'E1', lat: 1, lon: 2 }]
+      });
     });
     it('Transform an entity (text)', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: JSON.stringify({id: 'E1', type: 'T', location: {type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}})});
+      red.input({
+        payload: JSON.stringify({
+          id: 'E1',
+          type: 'T',
+          location: {
+            type: 'geo:json',
+            value: { type: 'Point', coordinates: [2, 1] }
+          }
+        })
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'E1', lat: 1, lon: 2 }]
+      });
     });
     it('Transform an entity (keyValues)', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: {id: 'E1', type: 'T', name: 'PoI', location: {type: 'Point', coordinates: [ 2, 1 ]}}});
+      red.input({
+        payload: {
+          id: 'E1',
+          type: 'T',
+          name: 'PoI',
+          location: { type: 'Point', coordinates: [2, 1] }
+        }
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'PoI', lat: 1, lon: 2}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'PoI', lat: 1, lon: 2 }]
+      });
     });
     it('Transform an entities', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
       red.input({
         payload: [
-          {id: 'E1', type: 'T', name: {type: 'Text', value: 'E1'}, location: {type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}},
-          {id: 'E2', type: 'T', location: {type: 'geo:json', value: {type: 'Point', coordinates: [ 4, 3 ]}}},
+          {
+            id: 'E1',
+            type: 'T',
+            name: { type: 'Text', value: 'E1' },
+            location: {
+              type: 'geo:json',
+              value: { type: 'Point', coordinates: [2, 1] }
+            }
+          },
+          {
+            id: 'E2',
+            type: 'T',
+            location: {
+              type: 'geo:json',
+              value: { type: 'Point', coordinates: [4, 3] }
+            }
+          }
         ]
       });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2},{name: 'E2', lat: 3, lon: 4}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [
+          { name: 'E1', lat: 1, lon: 2 },
+          { name: 'E2', lat: 3, lon: 4 }
+        ]
+      });
     });
     it('Transform an entity with worldmap attr', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: {id: 'E1', type: 'T', __worldmap__: {type: 'StructuredValues', value: {color: 'red'}}, location: {type: 'geo:json', value: {type: 'Point', coordinates: [ 2, 1 ]}}}});
+      red.input({
+        payload: {
+          id: 'E1',
+          type: 'T',
+          __worldmap__: { type: 'StructuredValues', value: { color: 'red' } },
+          location: {
+            type: 'geo:json',
+            value: { type: 'Point', coordinates: [2, 1] }
+          }
+        }
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'E1', lat: 1, lon: 2, color: 'red'}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'E1', lat: 1, lon: 2, color: 'red' }]
+      });
     });
     it('Transform an entity wth worldmap attr (keyValues)', async () => {
       const red = new MockRed();
       toWorldmapNode(red);
       red.createNode({
         attrname: 'name',
-        attrworldmap: '__worldmap__',
+        attrworldmap: '__worldmap__'
       });
 
-      red.input({payload: {id: 'E1', type: 'T', name: 'PoI', __worldmap__: {'color': 'red'}, location: {type: 'Point', coordinates: [ 2, 1 ]}}});
+      red.input({
+        payload: {
+          id: 'E1',
+          type: 'T',
+          name: 'PoI',
+          __worldmap__: { color: 'red' },
+          location: { type: 'Point', coordinates: [2, 1] }
+        }
+      });
 
-      assert.deepEqual(red.getOutput(), {payload:[{name: 'PoI', lat: 1, lon: 2, color: 'red'}]});
+      assert.deepEqual(red.getOutput(), {
+        payload: [{ name: 'PoI', lat: 1, lon: 2, color: 'red' }]
+      });
     });
   });
 });

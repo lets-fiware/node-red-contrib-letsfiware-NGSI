@@ -49,17 +49,32 @@ describe('batch-update.js', () => {
     it('Should be 204 No Content', async () => {
       batchUpdateNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 204, statusText: 'No Content' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildSearchParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const param = {
         host: 'http://orion:1026',
         url: '/v2/op/update',
-        config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
+        config: {
+          data: [
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            },
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor002',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            }
+          ]
+        }
       };
-      const node = { send: () => { } };
+      const node = { send: () => {} };
 
       const msg = {};
       await opUpdate.call(node, msg, param);
@@ -69,19 +84,39 @@ describe('batch-update.js', () => {
     it('Should be 400 Bad Request', async () => {
       batchUpdateNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildSearchParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const param = {
         host: 'http://orion:1026',
         url: '/v2/op/update',
-        config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
+        config: {
+          data: [
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            },
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor002',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            }
+          ]
+        }
       };
 
       let errmsg;
-      const node = { error: (e) => { errmsg = e; }, send: () => { } };
+      const node = {
+        error: (e) => {
+          errmsg = e;
+        },
+        send: () => {}
+      };
 
       const msg = {};
       await opUpdate.call(node, msg, param);
@@ -91,54 +126,100 @@ describe('batch-update.js', () => {
     });
     it('Should be 400 Bad Request with description', async () => {
       batchUpdateNode.__set__('lib', {
-        http: async () => Promise.resolve(
-          {
+        http: async () =>
+          Promise.resolve({
             status: 400,
             statusText: 'Bad Request',
             data: { description: 'error' }
           }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildSearchParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const param = {
         host: 'http://orion:1026',
         url: '/v2/op/update',
-        config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
+        config: {
+          data: [
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            },
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor002',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            }
+          ]
+        }
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await opUpdate.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while updating entities: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(msg, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('Should be unknown error', async () => {
       batchUpdateNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildSearchParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const param = {
         host: 'http://orion:1026',
         url: '/v2/op/update',
-        config: { data: [{ 'id': 'urn:ngsi-ld:WeatherObserved:sensor001', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }, { 'id': 'urn:ngsi-ld:WeatherObserved:sensor002', 'type': 'Sensor', 'temperature': { 'type': 'Number', 'value': 20.6, 'metadata': {} } }] }
+        config: {
+          data: [
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor001',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            },
+            {
+              id: 'urn:ngsi-ld:WeatherObserved:sensor002',
+              type: 'Sensor',
+              temperature: { type: 'Number', value: 20.6, metadata: {} }
+            }
+          ]
+        }
       };
 
       let errmsg;
-      const node = { error: (e) => { errmsg = e; }, send: () => { } };
+      const node = {
+        error: (e) => {
+          errmsg = e;
+        },
+        send: () => {}
+      };
 
       const msg = {};
       await opUpdate.call(node, msg, param);
 
       assert.equal(errmsg, 'Exception while updating entities: unknown error');
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('createParam', () => {
@@ -152,9 +233,15 @@ describe('batch-update.js', () => {
         keyValues: 'false',
         overrideMetadata: 'false',
         forcedUpdate: 'false',
-        flowControl: 'false',
+        flowControl: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -169,15 +256,14 @@ describe('batch-update.js', () => {
           actionType: 'append',
           data: {
             actionType: 'append',
-            entities: [
-            ],
+            entities: []
           },
           keyValues: false,
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -193,9 +279,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -210,21 +302,27 @@ describe('batch-update.js', () => {
           actionType: 'append',
           data: {
             actionType: 'append',
-            entities: [{}],
+            entities: [{}]
           },
           keyValues: false,
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
     });
     it('append entities (payload)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
-      const msg = { payload: { actionType: 'append', entities: [{ id: 'E', type: 'T' }], keyValues: true } };
+      const msg = {
+        payload: {
+          actionType: 'append',
+          entities: [{ id: 'E', type: 'T' }],
+          keyValues: true
+        }
+      };
       const config = {
         servicepath: '/',
         actionType: 'payload',
@@ -233,9 +331,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -261,8 +365,8 @@ describe('batch-update.js', () => {
           overrideMetadata: false,
           forcedUpdate: false,
           flowControl: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -278,9 +382,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion-ld',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -298,9 +408,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -318,9 +434,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -338,18 +460,28 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.deepEqual(msg, { payload: { error: 'actionType and/or entities missing' } });
+      assert.deepEqual(msg, {
+        payload: { error: 'actionType and/or entities missing' }
+      });
     });
     it('not boolean', () => {
       const createParam = batchUpdateNode.__get__('createParam');
-      const msg = { payload: { actionType: 'append', entities: [], keyValues: 'true' } };
+      const msg = {
+        payload: { actionType: 'append', entities: [], keyValues: 'true' }
+      };
       const config = {
         servicepath: '/',
         actionType: 'payload',
@@ -358,9 +490,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -369,7 +507,9 @@ describe('batch-update.js', () => {
     });
     it('not boolean (forbidden)', () => {
       const createParam = batchUpdateNode.__get__('createParam');
-      const msg = { payload: { actionType: 'append', entities: [], forbidden: 'true' } };
+      const msg = {
+        payload: { actionType: 'append', entities: [], forbidden: 'true' }
+      };
       const config = {
         servicepath: '/',
         actionType: 'payload',
@@ -378,9 +518,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -398,9 +544,15 @@ describe('batch-update.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -428,8 +580,8 @@ describe('batch-update.js', () => {
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => { },
-          geType: 'orion',
+          getToken: () => {},
+          geType: 'orion'
         }
       });
 
@@ -447,8 +599,14 @@ describe('batch-update.js', () => {
       assert.equal(actual.contentType, 'json');
       assert.equal(actual.config.service, 'openiot');
       assert.equal(actual.config.servicepath, '/');
-      assert.deepEqual(actual.config.data, { actionType: 'append', entities: [{ id: 'E1', type: 'T' }] });
-      assert.deepEqual(red.getOutput(), { payload: undefined, statusCode: 204 });
+      assert.deepEqual(actual.config.data, {
+        actionType: 'append',
+        entities: [{ id: 'E1', type: 'T' }]
+      });
+      assert.deepEqual(red.getOutput(), {
+        payload: undefined,
+        statusCode: 204
+      });
     });
     it('payload not JSON Object', async () => {
       const red = new MockRed();
@@ -467,7 +625,7 @@ describe('batch-update.js', () => {
           borkerNedpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion'
         }
       });
       await red.inputWithAwait({});

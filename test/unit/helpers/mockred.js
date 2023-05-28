@@ -34,16 +34,29 @@ class MockRedNode {
       username: '',
       password: '',
       clientid: '',
-      clientsecret: '',
+      clientsecret: ''
     };
     this.out = [];
-    this.error = (msg) => { this.msg = msg; };
+    this.error = (msg) => {
+      this.msg = msg;
+    };
   }
-  on(mode, func) { this.mode = mode; this.func = func; }
-  send(msg) { this.out.push(Object.assign({}, msg)); }
-  getFunc() { return this.func; }
-  getMessage() { return this.msg; }
-  getOutput() { return (this.out.length === 1) ? this.out[0] : this.out; }
+  on(mode, func) {
+    this.mode = mode;
+    this.func = func;
+  }
+  send(msg) {
+    this.out.push(Object.assign({}, msg));
+  }
+  getFunc() {
+    return this.func;
+  }
+  getMessage() {
+    return this.msg;
+  }
+  getOutput() {
+    return this.out.length === 1 ? this.out[0] : this.out;
+  }
   setCredentials(username, password, clientid, clientsecret) {
     this.username = username;
     this.password = password;
@@ -55,9 +68,15 @@ class MockRedNode {
 module.exports = class MockRed {
   constructor() {
     this.nodes = {
-      registerType: (name, func) => { this.nodeName = name; this.nodeFunc = func; },
-      createNode: (node, config) => { this.nodeThis = node; this.nodeConfig = config; },
-      getNode: (a) => a,
+      registerType: (name, func) => {
+        this.nodeName = name;
+        this.nodeFunc = func;
+      },
+      createNode: (node, config) => {
+        this.nodeThis = node;
+        this.nodeConfig = config;
+      },
+      getNode: (a) => a
     };
     this.node = new MockRedNode();
   }
@@ -75,8 +94,12 @@ module.exports = class MockRed {
     const func = this.node.getFunc();
     await func.call(this.node, config);
   }
-  getMessage() { return this.node.getMessage(); }
-  getOutput() { return this.node.getOutput(); }
+  getMessage() {
+    return this.node.getMessage();
+  }
+  getOutput() {
+    return this.node.getOutput();
+  }
   setCredentials(username, password, clientid, clientsecret) {
     this.node.setCredentials(username, password, clientid, clientsecret);
   }

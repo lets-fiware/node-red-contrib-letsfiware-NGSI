@@ -49,16 +49,16 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'add',
         serviceValue: 'OpenIoT',
         servicePathMode: 'add',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       };
-      const node = { msg: '', error: () => { } };
+      const node = { msg: '', error: () => {} };
 
       const actual = manageServiceAndServicePath.call(node, msg, defaultConfig);
 
       const expected = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
 
@@ -72,16 +72,16 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'add',
         serviceValue: 'OpenIoT',
         servicePathMode: 'add',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       };
-      const node = { msg: '', error: () => { } };
+      const node = { msg: '', error: () => {} };
 
       const actual = manageServiceAndServicePath.call(node, msg, defaultConfig);
 
       const expected = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
 
@@ -92,7 +92,7 @@ describe('service-and-servicepath.js', () => {
       const msg = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
       const defaultConfig = {
@@ -100,9 +100,9 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'delete',
         serviceValue: 'OpenIoT',
         servicePathMode: 'delete',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       };
-      const node = { msg: '', error: () => { } };
+      const node = { msg: '', error: () => {} };
 
       const actual = manageServiceAndServicePath.call(node, msg, defaultConfig);
 
@@ -114,7 +114,7 @@ describe('service-and-servicepath.js', () => {
       const msg = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
       const defaultConfig = {
@@ -122,16 +122,16 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'pass',
         serviceValue: 'OpenIoT',
         servicePathMode: 'pass',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       };
-      const node = { msg: '', error: () => { } };
+      const node = { msg: '', error: () => {} };
 
       const actual = manageServiceAndServicePath.call(node, msg, defaultConfig);
 
       const expected = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
       assert.deepEqual(actual, expected);
@@ -144,10 +144,15 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'add',
         serviceValue: 'OpenIoT',
         servicePathMode: 'add',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       };
       let err = '';
-      const node = { msg: '', error: (e) => { err = e; } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          err = e;
+        }
+      };
 
       const actual = manageServiceAndServicePath.call(node, msg, defaultConfig);
 
@@ -164,7 +169,7 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'add',
         serviceValue: 'OpenIoT',
         servicePathMode: 'add',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       });
 
       await red.inputWithAwait({ context: {} });
@@ -172,7 +177,7 @@ describe('service-and-servicepath.js', () => {
       const expected = {
         context: {
           fiwareService: 'openiot',
-          fiwareServicePath: '/iot',
+          fiwareServicePath: '/iot'
         }
       };
 
@@ -186,7 +191,7 @@ describe('service-and-servicepath.js', () => {
         serviceMode: 'add',
         serviceValue: 'OpenIoT',
         servicePathMode: 'add',
-        servicePathValue: '/iot',
+        servicePathValue: '/iot'
       });
 
       await red.inputWithAwait({ context: [] });

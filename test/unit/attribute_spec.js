@@ -46,15 +46,18 @@ describe('attribute.js', () => {
     });
     it('read attribute', async () => {
       attributesNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 200,
-          headers: {},
-          data: { 'type': 'Number', 'value': 45, 'metadata': {} },
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 200,
+            headers: {},
+            data: { type: 'Number', value: 45, metadata: {} }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -63,26 +66,33 @@ describe('attribute.js', () => {
         host: 'http://orion:1026',
         pathname: '/entities/E/attrs/temperature',
         config: {
-          actionType: 'read',
-        },
+          actionType: 'read'
+        }
       };
 
       const msg = {};
       await httpRequest(msg, param);
 
       assert.equal(msg.statusCode, 200);
-      assert.deepEqual(msg.payload, { 'type': 'Number', 'value': 45, 'metadata': {} });
+      assert.deepEqual(msg.payload, {
+        type: 'Number',
+        value: 45,
+        metadata: {}
+      });
     });
     it('update attribute', async () => {
       attributesNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 204,
-          headers: {},
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 204,
+            headers: {}
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -92,8 +102,8 @@ describe('attribute.js', () => {
         pathname: '/entities/E/attrs/temperature/value',
         config: {
           actionType: 'update',
-          attribute: { 'type': 'Number', 'value': 45, 'metadata': {} },
-        },
+          attribute: { type: 'Number', value: 45, metadata: {} }
+        }
       };
 
       const msg = {};
@@ -104,14 +114,17 @@ describe('attribute.js', () => {
     });
     it('delete attribute', async () => {
       attributesNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 204,
-          headers: {},
-        }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 204,
+            headers: {}
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -120,8 +133,8 @@ describe('attribute.js', () => {
         host: 'http://orion:1026',
         pathname: '/entities/E/attrs/temperature',
         config: {
-          actionType: 'delete',
-        },
+          actionType: 'delete'
+        }
       };
 
       const msg = {};
@@ -132,11 +145,18 @@ describe('attribute.js', () => {
     });
     it('should be 400 Bad Request', async () => {
       attributesNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: undefined }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: undefined
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -145,12 +165,17 @@ describe('attribute.js', () => {
         host: 'http://orion:1026',
         pathname: '/entities/E/attrs/temperature',
         config: {
-          actionType: 'read',
-        },
+          actionType: 'read'
+        }
       };
 
       let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        errmsg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
@@ -161,11 +186,18 @@ describe('attribute.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       attributesNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -174,12 +206,17 @@ describe('attribute.js', () => {
         host: 'http://orion:1026',
         pathname: '/entities/E/attrs/temperature',
         config: {
-          actionType: 'read',
-        },
+          actionType: 'read'
+        }
       };
 
       let errmsg = [];
-      const node = { errmsg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        errmsg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
@@ -191,10 +228,12 @@ describe('attribute.js', () => {
     it('Should be unknown error', async () => {
       attributesNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
+        buildHTTPHeader: () => {
+          return {};
+        },
         buildParams: () => new URLSearchParams(),
         encodeNGSI: (data) => data,
-        decodeNGSI: (data) => data,
+        decodeNGSI: (data) => data
       });
       const httpRequest = attributesNode.__get__('httpRequest');
 
@@ -203,12 +242,17 @@ describe('attribute.js', () => {
         host: 'http://orion:1026',
         pathname: '/entities/E/attrs/temperature',
         config: {
-          actionType: 'read',
-        },
+          actionType: 'read'
+        }
       };
 
       let errmsg = '';
-      const node = { errmsg: '', error: (e) => { errmsg = e; } };
+      const node = {
+        errmsg: '',
+        error: (e) => {
+          errmsg = e;
+        }
+      };
 
       const msg = {};
       await httpRequest.call(node, msg, param);
@@ -232,9 +276,15 @@ describe('attribute.js', () => {
         skipForwarding: 'false',
         overrideMetadata: 'false',
         forcedUpdate: 'false',
-        flowControl: 'false',
+        flowControl: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -252,8 +302,8 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           skipForwarding: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -272,9 +322,15 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -292,15 +348,15 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           skipForwarding: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
     });
     it('update', () => {
       const createParam = attributesNode.__get__('createParam');
-      const msg = { payload: { 'type': 'Number', 'value': 1234.5 } };
+      const msg = { payload: { type: 'Number', value: 1234.5 } };
       const config = {
         servicepath: '/',
         actionType: 'update',
@@ -312,9 +368,15 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -330,12 +392,12 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           attrName: 'temperature',
-          attribute: { 'type': 'Number', 'value': 1234.5 },
+          attribute: { type: 'Number', value: 1234.5 },
           overrideMetadata: false,
           flowControl: false,
           forcedUpdate: false,
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -354,9 +416,15 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -372,8 +440,8 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           attrName: 'temperature',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -392,9 +460,15 @@ describe('attribute.js', () => {
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
-        forbidden: 'false',
+        forbidden: 'false'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: () => { }, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: () => {},
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -413,8 +487,8 @@ describe('attribute.js', () => {
           id: 'E',
           type: 'T',
           attrName: 'temperature',
-          forbidden: false,
-        },
+          forbidden: false
+        }
       };
 
       assert.deepEqual(actual, expected);
@@ -434,9 +508,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion-ld',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -458,9 +538,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -482,9 +568,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -506,9 +598,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -530,9 +628,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -554,9 +658,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -578,9 +688,15 @@ describe('attribute.js', () => {
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -597,15 +713,21 @@ describe('attribute.js', () => {
         entityType: 'T',
         attrName: 'temperature',
         metadata: '',
-        attribute: { 'type': 'Number', 'value': 1234.5 },
+        attribute: { type: 'Number', value: 1234.5 },
         skipForwarding: 'false',
         overrideMetadata: 'false',
         forcedUpdate: 'false',
         flowControl: 'false',
         forbidden: 'false',
-        service: 'openiot',
+        service: 'openiot'
       };
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, config, openAPIsConfig);
 
@@ -648,12 +770,12 @@ describe('attribute.js', () => {
         msg.statusCode = 204;
       });
 
-      await red.inputWithAwait({ payload: { 'type': 'Number', 'value': 1234.5 } });
+      await red.inputWithAwait({ payload: { type: 'Number', value: 1234.5 } });
 
       const expected = {
         payload: undefined,
         statusCode: 204,
-        context: { 'fiwareService': 'openiot', 'fiwareServicePath': '/' },
+        context: { fiwareService: 'openiot', fiwareServicePath: '/' }
       };
 
       assert.deepEqual(red.getOutput(), expected);
@@ -662,13 +784,13 @@ describe('attribute.js', () => {
         id: 'E',
         type: 'T',
         attrName: 'temperature',
-        attribute: { 'type': 'Number', 'value': 1234.5 },
+        attribute: { type: 'Number', value: 1234.5 },
         overrideMetadata: false,
         forcedUpdate: false,
         flowControl: false,
         service: 'openiot',
         servicepath: '/',
-        forbidden: false,
+        forbidden: false
       });
     });
     it('ActionType error', async () => {
@@ -700,7 +822,7 @@ describe('attribute.js', () => {
       assert.equal(red.getMessage(), 'ActionType error: create');
       assert.deepEqual(red.getOutput(), {
         payload: { error: 'ActionType error: create' },
-        statusCode: 500,
+        statusCode: 500
       });
     });
   });

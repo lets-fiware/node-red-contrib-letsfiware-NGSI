@@ -36,7 +36,7 @@ const httpRequest = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    params: lib.buildParams(param.config),
+    params: lib.buildParams(param.config)
   };
 
   if (param.config.actionType === 'update') {
@@ -82,7 +82,7 @@ const createParam = function (msg, config, openAPIsConfig) {
     overrideMetadata: config.overrideMetadata === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   if (!msg.payload) {
@@ -132,7 +132,7 @@ const createParam = function (msg, config, openAPIsConfig) {
   const param = {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/entities/' + defaultConfig.id + '/attrs/' + defaultConfig.attrName,
-    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig)
   };
 
   switch (defaultConfig.actionType) {

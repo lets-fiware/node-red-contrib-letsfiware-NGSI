@@ -46,12 +46,15 @@ describe('registration.js', () => {
     });
     it('create registration', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 201,
-          headers: { 'location': '/v2/registrations/63ed51173bdeaadaf909c57b' },
-        }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 201,
+            headers: { location: '/v2/registrations/63ed51173bdeaadaf909c57b' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const createRegistration = registrationNode.__get__('createRegistration');
 
@@ -60,21 +63,19 @@ describe('registration.js', () => {
         pathname: '/v2/registrations',
         config: {
           data: {
-            'description': 'Relative Humidity Context Source',
-            'dataProvided': {
-              'entities': [
+            description: 'Relative Humidity Context Source',
+            dataProvided: {
+              entities: [
                 {
-                  'id': 'room',
-                  'type': 'Room'
+                  id: 'room',
+                  type: 'Room'
                 }
               ],
-              'attrs': [
-                'relativeHumidity'
-              ]
+              attrs: ['relativeHumidity']
             },
-            'provider': {
-              'http': {
-                'url': 'http://orion:1026'
+            provider: {
+              http: {
+                url: 'http://orion:1026'
               }
             }
           }
@@ -93,8 +94,10 @@ describe('registration.js', () => {
     it('should be 400 Bad Request', async () => {
       registrationNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const createRegistration = registrationNode.__get__('createRegistration');
 
@@ -105,7 +108,12 @@ describe('registration.js', () => {
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await createRegistration.call(node, msg, param);
@@ -115,9 +123,16 @@ describe('registration.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const createRegistration = registrationNode.__get__('createRegistration');
 
@@ -128,19 +143,29 @@ describe('registration.js', () => {
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await createRegistration.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while creating registration: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(msg, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const createRegistration = registrationNode.__get__('createRegistration');
 
@@ -151,13 +176,21 @@ describe('registration.js', () => {
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await createRegistration.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Exception while creating registration: unknown error']);
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('deleteRegistration', () => {
@@ -166,18 +199,21 @@ describe('registration.js', () => {
     });
     it('delete registration', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({
-          status: 204,
-        }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 204
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const deleteRegistration = registrationNode.__get__('deleteRegistration');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/registrations/63ed51173bdeaadaf909c57b',
-        config: {},
+        config: {}
       };
 
       const msg = {};
@@ -188,19 +224,26 @@ describe('registration.js', () => {
     it('should be 400 Bad Request', async () => {
       registrationNode.__set__('lib', {
         http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const deleteRegistration = registrationNode.__get__('deleteRegistration');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/registrations/63ed51173bdeaadaf909c57b',
-        config: {},
+        config: {}
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await deleteRegistration.call(node, msg, param);
@@ -210,49 +253,74 @@ describe('registration.js', () => {
     });
     it('should be 400 Bad Request with description', async () => {
       registrationNode.__set__('lib', {
-        http: async () => Promise.resolve({ status: 400, statusText: 'Bad Request', data: { description: 'error' } }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        http: async () =>
+          Promise.resolve({
+            status: 400,
+            statusText: 'Bad Request',
+            data: { description: 'error' }
+          }),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const deleteRegistration = registrationNode.__get__('deleteRegistration');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/registrations/63ed51173bdeaadaf909c57b',
-        config: {},
+        config: {}
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await deleteRegistration.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Error while deleting registration: 400 Bad Request', 'Details: error']);
-      assert.deepEqual(msg, { payload: { description: 'error' }, statusCode: 400 });
+      assert.deepEqual(msg, {
+        payload: { description: 'error' },
+        statusCode: 400
+      });
     });
     it('should be unknown error', async () => {
       registrationNode.__set__('lib', {
         http: async () => Promise.reject({ message: 'unknown error' }),
-        buildHTTPHeader: () => { return {}; },
-        buildSearchParams: () => new URLSearchParams(),
+        buildHTTPHeader: () => {
+          return {};
+        },
+        buildSearchParams: () => new URLSearchParams()
       });
       const deleteRegistration = registrationNode.__get__('deleteRegistration');
 
       const param = {
         host: 'http://orion:1026',
         pathname: '/v2/registrations/63ed51173bdeaadaf909c57b',
-        config: {},
+        config: {}
       };
 
       let errmsg = [];
-      const node = { msg: '', error: (e) => { errmsg.push(e); } };
+      const node = {
+        msg: '',
+        error: (e) => {
+          errmsg.push(e);
+        }
+      };
 
       const msg = {};
       await deleteRegistration.call(node, msg, param);
 
       assert.deepEqual(errmsg, ['Exception while deleting registration: unknown error']);
-      assert.deepEqual(msg, { payload: { error: 'unknown error' }, statusCode: 500 });
+      assert.deepEqual(msg, {
+        payload: { error: 'unknown error' },
+        statusCode: 500
+      });
     });
   });
   describe('createParam', () => {
@@ -260,21 +328,19 @@ describe('registration.js', () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
         payload: {
-          'description': 'Relative Humidity Context Source',
-          'dataProvided': {
-            'entities': [
+          description: 'Relative Humidity Context Source',
+          dataProvided: {
+            entities: [
               {
-                'id': 'room',
-                'type': 'Room'
+                id: 'room',
+                type: 'Room'
               }
             ],
-            'attrs': [
-              'relativeHumidity'
-            ]
+            attrs: ['relativeHumidity']
           },
-          'provider': {
-            'http': {
-              'url': 'http://orion:1026'
+          provider: {
+            http: {
+              url: 'http://orion:1026'
             }
           }
         }
@@ -285,10 +351,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'create',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -306,26 +378,24 @@ describe('registration.js', () => {
           actionType: 'create',
           id: '',
           registration: {
-            'description': 'Relative Humidity Context Source',
-            'dataProvided': {
-              'entities': [
+            description: 'Relative Humidity Context Source',
+            dataProvided: {
+              entities: [
                 {
-                  'id': 'room',
-                  'type': 'Room'
+                  id: 'room',
+                  type: 'Room'
                 }
               ],
-              'attrs': [
-                'relativeHumidity'
-              ]
+              attrs: ['relativeHumidity']
             },
-            'provider': {
-              'http': {
-                'url': 'http://orion:1026'
+            provider: {
+              http: {
+                url: 'http://orion:1026'
               }
             }
-          },
+          }
         },
-        func: null,
+        func: null
       };
 
       assert.deepEqual(actual, expected);
@@ -336,24 +406,22 @@ describe('registration.js', () => {
         payload: {
           actionType: 'create',
           registration: {
-            'description': 'Relative Humidity Context Source',
-            'dataProvided': {
-              'entities': [
+            description: 'Relative Humidity Context Source',
+            dataProvided: {
+              entities: [
                 {
-                  'id': 'room',
-                  'type': 'Room'
+                  id: 'room',
+                  type: 'Room'
                 }
               ],
-              'attrs': [
-                'relativeHumidity'
-              ]
+              attrs: ['relativeHumidity']
             },
-            'provider': {
-              'http': {
-                'url': 'http://orion:1026'
+            provider: {
+              http: {
+                url: 'http://orion:1026'
               }
             }
-          },
+          }
         }
       };
 
@@ -362,10 +430,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registration: {},
-        registrationId: '',
+        registrationId: ''
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -381,26 +455,24 @@ describe('registration.js', () => {
           actionType: 'create',
           id: '',
           registration: {
-            'description': 'Relative Humidity Context Source',
-            'dataProvided': {
-              'entities': [
+            description: 'Relative Humidity Context Source',
+            dataProvided: {
+              entities: [
                 {
-                  'id': 'room',
-                  'type': 'Room'
+                  id: 'room',
+                  type: 'Room'
                 }
               ],
-              'attrs': [
-                'relativeHumidity'
-              ]
+              attrs: ['relativeHumidity']
             },
-            'provider': {
-              'http': {
-                'url': 'http://orion:1026'
+            provider: {
+              http: {
+                url: 'http://orion:1026'
               }
             }
-          },
+          }
         },
-        func: null,
+        func: null
       };
 
       assert.deepEqual(actual, expected);
@@ -414,10 +486,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'delete',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -431,9 +509,9 @@ describe('registration.js', () => {
           servicepath: '/',
           actionType: 'delete',
           id: '63ed51173bdeaadaf909c57b',
-          registration: {},
+          registration: {}
         },
-        func: null,
+        func: null
       };
 
       assert.deepEqual(actual, expected);
@@ -443,7 +521,7 @@ describe('registration.js', () => {
       const msg = {
         payload: {
           actionType: 'delete',
-          id: '63ed51173bdeaadaf909c57b',
+          id: '63ed51173bdeaadaf909c57b'
         }
       };
 
@@ -452,10 +530,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
       actual.func = null;
@@ -469,9 +553,9 @@ describe('registration.js', () => {
           servicepath: '/',
           actionType: 'delete',
           id: '63ed51173bdeaadaf909c57b',
-          registration: {},
+          registration: {}
         },
-        func: null,
+        func: null
       };
 
       assert.deepEqual(actual, expected);
@@ -481,7 +565,7 @@ describe('registration.js', () => {
       const msg = {
         payload: {
           actionType: 'create',
-          registration: '',
+          registration: ''
         }
       };
 
@@ -490,10 +574,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion-ld', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion-ld',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -505,7 +595,7 @@ describe('registration.js', () => {
       const msg = {
         payload: {
           actionType: 'create',
-          registration: '',
+          registration: ''
         }
       };
 
@@ -514,21 +604,29 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.deepEqual(msg, { payload: { error: 'registration not JSON object' } });
+      assert.deepEqual(msg, {
+        payload: { error: 'registration not JSON object' }
+      });
     });
     it('actionType not found', async () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
         payload: {
-          id: '63ed51173bdeaadaf909c57b',
+          id: '63ed51173bdeaadaf909c57b'
         }
       };
 
@@ -537,10 +635,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -556,10 +660,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'delete',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -575,10 +685,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'create',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -590,7 +706,7 @@ describe('registration.js', () => {
       const msg = {
         payload: {
           actionType: 'delete',
-          id: 1234,
+          id: 1234
         }
       };
 
@@ -599,22 +715,30 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
       assert.equal(actual, null);
-      assert.deepEqual(msg, { payload: { error: 'registration id not string' } });
+      assert.deepEqual(msg, {
+        payload: { error: 'registration id not string' }
+      });
     });
     it('ActionType error', async () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
         payload: {
           actionType: 'upsert',
-          id: '63ed51173bdeaadaf909c57b',
+          id: '63ed51173bdeaadaf909c57b'
         }
       };
 
@@ -623,10 +747,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'payload',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -637,7 +767,7 @@ describe('registration.js', () => {
       const createParam = registrationNode.__get__('createParam');
       const msg = {
         payload: {
-          id: '63ed51173bdeaadaf909c57b',
+          id: '63ed51173bdeaadaf909c57b'
         }
       };
 
@@ -646,10 +776,16 @@ describe('registration.js', () => {
         servicepath: '/',
         actionType: 'upsert',
         registrationId: '',
-        registration: {},
+        registration: {}
       };
 
-      const openAPIsConfig = { geType: 'orion', apiEndpoint: 'http://orion:1026', getToken: null, service: 'openiot', servicepath: '/' };
+      const openAPIsConfig = {
+        geType: 'orion',
+        apiEndpoint: 'http://orion:1026',
+        getToken: null,
+        service: 'openiot',
+        servicepath: '/'
+      };
 
       const actual = createParam(msg, defaultConfig, openAPIsConfig);
 
@@ -674,8 +810,8 @@ describe('registration.js', () => {
         openapis: {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
-          getToken: () => { },
-          geType: 'orion',
+          getToken: () => {},
+          geType: 'orion'
         }
       });
 
@@ -689,42 +825,38 @@ describe('registration.js', () => {
 
       await red.inputWithAwait({
         payload: {
-          'description': 'Relative Humidity Context Source',
-          'dataProvided': {
-            'entities': [
+          description: 'Relative Humidity Context Source',
+          dataProvided: {
+            entities: [
               {
-                'id': 'room',
-                'type': 'Room'
+                id: 'room',
+                type: 'Room'
               }
             ],
-            'attrs': [
-              'relativeHumidity'
-            ]
+            attrs: ['relativeHumidity']
           },
-          'provider': {
-            'http': {
-              'url': 'http://orion:1026'
+          provider: {
+            http: {
+              url: 'http://orion:1026'
             }
           }
         }
       });
 
       const expected = {
-        'description': 'Relative Humidity Context Source',
-        'dataProvided': {
-          'entities': [
+        description: 'Relative Humidity Context Source',
+        dataProvided: {
+          entities: [
             {
-              'id': 'room',
-              'type': 'Room'
+              id: 'room',
+              type: 'Room'
             }
           ],
-          'attrs': [
-            'relativeHumidity'
-          ]
+          attrs: ['relativeHumidity']
         },
-        'provider': {
-          'http': {
-            'url': 'http://orion:1026'
+        provider: {
+          http: {
+            url: 'http://orion:1026'
           }
         }
       };
@@ -736,7 +868,7 @@ describe('registration.js', () => {
         context: {
           fiwareService: 'openiot',
           fiwareServicePath: '/'
-        },
+        }
       });
       assert.equal(actual.contentType, 'json');
       assert.equal(actual.host, 'http://orion:1026');
@@ -758,16 +890,19 @@ describe('registration.js', () => {
           apiEndpoint: 'http://orion:1026',
           service: 'openiot',
           getToken: null,
-          geType: 'orion',
+          geType: 'orion'
         }
       });
 
-      registrationNode.__set__('deleteRegistration', async () => { });
+      registrationNode.__set__('deleteRegistration', async () => {});
 
       await red.inputWithAwait({ payload: { actionType: 'upsert', id: '' } });
 
       assert.equal(red.getMessage(), 'ActionType error: upsert');
-      assert.deepEqual(red.getOutput(), { payload: { error: 'ActionType error: upsert' }, statusCode: 500 });
+      assert.deepEqual(red.getOutput(), {
+        payload: { error: 'ActionType error: upsert' },
+        statusCode: 500
+      });
     });
   });
 });

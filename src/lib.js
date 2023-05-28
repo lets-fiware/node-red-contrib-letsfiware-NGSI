@@ -104,7 +104,7 @@ function buildParams(config) {
     'aggrMethod',
     'aggrPeriod',
     'limit',
-    'offset',
+    'offset'
   ].forEach((e) => {
     if (config[e] && config[e] !== '') {
       params.set(e, config[e]);
@@ -112,7 +112,7 @@ function buildParams(config) {
   });
 
   const options = [];
-  ['count', 'keyValues', 'upsert', 'skipForwarding', 'forcedUpdate', 'flowControl', 'append', 'overrideMetadata', 'values', 'noAttrDetail'].forEach(e => {
+  ['count', 'keyValues', 'upsert', 'skipForwarding', 'forcedUpdate', 'flowControl', 'append', 'overrideMetadata', 'values', 'noAttrDetail'].forEach((e) => {
     if (typeof config[e] !== 'undefined' && config[e]) {
       options.push(e);
     }
@@ -223,16 +223,36 @@ function jsonToNGSI(data) {
         break;
     }
     res[key] = {
-      'type': attrType,
-      'value': data[key],
+      type: attrType,
+      value: data[key]
     };
   }
 
   return res;
 }
 
-const encodeforbiddenChar = value => value.replace(/%/g, '%25').replace(/"/g, '%22').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/;/g, '%3B').replace(/</g, '%3C').replace(/=/g, '%3D').replace(/>/g, '%3E');
-const decodeforbiddenChar = value => value.replace(/%25/g, '%').replace(/%22/g, '"').replace(/%27/g, '\'').replace(/%28/g, '(').replace(/%29/g, ')').replace(/%3B/g, ';').replace(/%3C/g, '<').replace(/%3D/g, '=').replace(/%3E/g, '>');
+const encodeforbiddenChar = (value) =>
+  value
+    .replace(/%/g, '%25')
+    .replace(/"/g, '%22')
+    .replace(/'/g, '%27')
+    .replace(/\(/g, '%28')
+    .replace(/\)/g, '%29')
+    .replace(/;/g, '%3B')
+    .replace(/</g, '%3C')
+    .replace(/=/g, '%3D')
+    .replace(/>/g, '%3E');
+const decodeforbiddenChar = (value) =>
+  value
+    .replace(/%25/g, '%')
+    .replace(/%22/g, '"')
+    .replace(/%27/g, "'")
+    .replace(/%28/g, '(')
+    .replace(/%29/g, ')')
+    .replace(/%3B/g, ';')
+    .replace(/%3C/g, '<')
+    .replace(/%3D/g, '=')
+    .replace(/%3E/g, '>');
 
 function replaceObject(json, func) {
   for (const [key, value] of Object.entries(json)) {
@@ -293,5 +313,5 @@ module.exports = {
   encodeNGSI,
   decodeNGSI,
   encodeforbiddenChar,
-  decodeforbiddenChar,
+  decodeforbiddenChar
 };

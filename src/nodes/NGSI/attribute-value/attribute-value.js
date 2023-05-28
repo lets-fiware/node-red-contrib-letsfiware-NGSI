@@ -56,7 +56,7 @@ const attrValue = async function (msg, param) {
     baseURL: param.host,
     url: param.pathname,
     headers: await lib.buildHTTPHeader(param),
-    params: lib.buildParams(param.config),
+    params: lib.buildParams(param.config)
   };
 
   if (typeof param.config.value !== 'undefined') {
@@ -100,7 +100,7 @@ function createParam(msg, config, openAPIsConfig) {
     skipForwarding: config.skipForwarding === 'true',
     forcedUpdate: config.forcedUpdate === 'true',
     flowControl: config.flowControl === 'true',
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   if (defaultConfig.actionType === 'payload') {
@@ -112,7 +112,7 @@ function createParam(msg, config, openAPIsConfig) {
     }
   } else {
     if (defaultConfig.actionType === 'read') {
-      ['id', 'type', 'attrName', 'skipForwarding'].forEach(e => {
+      ['id', 'type', 'attrName', 'skipForwarding'].forEach((e) => {
         if (e in msg.payload) {
           defaultConfig[e] = msg.payload[e];
         }
@@ -144,7 +144,7 @@ function createParam(msg, config, openAPIsConfig) {
   const param = {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/v2/entities/' + defaultConfig.id + '/attrs/' + defaultConfig.attrName + '/value',
-    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
+    getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig)
   };
 
   switch (defaultConfig.actionType) {

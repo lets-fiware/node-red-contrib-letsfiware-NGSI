@@ -72,13 +72,12 @@ const buildParams = function (config) {
 };
 
 const getHistoricalContext = async function (msg, param) {
-
   const options = {
     method: 'get',
     baseURL: param.host,
     url: param.pathname + '/' + param.config.entityId + '/attrs/' + param.config.attrName,
     headers: await lib.buildHTTPHeader(param),
-    params: buildParams(param.config),
+    params: buildParams(param.config)
   };
 
   try {
@@ -134,7 +133,9 @@ const validateConfig = function (msg, config) {
       return false;
     }
     if (config.lastN !== null && (config.hLimit !== null || config.hOffset !== null)) {
-      msg.payload = { error: 'Must specify lastN or a set of hLimit and hOffset' };
+      msg.payload = {
+        error: 'Must specify lastN or a set of hLimit and hOffset'
+      };
       return false;
     }
     const items = ['lastN', 'hLimit', 'hOffset'];
@@ -156,8 +157,8 @@ const validateConfig = function (msg, config) {
 };
 
 const calculateAverage = function (data) {
-  data.value.forEach(e => {
-    e.points.forEach(e => {
+  data.value.forEach((e) => {
+    e.points.forEach((e) => {
       e.ave = e.samples === 0 ? 0 : e.sum / e.samples;
     });
   });
@@ -191,14 +192,14 @@ const createParam = function (msg, config, openAPIsConfig) {
     toUnit: config.tounit.trim(),
     outputType: config.outputtype,
     count: config.count === 'true' ? 'true' : 'false',
-    forbidden: config.forbidden ? config.forbidden === 'true' : false,
+    forbidden: config.forbidden ? config.forbidden === 'true' : false
   };
 
   const param = {
     host: openAPIsConfig.apiEndpoint,
     pathname: '/STH/v2/entities',
     getToken: openAPIsConfig.getToken === null ? null : openAPIsConfig.getToken.bind(openAPIsConfig),
-    config: Object.assign(defaultConfig, msg.payload),
+    config: Object.assign(defaultConfig, msg.payload)
   };
 
   const dt = new Date();

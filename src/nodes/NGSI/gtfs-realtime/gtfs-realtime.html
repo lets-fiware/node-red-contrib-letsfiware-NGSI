@@ -27,51 +27,51 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('GTFS Realtime to NGSI', {
-      category: 'FIWARE',
-      color: '#A9E2F3',
-      defaults: {
-        name: { value: '' },
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "fiware-non-free.svg",
-      label: function () {
-        return this.name || "GTFS Realtime to NGSI";
-      },
-      paletteLabel: 'gtfs realtime to ngsi'
-    });
+  RED.nodes.registerType('GTFS Realtime to NGSI', {
+    category: 'FIWARE',
+    color: '#A9E2F3',
+    defaults: {
+      name: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'fiware-non-free.svg',
+    label: function () {
+      return this.name || 'GTFS Realtime to NGSI';
+    },
+    paletteLabel: 'gtfs realtime to ngsi'
+  });
 </script>
 
 <script type="text/x-red" data-template-name="GTFS Realtime to NGSI">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
-        <input type="text" id="node-input-name" placeholder="name">
-    </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> name</label>
+      <input type="text" id="node-input-name" placeholder="name">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="GTFS Realtime to NGSI">
-    <p>
-    A simple node that allows to transform from GTFS realtime data to NGSIv2 entities.
-    </p>
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">JSON Array or string</span>
-        </dt>
-        <dd>payload containing GTFS-realtime data or a URL that provides GTFS-realtime data.
-        If a <code>JSON Object</code> containing a GTFS realtime data is provided,
-        it will be automatically converted to a <code>JSON Array</code></dd>
-    </dl>
+  <p>
+  A simple node that allows to transform from GTFS realtime data to NGSIv2 entities.
+  </p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">JSON Array or string</span>
+      </dt>
+      <dd>payload containing GTFS-realtime data or a URL that provides GTFS-realtime data.
+      If a <code>JSON Object</code> containing a GTFS realtime data is provided,
+      it will be automatically converted to a <code>JSON Array</code></dd>
+  </dl>
 
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Number</span>
-        </dt>
-        <dd>NGSIv2 entities transformed from GTFS realtime data</dd>
-    </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+      <dt>payload
+          <span class="property-type">Number</span>
+      </dt>
+      <dd>NGSIv2 entities transformed from GTFS realtime data</dd>
+  </dl>
 
-    <h3>Details</h3>
-    <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_gtfs_realtime/">here</a> for full documentation.</p>
+  <h3>Details</h3>
+  <p>See <a href="https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/en/custom_nodes/ngsi_gtfs_realtime/">here</a> for full documentation.</p>
 </script>
