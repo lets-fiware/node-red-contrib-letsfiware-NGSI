@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.14.0-next
 
+-  FIX issue that output of NGSI to Worldmap node was 'no response object' (#139)
 -  ADD prettier command (#138)
 -  FIX forbidden option that had no effect (#137)
 -  ADD GitHub action to close inactive issues (#136)
