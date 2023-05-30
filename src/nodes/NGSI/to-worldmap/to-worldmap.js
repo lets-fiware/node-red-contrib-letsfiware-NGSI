@@ -103,7 +103,8 @@ module.exports = function (RED) {
         }
         pois.push(poi);
       });
-      node.send({ payload: pois });
+      msg.payload = pois;
+      node.send(msg);
     });
   }
   RED.nodes.registerType('NGSI to worldmap', ngsi2worldmap);
