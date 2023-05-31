@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.14.0-next
+## node-red-contrib-letsfiware-NGSI v0.15.0 - 31 May, 2023
 
 -  ADD prettier command (#138)
 -  FIX forbidden option that had no effect (#137)
