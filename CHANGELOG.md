@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.14.0-next
+## node-red-contrib-letsfiware-NGSI v0.15.0 - 31 May, 2023
 
 -  FIX issue that output of NGSI to Worldmap node was 'no response object' (#139)
 -  ADD prettier command (#138)
