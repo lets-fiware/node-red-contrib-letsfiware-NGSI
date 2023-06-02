@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.15.0-next
 
+-  UPDATE node version for unit test (#143)
 -  ADD NPM statistics badge (#142)
 
 ## node-red-contrib-letsfiware-NGSI v0.15.0 - 31 May, 2023
