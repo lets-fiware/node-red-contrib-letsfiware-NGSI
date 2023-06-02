@@ -10,6 +10,8 @@
 <br/>
 [![GitHub Discussions](https://img.shields.io/github/discussions/lets-fiware/node-red-contrib-letsfiware-NGSI)](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/discussions)
 
+[![NPM statistics](https://nodei.co/npm/node-red-contrib-letsfiware-ngsi.png)](https://nodei.co/npm/node-red-contrib-letsfiware-ngsi/)
+
 # node-red-contrib-letsfiware-NGSI
 
 Node-RED implementation for FIWARE Open APIs
