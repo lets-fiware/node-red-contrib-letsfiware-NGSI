@@ -9,6 +9,8 @@ FIWARE Open APIs の Node-RED 実装
 <br/>
 [![GitHub Discussions](https://img.shields.io/github/discussions/lets-fiware/node-red-contrib-letsfiware-NGSI)](https://github.com/lets-fiware/node-red-contrib-letsfiware-NGSI/discussions)
 
+[![NPM statistics](https://nodei.co/npm/node-red-contrib-letsfiware-ngsi.png)](https://nodei.co/npm/node-red-contrib-letsfiware-ngsi/)
+
 ## サポートしているカスタム・ノード
 
 -   [NGSI Entity](custom_nodes/ngsi_entity.md)
