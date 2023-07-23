@@ -1,5 +1,6 @@
 ## node-red-contrib-letsfiware-NGSI v0.15.0-next
 
+-  UPDATE Node.js dependencies (#144)
 -  UPDATE node version for unit test (#143)
 -  ADD NPM statistics badge (#142)
 
