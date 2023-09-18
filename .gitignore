@@ -10,3 +10,5 @@ images/
 *.gif
 *.bmp
 yarn.lock
+data/
+nohup.out

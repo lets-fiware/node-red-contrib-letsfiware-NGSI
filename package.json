@@ -7,6 +7,7 @@
     "format": "./node_modules/.bin/prettier --write src test",
     "fix": "npm run format && npm run lint",
     "test": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\"",
+    "e2e": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/mocha.js \"test/e2e/**/*_spec.js\"",
     "coverage": "mkdir -p coverage && ./node_modules/nyc/bin/nyc.js --reporter=text-lcov ./node_modules/mocha/bin/mocha.js \"test/unit/**/*_spec.js\" > ./coverage/coverage.lcov"
   },
   "node-red": {
@@ -55,19 +56,19 @@
   },
   "homepage": "https://node-red-contrib-letsfiware-ngsi.letsfiware.jp/",
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "gtfs-realtime-bindings": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
+    "@babel/core": "^7.22.20",
     "babel-plugin-rewire": "^1.2.0",
     "babel-register": "^6.26.0",
-    "chai": "^4.3.7",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.8.0",
+    "chai": "^4.3.8",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.3"
   },
   "engines": {
     "node": ">=12"

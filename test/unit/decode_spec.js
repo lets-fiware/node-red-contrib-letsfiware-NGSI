@@ -1,7 +1,7 @@
 /*
    MIT License
  
-   Copyright 2023 Kazuhito Suda
+   Copyright 2022-2023 Kazuhito Suda
  
    This file is part of node-red-contrib-letsfiware-NGSI
  
