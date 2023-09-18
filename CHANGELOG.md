@@ -1,4 +1,4 @@
-## node-red-contrib-letsfiware-NGSI v0.16.0-next
+## node-red-contrib-letsfiware-NGSI v0.17.0 - 18 September, 2023
 
 -  UPDATE examples (#148)
 -  ADD E2E test (#147)
