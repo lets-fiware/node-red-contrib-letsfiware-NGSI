@@ -1,0 +1,33 @@
+name: E2E Tests
+
+on:
+
+  push:
+    branches:
+      - main
+      - "*-next"
+
+  pull_request:
+    branches:
+      - main
+      - "*-next"
+
+jobs:
+  tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - name: setup
+      run: ./test/e2e/setup.sh
+
+    - name: E2E test
+      run: npm run e2e
