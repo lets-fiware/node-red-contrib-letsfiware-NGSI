@@ -63,7 +63,7 @@ describe('version.js', () => {
       });
 
       assert.equal(actual.status, 200);
-      assert.equal(actual.data.orion.version, '3.8.1');
+      assert.equal(actual.data.orion.version, '3.10.1');
     });
     it('comet version', async () => {
       const actual = await http({

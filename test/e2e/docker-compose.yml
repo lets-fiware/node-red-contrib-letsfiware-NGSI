@@ -8,7 +8,56 @@ services:
     restart: always
     ports:
       - 1026:1026
+
   mongo:
     image: mongo:4.4
     command: --nojournal
     restart: always
+
+  comet:
+    image: telefonicaiot/fiware-sth-comet:2.10.0
+    init: true
+    depends_on:
+      - mongo
+    networks:
+      - default
+    environment:
+      - STH_HOST=0.0.0.0
+      - STH_PORT=8666
+      - DB_PREFIX=sth_
+      - DB_URI=mongo:27017
+    healthcheck:
+      test: curl --fail -s http://comet:8666/version || exit 1
+    ports:
+      - 8666:8666
+    restart: always
+
+  quantumleap:
+    image: orchestracities/quantumleap:0.8.3
+    depends_on:
+      - crate
+      - redis
+    environment:
+      - CRATE_HOST=crate
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    healthcheck:
+      test: curl --fail -s http://quantumleap:8668/version || exit 1
+    restart: always
+    ports:
+      - 8668:8668
+
+  redis:
+    image: redis:6
+    restart: always
+
+  crate:
+    image: crate:4.6.6
+    command: crate -Cauth.host_based.enabled=false  -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"
+    environment:
+      # see https://crate.io/docs/crate/howtos/en/latest/deployment/containers/docker.html#troubleshooting
+      - CRATE_HEAP_SIZE=2g
+    restart: always
+    ports:
+      # Admin UI
+      - 4200:4200
