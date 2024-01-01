@@ -1,5 +1,7 @@
 ## node-red-contrib-letsfiware-NGSI v0.17.0-next
 
+-   Update copyright date (#151)
+
 ## node-red-contrib-letsfiware-NGSI v0.17.0 - 18 September, 2023
 
 -  UPDATE examples (#148)
